@@ -1,6 +1,13 @@
 # obazl_rules_ocaml - ocaml rules
 **WARNING** Beta version - subject to change
 
+* [ocaml_archive](#ocaml_archive)
+* [ocaml_executable](#ocaml_executable)
+* [ocaml_interface](#ocaml_interface)
+* [ocaml_module](#ocaml_module)
+* [ocaml_ns](#ocaml_ns)
+* [ocaml_ns_archive](#ocaml_ns_archive)
+
 <a id="#ocaml_archive"></a>
 
 ## ocaml_archive
