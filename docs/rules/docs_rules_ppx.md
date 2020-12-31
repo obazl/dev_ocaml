@@ -1,6 +1,12 @@
 # obazl_rules_ocaml - ppx rules
 **WARNING** Beta version - subject to change
 
+* [ppx_archive](#ppx_archive)
+* [ppx_executable](#ppx_executable)
+* [ppx_module](#ppx_module)
+* [ppx_ns](#ppx_ns)
+* [ppx_test](#ppx_test)
+
 <a id="#ppx_archive"></a>
 
 ## ppx_archive
