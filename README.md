@@ -1,2 +1,2 @@
 # obazl_testsuite
-Testsuite for obazl_rules_ocaml and obazl_tool
+Documentation, demos, and tools for obazl_rules_ocaml and obazl_rules_opam.
