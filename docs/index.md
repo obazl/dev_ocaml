@@ -3,6 +3,7 @@
 Drafts in progress:
 
 * [Reference Manual](refman/index.md)
+
 Coming soon:
 * [User Guide](ug/index.md)
 * [Developer Guide](devguide/index.md)
