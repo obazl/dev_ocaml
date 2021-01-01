@@ -1,14 +1,27 @@
-<!-- Generated with Stardoc: http://skydoc.bazel.build -->
+# obazl_rules_ocaml - providers
+**WARNING** Beta version - subject to change
+
+* [OcamlDepsetProvider](#ocamldepsetprovider)
+* [OcamlArchivePayload](#ocamlarchivepayload)
+* [OcamlArchiveProvider](#ocamlarchiveprovider)
+* [OcamlImportProvider](#ocamlimportprovider)
+* [OcamlInterfaceProvider](#ocamlinterfaceprovider)
+* [OcamlInterfacePayload](#ocamlinterfacepayload)
+* [OcamlLibraryProvider](#ocamllibraryprovider)
+* [OcamlModuleProvider](#ocamlmoduleprovider)
+* [OcamlModulePayload](#ocamlmodulepayload)
+* [OcamlNsModuleProvider](#ocamlnsmoduleprovider)
+* [OcamlNsModulePayload](#ocamlnsmodulepayload)
 
 <a id="#OcamlArchivePayload"></a>
 
 ## OcamlArchivePayload
 
 <pre>
-OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxs">cmxs</a>, <a href="#OcamlArchivePayload-modules">modules</a>)
+OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxs">cmxs</a>)
 </pre>
 
-A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](docs_ppx_providers.md#ppxarchiveprovider).
+A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider).
 
 **FIELDS**
 
@@ -20,7 +33,6 @@ A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [Ppx
 | <a id="OcamlArchivePayload-a"></a>a |  .a file produced by the target (native mode)    |
 | <a id="OcamlArchivePayload-cma"></a>cma |  .cma file produced by the target (bytecode mode)    |
 | <a id="OcamlArchivePayload-cmxs"></a>cmxs |  .cmxs file produced by the target  (shared object)    |
-| <a id="OcamlArchivePayload-modules"></a>modules |  list of cmx files archived    |
 
 
 <a id="#OcamlArchiveProvider"></a>
@@ -39,15 +51,15 @@ OCaml library provider. A library is a collection of modules.
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OcamlArchiveProvider-payload"></a>payload |  An [OcamlArchivePayload](#ocamlarchivepayload) provider    |
-| <a id="OcamlArchiveProvider-deps"></a>deps |  An [OcamlDepset](#ocamldepset) provider.    |
+| <a id="OcamlArchiveProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider) provider.    |
 
 
-<a id="#OcamlDepset"></a>
+<a id="#OcamlDepsetProvider"></a>
 
-## OcamlDepset
+## OcamlDepsetProvider
 
 <pre>
-OcamlDepset(<a href="#OcamlDepset-opam">opam</a>, <a href="#OcamlDepset-nopam">nopam</a>, <a href="#OcamlDepset-cclib">cclib</a>)
+OcamlDepsetProvider(<a href="#OcamlDepsetProvider-opam">opam</a>, <a href="#OcamlDepsetProvider-nopam">nopam</a>, <a href="#OcamlDepsetProvider-cclib">cclib</a>)
 </pre>
 
 A Provider struct used by OBazl rules to provide heterogenous dependencies.
@@ -57,9 +69,9 @@ A Provider struct used by OBazl rules to provide heterogenous dependencies.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlDepset-opam"></a>opam |  direct and indirect opam deps (Labels) of target    |
-| <a id="OcamlDepset-nopam"></a>nopam |  direct and indirect non-opam deps (Files) of target    |
-| <a id="OcamlDepset-cclib"></a>cclib |  C/C++ lib deps    |
+| <a id="OcamlDepsetProvider-opam"></a>opam |  depset of OPAM deps (Labels) of target    |
+| <a id="OcamlDepsetProvider-nopam"></a>nopam |  depset of non-OPAM deps (Files) of target    |
+| <a id="OcamlDepsetProvider-cclib"></a>cclib |  depset of C/C++ lib deps    |
 
 
 <a id="#OcamlImportProvider"></a>
@@ -81,6 +93,25 @@ OCaml import provider.
 | <a id="OcamlImportProvider-indirect"></a>indirect |  A depset of indirect deps.    |
 
 
+<a id="#OcamlInterfacePayload"></a>
+
+## OcamlInterfacePayload
+
+<pre>
+OcamlInterfacePayload(<a href="#OcamlInterfacePayload-cmi">cmi</a>, <a href="#OcamlInterfacePayload-ml">ml</a>)
+</pre>
+
+OCaml interface payload.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="OcamlInterfacePayload-cmi"></a>cmi |  .cmi file produced by the target    |
+| <a id="OcamlInterfacePayload-ml"></a>ml |  .ml source file. without the source file, the cmi file will be ignored!    |
+
+
 <a id="#OcamlInterfaceProvider"></a>
 
 ## OcamlInterfaceProvider
@@ -96,8 +127,8 @@ OCaml interface provider.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlInterfaceProvider-payload"></a>payload |  A struct with the following fields:             cmi: .cmi file produced by the target             ml:  .ml source file. without the source file, the cmi file will be ignored!    |
-| <a id="OcamlInterfaceProvider-deps"></a>deps |  A pair of depsets:             opam : direct and transitive opam deps (Labels) of target             nopam: direct and transitive non-opam deps (Files) of target    |
+| <a id="OcamlInterfaceProvider-payload"></a>payload |  An [OcamlInterfacePayload](#ocamlinterfacepayload) structure.    |
+| <a id="OcamlInterfaceProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider).    |
 
 
 <a id="#OcamlLibraryProvider"></a>
@@ -158,7 +189,29 @@ OCaml module provider.
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OcamlModuleProvider-payload"></a>payload |  An [OcamlModulePayload](#ocamlmodulepayload) provider.    |
-| <a id="OcamlModuleProvider-deps"></a>deps |  An [OcamlDepset](#ocamldepset) provider.    |
+| <a id="OcamlModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider) provider.    |
+
+
+<a id="#OcamlNsModulePayload"></a>
+
+## OcamlNsModulePayload
+
+<pre>
+OcamlNsModulePayload(<a href="#OcamlNsModulePayload-ns">ns</a>, <a href="#OcamlNsModulePayload-cmx">cmx</a>, <a href="#OcamlNsModulePayload-o">o</a>, <a href="#OcamlNsModulePayload-cmo">cmo</a>, <a href="#OcamlNsModulePayload-cmi">cmi</a>)
+</pre>
+
+OCaml NS Module payload provider.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="OcamlNsModulePayload-ns"></a>ns |  namespace string    |
+| <a id="OcamlNsModulePayload-cmx"></a>cmx |  .cmx file produced by the target (native mode)    |
+| <a id="OcamlNsModulePayload-o"></a>o |  .o file produced by the target (native mode)    |
+| <a id="OcamlNsModulePayload-cmo"></a>cmo |  .cmo file produced by the target (native mode)    |
+| <a id="OcamlNsModulePayload-cmi"></a>cmi |  .cmi file produced by the target    |
 
 
 <a id="#OcamlNsModuleProvider"></a>
@@ -176,7 +229,7 @@ OCaml module provider.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlNsModuleProvider-payload"></a>payload |  A struct with the following fields:             ns : namespace             cmi: .cmi file produced by the target             cm : .cmx/cmo file produced by the target             o  : .o file produced by the target    |
-| <a id="OcamlNsModuleProvider-deps"></a>deps |  A pair of depsets:             opam : direct and transitive opam deps (Labels) of target             nopam: direct and transitive non-opam deps (Files) of target    |
+| <a id="OcamlNsModuleProvider-payload"></a>payload |  An [OcamlNsModulePayload](#ocamlnsmodulepayload) structure.    |
+| <a id="OcamlNsModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider)    |
 
 

@@ -17,7 +17,7 @@ ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-ar
               <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-linkopts">linkopts</a>, <a href="#ocaml_archive-linkshared">linkshared</a>, <a href="#ocaml_archive-msg">msg</a>, <a href="#ocaml_archive-opts">opts</a>)
 </pre>
 
-Generates an OCaml archive file.
+Generates an OCaml archive file. Provides: [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider)
 
 **ATTRIBUTES**
 
