@@ -1,18 +1,46 @@
 # obazl_rules_ocaml - ocaml rules
 **WARNING** Beta version - subject to change
 
+**Rules**:
+
 * [ocaml_archive](#ocaml_archive)
 * [ocaml_executable](#ocaml_executable)
 * [ocaml_interface](#ocaml_interface)
 * [ocaml_module](#ocaml_module)
 * [ocaml_ns](#ocaml_ns)
 
+**Configurable options**:
+
+These options apply to all `ocaml_*` rules. They can be overridden on
+the command line; for example, to enable verbosity (`-verbose`) for all
+`ocaml_*` build targets, pass `--@ocaml//verbose`. See [Configurable
+Defaults](configurable_defaults_doc.md) for more information.
+
+| Label | Default | Enabled effect<sup>1</sup> |
+| ----- | ------- | ------- |
+| @ocaml//debug | disabled | Add `-g`|
+| @ocaml//cmt | disabled | Add `-bin-annot`, which tells the compiler to emit `.cmt/.cmti` files |
+| @ocaml//keep-locs | enabled | Add `-keep-locs` |
+| @ocaml//noassert | enabled | |
+| @ocaml//opaque | enabled | |
+| @ocaml//short-paths | enabled | |
+| @ocaml//strict-formats | enabled | |
+| @ocaml//strict-sequence | enabled | |
+| @ocaml//verbose | disabled | |
+
+<sup>1</sup> Note that the authoritative source of documentation for
+  OCaml compile flags is the compiler `--help` option. At time of
+  writing, the official OCaml manual is incomplete (for example, it
+  does not document `-keep-locs`).
+
+----
+
 <a id="#ocaml_archive"></a>
 
 ## ocaml_archive
 
 <pre>
-ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-linkopts">linkopts</a>, <a href="#ocaml_archive-linkshared">linkshared</a>,
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-linkopts">linkopts</a>, <a href="#ocaml_archive-linkshared">linkshared</a>,
               <a href="#ocaml_archive-opts">opts</a>)
 </pre>
 
@@ -22,11 +50,10 @@ Generates an OCaml archive file. Provides: [OcamlArchiveProvider](providers_ocam
 
 - [OpamPkgInfo](providers_ocaml.md#opampkginfo)
 - [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider) The OCaml compiler does not allow an archive to depend on an archive, but the OBazl rules support this.
-- [OcamlImportProvider](providers_ocaml.md#ocamlimportprovider)
 - [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider)
-- [OcamlLibraryProvider](providers_ocaml.md#ocamllibraryprovider)
 - [OcamlModuleProvider](providers_ocaml.md#ocamlmoduleprovider)
 - [OcamlNsModuleProvider](providers_ocaml.md#ocamlnsmoduleprovider)
+- [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider)
 
 See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml dependencies.
 
@@ -41,11 +68,12 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 | <a id="ocaml_archive-archive_name"></a>archive_name |  Name of output file. Overrides default, which is derived from _name_ attribute.   | String | optional | "" |
 | <a id="ocaml_archive-cc_deps"></a>cc_deps |  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ocaml_archive-cc_linkall"></a>cc_linkall |  True: use -whole-archive (GCC toolchain) or -force_load (Clang toolchain)   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_archive-cc_linkopts"></a>cc_linkopts |  C/C++ options   | List of strings | optional | [] |
+| <a id="ocaml_archive-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.   | List of strings | optional | [] |
 | <a id="ocaml_archive-deps"></a>deps |  List of dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_archive-linkopts"></a>linkopts |  Link options.   | List of strings | optional | [] |
+| <a id="ocaml_archive-doc"></a>doc |  Deprecated   | String | optional | "" |
+| <a id="ocaml_archive-linkopts"></a>linkopts |  List of OCaml link options.   | List of strings | optional | [] |
 | <a id="ocaml_archive-linkshared"></a>linkshared |  Build a .cmxs ('plugin') for dynamic loading. Native mode only.   | Boolean | optional | False |
-| <a id="ocaml_archive-opts"></a>opts |  Options. Will override global default options.   | List of strings | optional | [] |
+| <a id="ocaml_archive-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 
 
 <a id="#ocaml_executable"></a>
@@ -76,7 +104,7 @@ ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_exec
 | <a id="ocaml_executable-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
 | <a id="ocaml_executable-main"></a>main |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_executable-message"></a>message |  -   | String | optional | "" |
-| <a id="ocaml_executable-opts"></a>opts |  Options. Will override global default options.   | List of strings | optional | [] |
+| <a id="ocaml_executable-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 | <a id="ocaml_executable-strip_data_prefixes"></a>strip_data_prefixes |  Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data -&gt; foo.data.   | Boolean | optional | False |
 
 
@@ -105,7 +133,7 @@ ocaml_interface(<a href="#ocaml_interface-name">name</a>, <a href="#ocaml_interf
 | <a id="ocaml_interface-msg"></a>msg |  -   | String | optional | "" |
 | <a id="ocaml_interface-ns"></a>ns |  Label of a ocaml_ns target. Used to derive namespace, output name, -open arg, etc.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_interface-ns_sep"></a>ns_sep |  Namespace separator.  Default: '__'   | String | optional | "__" |
-| <a id="ocaml_interface-opts"></a>opts |  Options. Will override global default options.   | List of strings | optional | [] |
+| <a id="ocaml_interface-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 | <a id="ocaml_interface-ppx"></a>ppx |  PPX binary (executable).   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_interface-ppx_args"></a>ppx_args |  Options to pass to PPX binary.   | List of strings | optional | [] |
 | <a id="ocaml_interface-ppx_data"></a>ppx_data |  PPX dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
@@ -144,7 +172,7 @@ ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-cc_de
 | <a id="ocaml_module-msg"></a>msg |  -   | String | optional | "" |
 | <a id="ocaml_module-ns"></a>ns |  Label of an ocaml_ns target. Used to derive namespace, output name, -open arg, etc.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-ns_sep"></a>ns_sep |  Namespace separator.  Default: '__'   | String | optional | "__" |
-| <a id="ocaml_module-opts"></a>opts |  Options. Will override global default options.   | List of strings | optional | [] |
+| <a id="ocaml_module-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 | <a id="ocaml_module-ppx"></a>ppx |  PPX binary (executable).   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-ppx_args"></a>ppx_args |  Options to pass to PPX binary.   | List of strings | optional | [] |
 | <a id="ocaml_module-ppx_data"></a>ppx_data |  PPX dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
