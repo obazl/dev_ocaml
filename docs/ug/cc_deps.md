@@ -57,8 +57,8 @@ to set default value for linkmode 'default' to 'dynamic' pass
 
 ### Static Binaries
 
-**WARNING** MacOS disallows statically linked binaries (ie.
+**WARNING** MacOS does not support statically linked binaries (ie.
 executables). See [Statically linked binaries on Mac OS
 X](https://developer.apple.com/library/archive/qa/qa1118/_index.html)
 
-\[TODO: what "static binary" means. linkmode for system libs.\]
+\[TODO: flesh this out\]
