@@ -1,0 +1,64 @@
+CC Dependencies
+===============
+
+A "CC dependency" is often a C/C++ library, but this terminology is a
+little misleading. A `C/C++ library` need not necessarily be produced
+from C/C++ source code. Rather it refers to the standard file format for
+object files, archives, etc., which is historically is closely
+associated with C. Many other languages (including OCaml) are capable of
+producing such files, so OBazl may use 'CC' terminology (e.g.
+`CC library`, `cc_deps`) to refer to such files no matter what language
+was used to produce them.
+
+CC Libraries
+------------
+
+A library is a collection of code units. C/C++ libraries come in several
+flavors:
+
+-   an unpackaged collection of object files (with `.o` extension)
+
+-   a *static* 'library': a collection of code units (object files)
+    packaged as an *archive* file, whose extension (by convention) is
+    `.a`.
+
+-   a *dynamic shared* 'library': code units (object files) packaged as
+    a *dynamic shared object* (DSO) file. Yes, the terminology conflates
+    two distinct concepts; OBazl generally treats 'dynamic' and 'shared'
+    as synonyms. On Linux, these are `.so` files; on MacOS, they are
+    `.dylib` files (but MacOS also supports `.so` files).
+
+Dynamic Loading ('Plugins')
+---------------------------
+
+\[TODO: document dynamic loading of CC deps; compare OCaml \*.cmxs
+files. Distinction between linking and loading.\]
+
+Linkmode
+--------
+
+Rules producing CC libs commonly produce both a static archive ('.a'
+file) and one or more shared libraries ('.so' or '.dylib' files). In
+Obazl rules, *link mode* determines which type of library is used for
+linking. Possible values:
+
+-   'static': statically link to `.a` file.
+-   'dynamic': depending on the OS, link to '.dylib' file (MacOS) or
+    '.so' file (Linux or MacOS).
+-   'shared': synonym for 'dynamic'
+-   'default': by default, equivalent to 'static' on Linux, 'dynamic' on
+    MacOS.
+
+**WARNING** The 'default' linkmode is configurable. The default value
+for linkmode 'default' is as noted above. To override the default for
+all rules, pass command-line option `--@ocaml//linkmode`; for example,
+to set default value for linkmode 'default' to 'dynamic' pass
+`--@ocaml//linkmode:dynamic`.
+
+### Static Binaries
+
+**WARNING** MacOS disallows statically linked binaries (ie.
+executables). See [Statically linked binaries on Mac OS
+X](https://developer.apple.com/library/archive/qa/qa1118/_index.html)
+
+\[TODO: what "static binary" means. linkmode for system libs.\]
