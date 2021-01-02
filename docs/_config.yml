@@ -2,3 +2,4 @@ theme: jekyll-theme-hacker
 title: "obazl docs: ocaml"
 description: Documentation for obazl_rules_ocaml and obazl_rules_opam
 markdown: kramdown
+include: refman/configurable_defaults_doc.md
