@@ -6,7 +6,6 @@
 * [ocaml_interface](#ocaml_interface)
 * [ocaml_module](#ocaml_module)
 * [ocaml_ns](#ocaml_ns)
-* [ocaml_ns_archive](#ocaml_ns_archive)
 
 <a id="#ocaml_archive"></a>
 
@@ -178,42 +177,5 @@ ocaml_ns(<a href="#ocaml_ns-name">name</a>, <a href="#ocaml_ns-alwayslink">alway
 | <a id="ocaml_ns-ns_sep"></a>ns_sep |  Namespace separator.  Default: '__'   | String | optional | "__" |
 | <a id="ocaml_ns-opts"></a>opts |  -   | List of strings | optional | [] |
 | <a id="ocaml_ns-submodules"></a>submodules |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-
-
-<a id="#ocaml_ns_archive"></a>
-
-## ocaml_ns_archive
-
-<pre>
-ocaml_ns_archive(<a href="#ocaml_ns_archive-name">name</a>, <a href="#ocaml_ns_archive-archive_name">archive_name</a>, <a href="#ocaml_ns_archive-compile_strict_sequence">compile_strict_sequence</a>, <a href="#ocaml_ns_archive-debug">debug</a>, <a href="#ocaml_ns_archive-deps">deps</a>, <a href="#ocaml_ns_archive-keep_locs">keep_locs</a>,
-                 <a href="#ocaml_ns_archive-link_strict_sequence">link_strict_sequence</a>, <a href="#ocaml_ns_archive-linkopts">linkopts</a>, <a href="#ocaml_ns_archive-message">message</a>, <a href="#ocaml_ns_archive-mode">mode</a>, <a href="#ocaml_ns_archive-no_alias_deps">no_alias_deps</a>, <a href="#ocaml_ns_archive-opaque">opaque</a>, <a href="#ocaml_ns_archive-opts">opts</a>,
-                 <a href="#ocaml_ns_archive-short_paths">short_paths</a>, <a href="#ocaml_ns_archive-strict_formats">strict_formats</a>, <a href="#ocaml_ns_archive-strict_sequence">strict_sequence</a>, <a href="#ocaml_ns_archive-submodules">submodules</a>, <a href="#ocaml_ns_archive-warnings">warnings</a>)
-</pre>
-
-
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| ------------- | ------------- | ------------- | :------------- | :------------- |
-| <a id="ocaml_ns_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ocaml_ns_archive-archive_name"></a>archive_name |  -   | String | optional | "" |
-| <a id="ocaml_ns_archive-compile_strict_sequence"></a>compile_strict_sequence |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-debug"></a>debug |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-deps"></a>deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_ns_archive-keep_locs"></a>keep_locs |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-link_strict_sequence"></a>link_strict_sequence |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
-| <a id="ocaml_ns_archive-message"></a>message |  -   | String | optional | "" |
-| <a id="ocaml_ns_archive-mode"></a>mode |  -   | String | optional | "native" |
-| <a id="ocaml_ns_archive-no_alias_deps"></a>no_alias_deps |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-opaque"></a>opaque |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-opts"></a>opts |  -   | List of strings | optional | [] |
-| <a id="ocaml_ns_archive-short_paths"></a>short_paths |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-strict_formats"></a>strict_formats |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-strict_sequence"></a>strict_sequence |  -   | Boolean | optional | True |
-| <a id="ocaml_ns_archive-submodules"></a>submodules |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_ns_archive-warnings"></a>warnings |  -   | String | optional | "@1..3@5..28@30..39@43@46..47@49..57@61..62-40" |
 
 
