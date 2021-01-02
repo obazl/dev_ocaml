@@ -14,7 +14,7 @@
 These options apply to all `ocaml_*` rules. They can be overridden on
 the command line; for example, to enable verbosity (`-verbose`) for all
 `ocaml_*` build targets, pass `--@ocaml//verbose`. See [Configurable
-Defaults](configdefs_doc.md) for more information.
+Defaults](configdefs_doc.html) for more information.
 
 | Label | Default | Enabled effect<sup>1</sup> |
 | ----- | ------- | ------- |
