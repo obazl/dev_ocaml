@@ -21,7 +21,7 @@
 OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxs">cmxs</a>)
 </pre>
 
-A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider).
+A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider). Not provided by rule.
 
 **FIELDS**
 
@@ -43,7 +43,10 @@ A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [Ppx
 OcamlArchiveProvider(<a href="#OcamlArchiveProvider-payload">payload</a>, <a href="#OcamlArchiveProvider-deps">deps</a>)
 </pre>
 
-OCaml library provider. A library is a collection of modules.
+OCaml archive provider.
+
+Provided by rule: [ocaml_archive](rules_ocaml.md#ocaml_archive)
+    
 
 **FIELDS**
 
@@ -62,7 +65,7 @@ OCaml library provider. A library is a collection of modules.
 OcamlDepsetProvider(<a href="#OcamlDepsetProvider-opam">opam</a>, <a href="#OcamlDepsetProvider-nopam">nopam</a>, <a href="#OcamlDepsetProvider-cclib">cclib</a>)
 </pre>
 
-A Provider struct used by OBazl rules to provide heterogenous dependencies.
+A Provider struct used by OBazl rules to provide heterogenous dependencies. Not provided by rule.
 
 **FIELDS**
 
@@ -98,7 +101,7 @@ OCaml import provider.
 ## OcamlInterfacePayload
 
 <pre>
-OcamlInterfacePayload(<a href="#OcamlInterfacePayload-cmi">cmi</a>, <a href="#OcamlInterfacePayload-ml">ml</a>)
+OcamlInterfacePayload(<a href="#OcamlInterfacePayload-cmi">cmi</a>, <a href="#OcamlInterfacePayload-mli">mli</a>)
 </pre>
 
 OCaml interface payload.
@@ -109,7 +112,7 @@ OCaml interface payload.
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OcamlInterfacePayload-cmi"></a>cmi |  .cmi file produced by the target    |
-| <a id="OcamlInterfacePayload-ml"></a>ml |  .ml source file. without the source file, the cmi file will be ignored!    |
+| <a id="OcamlInterfacePayload-mli"></a>mli |  .mli source file. without the source file, the cmi file will be ignored!    |
 
 
 <a id="#OcamlInterfaceProvider"></a>
@@ -139,7 +142,10 @@ OCaml interface provider.
 OcamlLibraryProvider(<a href="#OcamlLibraryProvider-payload">payload</a>, <a href="#OcamlLibraryProvider-deps">deps</a>)
 </pre>
 
-OCaml library provider. A library is a collection of modules.
+OCaml library provider. A library is a collection of modules, not to be confused with an archive.
+
+Provided by rule: [ocaml_library](rules_ocaml#ocaml_library)
+    
 
 **FIELDS**
 
@@ -197,7 +203,7 @@ OCaml module provider.
 ## OcamlNsModulePayload
 
 <pre>
-OcamlNsModulePayload(<a href="#OcamlNsModulePayload-ns">ns</a>, <a href="#OcamlNsModulePayload-cmx">cmx</a>, <a href="#OcamlNsModulePayload-o">o</a>, <a href="#OcamlNsModulePayload-cmo">cmo</a>, <a href="#OcamlNsModulePayload-cmi">cmi</a>)
+OcamlNsModulePayload(<a href="#OcamlNsModulePayload-ns">ns</a>, <a href="#OcamlNsModulePayload-sep">sep</a>, <a href="#OcamlNsModulePayload-cmx">cmx</a>, <a href="#OcamlNsModulePayload-o">o</a>, <a href="#OcamlNsModulePayload-cmo">cmo</a>, <a href="#OcamlNsModulePayload-cmi">cmi</a>)
 </pre>
 
 OCaml NS Module payload provider.
@@ -208,6 +214,7 @@ OCaml NS Module payload provider.
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OcamlNsModulePayload-ns"></a>ns |  namespace string    |
+| <a id="OcamlNsModulePayload-sep"></a>sep |  separator string    |
 | <a id="OcamlNsModulePayload-cmx"></a>cmx |  .cmx file produced by the target (native mode)    |
 | <a id="OcamlNsModulePayload-o"></a>o |  .o file produced by the target (native mode)    |
 | <a id="OcamlNsModulePayload-cmo"></a>cmo |  .cmo file produced by the target (native mode)    |
@@ -231,5 +238,24 @@ OCaml module provider.
 | ------------- | ------------- |
 | <a id="OcamlNsModuleProvider-payload"></a>payload |  An [OcamlNsModulePayload](#ocamlnsmodulepayload) structure.    |
 | <a id="OcamlNsModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider)    |
+
+
+<a id="#OpamPkgInfo"></a>
+
+## OpamPkgInfo
+
+<pre>
+OpamPkgInfo(<a href="#OpamPkgInfo-pkg">pkg</a>, <a href="#OpamPkgInfo-ppx_driver">ppx_driver</a>)
+</pre>
+
+Provider for OPAM packages.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="OpamPkgInfo-pkg"></a>pkg |  Label depset containing package name string used by ocamlfind.    |
+| <a id="OpamPkgInfo-ppx_driver"></a>ppx_driver |  True if ocamlfind would generate -ppx command line arg when this lib is listed as a dep.    |
 
 
