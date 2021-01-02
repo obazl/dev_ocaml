@@ -36,7 +36,8 @@ the default to false by passing `--no@ocaml//short-paths` (or
 `--@ocaml//short-paths:disable`) simply prevents the addition of that
 flag.
 
-### Case-by-case overrides
+Case-by-case overrides
+----------------------
 
 These configurable default flags and options have global effect; each
 instance of each `ocaml_*` rule will be controlled by these
