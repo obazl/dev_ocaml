@@ -37,6 +37,8 @@ rule may have its own set of configurable defauls.
 
 ----
 
+----
+
 <a id="#ocaml_archive"></a>
 
 ## ocaml_archive
@@ -75,6 +77,8 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 | <a id="ocaml_archive-linkshared"></a>linkshared |  Build a .cmxs ('plugin') for dynamic loading. Native mode only.   | Boolean | optional | False |
 | <a id="ocaml_archive-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 
+
+----
 
 <a id="#ocaml_executable"></a>
 
@@ -121,6 +125,8 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_executable-strip_data_prefixes"></a>strip_data_prefixes |  Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data -&gt; foo.data.   | Boolean | optional | False |
 
 
+----
+
 <a id="#ocaml_interface"></a>
 
 ## ocaml_interface
@@ -153,6 +159,8 @@ ocaml_interface(<a href="#ocaml_interface-name">name</a>, <a href="#ocaml_interf
 | <a id="ocaml_interface-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ocaml_interface-src"></a>src |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
+
+----
 
 <a id="#ocaml_module"></a>
 
@@ -193,6 +201,8 @@ ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-cc_de
 | <a id="ocaml_module-ppx_tags"></a>ppx_tags |  List of tags.  Used to set e.g. -inline-test-libs, --cookies. Currently only one tag allowed.   | List of strings | optional | [] |
 | <a id="ocaml_module-src"></a>src |  A single .ml source file label.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
+
+----
 
 <a id="#ocaml_ns"></a>
 

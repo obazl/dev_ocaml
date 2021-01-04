@@ -11,6 +11,8 @@
 * [ppx_ns](#ppx_ns)
 * [ppx_test](#ppx_test)
 
+----
+
 <a id="#ppx_archive"></a>
 
 ## ppx_archive
@@ -36,6 +38,8 @@ ppx_archive(<a href="#ppx_archive-name">name</a>, <a href="#ppx_archive-archive_
 | <a id="ppx_archive-opts"></a>opts |  -   | List of strings | optional | [] |
 | <a id="ppx_archive-preprocessor"></a>preprocessor |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
+
+----
 
 <a id="#ppx_executable"></a>
 
@@ -69,6 +73,8 @@ PPX executable docstring ...
 | <a id="ppx_executable-print"></a>print |  Format of output of PPX transform, binary (default) or text   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ppx_executable-runtime_args"></a>runtime_args |  List of args that must be passed to the ppx_executable at runtime. E.g. -inline-test-lib.   | List of strings | optional | [] |
 
+
+----
 
 <a id="#ppx_module"></a>
 
@@ -107,6 +113,8 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-cc_deps">cc
 | <a id="ppx_module-src"></a>src |  A single .ml source file label.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
+----
+
 <a id="#ppx_ns"></a>
 
 ## ppx_ns
@@ -130,6 +138,8 @@ ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_nam
 | <a id="ppx_ns-opts"></a>opts |  -   | List of strings | optional | [] |
 | <a id="ppx_ns-submodules"></a>submodules |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 
+
+----
 
 <a id="#ppx_test"></a>
 
