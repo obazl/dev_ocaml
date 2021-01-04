@@ -42,8 +42,7 @@ rule may have its own set of configurable defauls.
 ## ocaml_archive
 
 <pre>
-ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-linkopts">linkopts</a>, <a href="#ocaml_archive-linkshared">linkshared</a>,
-              <a href="#ocaml_archive-opts">opts</a>)
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-linkshared">linkshared</a>, <a href="#ocaml_archive-opts">opts</a>)
 </pre>
 
 Generates an OCaml archive file. Provides: [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider).
@@ -69,11 +68,10 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 | <a id="ocaml_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="ocaml_archive-archive_name"></a>archive_name |  Name of output file. Overrides default, which is derived from _name_ attribute.   | String | optional | "" |
 | <a id="ocaml_archive-cc_deps"></a>cc_deps |  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
-| <a id="ocaml_archive-cc_linkall"></a>cc_linkall |  True: use -whole-archive (GCC toolchain) or -force_load (Clang toolchain)   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_archive-cc_linkall"></a>cc_linkall |  True: use -whole-archive (GCC toolchain) or -force_load (Clang toolchain). Deps in this attribute must also be listed in cc_deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_archive-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.   | List of strings | optional | [] |
-| <a id="ocaml_archive-deps"></a>deps |  List of dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_archive-deps"></a>deps |  List of OCaml dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_archive-doc"></a>doc |  Deprecated   | String | optional | "" |
-| <a id="ocaml_archive-linkopts"></a>linkopts |  List of OCaml link options.   | List of strings | optional | [] |
 | <a id="ocaml_archive-linkshared"></a>linkshared |  Build a .cmxs ('plugin') for dynamic loading. Native mode only.   | Boolean | optional | False |
 | <a id="ocaml_archive-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 
@@ -83,8 +81,8 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 ## ocaml_executable
 
 <pre>
-ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-cc_linkstatic">cc_linkstatic</a>, <a href="#ocaml_executable-copts">copts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe_name">exe_name</a>,
-                 <a href="#ocaml_executable-linkopts">linkopts</a>, <a href="#ocaml_executable-main">main</a>, <a href="#ocaml_executable-message">message</a>, <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
+ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe_name">exe_name</a>, <a href="#ocaml_executable-main">main</a>, <a href="#ocaml_executable-message">message</a>, <a href="#ocaml_executable-opts">opts</a>,
+                 <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
 </pre>
 
 Generates an OCaml executable binary.  Provides only standard DefaultInfo provider.
@@ -111,17 +109,14 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ocaml_executable-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ocaml_executable-cc_deps"></a>cc_deps |  C/C++ library dependencies   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
-| <a id="ocaml_executable-cc_linkall"></a>cc_linkall |  True: use -whole-archive (GCC toolchain) or -force_load (Clang toolchain). Deps in this attribute must also be listed in cc_deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_executable-cc_linkopts"></a>cc_linkopts |  C/C++ link options   | List of strings | optional | [] |
-| <a id="ocaml_executable-cc_linkstatic"></a>cc_linkstatic |  Control linkage of C/C++ dependencies. True: link to .a file; False: link to shared object file (.so or .dylib)   | Boolean | optional | True |
-| <a id="ocaml_executable-copts"></a>copts |  -   | List of strings | optional | [] |
-| <a id="ocaml_executable-data"></a>data |  Data files used by this executable.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_executable-deps"></a>deps |  Dependencies. Do not include preprocessor (PPX) deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_executable-exe_name"></a>exe_name |  -   | String | optional | "" |
-| <a id="ocaml_executable-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
-| <a id="ocaml_executable-main"></a>main |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="ocaml_executable-message"></a>message |  -   | String | optional | "" |
+| <a id="ocaml_executable-cc_deps"></a>cc_deps |  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
+| <a id="ocaml_executable-cc_linkall"></a>cc_linkall |  True: use <code>-whole-archive</code> (GCC toolchain) or <code>-force_load</code> (Clang toolchain). Deps in this attribute must also be listed in cc_deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_executable-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.   | List of strings | optional | [] |
+| <a id="ocaml_executable-data"></a>data |  Runtime dependencies: data files used by this executable.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_executable-deps"></a>deps |  List of OCaml dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_executable-exe_name"></a>exe_name |  Name for output executable file.  Overrides 'name' attribute.   | String | optional | "" |
+| <a id="ocaml_executable-main"></a>main |  Label of module containing entry point of executable. This module will be placed last in the list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ocaml_executable-message"></a>message |  Deprecated   | String | optional | "" |
 | <a id="ocaml_executable-opts"></a>opts |  List of OCaml options. Will override global default options.   | List of strings | optional | [] |
 | <a id="ocaml_executable-strip_data_prefixes"></a>strip_data_prefixes |  Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data -&gt; foo.data.   | Boolean | optional | False |
 
