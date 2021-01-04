@@ -1,5 +1,9 @@
-# obazl_rules_ocaml - providers
+# ocaml providers
 **WARNING** Beta version - subject to change
+
+[Reference Manual ToC](index.md)
+
+----
 
 * [OcamlDepsetProvider](#ocamldepsetprovider)
 * [OcamlArchivePayload](#ocamlarchivepayload)

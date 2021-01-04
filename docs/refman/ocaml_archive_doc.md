@@ -24,7 +24,7 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 
     
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ocaml_archive`
 
 
 | Name  | Description | Type | Mandatory | Default |

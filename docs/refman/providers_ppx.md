@@ -1,4 +1,14 @@
-<!-- Generated with Stardoc: http://skydoc.bazel.build -->
+# ppx providers
+**WARNING** Beta version - subject to change
+
+[Reference Manual ToC](index.md)
+
+----
+
+* [PpxDepsetProvider](#ppxdepsetprovider)
+* [PpxArchivePayload](#ppxarchivepayload)
+* [PpxArchiveProvider](#ppxarchiveprovider)
+* [PpxExecutableProvider](#ppxexecutableprovider)
 
 <a id="#PpxArchiveProvider"></a>
 

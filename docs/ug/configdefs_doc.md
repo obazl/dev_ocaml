@@ -73,3 +73,8 @@ global setting adds.
 A `-no` prefixed flag for the `opts` attribute is supported for each
 configurable default flag, just as `--no@ocaml//<flag>` is supported for
 the command-line.
+
+**IMPORTANT** The authoritative source of documentation for OCaml
+compile flags is the compiler `--help` option. At time of writing, the
+official OCaml manual is incomplete (for example, it does not document
+`-keep-locs`).

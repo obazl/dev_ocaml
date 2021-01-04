@@ -1,5 +1,9 @@
-# obazl_rules_ocaml - ocaml rules
+# ocaml rules
 **WARNING** Beta version - subject to change
+
+[Reference Manual ToC](index.md)
+
+----
 
 **Rules**:
 
@@ -9,29 +13,27 @@
 * [ocaml_module](#ocaml_module)
 * [ocaml_ns](#ocaml_ns)
 
-**Configurable options**:
+**<a name="configdefs">OCaml Rules - Configurable defaults</a>**:
 
 These options apply to all `ocaml_*` rules. They can be overridden on
 the command line; for example, to enable verbosity (`-verbose`) for all
 `ocaml_*` build targets, pass `--@ocaml//verbose`. See [Configurable
-Defaults](../ug/configdefs_doc.html) for more information.
+Defaults](../ug/configdefs_doc.md) for more information.
 
-| Label | Default | Enabled effect<sup>1</sup> |
+| Label | Default | `opts` attrib |
 | ----- | ------- | ------- |
-| @ocaml//debug | disabled | Add `-g`|
-| @ocaml//cmt | disabled | Add `-bin-annot`, which tells the compiler to emit `.cmt/.cmti` files |
-| @ocaml//keep-locs | enabled | Add `-keep-locs` |
-| @ocaml//noassert | enabled | |
-| @ocaml//opaque | enabled | |
-| @ocaml//short-paths | enabled | |
-| @ocaml//strict-formats | enabled | |
-| @ocaml//strict-sequence | enabled | |
-| @ocaml//verbose | disabled | |
+| @ocaml//debug | disabled | `-g`, `-no-g`|
+| @ocaml//cmt | disabled | `-bin-annot`, `-no-bin-annot` |
+| @ocaml//keep-locs | enabled | `-keep-locs`, `-no-keep-locs` |
+| @ocaml//noassert | enabled | `-noassert`, `-no-noassert` |
+| @ocaml//opaque | enabled | `-opaque`, `-no-opaque` |
+| @ocaml//short-paths | enabled | `-short-paths`, `-no-short-paths` |
+| @ocaml//strict-formats | enabled | `-strict-formats`, `-no-strict-formats` |
+| @ocaml//strict-sequence | enabled | `-strict-sequence`, `-no-strict-sequence` |
+| @ocaml//verbose | disabled | `-verbose`, `-no-verbose` |
 
-<sup>1</sup> Note that the authoritative source of documentation for
-  OCaml compile flags is the compiler `--help` option. At time of
-  writing, the official OCaml manual is incomplete (for example, it
-  does not document `-keep-locs`).
+In addition to these, which apply to all `ocaml_*` rules, each such
+rule may have its own set of configurable defauls.
 
 ----
 
@@ -59,7 +61,7 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 
     
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ocaml_archive`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -85,9 +87,25 @@ ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_exec
                  <a href="#ocaml_executable-linkopts">linkopts</a>, <a href="#ocaml_executable-main">main</a>, <a href="#ocaml_executable-message">message</a>, <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
 </pre>
 
+Generates an OCaml executable binary.  Provides only standard DefaultInfo provider.
 
+**CONFIGURABLE DEFAULTS** for rule `ocaml_executable`
 
-**ATTRIBUTES**
+In addition to the [OCaml configurable defaults](#configdefs) that apply to all
+`ocaml_*` rules, the following apply to this rule:
+
+| Label | Default | `opts` attrib |
+| ----- | ------- | ------- |
+| @ocaml//executable:linkall | True | `-linkall`, `-no-linkall`|
+| @ocaml//executable:threads | True | `-thread`, `-no-thread`|
+| @ocaml//executable:warnings | `@1..3@5..28@30..39@43@46..47@49..57@61..62-40`| `-w` plus option value |
+
+**NOTE** These do not support `:enable`, `:disable` syntax.
+
+ See [Configurable Defaults](../ug/configdefs_doc.md) for more information.
+    
+
+**ATTRIBUTES** for rule `ocaml_executable`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -119,7 +137,7 @@ ocaml_interface(<a href="#ocaml_interface-name">name</a>, <a href="#ocaml_interf
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ocaml_interface`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -153,7 +171,7 @@ ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-cc_de
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ocaml_module`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -191,7 +209,7 @@ ocaml_ns(<a href="#ocaml_ns-name">name</a>, <a href="#ocaml_ns-alwayslink">alway
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ocaml_ns`
 
 
 | Name  | Description | Type | Mandatory | Default |

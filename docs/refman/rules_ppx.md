@@ -1,6 +1,10 @@
 # obazl_rules_ocaml - ppx rules
 **WARNING** Beta version - subject to change
 
+[Reference Manual ToC](index.md)
+
+----
+
 * [ppx_archive](#ppx_archive)
 * [ppx_executable](#ppx_executable)
 * [ppx_module](#ppx_module)
@@ -17,7 +21,7 @@ ppx_archive(<a href="#ppx_archive-name">name</a>, <a href="#ppx_archive-archive_
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ppx_archive`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -47,7 +51,7 @@ PPX executable docstring ...
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ppx_executable`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -77,7 +81,7 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-cc_deps">cc
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ppx_module`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -113,7 +117,7 @@ ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_nam
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ppx_ns`
 
 
 | Name  | Description | Type | Mandatory | Default |
@@ -137,7 +141,7 @@ ppx_test(<a href="#ppx_test-name">name</a>, <a href="#ppx_test-cookies">cookies<
 
 
 
-**ATTRIBUTES**
+**ATTRIBUTES** for rule `ppx_test`
 
 
 | Name  | Description | Type | Mandatory | Default |
