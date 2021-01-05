@@ -1,7 +1,7 @@
+[Reference Manual](index.md)
+
 # obazl_rules_ocaml - ppx rules
 **WARNING** Beta version - subject to change
-
-[Reference Manual ToC](index.md)
 
 ----
 
