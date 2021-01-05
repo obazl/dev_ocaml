@@ -1,3 +1,5 @@
+[Reference Manual](index.md)
+
 # opam configuration
 
 **WARNING**  beta version - subject to change
