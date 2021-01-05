@@ -25,7 +25,6 @@ ppx_archive(<a href="#ppx_archive-name">name</a>, <a href="#ppx_archive-archive_
 
 **ATTRIBUTES** for rule `ppx_archive`
 
-
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
@@ -57,7 +56,6 @@ PPX executable docstring ...
 
 **ATTRIBUTES** for rule `ppx_executable`
 
-
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_executable-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
@@ -88,7 +86,6 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-cc_deps">cc
 
 
 **ATTRIBUTES** for rule `ppx_module`
-
 
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
@@ -127,7 +124,6 @@ ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_nam
 
 **ATTRIBUTES** for rule `ppx_ns`
 
-
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_ns-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
@@ -152,7 +148,6 @@ ppx_test(<a href="#ppx_test-name">name</a>, <a href="#ppx_test-cookies">cookies<
 
 
 **ATTRIBUTES** for rule `ppx_test`
-
 
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |

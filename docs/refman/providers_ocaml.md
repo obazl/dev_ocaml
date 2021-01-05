@@ -148,7 +148,7 @@ OcamlLibraryProvider(<a href="#OcamlLibraryProvider-payload">payload</a>, <a hre
 
 OCaml library provider. A library is a collection of modules, not to be confused with an archive.
 
-Provided by rule: [ocaml_library](rules_ocaml#ocaml_library)
+Provided by rule: [ocaml_library](rules_ocaml.md#ocaml_library)
     
 
 **FIELDS**
@@ -175,12 +175,12 @@ OCaml module payload.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlModulePayload-cmx"></a>cmx |  .cmx file produced by the target (native mode)    |
-| <a id="OcamlModulePayload-o"></a>o |  .o file produced by the target (native mode)    |
-| <a id="OcamlModulePayload-cmo"></a>cmo |  .cmo file produced by the target (bytecode mode)    |
-| <a id="OcamlModulePayload-cmi"></a>cmi |  .cmi file produced by the target (optional)    |
-| <a id="OcamlModulePayload-mli"></a>mli |  .mli source file (optional)    |
-| <a id="OcamlModulePayload-cmt"></a>cmt |  .cmt file produced by the target (optional)    |
+| <a id="OcamlModulePayload-cmx"></a>cmx |  .cmx file produced from the target (native mode)    |
+| <a id="OcamlModulePayload-o"></a>o |  .o file produced from the target (native mode)    |
+| <a id="OcamlModulePayload-cmo"></a>cmo |  .cmo file produced from the target (bytecode mode)    |
+| <a id="OcamlModulePayload-cmi"></a>cmi |  .cmi file. Passed through from <code>intf</code> attrib if present, otherwise generated from <code>src</code>.    |
+| <a id="OcamlModulePayload-mli"></a>mli |  .mli source file passed through from <code>intf</code> attrib if present, otherwise None    |
+| <a id="OcamlModulePayload-cmt"></a>cmt |  .cmt file produced from the target (optional)    |
 
 
 <a id="#OcamlModuleProvider"></a>
@@ -219,10 +219,10 @@ OCaml NS Module payload provider.
 | ------------- | ------------- |
 | <a id="OcamlNsModulePayload-ns"></a>ns |  namespace string    |
 | <a id="OcamlNsModulePayload-sep"></a>sep |  separator string    |
-| <a id="OcamlNsModulePayload-cmx"></a>cmx |  .cmx file produced by the target (native mode)    |
-| <a id="OcamlNsModulePayload-o"></a>o |  .o file produced by the target (native mode)    |
-| <a id="OcamlNsModulePayload-cmo"></a>cmo |  .cmo file produced by the target (native mode)    |
-| <a id="OcamlNsModulePayload-cmi"></a>cmi |  .cmi file produced by the target    |
+| <a id="OcamlNsModulePayload-cmx"></a>cmx |  .cmx file produced from the target (native mode)    |
+| <a id="OcamlNsModulePayload-o"></a>o |  .o file produced from the target (native mode)    |
+| <a id="OcamlNsModulePayload-cmo"></a>cmo |  .cmo file produced from the target (native mode)    |
+| <a id="OcamlNsModulePayload-cmi"></a>cmi |  .cmi file produced from the target    |
 
 
 <a id="#OcamlNsModuleProvider"></a>
