@@ -38,7 +38,7 @@ Disabling](../ug/configurable_defaults.html#disabling) for information
 on how to use negated options to override defaults.
 
 In addition to these, which apply to all `ocaml_*` rules, each rule
-may have its own set of configurable defauls.
+may have its own set of configurable defaults.
 
 | Label | Default | `opts` attrib |
 | ----- | ------- | ------- |
