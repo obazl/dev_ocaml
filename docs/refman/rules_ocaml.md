@@ -18,9 +18,10 @@
 **<a name="configdefs">OCaml Rules - Configurable defaults</a>**:
 
 These options apply to all `ocaml_*` rules. They can be overridden on
-the command line; for example, to enable verbosity (`-verbose`) for all
-`ocaml_*` build targets, pass `--@ocaml//verbose`. See [Configurable
-Defaults](../ug/configurable_defaults.md) for more information.
+the command line; for example, to enable verbosity (`-verbose`) for
+all `ocaml_*` build targets, pass `--@ocaml//verbose`. See
+[Configurable Defaults](../ug/configurable_defaults.html) for more
+information.
 
 **Options** May be enums, strings, labels, etc.
 
@@ -33,7 +34,7 @@ Defaults](../ug/configurable_defaults.md) for more information.
 `--no@ocaml//foo` or `--@ocaml//foo:disable`. Each flag has a
 corresponding OCaml option and an OBazl (not an OCaml) negation; see
 [Configurable Defaults:
-Disabling](../ug/configurable_defaults.md#disabling) for information
+Disabling](../ug/configurable_defaults.html#disabling) for information
 on how to use negated options to override defaults.
 
 In addition to these, which apply to all `ocaml_*` rules, each rule
