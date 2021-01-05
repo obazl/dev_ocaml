@@ -1,7 +1,7 @@
+[Reference Manual](index.md)
+
 # ocaml rules
 **WARNING** Beta version - subject to change
-
-[Reference Manual ToC](index.md)
 
 ----
 
