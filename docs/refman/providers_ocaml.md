@@ -1,7 +1,7 @@
+[Reference Manual](index.md)
+
 # ocaml providers
 **WARNING** Beta version - subject to change
-
-[Reference Manual ToC](index.md)
 
 ----
 

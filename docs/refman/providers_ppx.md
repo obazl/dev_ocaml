@@ -1,7 +1,7 @@
+[Reference Manual](index.md)
+
 # ppx providers
 **WARNING** Beta version - subject to change
-
-[Reference Manual ToC](index.md)
 
 ----
 
