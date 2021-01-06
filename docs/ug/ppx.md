@@ -20,7 +20,7 @@ add `-dump-ast` as a command line option when running the
 omits the argument.
 
 The default print output format is determined by the [configurable
-default](asdf.md) target `@ppx//print`, which in turn defaults to
-binary. You can change the global default to print by passing
+default](configdefs_doc.md) target `@ppx//print`, which in turn defaults
+to binary. You can change the global default to print by passing
 `--@ppx//print:text` on the command line. Use the `ppx_print` attribute
 to override this global default.
