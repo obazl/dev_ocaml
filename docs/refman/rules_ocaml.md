@@ -133,7 +133,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_executable-cc_deps"></a>cc_deps |  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ocaml_executable-cc_linkall"></a>cc_linkall |  True: use <code>-whole-archive</code> (GCC toolchain) or <code>-force_load</code> (Clang toolchain). Deps in this attribute must also be listed in cc_deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_executable-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.   | List of strings | optional | [] |
-| <a id="ocaml_executable-data"></a>data |  Runtime dependencies: data files used by this executable.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_executable-data"></a>data |  Runtime dependencies: list of labels of data files needed by this executable at runtime.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_executable-deps"></a>deps |  List of OCaml dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_executable-exe_name"></a>exe_name |  Name for output executable file.  Overrides 'name' attribute.   | String | optional | "" |
 | <a id="ocaml_executable-main"></a>main |  Label of module containing entry point of executable. This module will be placed last in the list of dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
@@ -203,8 +203,8 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_interface-opts"></a>opts |  List of OCaml options. Will override configurable default options.   | List of strings | optional | [] |
 | <a id="ocaml_interface-ppx"></a>ppx |  Label of <code>ppx_executable</code> target to be used to transform source before compilation.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_interface-ppx_args"></a>ppx_args |  Options to pass to PPX executable.   | List of strings | optional | [] |
-| <a id="ocaml_interface-ppx_data"></a>ppx_data |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_interface-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text. Value must be one of '@ppx//print:binary', '@ppx//print:text'.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print:binary |
+| <a id="ocaml_interface-ppx_data"></a>ppx_data |  PPX runtime dependencies. List of labels of files needed by PPX at preprocessing runtime. E.g. a file used by <code>[%%import ]</code> from [ppx_optcomp](https://github.com/janestreet/ppx_optcomp).   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_interface-ppx_print"></a>ppx_print |  Format of output of PPX transform. Value must be one of '@ppx//print:binary', '@ppx//print:text'. See [PPX: ppx_print](../ug/ppx.md#ppx_print) for more information.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print:binary |
 | <a id="ocaml_interface-src"></a>src |  A single .mli source file label   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 
 
@@ -271,9 +271,9 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 ## ocaml_module
 
 <pre>
-ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-cc_linkall">cc_linkall</a>, <a href="#ocaml_module-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_module-cc_linkstatic">cc_linkstatic</a>, <a href="#ocaml_module-cc_opts">cc_opts</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-doc">doc</a>, <a href="#ocaml_module-dual_mode">dual_mode</a>,
-             <a href="#ocaml_module-intf">intf</a>, <a href="#ocaml_module-module_name">module_name</a>, <a href="#ocaml_module-msg">msg</a>, <a href="#ocaml_module-ns">ns</a>, <a href="#ocaml_module-ns_sep">ns_sep</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_tags">ppx_tags</a>,
-             <a href="#ocaml_module-src">src</a>)
+ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-cc_linkall">cc_linkall</a>, <a href="#ocaml_module-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_module-cc_linkstatic">cc_linkstatic</a>, <a href="#ocaml_module-cc_opts">cc_opts</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-doc">doc</a>,
+             <a href="#ocaml_module-dual_mode">dual_mode</a>, <a href="#ocaml_module-intf">intf</a>, <a href="#ocaml_module-module_name">module_name</a>, <a href="#ocaml_module-msg">msg</a>, <a href="#ocaml_module-ns">ns</a>, <a href="#ocaml_module-ns_sep">ns_sep</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>,
+             <a href="#ocaml_module-ppx_tags">ppx_tags</a>, <a href="#ocaml_module-src">src</a>)
 </pre>
 
 Compiles an OCaml module. [User Guide](../ug/ocaml_module.md).  Provides: [OcamlModuleProvider](providers_ocaml.md#ocamlmoduleprovider).
@@ -317,6 +317,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_module-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.   | List of strings | optional | [] |
 | <a id="ocaml_module-cc_linkstatic"></a>cc_linkstatic |  DEPRECATED. Control linkage of C/C++ dependencies. True: link to .a file; False: link to shared object file (.so or .dylib)   | Boolean | optional | True |
 | <a id="ocaml_module-cc_opts"></a>cc_opts |  C/C++ options   | List of strings | optional | [] |
+| <a id="ocaml_module-data"></a>data |  Runtime dependencies: list of labels of data files needed by this module at runtime.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_module-deps"></a>deps |  List of OCaml dependencies. See [Dependencies](#deps) for details.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_module-doc"></a>doc |  Docstring for module   | String | optional | "" |
 | <a id="ocaml_module-dual_mode"></a>dual_mode |  -   | Boolean | optional | False |
@@ -328,8 +329,8 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_module-opts"></a>opts |  List of OCaml options. Will override configurable default options.   | List of strings | optional | [] |
 | <a id="ocaml_module-ppx"></a>ppx |  PPX binary (executable).   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-ppx_args"></a>ppx_args |  Options to pass to PPX binary.   | List of strings | optional | [] |
-| <a id="ocaml_module-ppx_data"></a>ppx_data |  PPX dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_module-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
+| <a id="ocaml_module-ppx_data"></a>ppx_data |  PPX runtime dependencies. List of labels of files needed by PPX at preprocessing runtime. E.g. a file used by <code>[%%import ]</code> from [ppx_optcomp](https://github.com/janestreet/ppx_optcomp).   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_module-ppx_print"></a>ppx_print |  Format of output of PPX transform. Value must be one of '@ppx//print:binary', '@ppx//print:text'.  See [PPX](../ug/ppx.md#ppx_print) for more information   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ocaml_module-ppx_tags"></a>ppx_tags |  List of tags.  Used to set e.g. -inline-test-libs, --cookies. Currently only one tag allowed.   | List of strings | optional | [] |
 | <a id="ocaml_module-src"></a>src |  A single .ml source file label.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 

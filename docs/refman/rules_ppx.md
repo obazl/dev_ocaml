@@ -59,7 +59,7 @@ PPX executable docstring ...
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_executable-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ppx_executable-adjunct_deps"></a>adjunct_deps |  (Lazy) eXtension Dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_executable-adjunct_deps"></a>adjunct_deps |  Adjunct dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_executable-cc_deps"></a>cc_deps |  C/C++ library dependencies   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_executable-data"></a>data |  Runtime data dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_executable-deps"></a>deps |  Deps needed to build this ppx executable.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
@@ -79,8 +79,8 @@ PPX executable docstring ...
 ## ppx_module
 
 <pre>
-ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_deps">adjunct_deps</a>, <a href="#ppx_module-cc_deps">cc_deps</a>, <a href="#ppx_module-cc_opts">cc_opts</a>, <a href="#ppx_module-data">data</a>, <a href="#ppx_module-deps">deps</a>, <a href="#ppx_module-doc">doc</a>, <a href="#ppx_module-intf">intf</a>, <a href="#ppx_module-lazy_deps">lazy_deps</a>, <a href="#ppx_module-linkopts">linkopts</a>,
-           <a href="#ppx_module-module_name">module_name</a>, <a href="#ppx_module-msg">msg</a>, <a href="#ppx_module-ns">ns</a>, <a href="#ppx_module-opts">opts</a>, <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-src">src</a>)
+ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_deps">adjunct_deps</a>, <a href="#ppx_module-cc_deps">cc_deps</a>, <a href="#ppx_module-cc_opts">cc_opts</a>, <a href="#ppx_module-data">data</a>, <a href="#ppx_module-deps">deps</a>, <a href="#ppx_module-doc">doc</a>, <a href="#ppx_module-intf">intf</a>, <a href="#ppx_module-linkopts">linkopts</a>, <a href="#ppx_module-module_name">module_name</a>, <a href="#ppx_module-msg">msg</a>,
+           <a href="#ppx_module-ns">ns</a>, <a href="#ppx_module-opts">opts</a>, <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-src">src</a>)
 </pre>
 
 
@@ -90,14 +90,13 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_dep
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_module-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ppx_module-adjunct_deps"></a>adjunct_deps |  PPX lazy (i.e. 'runtime') deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_module-adjunct_deps"></a>adjunct_deps |  PPX adjunct (i.e. 'runtime') dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-cc_deps"></a>cc_deps |  C/C++ library dependencies. Keys: lib target. Vals: 'default', 'static', 'dynamic'   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_module-cc_opts"></a>cc_opts |  C/C++ options   | List of strings | optional | [] |
 | <a id="ppx_module-data"></a>data |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-deps"></a>deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-doc"></a>doc |  Docstring   | String | optional | "" |
 | <a id="ppx_module-intf"></a>intf |  Single label of a target providing a single .cmi file (not a .mli source file). Optional   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="ppx_module-lazy_deps"></a>lazy_deps |  PPX lazy (i.e. 'runtime') deps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
 | <a id="ppx_module-module_name"></a>module_name |  Allows user to specify a module name different than the target name.   | String | optional | "" |
 | <a id="ppx_module-msg"></a>msg |  -   | String | optional | "" |
