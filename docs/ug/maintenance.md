@@ -1,13 +1,43 @@
 maintenance
 ===========
 
--   [Overview](#overview)
+-   [Tasks](#tasks)
+    -   [File edits](#fileedits)
 -   [Batch Editing](#batch)
     -   [Patching](#patching)
 -   [Case study](#case)
 
-<a name="overview">Overview</a>
--------------------------------
+<a name="tasks">Tasks</a>
+-------------------------
+
+### <a name="fileedits">File edits</a>
+
+Changes to source files do not affect build logic, *unless* they involve
+dependencies. If you add or remove a dependency, you should edit the
+`BUILD.bazel` file accordingly.
+
+**OCaml Dependencies**
+
+Dependencies expressed in the build file that are not in fact used by
+the source code do not break the build, but do make it inefficient. Two
+tools are available to check OCaml dependencies:
+
+-   [ocamldep](https://caml.inria.fr/pub/docs/manual-ocaml/depend.html)
+    the legacy tool; and
+-   [codept](https://opam.ocaml.org/packages/codept/), a more powerful
+    dependency solver.
+
+**Runtime Dependencies**
+
+Source files that access the filesystem (e.g. by reading a data file)
+may have *runtime dependencies*. These should be listed in the `data`
+attribute.
+
+**PPX Dependencies**
+
+PPX extensions may involve file reads; for example,
+[ppx\_optcomp](https://github.com/janestreet/ppx_optcomp) supports an
+`[@@import` *filename*`]` extension.
 
 <a name="batch">Batch Editing</a>
 ---------------------------------

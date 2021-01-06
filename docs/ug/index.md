@@ -8,6 +8,7 @@ OBazl User Guide
     -   [CC Dependencies](cc_deps.md)
     -   [OCaml Dependencies](ocam_deps.md)
 -   [Maintenance](maintenance.md)
+-   [PPX Support](ppx.md)
 
 -   Rule Usage
 
