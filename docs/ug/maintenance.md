@@ -111,7 +111,7 @@ print any instances whose `opts` attribute is not empty:
 
 ``` {.shell}
 $ bazel query 'attr(opts, "\[ *]", kind("ocaml_ns", //src/...:all))' | sort
-$ bazel query 'attr(opts, "\[[^ ]\]", kind("ocaml_ns", //src/...:all))' | sort
+$ bazel query 'attr(opts, "\[.*[^ ].*\]", kind("ocaml_ns", //src/...:all))' | sort
 ```
 
 Note that the second argument to the `attr` function is a regular
@@ -137,7 +137,7 @@ rule "//mina/gitfork/src/...:Tweedle_ns" has no attribute "opts"
 ...
 ```
 
-Using `query`: this is a little bit tricker, since the query facility
+Using `query`: this is a little bit trickier, since the query facility
 looks at rule definitions as well as instances, unlike `buildozer`. The
 `attr` function we used above will treat every instance of `ocaml_ns` as
 containing an `opts` attribute even if it is not explicity expressed by
@@ -145,9 +145,16 @@ the instance code, since it is defined for the rule and therefore has a
 default value. So if we run the query we ran previously after removal of
 the `opts` attribute from the `BUILD.bazel` files but before its removal
 from the rule definition, we get a list of all the `ocaml_ns` instances.
-But if we run it after the rule definition has been changed, it produces
-the empty list, verifying our `buildozer` edit.
+But if we run it after the rule definition has been changed, then,
+assuming our remove command succeeded, it will produce the empty list,
+verifying our `buildozer` edit. On the other hand, if an `ocaml_ns`
+instance has an `opts` attribute, running the query will throw an
+exception complaining that the rule has no `opts` attribute. So strictly
+speaking we do not need to run this query, we can just run a build.
 
 ``` {.shell}
-$ bazel query 'attr(opts, "\[ *]", kind("ocaml_ns", //src/...:all))' | sort
+$ bazel query 'attr(opts, ".*", kind("ocaml_ns", //src/...:all))' | sort
 ```
+
+(Note: we changed the regex to match anything, since we just want to
+know if the attribute exists.)
