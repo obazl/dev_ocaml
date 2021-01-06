@@ -3,7 +3,7 @@ PPX Support
 
 PPX = PreProcessor eXtension.
 
-### <a name="ppx_print">ppx\_print</a> attribute
+### attribute: <a name="ppx_print">ppx\_print</a>
 
 PPX executables can emit the AST they produce in binary or text form.
 
@@ -20,7 +20,7 @@ add `-dump-ast` as a command line option when running the
 omits the argument.
 
 The default print output format is determined by the [configurable
-default](cfgdefs.md) target `@ppx//print`, which in turn defaults to
+default](asdf.md) target `@ppx//print`, which in turn defaults to
 binary. You can change the global default to print by passing
 `--@ppx//print:text` on the command line. Use the `ppx_print` attribute
 to override this global default.
