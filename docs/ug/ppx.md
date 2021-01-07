@@ -3,7 +3,14 @@ PPX Support
 
 PPX = PreProcessor eXtension.
 
-### attribute: <a name="ppx_print">ppx\_print</a>
+<a name="ppx-attrs">PPX-related attributes</a>
+----------------------------------------------
+
+### <a name="ppx_print">ppx</a>
+
+### <a name="ppx_print">ppx\_data</a>
+
+### <a name="ppx_print">ppx\_print</a>
 
 PPX executables can emit the AST they produce in binary or text form.
 
