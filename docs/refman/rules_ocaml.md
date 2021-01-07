@@ -58,7 +58,7 @@ may have its own set of configurable defaults.
 
 ----
 
-<a id="#ocaml_archive"></a>
+<a name="#ocaml_archive" id="#ocaml_archive"></a>
 
 ## ocaml_archive
 
@@ -98,7 +98,7 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 
 ----
 
-<a id="#ocaml_executable"></a>
+<a name="#ocaml_executable" id="#ocaml_executable"></a>
 
 ## ocaml_executable
 
@@ -144,7 +144,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 
 ----
 
-<a id="#ocaml_import"></a>
+<a name="#ocaml_import" id="#ocaml_import"></a>
 
 ## ocaml_import
 
@@ -166,7 +166,7 @@ Imports a pre-compiled OCaml binary. [User Guide](../ug/ocaml_import.md).
 
 ----
 
-<a id="#ocaml_interface"></a>
+<a name="#ocaml_interface" id="#ocaml_interface"></a>
 
 ## ocaml_interface
 
@@ -210,7 +210,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 
 ----
 
-<a id="#ocaml_library"></a>
+<a name="#ocaml_library" id="#ocaml_library"></a>
 
 ## ocaml_library
 
@@ -266,7 +266,7 @@ See [OCaml Dependencies](../ug/ocaml_deps.md) for more information on OCaml depe
 
 ----
 
-<a id="#ocaml_module"></a>
+<a name="#ocaml_module" id="#ocaml_module"></a>
 
 ## ocaml_module
 
@@ -337,7 +337,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 
 ----
 
-<a id="#ocaml_ns"></a>
+<a name="#ocaml_ns" id="#ocaml_ns"></a>
 
 ## ocaml_ns
 

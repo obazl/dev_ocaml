@@ -13,7 +13,7 @@
 
 ----
 
-<a id="#ppx_archive"></a>
+<a name="#ppx_archive" id="#ppx_archive"></a>
 
 ## ppx_archive
 
@@ -40,7 +40,7 @@ ppx_archive(<a href="#ppx_archive-name">name</a>, <a href="#ppx_archive-archive_
 
 ----
 
-<a id="#ppx_executable"></a>
+<a name="#ppx_executable" id="#ppx_executable"></a>
 
 ## ppx_executable
 
@@ -74,7 +74,7 @@ PPX executable docstring ...
 
 ----
 
-<a id="#ppx_module"></a>
+<a name="#ppx_module" id="#ppx_module"></a>
 
 ## ppx_module
 
@@ -112,7 +112,7 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_dep
 
 ----
 
-<a id="#ppx_ns"></a>
+<a name="#ppx_ns" id="#ppx_ns"></a>
 
 ## ppx_ns
 
@@ -137,7 +137,7 @@ ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_nam
 
 ----
 
-<a id="#ppx_test"></a>
+<a name="#ppx_test" id="#ppx_test"></a>
 
 ## ppx_test
 
