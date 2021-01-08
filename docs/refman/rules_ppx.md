@@ -29,13 +29,14 @@ ppx_archive(<a href="#ppx_archive-name">name</a>, <a href="#ppx_archive-archive_
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="ppx_archive-archive_name"></a>archive_name |  -   | String | optional | "" |
-| <a id="ppx_archive-deps"></a>deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_archive-deps"></a>deps |  -   Providers:   [DefaultInfo](providers_ocaml.md#defaultinfo)    [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_archive-dump_ast"></a>dump_ast |  -   | Boolean | optional | True |
-| <a id="ppx_archive-lazy_deps"></a>lazy_deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_archive-lazy_deps"></a>lazy_deps |  -   Providers:   [DefaultInfo](providers_ocaml.md#defaultinfo)    [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_archive-linkshared"></a>linkshared |  -   | Boolean | optional | False |
 | <a id="ppx_archive-msg"></a>msg |  -   | String | optional | "" |
 | <a id="ppx_archive-opts"></a>opts |  -   | List of strings | optional | [] |
-| <a id="ppx_archive-preprocessor"></a>preprocessor |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_archive-preprocessor"></a>preprocessor |  -   Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+
 
 
 ----
@@ -60,16 +61,17 @@ PPX executable docstring ...
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_executable-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="ppx_executable-adjunct_deps"></a>adjunct_deps |  Adjunct dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_executable-cc_deps"></a>cc_deps |  C/C++ library dependencies   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
+| <a id="ppx_executable-cc_deps"></a>cc_deps |  C/C++ library dependencies   Providers:   [CcInfo](providers_ocaml.md#ccinfo)    | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_executable-data"></a>data |  Runtime data dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_executable-deps"></a>deps |  Deps needed to build this ppx executable.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_executable-deps"></a>deps |  Deps needed to build this ppx executable.   Providers:   [DefaultInfo](providers_ocaml.md#defaultinfo)    [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_executable-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
-| <a id="ppx_executable-main"></a>main |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="ppx_executable-main"></a>main |  -   Providers:   [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 | <a id="ppx_executable-message"></a>message |  -   | String | optional | "" |
 | <a id="ppx_executable-opts"></a>opts |  -   | List of strings | optional | [] |
-| <a id="ppx_executable-ppx"></a>ppx |  PPX binary (executable).   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_executable-ppx"></a>ppx |  PPX binary (executable).   Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_executable-print"></a>print |  Format of output of PPX transform, binary (default) or text   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ppx_executable-runtime_args"></a>runtime_args |  List of args that must be passed to the ppx_executable at runtime. E.g. -inline-test-lib.   | List of strings | optional | [] |
+
 
 
 ----
@@ -91,23 +93,24 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_dep
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_module-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="ppx_module-adjunct_deps"></a>adjunct_deps |  PPX adjunct (i.e. 'runtime') dependencies.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_module-cc_deps"></a>cc_deps |  C/C++ library dependencies. Keys: lib target. Vals: 'default', 'static', 'dynamic'   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
+| <a id="ppx_module-cc_deps"></a>cc_deps |  C/C++ library dependencies. Keys: lib target. Vals: 'default', 'static', 'dynamic'   Providers:   [CcInfo](providers_ocaml.md#ccinfo)    | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_module-cc_opts"></a>cc_opts |  C/C++ options   | List of strings | optional | [] |
 | <a id="ppx_module-data"></a>data |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-deps"></a>deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-doc"></a>doc |  Docstring   | String | optional | "" |
-| <a id="ppx_module-intf"></a>intf |  Single label of a target providing a single .cmi file (not a .mli source file). Optional   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_module-intf"></a>intf |  Single label of a target providing a single .cmi file (not a .mli source file). Optional   Providers:   [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-linkopts"></a>linkopts |  -   | List of strings | optional | [] |
 | <a id="ppx_module-module_name"></a>module_name |  Allows user to specify a module name different than the target name.   | String | optional | "" |
 | <a id="ppx_module-msg"></a>msg |  -   | String | optional | "" |
 | <a id="ppx_module-ns"></a>ns |  Label of a [ppx_ns](#ppx_ns) target. Used to derive namespace, output name, -open arg, etc.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-opts"></a>opts |  -   | List of strings | optional | [] |
-| <a id="ppx_module-ppx"></a>ppx |  PPX binary (executable) used to transform source before compilation.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_module-ppx"></a>ppx |  PPX binary (executable) used to transform source before compilation.   Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-ppx_args"></a>ppx_args |  Arguments to pass to ppx executable.  (E.g. ["-cookie", "library-name=\"ppx_version\""]   | List of strings | optional | [] |
 | <a id="ppx_module-ppx_data"></a>ppx_data |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ppx_module-runtime_deps"></a>runtime_deps |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-src"></a>src |  A single .ml source file label.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+
 
 
 ----
@@ -135,6 +138,7 @@ ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_nam
 | <a id="ppx_ns-submodules"></a>submodules |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 
 
+
 ----
 
 <a name="#ppx_test" id="#ppx_test"></a>
@@ -159,8 +163,9 @@ ppx_test(<a href="#ppx_test-name">name</a>, <a href="#ppx_test-cookies">cookies<
 | <a id="ppx_test-message"></a>message |  -   | String | optional | "" |
 | <a id="ppx_test-mode"></a>mode |  -   | String | optional | "native" |
 | <a id="ppx_test-output"></a>output |  Format of output of PPX transform, binary (default) or text   | String | optional | "binary" |
-| <a id="ppx_test-ppx"></a>ppx |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="ppx_test-ppx"></a>ppx |  -   Providers:   [DefaultInfo](providers_ocaml.md#defaultinfo)    [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider)    | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 | <a id="ppx_test-src"></a>src |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_test-verbose"></a>verbose |  Adds 'set -x' to the script run by this rule, so the effective command (with substitutions) will be written to the log.   | Boolean | optional | False |
+
 
 
