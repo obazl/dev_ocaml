@@ -40,9 +40,9 @@ Bazel rules may execute multiple actions. For example, if you pass a
 attribute, it will run a `PpxTransformAction` action (and possibly other
 actions) before it runs a compile action. If you use the `ocaml_ns`
 rule, then the `ocaml_module` rules for its submodules will run
-`rename_src_actions`. The output of `aquery` will show you all these
-actions, including their inputs, outputs, command lines, and other
-information.
+`rename_src_actions` before they run compile actions. The output of
+`aquery` will show you all these actions, including their inputs,
+outputs, command lines, and other information.
 
 Furthermore, the inputs for an action include *everything* needed by the
 action, including all the tools it uses; this can be very useful if the
