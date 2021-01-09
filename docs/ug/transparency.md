@@ -19,7 +19,7 @@ Inspecting command lines
 Bazel rules typically generate *action* commands that drive build tools
 (compilers, linkers, etc.). Bazel also caches aggressively; when you
 build a target, its target/dependency/action graphs are cached, so if
-you build it again Bazel will just show you cached the result of the
+you build it again Bazel will just show you the cached result of the
 previous build instead of rebuilding (unless its dependencies have
 changed). If you need to see the command that was used to build it, you
 can delete its output or run `bazel clean` to force a rebuild. But
