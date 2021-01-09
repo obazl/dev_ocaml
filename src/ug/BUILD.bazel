@@ -1,0 +1,150 @@
+load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+
+#######
+pandoc(
+    name = "index",
+    src = "index_ug.md",
+    output = "index.md",  # optional, derived from name and to_format by default
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "ccdeps",
+    src = "dependencies_cc_ug.md",
+    output = "dependencies_cc.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "bootstrap",
+    src = "bootstrap_ug.md",
+    output = "bootstrap.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "collections",
+    src = "collections_ug.md",
+    output = "collections.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "configdefs",
+    src = "configurable_defaults_ug.md",
+    output = "configurable_defaults.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "conventions",
+    src = "conventions_ug.md",
+    output = "conventions.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "dependencies",
+    src = "dependencies_ocaml_ug.md",
+    output = "dependencies_ocaml.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "ocamldeps",
+    src = "ocamldeps.md",
+    output = "ocaml_deps.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "maintenance",
+    src = "maintenance_ug.md",
+    output = "maintenance.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "namespacing",
+    src = "namespacing_ug.md",
+    output = "namespacing.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "ppx",
+    src = "ppx_ug.md",
+    output = "ppx.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "transparency",
+    src = "transparency_ug.md",
+    output = "transparency.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "workflow",
+    src = "workflow_ug.md",
+    output = "workflow.md",
+    visibility = ["//visibility:public"],
+)
+
+################ rules ################
+pandoc(
+    name = "ocaml_archive",
+    src = "ocaml_archive_ug.md",
+    output = "ocaml_archive.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_executable",
+    src = "ocaml_executable_ug.md",
+    output = "ocaml_executable.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_interface",
+    src = "ocaml_interface_ug.md",
+    output = "ocaml_interface.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_import",
+    src = "ocaml_import_ug.md",
+    output = "ocaml_import.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_library",
+    src = "ocaml_library_ug.md",
+    output = "ocaml_library.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_module",
+    src = "ocaml_module_ug.md",
+    output = "ocaml_module.md",
+    visibility = ["//visibility:public"],
+)
+pandoc(
+    name = "ocaml_ns",
+    src = "ocaml_ns_ug.md",
+    output = "ocaml_ns.md",
+    visibility = ["//visibility:public"],
+)
+

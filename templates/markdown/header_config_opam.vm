@@ -1,0 +1,26 @@
+[Reference Manual](index.md)
+
+# opam configuration
+
+**WARNING**  beta version - subject to change
+
+WORKSPACE.bazel:
+
+```
+git_repository(
+    name = "obazl_rules_opam",
+    remote = "https://github.com/obazl/rules_opam",
+    branch = "main",
+)
+
+load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
+load("//:opam.bzl", "opam")  # An OpamConfig struct defined by user
+switch = opam_configure(opam = opam)
+```
+
+**NOTES**
+
+* The [OpamConfig](#opamconfig) struct can be defined in any package.
+* Load and configure the `opam` repo before the `ocaml` repo.
+
+----

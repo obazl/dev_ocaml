@@ -1,0 +1,9 @@
+load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+
+pandoc(
+    name = "index",
+    src = "index_main.md",
+    output = "index.md",
+    visibility = ["//visibility:public"],
+)
+

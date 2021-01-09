@@ -1,0 +1,202 @@
+load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+
+RULES_PPX_DEPS = [
+    "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+    "@obazl_rules_ocaml//ocaml:bootstrap",
+    "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+    "@obazl_rules_ocaml//ocaml/_rules:ppx_rules",
+    "@obazl_rules_opam//opam:bootstrap",
+    "@obazl_rules_opam//opam/_debug:debug",
+    "@obazl_rules_opam//opam/_functions:functions",
+    "@obazl_rules_opam//opam/_bootstrap:bootstrap",
+    "@obazl_tools_bazel//tools/functions",
+    "@bazel_skylib//lib:collections",
+    "@bazel_skylib//lib:types",
+]
+
+################################################################
+stardoc(
+    name = "config_ocaml",
+    input = ":config_ocaml.bzl",
+    out = "config_ocaml.md",
+    func_template = "//templates/markdown:func_config.vm",
+    provider_template = "//templates/markdown:provider_config.vm",
+    header_template = "//templates/markdown:header_config_ocaml.vm",
+    deps  = RULES_PPX_DEPS + [
+        "@obazl_rules_opam//opam:providers",
+    ],
+    symbol_names = [
+        "ocaml_configure",
+    ]
+)
+
+stardoc(
+    name = "config_opam",
+    input = ":config_opam.bzl",
+    out = "config_opam.md",
+    func_template = "//templates/markdown:func_config.vm",
+    header_template = "//templates/markdown:header_config_opam.vm",
+    provider_template = "//templates/markdown:provider_config.vm",
+    deps  = RULES_PPX_DEPS + [
+        "@obazl_rules_opam//opam:providers",
+    ],
+    symbol_names = [
+        "opam_configure",
+        "OpamConfig",
+        "OpamSwitch"
+    ]
+)
+
+################################################################
+stardoc(
+    name = "ocaml_archive",
+    input = "rules_ocaml.bzl",
+    # out = "ocaml_archive.dita",
+    out = "ocaml_archive.md",
+    rule_template = select({
+        "//:dita_enabled": "//templates/dita:rule.vm",
+        "//conditions:default": "//templates/markdown:rule.vm"
+    }),
+    header_template = select({
+        "//:dita_enabled": "//templates/dita:header_rules.vm",
+        "//conditions:default": "//templates/markdown:header_rules_ocaml.vm"
+    }),
+    deps  = [
+        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+        "@obazl_rules_ocaml//ocaml:bootstrap",
+        "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+    ],
+    symbol_names = [
+        "ocaml_archive",
+    ]
+)
+
+################################################################
+stardoc(
+    name = "rules_ocaml",
+    input = "rules_ocaml.bzl",
+    out = "rules_ocaml.md",
+    header_template = "//templates/markdown:header_rules_ocaml.vm",
+    rule_template = "//templates/markdown:rule.vm",
+    deps  = [
+        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+        "@obazl_rules_ocaml//ocaml:bootstrap",
+        "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+    ],
+    symbol_names = [
+        "ocaml_archive",
+        "ocaml_executable",
+        "ocaml_import",
+        "ocaml_interface",
+        "ocaml_library",
+        "ocaml_module",
+        "ocaml_ns",
+    ]
+)
+
+stardoc(
+    name = "rules_ppx",
+    input = ":rules_ppx.bzl",
+    out = "rules_ppx.md",
+    header_template = "//templates/markdown:header_rules_ppx.vm",
+    rule_template = "//templates/markdown:rule.vm",
+    deps  = RULES_PPX_DEPS,
+    symbol_names = [
+        "ppx_archive",
+        "ppx_executable",
+        # "ppx_library",
+        "ppx_module",
+        "ppx_ns",
+        "ppx_test",
+    ]
+)
+
+# stardoc(
+#     name = "ocaml_archive_doc",
+#     input = "@obazl_rules_ocaml//ocaml/_rules:ocaml_archive.bzl",
+#     out = "ocaml_archive_doc.md",
+#     provider_template = "//templates/markdown:provider.vm",
+#     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+#     rule_template = "//templates/markdown:rule.vm",
+#     # rule_template = "@io_bazel_stardoc//stardoc:templates/html_tables/rule.vm",
+#     deps  = [
+#         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+#     ],
+#     symbol_names = [
+#         "ocaml_archive",
+#     ]
+# )
+
+stardoc(
+    name = "providers_ocaml",
+    input = ":providers_ocaml.bzl",
+    out = "providers_ocaml.md",
+    header_template   = "//templates/markdown:header_providers_ocaml.vm",
+    provider_template = "//templates/markdown:provider.vm",
+    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    deps  = [
+        "@obazl_rules_ocaml//ocaml:providers",
+    ],
+    symbol_names = [
+        "OpamPkgInfo",
+        "OcamlDepsetProvider",
+        "OcamlArchivePayload",
+        "OcamlArchiveProvider",
+        "OcamlImportProvider",
+        "OcamlInterfaceProvider",
+        "OcamlInterfacePayload",
+        "OcamlLibraryProvider",
+        "OcamlModuleProvider",
+        "OcamlModulePayload",
+        "OcamlNsModuleProvider",
+        "OcamlNsModulePayload"
+    ]
+)
+
+stardoc(
+    name = "providers_ppx",
+    input = ":providers_ppx.bzl",
+    out = "providers_ppx.md",
+    header_template   = "//templates/markdown:header_providers_ppx.vm",
+    provider_template = "//templates/markdown:provider.vm",
+    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    deps  = [
+        "@obazl_rules_ocaml//ocaml:providers",
+    ],
+    symbol_names = [
+        "PpxDepsetProvider",
+        "PpxArchiveProvider",
+        "PpxExecutableProvider"
+    ]
+)
+
+################################################################
+pandoc(
+    name = "index",
+    src = "index_main.md",
+    output = "index.md",
+    visibility = ["//visibility:public"],
+)
+
+pandoc(
+    name = "config",
+    src = "config_main.md",
+    output = "config.md",
+    visibility = ["//visibility:public"],
+)
+
+pandoc(
+    name = "linkmode",
+    src = "linkmode.md",
+    output = "linkmode_doc.md",
+    visibility = ["//visibility:public"],
+)
+
+pandoc(
+    name = "interop",
+    src = "interop.md",
+    output = "interop_doc.md",
+    visibility = ["//visibility:public"],
+)
+
