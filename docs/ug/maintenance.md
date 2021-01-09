@@ -57,9 +57,9 @@ tool makes it easy to batch edit build files. You can:
 Bazel's query facilities
 ([query](https://docs.bazel.build/versions/master/query.html),
 [cquery](https://docs.bazel.build/versions/master/cquery.html),
-[aquery](https://docs.bazel.build/versions/master/aquery.html)) make it
-easy to inspect the build structure of your project, so that you can
-decide how to structure your `buildozer` commands.
+[aquery](https://blog.bazel.build/2019/02/15/introducing-aquery.html))
+make it easy to inspect the build structure of your project, so that you
+can decide how to structure your `buildozer` commands.
 
 To ensure that your `buildozer` commands are correct, you can first use
 its `print` subcommand to get an idea of how it analyzes your code.

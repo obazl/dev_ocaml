@@ -5,12 +5,17 @@ OBazl User Guide
 -   [Bootstrapping and Configuration](bootstrap.md)
 -   [Configurable Defaults](configurable_defaults.md)
 -   Depencencies
-    -   [CC Dependencies](cc_deps.md)
-    -   [OCaml Dependencies](ocam_deps.md)
+    -   [OCaml Dependencies](dependencies_ocaml.md)
+    -   [CC Dependencies](dependencies_cc.md)
 -   [Maintenance](maintenance.md)
 -   [PPX Support](ppx.md)
+-   [Transparency](transparency.md): Inspecting Build Commands, Actions,
+    etc.
+-   [Workflow](workflow.md)
 
--   Rule Usage
+------------------------------------------------------------------------
+
+-   Rules
 
     -   [ocaml\_archive](ocaml_archive.md)
     -   [ocaml\_executable](ocaml_executable.md)

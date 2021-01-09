@@ -66,7 +66,7 @@ Provided by rule: [ocaml_archive](rules_ocaml.md#ocaml_archive)
 ## OcamlDepsetProvider
 
 <pre>
-OcamlDepsetProvider(<a href="#OcamlDepsetProvider-opam">opam</a>, <a href="#OcamlDepsetProvider-nopam">nopam</a>, <a href="#OcamlDepsetProvider-cclib">cclib</a>)
+OcamlDepsetProvider(<a href="#OcamlDepsetProvider-opam">opam</a>, <a href="#OcamlDepsetProvider-nopam">nopam</a>, <a href="#OcamlDepsetProvider-cc_deps">cc_deps</a>, <a href="#OcamlDepsetProvider-cc_linkall">cc_linkall</a>)
 </pre>
 
 A Provider struct used by OBazl rules to provide heterogenous dependencies. Not provided by rule.
@@ -78,7 +78,8 @@ A Provider struct used by OBazl rules to provide heterogenous dependencies. Not 
 | ------------- | ------------- |
 | <a id="OcamlDepsetProvider-opam"></a>opam |  depset of OPAM deps (Labels) of target    |
 | <a id="OcamlDepsetProvider-nopam"></a>nopam |  depset of non-OPAM deps (Files) of target    |
-| <a id="OcamlDepsetProvider-cclib"></a>cclib |  depset of C/C++ lib deps    |
+| <a id="OcamlDepsetProvider-cc_deps"></a>cc_deps |  depset of C/C++ lib deps    |
+| <a id="OcamlDepsetProvider-cc_linkall"></a>cc_linkall |  string list of cc libs to link with <code>-force_load</code> (Clang) or <code>-whole-archive</code> (Linux). (Corresponds to <code>alwayslink</code> attribute of cc_library etc., and <code>-linkall</code> option for OCaml.)    |
 
 
 <a id="#OcamlImportProvider"></a>
