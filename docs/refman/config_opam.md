@@ -42,7 +42,7 @@ OPAM configuration structure.
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OpamConfig-version"></a>version |  OPAM version    |
-| <a id="OpamConfig-switches"></a>switches |  List of [OpamSwitch](#opamswitch) structures    |
+| <a id="OpamConfig-switches"></a>switches |  Dictionary from switch name strings to [OpamSwitch](#opamswitch) structures. Example: <pre><code> PACKAGES = {"bin_prot": ["v0.12.0"], ...}<br><br>opam = OpamConfig(<br><br>    version = "2.0",<br><br>    switches  = {<br><br>        "mina-0.1.0": OpamSwitch(<br><br>            default  = True,<br><br>            compiler = "4.07.1",<br><br>            packages = PACKAGES<br><br>        ),<br><br>        "4.07.1": OpamSwitch(<br><br>            compiler = "4.07.1",<br><br>            packages = PACKAGES<br><br>        ),<br><br>    }<br><br>) </code></pre>    |
 
 
 <a id="#OpamSwitch"></a>
@@ -55,13 +55,27 @@ OpamSwitch(<a href="#OpamSwitch-default">default</a>, <a href="#OpamSwitch-compi
 
 OPAM switch configuration.
 
-    Package specification format (by example):
+Example:
 
-    - `"alcotest": ["1.1.0"]`
-    - `"ppx_deriving_yojson": ["3.5.2", ["ppx_deriving_yojson.runtime"]]`
-    - `"ppx_deriving": ["4.4.1", ["ppx_deriving.api", "ppx_deriving.enum"]]`
-    - `"async_kernel": ["v0.12.0", "src/external/async_kernel"]` # pin pkg to path
-
+```
+OpamSwitch(
+    default  = True,
+    compiler = "4.07.1",
+    packages = {
+        "async": ["v0.12.0"],
+        "bytes": [],
+        "core": ["v0.12.1"],
+        "ctypes": ["0.17.1", ["ctypes.foreign", "ctypes.stubs"]],
+        "ppx_deriving": ["4.4.1", [
+            "ppx_deriving.enum",
+            "ppx_deriving.eq",
+            "ppx_deriving.show"
+        ]],
+        "ppx_deriving_yojson": ["3.5.2", ["ppx_deriving_yojson.runtime"]],
+        "unix": [],
+    }
+)
+```
     
 
 **FIELDS**
@@ -71,7 +85,7 @@ OPAM switch configuration.
 | ------------- | ------------- |
 | <a id="OpamSwitch-default"></a>default |  Must be True for exactly one switch configuration. Default: False    |
 | <a id="OpamSwitch-compiler"></a>compiler |  OCaml compiler version    |
-| <a id="OpamSwitch-packages"></a>packages |  Dict of required OPAM packages. Keys: package name strings. Values: package spec.    |
+| <a id="OpamSwitch-packages"></a>packages |  List of <code>&lt;pkg name string&gt;: [&lt;version string&gt;] \| [&lt;version string&gt; [&lt;subpkg names&gt;]]</code>, where:<br><br><pre><code> &lt;pkg name string&gt; := name string used for <code>opam</code> or <code>ocamlfind</code> commands<br><br>&lt;version string&gt;  := version string as printed by <code>opam list</code><br><br>&lt;subpkg names&gt;    := list of subpackage name strings as used by ocamlfind </code></pre> Subpackage name strings have the form &lt;pkg&gt;.&lt;subpkg&gt;, and may be discovered by running <code>ocamlfind list</code>.<br><br>**Exception**: for packages that are distributed with the compiler and   have no version string, use the empty list <code>[]</code>; e.g. <code>"bytes": []</code>.    |
 
 
 <a id="#opam_configure"></a>
