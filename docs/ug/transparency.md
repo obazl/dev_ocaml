@@ -1,13 +1,11 @@
 Transparency: Inspecting Build Commands, Actions, etc.
 ======================================================
 
-Inspecting command lines
-------------------------
+The command log
+---------------
 
-Bazel rules typically generate *action* commands that drive build tools
-(compilers, linkers, etc.). Bazel logs these commands to a
-`command_log`; each Bazel command overwrites the output of the previous
-command. You can discover the location of this log by running
+Bazel logs commands; each Bazel command overwrites the output of the
+previous command. You can discover the location of this log by running
 `$ bazel info` or `$ bazel info command_log`. Of course those are Bazel
 commands, so they overwrite the command\_log. To make it easy to browse
 the log for the most recent command, you can use a simple alias, e.g.
@@ -15,13 +13,17 @@ the log for the most recent command, you can use a simple alias, e.g.
 You can put this in a file and source it, or add it to your
 `.bash_profile`.
 
-Bazel caches aggressively; when you build a target, its
-target/dependency/action graphs are cached, so if you build it again
-Bazel will just show you cached the result of the previous build instead
-of rebuilding (unless its dependencies have changed). If you need to see
-the command that was used to build it, you can delete its output or run
-`bazel clean` to force a rebuild. But that's inefficient, and Bazel
-offers a much better way: [action graph
+Inspecting command lines
+------------------------
+
+Bazel rules typically generate *action* commands that drive build tools
+(compilers, linkers, etc.). Bazel also caches aggressively; when you
+build a target, its target/dependency/action graphs are cached, so if
+you build it again Bazel will just show you cached the result of the
+previous build instead of rebuilding (unless its dependencies have
+changed). If you need to see the command that was used to build it, you
+can delete its output or run `bazel clean` to force a rebuild. But
+that's inefficient, and Bazel offers a much better way: [action graph
 queries](https://blog.bazel.build/2019/02/15/introducing-aquery.html).
 
 The [aquery](https://docs.bazel.build/versions/master/aquery.html)
