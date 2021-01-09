@@ -49,28 +49,28 @@ stardoc(
 )
 
 ################################################################
-stardoc(
-    name = "ocaml_archive",
-    input = "rules_ocaml.bzl",
-    # out = "ocaml_archive.dita",
-    out = "ocaml_archive.md",
-    rule_template = select({
-        "//:dita_enabled": "//templates/dita:rule.vm",
-        "//conditions:default": "//templates/markdown:rule.vm"
-    }),
-    header_template = select({
-        "//:dita_enabled": "//templates/dita:header_rules.vm",
-        "//conditions:default": "//templates/markdown:header_rules_ocaml.vm"
-    }),
-    deps  = [
-        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-        "@obazl_rules_ocaml//ocaml:bootstrap",
-        "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
-    ],
-    symbol_names = [
-        "ocaml_archive",
-    ]
-)
+# stardoc(
+#     name = "ocaml_archive",
+#     input = "rules_ocaml.bzl",
+#     # out = "ocaml_archive.dita",
+#     out = "ocaml_archive.md",
+#     rule_template = select({
+#         "//:dita_enabled": "//templates/dita:rule.vm",
+#         "//conditions:default": "//templates/markdown:rule.vm"
+#     }),
+#     header_template = select({
+#         "//:dita_enabled": "//templates/dita:header_rules.vm",
+#         "//conditions:default": "//templates/markdown:header_rules_ocaml.vm"
+#     }),
+#     deps  = [
+#         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+#         "@obazl_rules_ocaml//ocaml:bootstrap",
+#         "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+#     ],
+#     symbol_names = [
+#         "ocaml_archive",
+#     ]
+# )
 
 ################################################################
 stardoc(

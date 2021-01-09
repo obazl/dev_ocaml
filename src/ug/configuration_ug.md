@@ -1,8 +1,30 @@
-[Reference Manual](index.md)
+# Configuration
 
-# ocaml configuration
+`opam.bzl`:
 
-**WARNING**  beta version - subject to change
+```
+load("@obazl_rules_opam//opam:providers.bzl", "OpamConfig", "OpamSwitch")
+
+PACKAGES = {
+    "bin_prot": ["v0.12.0"],
+    ... etc. ...
+}
+
+opam = OpamConfig(
+    version = "2.0",
+    switches  = {
+        "dev-0.1.0": OpamSwitch(
+            default  = True,
+            compiler = "4.07.1",
+            packages = PACKAGES
+        ),
+        "4.07.1": OpamSwitch(
+            compiler = "4.07.1",
+            packages = PACKAGES
+        ),
+    }
+)
+```
 
 WORKSPACE.bazel:
 
@@ -32,28 +54,3 @@ switch = opam_configure(opam = opam)
 load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")
 ocaml_configure( switch = switch )
 ```
-
-**NOTES**
-
-* Load and configure the `opam` repo before the `ocaml` repo.
-
-----
-<a id="#ocaml_configure"></a>
-
-## Function: ocaml_configure
-
-<pre>
-ocaml_configure(<a href="#ocaml_configure-debug">debug</a>, <a href="#ocaml_configure-switch">switch</a>)
-</pre>
-
-Declares workspaces (repositories) the Ocaml rules depend on.
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| ------------- | ------------- | ------------- |
-| <a id="ocaml_configure-debug"></a>debug |  enable debugging   |  <code>False</code> |
-| <a id="ocaml_configure-switch"></a>switch |  name of OPAM switch to use for builds   |  <code>None</code> |
-
-

@@ -10,17 +10,17 @@ pandoc(
 
 #######
 pandoc(
-    name = "ccdeps",
-    src = "dependencies_cc_ug.md",
-    output = "dependencies_cc.md",
+    name = "bootstrap",
+    src = "bootstrap_ug.md",
+    output = "bootstrap.md",
     visibility = ["//visibility:public"],
 )
 
 #######
 pandoc(
-    name = "bootstrap",
-    src = "bootstrap_ug.md",
-    output = "bootstrap.md",
+    name = "ccdeps",
+    src = "dependencies_cc_ug.md",
+    output = "dependencies_cc.md",
     visibility = ["//visibility:public"],
 )
 
@@ -37,6 +37,14 @@ pandoc(
     name = "configdefs",
     src = "configurable_defaults_ug.md",
     output = "configurable_defaults.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "configuration",
+    src = "configuration_ug.md",
+    output = "configuration.md",
     visibility = ["//visibility:public"],
 )
 

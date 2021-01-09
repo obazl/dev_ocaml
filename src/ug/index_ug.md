@@ -1,5 +1,6 @@
 # OBazl User Guide
 
+* [Configuration](configuration.md)
 * [Conventions](conventions.md)
 * [Bootstrapping and Configuration](bootstrap.md)
 * [Configurable Defaults](configurable_defaults.md)
