@@ -294,7 +294,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_module-doc"></a>doc |  Docstring for module. DEPRECATED  | String | optional | "" |
 | <a id="ocaml_module-intf"></a>intf |  Single label of a target providing a single .cmi or .mli file. Optional. Currently only supports .cmi input.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-module_name"></a>module_name |  Module name. Overrides <code>name</code> attribute.  | String | optional | "" |
-| <a id="ocaml_module-msg"></a>msg |  DEPRECATED  | String | optional | "" |
+| <a id="ocaml_module-msg"></a>msg |  -  | String | optional | "" |
 | <a id="ocaml_module-ns"></a>ns |  Label of an ocaml_ns target. Used to derive namespace, output name, -open arg, etc.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
 | <a id="ocaml_module-ppx"></a>ppx |  PPX binary (executable).  Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
@@ -313,7 +313,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 ## ocaml_ns
 
 <pre>
-ocaml_ns(<a href="#ocaml_ns-name">name</a>, <a href="#ocaml_ns-ns">ns</a>, <a href="#ocaml_ns-ns_sep">ns_sep</a>, <a href="#ocaml_ns-submodules">submodules</a>)
+ocaml_ns(<a href="#ocaml_ns-name">name</a>, <a href="#ocaml_ns-ns">ns</a>, <a href="#ocaml_ns-ns_sep">ns_sep</a>, <a href="#ocaml_ns-submods">submods</a>, <a href="#ocaml_ns-submodules">submodules</a>)
 </pre>
 
 Generate a 'namespace' module. [User Guide](../ug/ocaml_ns.md).  Provides: [OcamlNsModuleProvider](providers_ocaml.md#ocamlnsmoduleprovider).
@@ -329,6 +329,7 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 | <a id="ocaml_ns-name"></a>name |  A unique name for this target.  | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="ocaml_ns-ns"></a>ns |  A namespace name string. The name of namespace is taken from this attribute, not the <code>name</code> attribute.  This makes it easier to avoid naming conflicts when a package contains a large number of modules, archives, etc.  | String | optional | "" |
 | <a id="ocaml_ns-ns_sep"></a>ns_sep |  Namespace separator.  Default: '__' (double underscore)  | String | optional | "__" |
+| <a id="ocaml_ns-submods"></a>submods |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_ns-submodules"></a>submodules |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 
 

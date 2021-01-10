@@ -1,5 +1,5 @@
-Configurable Defaults
-=====================
+Configuration Rules
+===================
 
 Some OCaml compile options are used so commonly that they should
 probably be the default. Changing compiler defaults would break existing

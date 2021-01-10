@@ -6,6 +6,7 @@ RULES_PPX_DEPS = [
     "@obazl_rules_ocaml//ocaml:bootstrap",
     "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
     "@obazl_rules_ocaml//ocaml/_rules:ppx_rules",
+    "@obazl_rules_ocaml//ppx/_transitions:transitions",
     "@obazl_rules_opam//opam:bootstrap",
     "@obazl_rules_opam//opam/_debug:debug",
     "@obazl_rules_opam//opam/_functions:functions",

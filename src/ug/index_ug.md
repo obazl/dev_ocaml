@@ -1,26 +1,20 @@
 # OBazl User Guide
 
-* [Configuration](configuration.md)
+* [Bootstrapping and Configuring External Repositories](bootstrap.md)
 * [Conventions](conventions.md)
-* [Bootstrapping and Configuration](bootstrap.md)
-* [Configurable Defaults](configurable_defaults.md)
 * Depencencies
   * [OCaml Dependencies](dependencies_ocaml.md)
+  * [OPAM Dependencies](dependencies_opam.md)
   * [CC Dependencies](dependencies_cc.md)
 * [Maintenance](maintenance.md)
 * [PPX Support](ppx.md)
+* Rules
+  * [Bootstrapping](bootstrap.md#rules)
+  * [Build Rules](build_rules.md)
+  * [Configuration Rules](configurable_defaults.md)
+* [Testing](testing.md)
 * [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
+* [Troubleshooting](troubleshooting.md)
 * [Workflow](workflow.md)
 
-----
-
-* Rules
-
-  * [ocaml_archive](ocaml_archive.md)
-  * [ocaml_executable](ocaml_executable.md)
-  * [ocaml_import](ocaml_import.md)
-  * [ocaml_interface](ocaml_interface.md)
-  * [ocaml_libary](ocaml_library.md)
-  * [ocaml_module](ocaml_module.md)
-  * [ocaml_ns](ocaml_ns.md)
-
+[misc](misc.md) - material not yet categorized.

@@ -18,6 +18,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "buildrules",
+    src = "build_rules_ug.md",
+    output = "build_rules.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "ccdeps",
     src = "dependencies_cc_ug.md",
     output = "dependencies_cc.md",
@@ -42,14 +50,6 @@ pandoc(
 
 #######
 pandoc(
-    name = "configuration",
-    src = "configuration_ug.md",
-    output = "configuration.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
     name = "conventions",
     src = "conventions_ug.md",
     output = "conventions.md",
@@ -58,9 +58,25 @@ pandoc(
 
 #######
 pandoc(
-    name = "dependencies",
+    name = "ocaml_deps",
     src = "dependencies_ocaml_ug.md",
     output = "dependencies_ocaml.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "opam_deps",
+    src = "dependencies_opam_ug.md",
+    output = "dependencies_opam.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "misc",
+    src = "misc_ug.md",
+    output = "misc.md",
     visibility = ["//visibility:public"],
 )
 
@@ -98,9 +114,25 @@ pandoc(
 
 #######
 pandoc(
+    name = "testing",
+    src = "testing_ug.md",
+    output = "testing.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "transparency",
     src = "transparency_ug.md",
     output = "transparency.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "troubleshooting",
+    src = "troubleshooting_ug.md",
+    output = "troubleshooting.md",
     visibility = ["//visibility:public"],
 )
 
