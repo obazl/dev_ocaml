@@ -50,6 +50,13 @@ stardoc(
 )
 
 ################################################################
+# genrule(
+#     name = "x",
+#     srcs = [":ocaml_archive.md"],
+#     outs = ["ocaml_archive.dita"],
+#     cmd  = "cp $< $@"
+# )
+
 # stardoc(
 #     name = "ocaml_archive",
 #     input = "rules_ocaml.bzl",

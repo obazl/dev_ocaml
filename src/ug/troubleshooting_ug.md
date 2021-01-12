@@ -12,3 +12,11 @@ E.g.
 no such target '@opam//pkg:ounit2': target 'ounit2' not declared in package 'pkg' defined by /private/var/tmp/_bazel_gar/07858b33091346eb9c40f9f55369f0e5/external/opam/pkg/BUILD.bazel and referenced by '//rules/ocaml_module:_Test'
 ```
 
+## invalid label
+
+It's easy to forget to double the slash in labels with explicit
+workspace names, e.g. writing `@foo/bar:baz` instead of `@foo//bar:baz`.  If you do this you will get an error like the following:
+
+```
+ invalid label '@ppx/print:text' in attribute 'ppx_print' in 'ocaml_module' rule: invalid repository name '@ppx/print:text': workspace names may contain only A-Z, a-z, 0-9, '-', '_' and '.'
+ ```
