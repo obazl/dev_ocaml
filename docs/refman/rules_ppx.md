@@ -121,8 +121,8 @@ By default, this rule adds `-predicates ppx_driver` to the command line.
 ## ppx_module
 
 <pre>
-ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_deps">adjunct_deps</a>, <a href="#ppx_module-cc_deps">cc_deps</a>, <a href="#ppx_module-cc_opts">cc_opts</a>, <a href="#ppx_module-data">data</a>, <a href="#ppx_module-deps">deps</a>, <a href="#ppx_module-doc">doc</a>, <a href="#ppx_module-intf">intf</a>, <a href="#ppx_module-linkopts">linkopts</a>, <a href="#ppx_module-module_name">module_name</a>, <a href="#ppx_module-msg">msg</a>,
-           <a href="#ppx_module-ns">ns</a>, <a href="#ppx_module-opts">opts</a>, <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-src">src</a>)
+ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_deps">adjunct_deps</a>, <a href="#ppx_module-cc_deps">cc_deps</a>, <a href="#ppx_module-cc_opts">cc_opts</a>, <a href="#ppx_module-data">data</a>, <a href="#ppx_module-deps">deps</a>, <a href="#ppx_module-doc">doc</a>, <a href="#ppx_module-intf">intf</a>, <a href="#ppx_module-module_name">module_name</a>, <a href="#ppx_module-msg">msg</a>, <a href="#ppx_module-ns">ns</a>, <a href="#ppx_module-opts">opts</a>,
+           <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-src">src</a>)
 </pre>
 
 
@@ -132,21 +132,20 @@ ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_dep
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 | <a id="ppx_module-name"></a>name |  A unique name for this target.  | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ppx_module-adjunct_deps"></a>adjunct_deps |  List of [adjunct dependencies](../ug/dependencies_ocaml.md#adjunct_deps).  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_module-adjunct_deps"></a>adjunct_deps |  List of [adjunct dependencies](../ug/ppx.md#adjunct_deps).  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-cc_deps"></a>cc_deps |  C/C++ library dependencies. Keys: lib target. Vals: 'default', 'static', 'dynamic'  Providers:   [CcInfo](providers_ocaml.md#ccinfo) | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_module-cc_opts"></a>cc_opts |  C/C++ options  | List of strings | optional | [] |
-| <a id="ppx_module-data"></a>data |  -  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_module-deps"></a>deps |  -  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_module-data"></a>data |  Runtime dependencies: list of labels of data files needed by this module at runtime.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_module-deps"></a>deps |  List of OCaml dependencies.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-doc"></a>doc |  Docstring  | String | optional | "" |
 | <a id="ppx_module-intf"></a>intf |  Single label of a target providing a single .cmi file (not a .mli source file). Optional  Providers:   [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
-| <a id="ppx_module-linkopts"></a>linkopts |  -  | List of strings | optional | [] |
 | <a id="ppx_module-module_name"></a>module_name |  Allows user to specify a module name different than the target name.  | String | optional | "" |
-| <a id="ppx_module-msg"></a>msg |  -  | String | optional | "" |
+| <a id="ppx_module-msg"></a>msg |  DEPRECATED  | String | optional | "" |
 | <a id="ppx_module-ns"></a>ns |  Label of a [ppx_ns](#ppx_ns) target. Used to derive namespace, output name, -open arg, etc.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
 | <a id="ppx_module-ppx"></a>ppx |  PPX binary (executable) used to transform source before compilation.  Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-ppx_args"></a>ppx_args |  Arguments to pass to ppx executable.  (E.g. ["-cookie", "library-name=\"ppx_version\""]  | List of strings | optional | [] |
-| <a id="ppx_module-ppx_data"></a>ppx_data |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_module-ppx_data"></a>ppx_data |  PPX runtime dependencies. List of labels of files needed by PPX at preprocessing runtime. E.g. a file used by <code>[%%import ]</code> from [ppx_optcomp](https://github.com/janestreet/ppx_optcomp).  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
 | <a id="ppx_module-runtime_deps"></a>runtime_deps |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-src"></a>src |  A single .ml source file label.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |

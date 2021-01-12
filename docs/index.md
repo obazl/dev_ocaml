@@ -1,5 +1,5 @@
-Documentation for obazl\_rules\_ocaml, obazl\_rules\_opam
----------------------------------------------------------
+Documentation for [obazl\_rules\_ocaml](https://github.com/obazl/rules_ocaml) and [obazl\_rules\_opam](https://github.com/obazl/rules_opam)
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 Drafts in progress:
 

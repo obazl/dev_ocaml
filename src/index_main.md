@@ -1,4 +1,4 @@
-## Documentation for obazl_rules_ocaml, obazl_rules_opam
+## Documentation for [obazl_rules_ocaml](https://github.com/obazl/rules_ocaml) and [obazl_rules_opam](https://github.com/obazl/rules_opam)
 
 Drafts in progress:
 
