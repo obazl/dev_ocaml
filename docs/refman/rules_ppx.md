@@ -86,8 +86,7 @@ Generates an OCaml archive file suitable for use as a PPX dependency.   Provides
 ## ppx_executable
 
 <pre>
-ppx_executable(<a href="#ppx_executable-name">name</a>, <a href="#ppx_executable-adjunct_deps">adjunct_deps</a>, <a href="#ppx_executable-cc_deps">cc_deps</a>, <a href="#ppx_executable-data">data</a>, <a href="#ppx_executable-deps">deps</a>, <a href="#ppx_executable-linkopts">linkopts</a>, <a href="#ppx_executable-main">main</a>, <a href="#ppx_executable-message">message</a>, <a href="#ppx_executable-opts">opts</a>, <a href="#ppx_executable-ppx">ppx</a>, <a href="#ppx_executable-print">print</a>,
-               <a href="#ppx_executable-runtime_args">runtime_args</a>)
+ppx_executable(<a href="#ppx_executable-name">name</a>, <a href="#ppx_executable-adjunct_deps">adjunct_deps</a>, <a href="#ppx_executable-cc_deps">cc_deps</a>, <a href="#ppx_executable-data">data</a>, <a href="#ppx_executable-deps">deps</a>, <a href="#ppx_executable-main">main</a>, <a href="#ppx_executable-opts">opts</a>, <a href="#ppx_executable-ppx">ppx</a>, <a href="#ppx_executable-print">print</a>, <a href="#ppx_executable-runtime_args">runtime_args</a>)
 </pre>
 
 Generates a PPX executable.  Provides: [PpxExecutableProvider](providers_ppx.md#ppxexecutableprovider).
@@ -104,9 +103,7 @@ By default, this rule adds `-predicates ppx_driver` to the command line.
 | <a id="ppx_executable-cc_deps"></a>cc_deps |  C/C++ library dependencies  Providers:   [CcInfo](providers_ocaml.md#ccinfo) | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="ppx_executable-data"></a>data |  Runtime data dependencies. E.g. a file used by %%import from ppx_optcomp.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_executable-deps"></a>deps |  Deps needed to build this ppx executable.  Providers:   [DefaultInfo](providers_ocaml.md#defaultinfo)  [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_executable-linkopts"></a>linkopts |  -  | List of strings | optional | [] |
-| <a id="ppx_executable-main"></a>main |  -  Providers:   [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-| <a id="ppx_executable-message"></a>message |  -  | String | optional | "" |
+| <a id="ppx_executable-main"></a>main |  A <code>ppx_module</code> to be listed last in the list of dependencies. For more information see [Main Module](../ug/ppx.md#main_module).  Providers:   [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 | <a id="ppx_executable-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
 | <a id="ppx_executable-ppx"></a>ppx |  PPX binary (executable).  Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_executable-print"></a>print |  Format of output of PPX transform, binary (default) or text  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
