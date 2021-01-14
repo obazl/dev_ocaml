@@ -58,6 +58,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "filegen",
+    src = "filegen_ug.md",
+    output = "filegen.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "ocaml_deps",
     src = "dependencies_ocaml_ug.md",
     output = "dependencies_ocaml.md",

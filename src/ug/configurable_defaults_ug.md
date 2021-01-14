@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 # Configuration Rules
 
 Some OCaml compile options are used so commonly that they should

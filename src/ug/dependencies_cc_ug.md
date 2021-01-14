@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 **WARNING** Support for C/C++ deps is still under development. What's
   there works but the interface will likely change since there are
   still some issues to be worked out, such as how best to support

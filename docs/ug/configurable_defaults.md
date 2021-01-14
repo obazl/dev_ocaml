@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 Configuration Rules
 ===================
 

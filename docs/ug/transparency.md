@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 Transparency: Inspecting Build Commands, Actions, etc.
 ======================================================
 

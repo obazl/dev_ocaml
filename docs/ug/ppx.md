@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 PPX Support
 ===========
 
@@ -17,12 +19,12 @@ This means it is possible to successfully compile and run an OCaml
 executable that lacks critical modules. Since there is no `main` entry
 point, the compiler has no way of knowing that something is missing.
 
-The `main` attribute of the `ppx_executable` rule is a convenience
-attribute, intended to make it harder to build a PPX executable that is
-missing the critical piece of code that drives PPX processing. A module
-passed as `main` will automatically be added as the last module in the
-dependency list, thereby ensuring that it will receive control after all
-other modules.
+The `main` attribute of the `ppx_executable` rule is an optional
+convenience attribute, intended to reduce the likelihood of
+inadvertently omitting the critical piece of code that drives PPX
+processing. A module passed as `main` will automatically be added as the
+last module in the dependency list, thereby ensuring that it will
+receive control after all other modules.
 
 Demo code:
 [demos/ppx/hello](https://github.com/obazl/dev_obazl/blob/aed0ce898b480c109ccd9b42fddc6f6c1640277c/demos/ppx/hello/BUILD.bazel#L53)
@@ -83,8 +85,8 @@ As a convenience, OBazl supports an attribute, `adjunct_deps`, on the
 automatically added the `deps` attribute of any rule that uses the
 `ppx_executable` (via the `ppx` attribute) to transform sources.
 
-See [ocaml\_test
-demo](https://github.com/obazl/dev_obazl/tree/main/demos/rules/ocaml_test)
+See
+[demos/ppx/adjunct\_deps](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps)
 for an example.
 
 ------------------------------------------------------------------------

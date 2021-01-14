@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 # OCaml Dependencies
 
 ## OPAM Dependencies

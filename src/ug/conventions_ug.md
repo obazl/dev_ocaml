@@ -1,8 +1,14 @@
+[User Guide](index.md)
+
 # OBazl Conventions
 
 * `WORKSPACE.bazel`, not `WORKSPACE`
 
+* Use `WORKSPACE.bzl` for extension code needed by `WORKSPACE.bazel`
+
 * `BUILD.bazel`, not `BUILD`
+
+* Use `BUILD.bzl` for extension code needed by `BUILD.bazel`
 
 * Importing external repositories
 

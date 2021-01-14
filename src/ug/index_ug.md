@@ -10,6 +10,7 @@
   * [OCaml Dependencies](dependencies_ocaml.md)
   * [OPAM Dependencies](dependencies_opam.md)
   * [CC Dependencies](dependencies_cc.md)
+* [File Generation](filegen.md)
 * [Maintenance](maintenance.md)
 * [PPX Support](ppx.md)
 * Rules

@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 Bootstrapping and Configuring External Repositories
 ===================================================
 
@@ -83,7 +85,7 @@ Example:
 
 **Example**:
 
-`opam.bzl`:
+`WORKSPACE.bzl`:
 
     load("@obazl_rules_opam//opam:providers.bzl", "OpamConfig", "OpamSwitch")
     PACKAGES = {"bin_prot": ["v0.12.0"], ...}
@@ -131,11 +133,13 @@ environment variable `OBAZL_OPAM_VERIFY=1`, e.g.
 
 or `$ export OBAZL_OPAM_VERIFY=1`.
 
-Environment variables affecting processing of `opam.bzl`:
+Environment variables affecting processing of the `OpamConfig` struct in
+`WORKSPACE.bzl`:
 
 -   `OPAMSWITCH`: if set to a switch name string, overrides configured
     default switch. The switch name must match one defined in the
-    `OpamConfig` struct assigned to the `opam` attribute of `opam.bzl`.
+    `OpamConfig` struct assigned to the `opam` attribute of
+    `WORKSPACE.bzl`.
 
 -   `OBAZL_OPAM_VERIFY`: if defined, overrides `verify=False`
 
@@ -144,7 +148,7 @@ Environment variables affecting processing of `opam.bzl`:
 Example
 -------
 
-`opam.bzl`: as above
+`WORKSPACE.bzl`: as above
 
 WORKSPACE.bazel:
 
@@ -167,7 +171,7 @@ WORKSPACE.bazel:
     )
 
     load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
-    load("//:opam.bzl", "opam")  # configuration struct defined by user
+    load("//:WORKSPACE.bzl", "opam")  # configuration struct defined by user
     switch = opam_configure(opam = opam)
 
     load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")

@@ -1,4 +1,6 @@
-testing
+[User Guide](index.md)
+
+Testing
 =======
 
 Resources

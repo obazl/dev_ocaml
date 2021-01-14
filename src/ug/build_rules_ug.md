@@ -1,3 +1,5 @@
+[User Guide](index.md)
+
 # Build Rules
 
 * [ocaml_archive](ocaml_archive.md)

@@ -1,4 +1,6 @@
-troubleshooting
+[User Guide](index.md)
+
+Troubleshooting
 ===============
 
 no such target `@opam//pkg:`

@@ -1,4 +1,6 @@
-# namespacing
+[User Guide](index.md)
+
+# Namespacing
 
 "Namespace module" is the term OBazl uses to refer to modules
 containing module alias statements.

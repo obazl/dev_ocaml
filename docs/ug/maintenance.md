@@ -1,4 +1,6 @@
-maintenance
+[User Guide](index.md)
+
+Maintenance
 ===========
 
 -   [Tasks](#tasks)
