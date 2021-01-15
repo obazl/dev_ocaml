@@ -5,7 +5,7 @@
 * [Configuration](configuration.md)
   * [OPAM Configuration](configuration.md#opamconfig)
   * [OCaml Configuration](configuration.md#ocamlconfig)
-  * [Config Rules](configrules.md)
+  * [Configuration Rules](configrules.md)
   * [Config Profiles](configprofiles.md)
 * [Conventions](conventions.md)
 * Depencencies
