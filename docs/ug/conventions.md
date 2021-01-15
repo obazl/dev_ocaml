@@ -21,8 +21,8 @@ OBazl Conventions
 
     -   Otherwise, define one or more bootstrapping functions in
         `WORKSPACE.bzl` (note the extension, `.bzl`, not `.bazel`)
-        responsible for fetching the repositories. See [Bootstrapping
-        and Configuration](bootstrap.md) for an example. Name them
+        responsible for fetching the repositories. See
+        [Bootstrapping](bootstrap.md) for an example. Name them
         `<lang>_fetch_rules` (for fetching language support packages)
         and `<lang>_fetch_repos` for library repositories.
 
