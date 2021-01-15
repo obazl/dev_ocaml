@@ -2,5 +2,7 @@
 
 #### Support: [Discord OBazl server](https://discord.gg/PHSAW5DUva)
 
+#### Demo code: [dev_obazl](https://github.com/obazl/dev_obazl)
+
 * [User Guide](ug/index.md)
 * [Reference Manual](refman/index.md)
