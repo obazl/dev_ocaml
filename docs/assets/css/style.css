@@ -3,6 +3,6 @@
 
 @import "{{ site.theme }}";
 
-code.highlighter-rouge {
+code.language-plaintext.highlighter-rouge {
     color:#c0eef9 !important;
 }
