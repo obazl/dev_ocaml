@@ -23,7 +23,7 @@ Prerequisites
         toolchains are exclusively controlled by Bazel. A future version
         of the OBazl rules will automatically download and install the
         entire OCaml toolchain and required packages into a private,
-        Bazel-controlled cache..
+        Bazel-controlled cache.
 
 -   An OPAM [switch](https://opam.ocaml.org/doc/Usage.html#opam-switch)
     containing the OCaml compiler and OPAM packages your project needs.
@@ -31,8 +31,8 @@ Prerequisites
     -   By default, OBazl will use use whatever packages you have
         installed, at whatever version. For production code where you
         want to pin precise versions, you can direct OBazl to verify
-        your switch. See [OPAM
-        Configuration](configuration.md#opamconfig) for more
+        your switch. See
+        [OPAM\_Configuration](configuration.md#opamconfig) for more
         information.
 
 -   Locally installed libraries. Some OPAM packages depend on locally
