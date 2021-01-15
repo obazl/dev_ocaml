@@ -3,5 +3,4 @@ title: "OBazl Documentation"
 name: "OBazl docs"
 description: Documentation for <a href="https://github.com/obazl/rules_ocaml" target="_blank">obazl_rules_ocaml</a> and <a href="https://github.com/obazl/rules_opam" target="_blank">obazl_rules_opam</a><p>Support: <a href="https://discord.gg/PHSAW5DUva" target="_blank">Discord: OBazel</a></p><p><b>**WARNING**</b>Beta version - subject to change</p>
 
-
 markdown: kramdown
