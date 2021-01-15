@@ -1,5 +1,5 @@
 theme: jekyll-theme-hacker
 title: "OBazl Documentation"
 name: "OBazl docs"
-description: Documentation for <a href="https://github.com/obazl/rules_ocaml">obazl_rules_ocaml</a> and obazl_rules_opam
+description: Documentation for <a href="https://github.com/obazl/rules_ocaml" target="_blank">obazl_rules_ocaml</a> and <a href="https://github.com/obazl/rules_opam" target="_blank">obazl_rules_opam</a><p>foo</p>
 markdown: kramdown
