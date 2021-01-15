@@ -3,8 +3,6 @@
 # ocaml providers
 **WARNING** Beta version - subject to change
 
-----
-
 * [OcamlDepsetProvider](#ocamldepsetprovider)
 * [OcamlArchivePayload](#ocamlarchivepayload)
 * [OcamlArchiveProvider](#ocamlarchiveprovider)
@@ -17,6 +15,7 @@
 * [OcamlNsModuleProvider](#ocamlnsmoduleprovider)
 * [OcamlNsModulePayload](#ocamlnsmodulepayload)
 
+----
 <a id="#OcamlArchivePayload"></a>
 
 ## OcamlArchivePayload

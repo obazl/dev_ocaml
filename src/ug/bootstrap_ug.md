@@ -32,7 +32,7 @@ git_repository(
 )
 
 load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
-load("//:WORKSPACE.bzl", "opam")
+load("//:WORKSPACE.bzl", "opam") # user-defined OpamConfig struct
 switch = opam_configure(opam = opam)
 
 load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")

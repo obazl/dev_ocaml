@@ -6,12 +6,13 @@
   * [The `OpamConfig` provider](#opamconfig_provider)
   * [The `configure()` function](#opam_configure)
 * [OCAML Configuration](#ocamlconfig)
+  * [The `configure()` function](#ocaml_configure)
 * [Build Settings](#build_settings)
 * [Config Profiles](#config_profiles)
 
 ## <a name="opamconfig">OPAM Configuration</a>
 
-#### <a name="opamconfig_provider">The OpamConfig Provider</a>
+### <a name="opamconfig_provider">The OpamConfig Provider</a>
 
 The [OPAM `configure` function](../refman/functions.md#opam_configure) takes
 an [OpamConfig](../refman/providers_opam.md#opamconfig) argument that you must define. [Obazl conventions](conventions.md)
@@ -27,9 +28,9 @@ PACKAGES = {"bin_prot": ["v0.12.0"], ...}
 opam = OpamConfig(
     version = "2.0",
     switches  = {
-        "mina-0.1.0": OpamSwitch(
+        "myproj-0.1.0": OpamSwitch(
             default  = True,
-            compiler = "4.07.1",
+            compiler = "4.11.1",
             packages = PACKAGES
         ),
         "4.07.1": OpamSwitch(
@@ -58,8 +59,7 @@ and [OpamSwitch](../refman/providers_opam.md#opamswitch).
 OPAM package dependencies _must_ be listed in the `packages` field of
 the `OpamSwitch` structs specified as values of the `switches`
 dictionary. See
-[OpamSwitch](../refman/config_opam.md#provider-opamswitch) for the
-syntax.
+[OpamSwitch](../refman/providers_opam.md#popamswitch) for details.
 
 Version strings may be omitted if verification is disabled (which is
 the default); this may be useful during development, before package
@@ -97,7 +97,12 @@ Environment variables affecting processing of the `OpamConfig` struct in `WORKSP
 
 * `OBAZL_OPAM_PIN`: if defined, overrides `pin=False`
 
+### <a name="opam_configure">The OPAM configure() Function</a>
+
+
 ## <a name="ocamlconfig">OCaml Configuration</a>
+
+### <a name="ocaml_configure">The OCaml configure() Function</a>
 
 
 

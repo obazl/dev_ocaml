@@ -3,13 +3,12 @@
 # ppx providers
 **WARNING** Beta version - subject to change
 
-----
-
 * [PpxDepsetProvider](#ppxdepsetprovider)
 * [PpxArchivePayload](#ppxarchivepayload)
 * [PpxArchiveProvider](#ppxarchiveprovider)
 * [PpxExecutableProvider](#ppxexecutableprovider)
 
+----
 <a id="#PpxArchiveProvider"></a>
 
 ## PpxArchiveProvider

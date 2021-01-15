@@ -12,6 +12,7 @@ they are not delivered as the output of any rules.
 * [OpamConfig](#opamconfig)
 * [OpamSwitch](#opamswitch)
 
+----
 <a id="#OpamConfig"></a>
 
 ## OpamConfig
@@ -81,7 +82,8 @@ OpamSwitch(<a href="#OpamSwitch-default">default</a>, <a href="#OpamSwitch-compi
 OPAM switch configuration.
 
 The `packages` parameter maps package names to package specifictions.
-Package specification grammar:
+All package dependencies must be listed. Package specification
+grammar:
 
 ```
       [<version>]
@@ -92,7 +94,7 @@ Package specification grammar:
 where:
 <versionstring>  := version string as printed by `opam list`
 <subpkg>         := subpackage name string as listed by `ocamlfind list`
-<path>           := string,, path to implementation code
+<path>           := string, path to implementation code
 <url>            := HTTPS URL of implementation code
 ```
 
