@@ -1,12 +1,28 @@
+[User Guide](index.md)
+
 Configuration
 =============
 
-OPAM configuration
-------------------
+-   [OPAM Configuration](#opamconfig)
+    -   [The `OpamConfig` provider](#opamconfig_provider)
+    -   [The `configure()` function](#opam_configure)
+-   [OCAML Configuration](#ocamlconfig)
+-   [Build Settings](#build_settings)
+-   [Config Profiles](#config_profiles)
 
-**Example**:
+<a name="opamconfig">OPAM Configuration</a>
+-------------------------------------------
 
-`opam.bzl`:
+#### <a name="opamconfig_provider">The OpamConfig Provider</a>
+
+The [OPAM `configure` function](../refman/functions.md#opam_configure)
+takes an [OpamConfig](../refman/providers_opam.md#opamconfig) argument
+that you must define. [Obazl conventions](conventions.md) place this in
+`WORKSPACE.bzl`.
+
+**Sample `OpamConfig`**:
+
+`WORKSPACE.bzl`:
 
     load("@obazl_rules_opam//opam:providers.bzl", "OpamConfig", "OpamSwitch")
     PACKAGES = {"bin_prot": ["v0.12.0"], ...}
@@ -25,11 +41,18 @@ OPAM configuration
         }
     )
 
-For details see
-[OpamConfig](../refman/config_opam.md#provider-opamconfig) and
-[OpamSwitch](../refman/config_opam.md#provider-opamswitch).
+Load this symbol (`opam` here, but you can use any symbol) in
+`WORKSPACE.bazel` and pass it to the OPAM configuration function:
 
-### Packages manifest
+    ... (obazl_rules_opam fetched)...
+    load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
+    load("//:WORKSPACE.bzl", "opam")  # "opam" = OpamConfig struct defined by user
+    switch = opam_configure(opam = opam)
+
+For details see [OpamConfig](../refman/providers_opam.md#opamconfig) and
+[OpamSwitch](../refman/providers_opam.md#opamswitch).
+
+### `OpamSwitch` Packages
 
 OPAM package dependencies *must* be listed in the `packages` field of
 the `OpamSwitch` structs specified as values of the `switches`
@@ -44,7 +67,11 @@ are known. For subpackages, the empty string is mandatory:
     "core": [],  ## or: "core": [""],
     "lwt": ["", ["lwt.unix"]]
 
-### OPAM package verification and pinning
+#### OPAM package verification, installation, and pinning
+
+> **WARNING** This functionality is currently undergoing major
+> revisions. For now you should manually install (using
+> `opam    install`) your switch and required OPAM packages.
 
 By default, OPAM package dependencies are not verified. To tell OBazl to
 verify them, pass `verify=True` in the `OpamSwitch` struct, or set the
@@ -54,44 +81,23 @@ environment variable `OBAZL_OPAM_VERIFY=1`, e.g.
 
 or `$ export OBAZL_OPAM_VERIFY=1`.
 
-Environment variables affecting processing of `opam.bzl`:
+Environment variables affecting processing of the `OpamConfig` struct in
+`WORKSPACE.bzl`:
 
 -   `OPAMSWITCH`: if set to a switch name string, overrides configured
     default switch. The switch name must match one defined in the
-    `OpamConfig` struct assigned to the `opam` attribute of `opam.bzl`.
+    `OpamConfig` struct assigned to the `opam` attribute of
+    `WORKSPACE.bzl`.
 
 -   `OBAZL_OPAM_VERIFY`: if defined, overrides `verify=False`
 
 -   `OBAZL_OPAM_PIN`: if defined, overrides `pin=False`
 
-Example
--------
+<a name="ocamlconfig">OCaml Configuration</a>
+---------------------------------------------
 
-`opam.bzl`: as above
+misc
+----
 
-WORKSPACE.bazel:
-
-    load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-    git_repository(
-        name = "obazl_tools_bazel",
-        remote = "https://github.com/obazl/tools_bazel",
-        branch = "main",
-    )
-    git_repository(
-        name = "obazl_rules_opam",
-        remote = "https://github.com/obazl/rules_opam",
-        branch = "main",
-    )
-    git_repository(
-        name = "obazl_rules_ocaml",
-        remote = "https://github.com/obazl/rules_ocaml",
-        branch = "main",
-    )
-
-    load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
-    load("//:opam.bzl", "opam")  # configuration struct defined by user
-    switch = opam_configure(opam = opam)
-
-    load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")
-    ocaml_configure( switch = switch )
+Docs on `--config` are buried in [.bazelrc syntax and
+semantics](https://docs.bazel.build/versions/master/guide.html#bazelrc-syntax-and-semantics)

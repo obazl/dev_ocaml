@@ -1,9 +1,11 @@
 OBazl User Guide
 ================
 
--   [Bootstrapping and Configuring External Repositories](bootstrap.md)
+-   [Bootstrapping](bootstrap.md)
 -   [Conditional Compilation/Building]()
 -   [Configuration](configuration.md)
+    -   [OPAM Configuration](configuration.md#opamconfig)
+    -   [OCaml Configuration](configuration.md#ocamlconfig)
     -   [Build Settings](configuration.md#build_settings)
     -   [Config Profiles](configuration.md#profiles)
 -   [Conventions](conventions.md)

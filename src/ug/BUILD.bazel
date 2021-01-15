@@ -50,6 +50,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "configuration",
+    src = "configuration_ug.md",
+    output = "configuration.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "conventions",
     src = "conventions_ug.md",
     output = "conventions.md",

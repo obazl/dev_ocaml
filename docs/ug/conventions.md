@@ -5,7 +5,9 @@ OBazl Conventions
 
 -   `WORKSPACE.bazel`, not `WORKSPACE`
 
--   Use `WORKSPACE.bzl` for extension code needed by `WORKSPACE.bazel`
+-   Use `WORKSPACE.bzl` for extension code needed by `WORKSPACE.bazel`,
+    such as `fetch()` functions that [fetch](bootstrap.md#fetch_rules)
+    language rules and external repositories.
 
 -   `BUILD.bazel`, not `BUILD`
 

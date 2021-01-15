@@ -25,6 +25,3 @@ OcamlModuleProvider    = _OcamlModuleProvider
 OcamlModulePayload     = _OcamlModulePayload
 OcamlNsModuleProvider  = _OcamlNsModuleProvider
 OcamlNsModulePayload   = _OcamlNsModulePayload
-
-load("@obazl_rules_opam//opam/_providers:opam.bzl", _OpamPkgInfo  = "OpamPkgInfo")
-OpamPkgInfo = _OpamPkgInfo

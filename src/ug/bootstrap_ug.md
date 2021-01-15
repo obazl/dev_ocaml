@@ -1,36 +1,70 @@
 [User Guide](index.md)
 
-# Bootstrapping and Configuring External Repositories
+# Bootstrapping
 
-* [Bootstrapping the Rules](#rules)
-  * [Configuring the Rules](#configuration)
+* [Bootstrapping OBazl](#bootstrap_obazl)
+* [Interop: Bootstrapping Language Rules](#rules)
+  * [Fetch](#fetch_rules)
+  * [Configure](#config_rules)
 * [Bootstrapping Library Repositories](#libraries)
 
-## <a name="rules">Bootstrapping the Rules</a>
+## <a name="bootstrap_obazl">Bootstrapping OBazl Rules</a>
 
-### Fetching Rules Repositories
+WORKSPACE.bazel:
 
-The OBazl convention is to put these in `WORKSPACE.bazel`, but that is
-a convention, not a requirement; they can go in any extension file
-(with extension `.bzl`).
+```
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-#### Language Rules
+git_repository(
+    name = "obazl_tools_bazel",
+    remote = "https://github.com/obazl/tools_bazel",
+    branch = "main",
+)
+git_repository(
+    name = "obazl_rules_opam",
+    remote = "https://github.com/obazl/rules_opam",
+    branch = "main",
+)
+git_repository(
+    name = "obazl_rules_ocaml",
+    remote = "https://github.com/obazl/rules_ocaml",
+    branch = "main",
+)
 
-Define one `*_fetch_rules` function for each language; call them from `WORKSPACE.bazel`.
+load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
+load("//:WORKSPACE.bzl", "opam")
+switch = opam_configure(opam = opam)
+
+load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")
+ocaml_configure( switch = switch )
+```
+
+>    **IMPORTANT**: The [OPAM `configure` function](../refman/functions.md#opam_config)
+>    takes an `OpamConfig` provider struct that you must define, as well as some other flags;
+>    see [OPAM Configuration](configuration.md#opamconfig) for details.
+
+If your `WORKSPACE.bazel` gets crowded (as may happen if your project
+depends on a lot of external repositories), you may want to wrap the
+repository rules in a `fetch()` function and put it in an _extension
+file_ (a file with extension `.bzl`). The [OBazl
+convention](conventions.md) is to put such extension functions in
+`WORKSPACE.bzl`.
+
+## <a name="rules">Bootstrapping Language Rules</a>
+
+### <a name="fetch_rules">Fetching Rules Repositories</a>
+
+The [OBazl convention](conventions.md) is to put fetch code in
+`WORKSPACE.bzl`, but that is a convention, not a requirement; they can
+go in any extension file (with extension `.bzl`).
+
+Define one `*_fetch_rules` function for each language, and call them
+from `WORKSPACE.bazel`.
 
 Example:
 
-`WORKSPACE.bazel`:
-```
-...
-load("//:WORKSPACE.bzl", "cc_fetch_rules", "ocaml_fetch_rules", "rust_fetch_rules")
-cc_fetch_rules()
-ocaml_fetch_rules()
-rust_fetch_rules()
-...
-```
+WORKSPACE.bzl:
 
-`WORKSPACE.bzl`:
 ```
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository") # buildifier: disable=load
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")  # buildifier: disable=load
@@ -77,107 +111,36 @@ def rust_fetch_rules():
     )
 ```
 
-## <a name="configuration">Configuring the Rules</a>
-
-### OPAM configuration
-
-**Example**:
-
-`WORKSPACE.bzl`:
-
 ```
-load("@obazl_rules_opam//opam:providers.bzl", "OpamConfig", "OpamSwitch")
-PACKAGES = {"bin_prot": ["v0.12.0"], ...}
-opam = OpamConfig(
-    version = "2.0",
-    switches  = {
-        "mina-0.1.0": OpamSwitch(
-            default  = True,
-            compiler = "4.07.1",
-            packages = PACKAGES
-        ),
-        "4.07.1": OpamSwitch(
-            compiler = "4.07.1",
-            packages = PACKAGES
-        ),
-    }
-)
-```
-
-For details see [OpamConfig](../refman/config_opam.md#provider-opamconfig) and [OpamSwitch](../refman/config_opam.md#provider-opamswitch).
-
-### Packages manifest
-
-OPAM package dependencies _must_ be listed in the `packages` field of
-the `OpamSwitch` structs specified as values of the `switches`
-dictionary. See
-[OpamSwitch](../refman/config_opam.md#provider-opamswitch) for the
-syntax.
-
-Version strings may be omitted if verification is disabled (which is
-the default); this may be useful during development, before package
-versions are known. For subpackages, the empty string is mandatory:
-
-```
-"core": [],  ## or: "core": [""],
-"lwt": ["", ["lwt.unix"]]
-```
-
-#### OPAM package verification and pinning
-
-By default, OPAM package dependencies are not verified. To tell OBazl
-to verify them, pass `verify=True` in the `OpamSwitch` struct, or set
-the environment variable `OBAZL_OPAM_VERIFY=1`, e.g.
-
-```
-$ OBAZL_OPAM_VERIFY=1 bazel build //foo/bar
-```
-
-or `$ export OBAZL_OPAM_VERIFY=1`.
-
-
-Environment variables affecting processing of the `OpamConfig` struct in `WORKSPACE.bzl`:
-
-* `OPAMSWITCH`: if set to a switch name string, overrides configured
-  default switch. The switch name must match one defined in the
-  `OpamConfig` struct assigned to the `opam` attribute of `WORKSPACE.bzl`.
-
-* `OBAZL_OPAM_VERIFY`: if defined, overrides `verify=False`
-
-* `OBAZL_OPAM_PIN`: if defined, overrides `pin=False`
-
-## Example
-
-`WORKSPACE.bzl`: as above
 
 WORKSPACE.bazel:
-
+...
+load("//:WORKSPACE.bzl", "cc_fetch_rules", "ocaml_fetch_rules", "rust_fetch_rules")
+cc_fetch_rules()
+ocaml_fetch_rules()
+rust_fetch_rules()
+...
+## load and run config functions for language rules...
+...
 ```
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-git_repository(
-    name = "obazl_tools_bazel",
-    remote = "https://github.com/obazl/tools_bazel",
-    branch = "main",
-)
-git_repository(
-    name = "obazl_rules_opam",
-    remote = "https://github.com/obazl/rules_opam",
-    branch = "main",
-)
-git_repository(
-    name = "obazl_rules_ocaml",
-    remote = "https://github.com/obazl/rules_ocaml",
-    branch = "main",
-)
+### <a name="configrules">Configuring Language Rules</a>
 
-load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
-load("//:WORKSPACE.bzl", "opam")  # configuration struct defined by user
-switch = opam_configure(opam = opam)
+Most Language Support Packages (LSPs) contain one or more
+configuration functions. These must be loaded and executed after the
+rules are fetched.  See the LSP documentation for details.
 
-load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", ocaml_configure = "configure")
-ocaml_configure( switch = switch )
-```
+Currently the `obazl_rules_ocaml` LSP depends on `obazl_rules_opam`, since
+OPAM is widely acknowledged as the standard OCaml package manager and
+most projects are likely to use it. A future version will decouple the
+OCaml rules from the OPAM rules. If your OCaml project does not use
+OPAM, and the OBazl rules do not meet your needs, please [file an
+issue](https://github.com/obazl/rules_ocaml/issues).
+
+You must fetch and [configure `obazl_rules_opam`](configuration.md#opamconfig)
+before you [configure `obazl_rules_ocaml`](configuration.md#ocamlconfig).
+
+See the [Reference Manual](../refman/config.md) for details.
 
 ## <a name="libraries">Bootstrapping Library Repositories</a>
 

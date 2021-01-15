@@ -245,22 +245,3 @@ OCaml module provider.
 | <a id="OcamlNsModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider)    |
 
 
-<a id="#OpamPkgInfo"></a>
-
-## OpamPkgInfo
-
-<pre>
-OpamPkgInfo(<a href="#OpamPkgInfo-pkg">pkg</a>, <a href="#OpamPkgInfo-ppx_driver">ppx_driver</a>)
-</pre>
-
-Provider for OPAM packages.
-
-**FIELDS**
-
-
-| Name  | Description |
-| ------------- | ------------- |
-| <a id="OpamPkgInfo-pkg"></a>pkg |  Label depset containing package name string used by ocamlfind.    |
-| <a id="OpamPkgInfo-ppx_driver"></a>ppx_driver |  True if ocamlfind would generate -ppx command line arg when this lib is listed as a dep.    |
-
-
