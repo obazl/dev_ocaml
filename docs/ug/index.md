@@ -6,10 +6,10 @@ OBazl User Guide
 -   [Configuration](configuration.md)
     -   [OPAM Configuration](configuration.md#opamconfig)
     -   [OCaml Configuration](configuration.md#ocamlconfig)
-    -   [Config Rules](configrules.md)
+    -   [Configuration Rules](configrules.md)
     -   [Config Profiles](configprofiles.md)
 -   [Conventions](conventions.md)
--   Depencencies
+-   [Dependency Management](depmgmt.md)
     -   [OCaml Dependencies](dependencies_ocaml.md)
     -   [OPAM Dependencies](dependencies_opam.md)
     -   [CC Dependencies](dependencies_cc.md)
