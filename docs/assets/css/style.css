@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
+h5 {
+    background: #880000 !important;
+}
+
 code.language-plaintext.highlighter-rouge {
     color:#c0eef9 !important;
 }
