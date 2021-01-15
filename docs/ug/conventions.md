@@ -15,9 +15,9 @@ OBazl Conventions
 
 -   Importing external repositories
 
-    -   If you import only a small number of repositories, put the
-        importing rules (`http_repository`, `git_repository`) in
-        `WORKSPACE.bazel`
+    -   If you import only a small number of repositories, and you do
+        not expect others to import your repository, put the importing
+        rules (`http_repository`, `git_repository`) in `WORKSPACE.bazel`
 
     -   Otherwise, define one or more bootstrapping functions in
         `WORKSPACE.bzl` (note the extension, `.bzl`, not `.bazel`)

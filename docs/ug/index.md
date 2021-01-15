@@ -1,6 +1,12 @@
 OBazl User Guide
 ================
 
+[Developing OCaml software with OBazl](development.md)
+
+------------------------------------------------------------------------
+
+Site map:
+
 -   [Bootstrapping](bootstrap.md)
 -   [Conditional Compilation/Building]()
 -   [Configuration](configuration.md)
@@ -14,7 +20,7 @@ OBazl User Guide
     -   [OPAM Dependencies](dependencies_opam.md)
     -   [CC Dependencies](dependencies_cc.md)
 -   [File Generation](filegen.md)
--   [Maintenance](maintenance.md)
+-   [Maintenance Tasks](maintenance.md)
 -   [PPX Support](ppx.md)
 -   Rules
     -   [Bootstrapping](bootstrap.md#rules)

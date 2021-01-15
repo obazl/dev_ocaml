@@ -14,14 +14,14 @@
 
 * Importing external repositories
 
-  * If you import only a small number of repositories, put the
-    importing rules (`http_repository`, `git_repository`) in
-    `WORKSPACE.bazel`
+  * If you import only a small number of repositories, and you do not
+    expect others to import your repository, put the importing rules
+    (`http_repository`, `git_repository`) in `WORKSPACE.bazel`
 
   * Otherwise, define one or more bootstrapping functions in
     `WORKSPACE.bzl` (note the extension, `.bzl`, not `.bazel`)
-    responsible for fetching the repositories. See [Bootstrapping and
-    Configuration](bootstrap.md) for an example. Name them
+    responsible for fetching the repositories. See
+    [Bootstrapping](bootstrap.md) for an example. Name them
     `<lang>_fetch_rules` (for fetching language support packages) and
     `<lang>_fetch_repos` for library repositories.
 

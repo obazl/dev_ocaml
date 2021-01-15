@@ -1,9 +1,10 @@
 [User Guide](index.md)
 
-# Maintenance
+# Maintenance Tasks
 
 * [Tasks](#tasks)
   * [File edits](#fileedits)
+  * [Namespace changes](#namespaces)
 * [Batch Editing](#batch)
   * [Patching](#patching)
 * [Case study](#case)
@@ -121,8 +122,12 @@ you can write a `buildozer` edit command to automated the editing. You
 would run the `buildozer` commands every time you update your build
 files using the conversion tool.
 
+> **WARNING** It turns out that buildozer cannot reliably add an
+       ordered list of attribute values, like `"-w", "-24"`; it
+       insists on sorting them, which puts them in the wrong order. A
+       bug report has been filed.
 
-## <a name="case">Case study: removing an attribute from rule instances</a>
+### <a name="case">Case study: removing an attribute from rule instances</a>
 
 The initial version of rule `ocaml_ns` included an `opts` attribute
 that is not needed. Removing it from the rule entailed editing

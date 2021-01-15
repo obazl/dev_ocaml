@@ -82,6 +82,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "development",
+    src = "development_ug.md",
+    output = "development.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "filegen",
     src = "filegen_ug.md",
     output = "filegen.md",
