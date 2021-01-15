@@ -42,9 +42,17 @@ pandoc(
 
 #######
 pandoc(
-    name = "configdefs",
-    src = "configurable_defaults_ug.md",
-    output = "configurable_defaults.md",
+    name = "configprofiles",
+    src = "configprofiles_ug.md",
+    output = "configprofiles.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "configrules",
+    src = "configrules_ug.md",
+    output = "configrules.md",
     visibility = ["//visibility:public"],
 )
 

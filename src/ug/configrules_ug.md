@@ -2,14 +2,20 @@
 
 # Configuration Rules
 
+A "build setting", in Bazel's terminology, is a rule that ...
+
+A configuration rule is a build setting rule that is designated as the
+default value of a rule attribute.
+
 Some OCaml compile options are used so commonly that they should
 probably be the default. Changing compiler defaults would break
 existing code, so OBazl does the next best thing: it defines a set of
-_configurable default_ flags and options that control the construction
-of compile commands. These are documented on the rules documentation
-pages, [ocaml rules](rules_ocaml.md) and [ppx rules](rules_ppx.md).
+configuration rules that control the construction of compile commands.
+These are documented on the rules documentation pages, [ocaml
+rules](../refman/rules_ocaml.md) and [ppx
+rules](../refman/rules_ppx.md).
 
-Each configurable default has a default value, which may be globally
+Each configuration rule has a default value, which may be globally
 overridden on the command line. For example, verbosity is controlled
 by flag `@ocaml//verbose`, which is set to False (disabled) by
 default. Each `ocaml_*` rule examines this flag to decide whether or
@@ -45,7 +51,7 @@ flag.
 Case-by-case overrides
 ----------------------
 
-These configurable default flags and options have global effect; each
+These configuration rules - flags and options - have global effect; each
 instance of each `ocaml_*` rule will be controlled by these
 flags/options. But they can be overridden on a case-by-case basis by
 passing the relevant argument to the `opts` attribute.
@@ -75,7 +81,7 @@ This tells OBazl (not OCaml) to remove the `-verbose` flag that the
 global setting adds.
 
 A `-no` prefixed flag for the `opts` attribute is supported for each
-configurable default flag, just as `--no@ocaml//<flag>` is supported
+configuration rule, just as `--no@ocaml//<flag>` is supported
 for the command-line.
 
 **IMPORTANT** The authoritative source of documentation for OCaml compile

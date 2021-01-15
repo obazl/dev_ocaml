@@ -141,7 +141,7 @@ add `-dump-ast` as a command line option when running the
 just omits the argument.
 
 The default print output format is determined by the
-[configurable_defaults](configurable_defaults.md) target
+[config rules](configrules.md) target
 `@ppx//print`, which in turn defaults to binary. You can change the
 global default to print by passing `--@ppx//print:text` on the command
 line. Use the `ppx_print` attribute to override this global default.

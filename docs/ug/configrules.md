@@ -1,0 +1,90 @@
+[User Guide](index.md)
+
+Configuration Rules
+===================
+
+A "build setting", in Bazel's terminology, is a rule that ...
+
+A configuration rule is a build setting rule that is designated as the
+default value of a rule attribute.
+
+Some OCaml compile options are used so commonly that they should
+probably be the default. Changing compiler defaults would break existing
+code, so OBazl does the next best thing: it defines a set of
+configuration rules that control the construction of compile commands.
+These are documented on the rules documentation pages, [ocaml
+rules](../refman/rules_ocaml.md) and [ppx
+rules](../refman/rules_ppx.md).
+
+Each configuration rule has a default value, which may be globally
+overridden on the command line. For example, verbosity is controlled by
+flag `@ocaml//verbose`, which is set to False (disabled) by default.
+Each `ocaml_*` rule examines this flag to decide whether or not to add
+`-verbose` to the build command; setting it to True tells OBazl to add
+`-verbose` to all build commands.
+
+To enable a boolean flag, just pass the flag: `--@ocaml//verbose`, or
+equivalently: `--@ocaml//verbose:enable`. To disable, prefix `no` to the
+flag: `--no@ocaml//keep-locs`, or equivalently
+`--@ocaml//keep-locs:disable`.
+
+**WARNING** These flags/options apply to rules, and therefore to all
+instances of the rules. This means that changing one of them will
+trigger a rebuild of all direct and indirect dependencies of the build
+target!
+
+Each flag corresponds to an option that can also be passed via the
+`opts` rule attribute. For example, `@ocaml//verbose` corresponds to
+`-verbose`, `@ocaml//strict-sequence` corresponds to `-strict-sequence`,
+and so forth. Usually the correspondance is direct and obvious; the
+exception is `@ocaml//cmt`, which corresponds to flag `-bin-annot`,
+which tells the compiler to emit `*.cmt/*.cmti` files as a side-effect
+of compilation.
+
+Negation is generally a simple matter of omission. If `--@ocaml//foo`
+adds flag `-foo`, then `--no@ocaml//foo` (equivalently
+`--@ocaml//foo:disable`) will prevent addition of that flag. For
+example, the `-short-paths` flag is added to all compile commands by
+default, since the default for `@ocaml//short-paths` is True. Setting
+the default to false by passing `--no@ocaml//short-paths` (or
+`--@ocaml//short-paths:disable`) simply prevents the addition of that
+flag.
+
+Case-by-case overrides
+----------------------
+
+These configuration rules - flags and options - have global effect; each
+instance of each `ocaml_*` rule will be controlled by these
+flags/options. But they can be overridden on a case-by-case basis by
+passing the relevant argument to the `opts` attribute.
+
+For example, verbosity is globally disabled by default. To enable
+verbosity for a particular `ocaml_module` instance, just add `-verbose`
+to the `opts` attribute of the rule.
+
+### <a name="disabling">Disabling</a>
+
+Disabling is just as easy, but does not always correspond directly to
+OCaml flags. Some OCaml flags support a negating prefix `-no`; for
+example, `ocamlopt --help` displays the following:
+
+      -keep-locs  Keep locations in .cmi files (default)
+      -no-keep-locs  Do not keep locations in .cmi files
+
+But not all flags support negation in this way; for example, there is no
+`-no-verbose` flag. However, the OBazel `opts` attribute *does*
+understand such flags, which allows negation for such cases. For
+example, suppose verbosity has been globally enabled by passing
+`--@ocaml//verbose`. To disable verbosity for a particular
+`ocaml_module` instance, pass `-no-verbose` to the `opts` attribute.
+This tells OBazl (not OCaml) to remove the `-verbose` flag that the
+global setting adds.
+
+A `-no` prefixed flag for the `opts` attribute is supported for each
+configuration rule, just as `--no@ocaml//<flag>` is supported for the
+command-line.
+
+**IMPORTANT** The authoritative source of documentation for OCaml
+compile flags is the compiler `--help` option. At time of writing, the
+official OCaml manual is incomplete (for example, it does not document
+`-keep-locs`).

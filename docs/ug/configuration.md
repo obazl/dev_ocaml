@@ -8,8 +8,6 @@ Configuration
     -   [The `configure()` function](#opam_configure)
 -   [OCAML Configuration](#ocamlconfig)
     -   [The `configure()` function](#ocaml_configure)
--   [Build Settings](#build_settings)
--   [Config Profiles](#config_profiles)
 
 <a name="opamconfig">OPAM Configuration</a>
 -------------------------------------------
@@ -99,9 +97,3 @@ Environment variables affecting processing of the `OpamConfig` struct in
 ---------------------------------------------
 
 ### <a name="ocaml_configure">The OCaml configure() Function</a>
-
-misc
-----
-
-Docs on `--config` are buried in [.bazelrc syntax and
-semantics](https://docs.bazel.build/versions/master/guide.html#bazelrc-syntax-and-semantics)

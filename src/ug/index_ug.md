@@ -5,8 +5,8 @@
 * [Configuration](configuration.md)
   * [OPAM Configuration](configuration.md#opamconfig)
   * [OCaml Configuration](configuration.md#ocamlconfig)
-  * [Build Settings](configuration.md#build_settings)
-  * [Config Profiles](configuration.md#profiles)
+  * [Config Rules](configrules.md)
+  * [Config Profiles](configprofiles.md)
 * [Conventions](conventions.md)
 * Depencencies
   * [OCaml Dependencies](dependencies_ocaml.md)
@@ -18,7 +18,7 @@
 * Rules
   * [Bootstrapping](bootstrap.md#rules)
   * [Build Rules](build_rules.md)
-  * [Configuration Rules](configurable_defaults.md)
+  * [Configuration Rules](configrules.md)
 * [Testing](testing.md)
 * [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
 * [Troubleshooting](troubleshooting.md)
