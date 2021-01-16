@@ -5,8 +5,6 @@ OBazl User Guide
 
 ------------------------------------------------------------------------
 
-Site map:
-
 -   [Bootstrapping](bootstrap.md)
 -   [Conditional Compilation/Building]()
 -   [Configuration](configuration.md)
