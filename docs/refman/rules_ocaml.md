@@ -63,7 +63,7 @@ may have its own set of configurable defaults.
 ## ocaml_archive
 
 <pre>
-ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-linkshared">linkshared</a>, <a href="#ocaml_archive-opts">opts</a>)
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkall">cc_linkall</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-deps">deps</a>, <a href="#ocaml_archive-doc">doc</a>, <a href="#ocaml_archive-opts">opts</a>)
 </pre>
 
 Generates an OCaml archive file.
@@ -79,7 +79,6 @@ Generates an OCaml archive file.
 | <a id="ocaml_archive-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.  | List of strings | optional | [] |
 | <a id="ocaml_archive-deps"></a>deps |  List of OCaml dependencies.  Providers:   [OpamPkgInfo](providers_ocaml.md#opampkginfo)  [OcamlImportProvider](providers_ocaml.md#ocamlimportprovider)  [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider)  [OcamlLibraryProvider](providers_ocaml.md#ocamllibraryprovider)  [OcamlModuleProvider](providers_ocaml.md#ocamlmoduleprovider)  [OcamlNsModuleProvider](providers_ocaml.md#ocamlnsmoduleprovider)  [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider)  [PpxArchiveProvider](providers_ocaml.md#ppxarchiveprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_archive-doc"></a>doc |  Deprecated  | String | optional | "" |
-| <a id="ocaml_archive-linkshared"></a>linkshared |  Build a .cmxs ('plugin') for dynamic loading. Native mode only.  | Boolean | optional | False |
 | <a id="ocaml_archive-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
 
 
@@ -290,7 +289,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | <a id="ocaml_module-cc_linkopts"></a>cc_linkopts |  List of C/C++ link options. E.g. <code>["-lstd++"]</code>.  | List of strings | optional | [] |
 | <a id="ocaml_module-cc_linkstatic"></a>cc_linkstatic |  DEPRECATED. Control linkage of C/C++ dependencies. True: link to .a file; False: link to shared object file (.so or .dylib)  | Boolean | optional | True |
 | <a id="ocaml_module-data"></a>data |  Runtime dependencies: list of labels of data files needed by this module at runtime.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ocaml_module-deps"></a>deps |  List of OCaml dependencies.  Providers:   [OpamPkgInfo](providers_ocaml.md#opampkginfo)  [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider)  [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider)  [OcamlImportProvider](providers_ocaml.md#ocamlimportprovider)  [OcamlLibraryProvider](providers_ocaml.md#ocamllibraryprovider)  [OcamlModuleProvider](providers_ocaml.md#ocamlmoduleprovider)  [OcamlNsModuleProvider](providers_ocaml.md#ocamlnsmoduleprovider)  [PpxArchiveProvider](providers_ocaml.md#ppxarchiveprovider)  [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)  [CcInfo](providers_ocaml.md#ccinfo) | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ocaml_module-deps"></a>deps |  List of OCaml dependencies.  Providers:   [OpamPkgInfo](providers_ocaml.md#opampkginfo)  [OcamlArchiveProvider](providers_ocaml.md#ocamlarchiveprovider)  [OcamlImportProvider](providers_ocaml.md#ocamlimportprovider)  [OcamlInterfaceProvider](providers_ocaml.md#ocamlinterfaceprovider)  [OcamlLibraryProvider](providers_ocaml.md#ocamllibraryprovider)  [OcamlModuleProvider](providers_ocaml.md#ocamlmoduleprovider)  [OcamlNsModuleProvider](providers_ocaml.md#ocamlnsmoduleprovider)  [PpxArchiveProvider](providers_ocaml.md#ppxarchiveprovider)  [PpxModuleProvider](providers_ocaml.md#ppxmoduleprovider)  [CcInfo](providers_ocaml.md#ccinfo) | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ocaml_module-doc"></a>doc |  Docstring for module. DEPRECATED  | String | optional | "" |
 | <a id="ocaml_module-intf"></a>intf |  Single label of a target providing a single .cmi or .mli file. Optional. Currently only supports .cmi input.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ocaml_module-module_name"></a>module_name |  Module name. Overrides <code>name</code> attribute.  | String | optional | "" |

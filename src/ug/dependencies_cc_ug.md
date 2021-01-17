@@ -63,3 +63,22 @@ linking. Possible values:
   X](https://developer.apple.com/library/archive/qa/qa1118/_index.html)
 
 [TODO: flesh this out]
+
+## circular deps
+
+Legacy packages may include circular or mutual dependencies. Bazel
+disallows such dependencies.
+
+Example: libfqfft/evaluation_domain/domains and libfqfft/polynomial_arithmetic are mutually dependent.
+
+In this case listing each in the deps attribute of the other will
+fail, since Bazel will detect the dependency cycle.
+
+The "proper" way to address this is to refactor the packages to
+eliminate the cycles.  But we cannot do that with legacy code we do
+not control.
+
+The workaround seems to be to use 'include_prefix' ...  This will make
+compilation work, at the cost of removing at least one of the
+dependencies, so a change in one will not force a recompile of the
+other.  [Why does this work?]

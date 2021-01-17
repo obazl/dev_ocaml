@@ -62,7 +62,7 @@
     * `$ opam var bin` - print the value of the `bin` var of the current switch
     * `$ opam var ounit2:version` - prints version string of package `ounit2`
 
-  * The OBazl rules depend on `ocamlfind`, which you must install: `$
+  * The OBazl rules depend on [ocamlfind](http://projects.camlcity.org/projects/dl/findlib-1.8.1/doc/ref-html/r17.html), which you must install: `$
     opam install ocamlfind`. `ocamlfind` is an application of
     [findlib](http://projects.camlcity.org/projects/findlib.html),
     which is an OCaml library manager that compliments OPAM; most if
@@ -135,5 +135,13 @@ $ bazel aquery //foo/bar:baz
 ```
 
 See [Transparency](transparency.md) for more information.
+
+#### <a name="cmd_opts">Compile/link commands</a>
+
+**WARNING**: The current version of OBazl uses
+[ocamlfind](http://projects.camlcity.org/projects/dl/findlib-1.8.1/doc/ref-html/r17.html#OCAMLFIND.OCAMLOPT)
+to drive the OCaml toolchain.  **The compile/link options for `ocamlfind` are different than those for the compilers `ocamlc` and `ocamlopt`.**
+
+TODO: flesh this out a bit more.
 
 ## <a name="externals">Working with external repositories</a>

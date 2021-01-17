@@ -3,6 +3,14 @@
 Troubleshooting
 ===============
 
+linking problems
+----------------
+
+Use action graph queries to print a complete description of the actions
+- inputs, outputs, command line - of any build target. This is very
+fast; it does not execute the actions so it will not actually build
+anything. See [Querying](querying.md) for more information.
+
 no such target `@opam//pkg:`
 ----------------------------
 

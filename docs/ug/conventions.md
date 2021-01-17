@@ -5,6 +5,11 @@ OBazl Conventions
 
 -   `WORKSPACE.bazel`, not `WORKSPACE`
 
+    -   Explicitly name your workspace - make `workspace(name="foo")`
+        the first line of `WORKSPACE.bazel` (replacing `foo` with your
+        workspace name). This will make log messages more decipherable,
+        among other things.
+
 -   Use `WORKSPACE.bzl` for extension code needed by `WORKSPACE.bazel`,
     such as `fetch()` functions that [fetch](bootstrap.md#fetch_rules)
     language rules and external repositories.

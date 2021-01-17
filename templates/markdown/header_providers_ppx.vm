@@ -7,5 +7,6 @@
 * [PpxArchivePayload](#ppxarchivepayload)
 * [PpxArchiveProvider](#ppxarchiveprovider)
 * [PpxExecutableProvider](#ppxexecutableprovider)
+* [PpxModuleProvider](#ppxmoduleprovider)
 
 ----

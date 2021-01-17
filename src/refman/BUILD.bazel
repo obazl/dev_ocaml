@@ -2,18 +2,19 @@ load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")
 
 RULES_PPX_DEPS = [
-    "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-    "@obazl_rules_ocaml//ocaml:bootstrap",
-    "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
-    "@obazl_rules_ocaml//ocaml/_rules:ppx_rules",
-    "@obazl_rules_ocaml//ppx/_transitions:transitions",
-    "@obazl_rules_opam//opam:bootstrap",
-    "@obazl_rules_opam//opam/_debug:debug",
-    "@obazl_rules_opam//opam/_functions:functions",
-    "@obazl_rules_opam//opam/_bootstrap:bootstrap",
-    "@obazl_tools_bazel//tools/functions",
     "@bazel_skylib//lib:collections",
     "@bazel_skylib//lib:types",
+    "@obazl_rules_ocaml//ocaml:bootstrap",
+    "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+    "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+    "@obazl_rules_ocaml//ocaml/_rules:ppx_rules",
+    "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
+    "@obazl_rules_opam//opam:bootstrap",
+    "@obazl_rules_opam//opam/_bootstrap:bootstrap",
+    "@obazl_rules_opam//opam/_debug:debug",
+    "@obazl_rules_opam//opam/_functions:functions",
+    "@obazl_rules_ocaml//ppx/_transitions:transitions",
+    "@obazl_tools_bazel//tools/functions",
 ]
 
 ################################################################
@@ -73,6 +74,8 @@ stardoc(
         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
         "@obazl_rules_ocaml//ocaml:bootstrap",
         "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
+        "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
+        "@obazl_rules_ocaml//ppx/_transitions:transitions",
     ],
     symbol_names = [
         "ocaml_archive",
@@ -181,7 +184,8 @@ stardoc(
     symbol_names = [
         "PpxDepsetProvider",
         "PpxArchiveProvider",
-        "PpxExecutableProvider"
+        "PpxExecutableProvider",
+        "PpxModuleProvider"
     ]
 )
 

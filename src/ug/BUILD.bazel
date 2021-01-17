@@ -82,6 +82,22 @@ pandoc(
 
 #######
 pandoc(
+    name = "deps_ocaml",
+    src = "dependencies_ocaml_ug.md",
+    output = "dependencies_ocaml.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "deps_opam",
+    src = "dependencies_opam_ug.md",
+    output = "dependencies_opam.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "development",
     src = "development_ug.md",
     output = "development.md",
@@ -98,33 +114,9 @@ pandoc(
 
 #######
 pandoc(
-    name = "ocaml_deps",
-    src = "dependencies_ocaml_ug.md",
-    output = "dependencies_ocaml.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
-    name = "opam_deps",
-    src = "dependencies_opam_ug.md",
-    output = "dependencies_opam.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
-    name = "misc",
-    src = "misc_ug.md",
-    output = "misc.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
-    name = "ocamldeps",
-    src = "ocamldeps.md",
-    output = "ocaml_deps.md",
+    name = "interop",
+    src = "interop_ug.md",
+    output = "interop.md",
     visibility = ["//visibility:public"],
 )
 
@@ -133,6 +125,14 @@ pandoc(
     name = "maintenance",
     src = "maintenance_ug.md",
     output = "maintenance.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "misc",
+    src = "misc_ug.md",
+    output = "misc.md",
     visibility = ["//visibility:public"],
 )
 
@@ -165,6 +165,22 @@ pandoc(
     name = "transparency",
     src = "transparency_ug.md",
     output = "transparency.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "toolchains",
+    src = "toolchains_ug.md",
+    output = "toolchains.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "tools",
+    src = "tools_ug.md",
+    output = "tools.md",
     visibility = ["//visibility:public"],
 )
 

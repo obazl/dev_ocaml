@@ -21,10 +21,10 @@
 ## OcamlArchivePayload
 
 <pre>
-OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxs">cmxs</a>)
+OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>)
 </pre>
 
-A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider). Not provided by rule.
+A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider). Not directly provided by any rule.
 
 **FIELDS**
 
@@ -32,10 +32,9 @@ A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [Ppx
 | Name  | Description |
 | ------------- | ------------- |
 | <a id="OcamlArchivePayload-archive"></a>archive |  Name of archive    |
+| <a id="OcamlArchivePayload-cma"></a>cma |  .cma file produced by the target (bytecode mode)    |
 | <a id="OcamlArchivePayload-cmxa"></a>cmxa |  .cmxa file produced by the target (native mode)    |
 | <a id="OcamlArchivePayload-a"></a>a |  .a file produced by the target (native mode)    |
-| <a id="OcamlArchivePayload-cma"></a>cma |  .cma file produced by the target (bytecode mode)    |
-| <a id="OcamlArchivePayload-cmxs"></a>cmxs |  .cmxs file produced by the target  (shared object)    |
 
 
 <a id="#OcamlArchiveProvider"></a>

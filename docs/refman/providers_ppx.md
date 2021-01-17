@@ -7,6 +7,7 @@
 * [PpxArchivePayload](#ppxarchivepayload)
 * [PpxArchiveProvider](#ppxarchiveprovider)
 * [PpxExecutableProvider](#ppxexecutableprovider)
+* [PpxModuleProvider](#ppxmoduleprovider)
 
 ----
 <a id="#PpxArchiveProvider"></a>
@@ -69,5 +70,24 @@ OCaml PPX binary provider.
 | <a id="PpxExecutableProvider-payload"></a>payload |  Executable file produced by the target.    |
 | <a id="PpxExecutableProvider-args"></a>args |  Args to be passed when binary is invoked    |
 | <a id="PpxExecutableProvider-deps"></a>deps |  A triple of depsets:             opam : direct and transitive opam deps (Labels) of target             opam_adjunct : extension output deps; needed when transformed source is compiled             nopam: direct and transitive non-opam deps (Files) of target             nopam_adjunct : extension output deps; needed when transformed source is compiled    |
+
+
+<a id="#PpxModuleProvider"></a>
+
+## PpxModuleProvider
+
+<pre>
+PpxModuleProvider(<a href="#PpxModuleProvider-payload">payload</a>, <a href="#PpxModuleProvider-deps">deps</a>)
+</pre>
+
+OCaml PPX module provider.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="PpxModuleProvider-payload"></a>payload |  A struct with the following fields:             cmi: .cmi file produced by the target             # mli: ???             cm: .cmx or .cmo file produced by the target             o  : .o file produced by the target    |
+| <a id="PpxModuleProvider-deps"></a>deps |  A collectikon of depsets:             opam : direct and transitive opam deps (Labels) of target             opam_adjunct : extension output deps; needed when transformed source is compiled             nopam: direct and transitive non-opam deps (Files) of target             nopam_adjunct : extension output deps; needed when transformed source is compiled             cc_deps : C/C++ deps    |
 
 
