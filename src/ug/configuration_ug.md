@@ -2,13 +2,26 @@
 
 # Configuration
 
-* [OPAM Configuration](#opamconfig)
+* [Bazel Configurations](#bazel)
+* [OPAM Rules Configuration](#opamconfig)
   * [The `OpamConfig` provider](#opamconfig_provider)
   * [The `configure()` function](#opam_configure)
-* [OCAML Configuration](#ocamlconfig)
+* [OCaml Rules Configuration](#ocamlconfig)
   * [The `configure()` function](#ocaml_configure)
+* [Configuration Rules](#configrules)
+* [Configuration Profiles](#configprofiles)
 
-## <a name="opamconfig">OPAM Configuration</a>
+## <a name="bazel">Bazel Configurations</a>
+
+>    **WARNING**: Bazel has several different notions of "configuration".
+>    A complete discussion of these is beyond the scope of this manual,
+>    but the following links will give you more information.
+
+* [Platform Configurations](https://docs.bazel.build/versions/master/skylark/rules.html#configurations).
+* [Starlark Build Configurations](https://docs.bazel.build/versions/master/skylark/config.html), a/k/a "build settings".  See below, [Configuration Rules](#configrules)
+* [The `--config` Command-line Option](https://docs.bazel.build/versions/master/guide.html#bazelrc-syntax-and-semantics).  See below, [Configuration Profiles](#configprofiles).
+
+## <a name="opamconfig">OPAM Rules Configuration</a>
 
 ### <a name="opamconfig_provider">The OpamConfig Provider</a>
 
@@ -98,7 +111,13 @@ Environment variables affecting processing of the `OpamConfig` struct in `WORKSP
 ### <a name="opam_configure">The OPAM configure() Function</a>
 
 
-## <a name="ocamlconfig">OCaml Configuration</a>
+## <a name="ocamlconfig">OCaml Rules Configuration</a>
 
 ### <a name="ocaml_configure">The OCaml configure() Function</a>
+
+
+## <a name="configrules">Configuration Rules</a>
+
+
+## <a name="configprofiles">Configuration Profiles</a>
 

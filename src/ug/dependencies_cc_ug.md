@@ -7,18 +7,25 @@
 
 # CC Dependencies
 
-A "CC dependency" is often a C/C++ library, but this terminology is a
-little misleading. A `C/C++ library` need not necessarily be produced
-from C/C++ source code. Rather it refers to the standard file format
-for object files, archives, etc., which is historically is closely
-associated with C. Many other languages (including OCaml) are capable
-of producing such files, so OBazl may use 'CC' terminology (e.g. `CC
-library`, `cc_deps`) to refer to such files no matter what language
-was used to produce them.
+A "CC dependency" is usually a C/C++ library, but CC dependencies need
+not necessarily be produced from C/C++ source code. Rather the term refers
+to the standard file format for object files, archives, etc., which is
+historically is closely associated with C. Many other languages
+(including OCaml, Rust, Go, etc.) are capable of producing such files;
+OBazl uses 'CC' terminology (e.g. `CC library`, `cc_deps`) to refer to
+such files no matter what language was used to produce them.
 
-## CC Libraries
+* [CC Libraries](#cclibs)
+* [CC Linkmode](#linkmode)
+* [Dynamic Loading (Plugins)](#plugins)
+* [Dependency Cycles](#cycles)
+* [MacOS](#macos)
 
-A library is a collection of code units. C/C++ libraries come in
+----
+
+## <a name="cclibs">CC Libraries</a>
+
+A library is a collection of code units. CC libraries come in
 several flavors:
 
 * an unpackaged collection of object files (with `.o` extension)
@@ -33,12 +40,7 @@ several flavors:
   as synonyms. On Linux, these are `.so` files; on MacOS, they are
   `.dylib` files (but MacOS also supports `.so` files).
 
-## Dynamic Loading ('Plugins')
-
-[TODO: document dynamic loading of CC deps; compare OCaml *.cmxs
-files. Distinction between linking and loading.]
-
-## Linkmode
+## <a name="linkmode">CC Linkmode</a>
 
 Rules producing CC libs commonly produce both a static archive ('.a'
 file) and one or more shared libraries ('.so' or '.dylib' files). In
@@ -50,21 +52,31 @@ linking. Possible values:
 * 'shared': synonym for 'dynamic'
 * 'default': by default, equivalent to 'static' on Linux, 'dynamic' on MacOS.
 
-**WARNING** The 'default' linkmode is configurable. The default value
+**NOTE** The 'default' linkmode is configurable. The default value
   for linkmode 'default' is as noted above. To override the default
   for all rules, pass command-line option `--@ocaml//linkmode`; for
   example, to set default value for linkmode 'default' to 'dynamic'
   pass `--@ocaml//linkmode:dynamic`.
 
-### Static Binaries
+## <a name="plugins">Dynamic Loading ('Plugins')</a>
 
-**WARNING** MacOS does not support statically linked binaries (ie.
-  executables). See [Statically linked binaries on Mac OS
+[TODO: document dynamic loading of CC deps; compare OCaml *.cmxs
+files. Distinction between linking and loading.]
+
+## Static Binaries
+
+Executable binaries can be linked in several ways:
+
+* Dynamic - all deps are shared libs
+* Partially static - non-system libs may be statically linked, but system libs are dynamically linked
+* Fully static -- all dependencies, including system libraries, are statically linked, resulting in a complete standalone executabe.
+
+**WARNING** MacOS does not support statically linked executables. See [Statically linked binaries on Mac OS
   X](https://developer.apple.com/library/archive/qa/qa1118/_index.html)
 
 [TODO: flesh this out]
 
-## circular deps
+## <a name="cycles">Dependency Cycles</a>
 
 Legacy packages may include circular or mutual dependencies. Bazel
 disallows such dependencies.
@@ -82,3 +94,17 @@ The workaround seems to be to use 'include_prefix' ...  This will make
 compilation work, at the cost of removing at least one of the
 dependencies, so a change in one will not force a recompile of the
 other.  [Why does this work?]
+
+## <a name="macos">MacOS</a>
+
+Linking dynamic libs to an executable on MacOS is an open issue. The
+workaround for now is to link to static libs.
+
+Demo: [demos/interop/cc_deps]()
+
+Resources:
+
+* [Dynamic Libraries, RPATH, and Mac OS](https://blogs.oracle.com/dipol/dynamic-libraries,-rpath,-and-mac-os) Blog article from 2008, still useful.
+
+* [osx_cc_wrapper.sh](https://github.com/bazelbuild/bazel/blob/master/tools/cpp/osx_cc_wrapper.sh)
+

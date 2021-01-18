@@ -154,6 +154,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "querying",
+    src = "querying_ug.md",
+    output = "querying.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "testing",
     src = "testing_ug.md",
     output = "testing.md",

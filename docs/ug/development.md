@@ -4,7 +4,6 @@ Developing OCaml software with OBazl
 ====================================
 
 -   [Prerequisites](#prerequisites)
--   [OCaml Tools](#ocaml_tools)
 -   [Setup](#setup)
 -   [Inspecting build actions and commands](#inspection)
 -   [Working with external repositories](#externals)
@@ -20,25 +19,7 @@ Developing OCaml software with OBazl
     server](https://discord.gg/PHSAW5DUva) and I will be happy to help.
 
 -   Build tools. The OCaml toolchain depends on a C/C++ compiler and
-    tools.
-
--   File/text tools. Developing with Bazel from the command line may
-    involve lots of searching and browsing, even if you use an IDE. Some
-    useful but optional tools:
-
-    -   A good pager. Common choices are [more, less, and
-        most](https://www.slackbook.org/html/file-commands-pagers.html).
-        You can also use `vim` as a pager; it ships with a script
-        `less.sh` to support this use (usually in
-        `/usr/share/vim/vim81/macros`). You can make an alias to keep it
-        available, e.g. add
-        `alias vls='/usr/share/vim/vim81/macros/less.sh'` to your
-        `~/.bashrc` file.
-
-    -   [ripgrep](https://github.com/BurntSushi/ripgrep) A very fast and
-        powerful replacement for `grep`
-    -   [fd](https://github.com/sharkdp/fd) A fast and simple
-        replacement for `find`
+    tools. Normally this will be installed by OPAM.
 
 -   [OPAM](https://opam.ocaml.org/) installation. The rules have been
     used with version 2.0.7. Earlier versions may work; if not, please
@@ -97,39 +78,19 @@ Developing OCaml software with OBazl
         [OPAM\_Configuration](configuration.md#opamconfig) for more
         information.
 
+-   [Tools](tools.md)
+
 -   Locally installed libraries. Some OPAM packages depend on locally
     installed resources. For example, package `bignum` depends on
     package `zarith`, which depends on a local installation of `libgmp`.
 
-<a name="ocaml_tools">OCaml Tools</a>
--------------------------------------
-
-The OCaml toolchain comes with a collection of useful
-[tools](https://caml.inria.fr/pub/docs/manual-ocaml/index.html#sec286).
-
-To see all of them, list the `bin` directory of your switch, which you
-can find by running `$ opam config list` or `$ opam var bin`.
-
-These will probably be useful for Obazl development:
-
--   [ocamldep](https://caml.inria.fr/pub/docs/manual-ocaml/depend.html) -
-    given a list of source files, prints information about their
-    dependencies. Since Bazel requires that all build dependencies be
-    explicitly enumerated, this can be a very useful tool.
--   `ocamlobjinfo` - shows the internal structure of compiled modules,
-    interfaces, and archives. You can use this to verify that your build
-    outputs are as expected.
-
-Third-party tools:
-
--   [codept](https://github.com/Octachron/codept) "Codept intends to be
-    a dependency solver for OCaml projects and an alternative to
-    ocamldep."
--   [cppo](https://github.com/ocaml-community/cppo) "Cppo is an
-    equivalent of the C preprocessor for OCaml programs."
-
 <a name="setup">Setup</a>
 -------------------------
+
+-   user.bazelrc
+    -   repo overrides
+-   config profiles
+-   shell scripts
 
 <a name="inspection">Inspecting build actions and commands</a>
 --------------------------------------------------------------
