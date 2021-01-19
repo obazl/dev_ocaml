@@ -12,6 +12,25 @@ Demos
 
 -   [dev\_obazl](https://github.com/obazl/dev_obazl)
 
+Deployments
+-----------
+
+> To list all targets: `$ bazel query //...:*`, or
+> `$ bazel query src//...:*`
+
+-   [Mina Protocol](https://github.com/MinaProtocol/mina/tree/bazel) -
+    bazel branch
+-   [graphql\_ppx](https://github.com/o1-labs/graphql_ppx)
+-   [ocaml-extlib](https://github.com/MinaProtocol/ocaml-extlib)
+-   [ocaml-jemalloc](git@github.com:obazl/ocaml-jemalloc.git)
+-   [ocaml-sodium](https://github.com/minatools/ocaml-sodium)
+-   [orocksdb](https://github.com/minatools/orocksdb/tree/mina) - mina
+    branch
+-   [ppx\_optcomp](https://github.com/MinaProtocol/ppx_optcomp)
+-   [ppx\_version](https://github.com/o1-labs/ppx_version)
+-   [snarky](https://github.com/o1-labs/snarky) "an OCaml front-end for
+    writing R1CS SNARKs"
+
 Support
 -------
 
