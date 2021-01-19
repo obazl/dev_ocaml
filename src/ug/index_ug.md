@@ -22,6 +22,7 @@
 * [Maintenance Tasks](maintenance.md)
 * [PPX Support](ppx.md)
 * [Querying Dependency Graphs](querying.md)
+* [Repositories](workspaces.md)
 * Rules
   * [Bootstrapping](bootstrap.md#rules)
   * [Build Rules](build_rules.md)
@@ -34,5 +35,6 @@
 * [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
 * [Troubleshooting](troubleshooting.md)
 * [Workflow](workflow.md)
+* [Workspaces](workspaces.md)
 
 [misc](misc.md) - material not yet categorized.

@@ -2,9 +2,37 @@
 
 # OBazl Conventions
 
+* `.bazelrc` - always put this file in the project root directory; at
+  a minimum, it should contain
+
+    ```try-import user.bazelrc```.
+
+    See [.bazelrc, the Bazel configuration file](https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file) for more information.
+
+* Use `user.bazelrc` to pass arguments to Bazel. Do not put
+  `user.bazelrc` under version control. Add it to `.gitignore`.
+
+  * Use `:name` suffixes to control configurations at the command line
+    using `--config` (documented under `--config` at the bottom of:
+    [.bazelrc, the Bazel configuration file](https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file)).
+
+    For example, use `:quiet` to mark arguments you want to disable by passing `--config=quiet`:
+
+```
+    build --color=yes
+    build --subcommands=pretty_print
+    build:quiet --subcommands=false
+    build --verbose_failures
+    build --sandbox_debug
+```
+
+* Use `.bazelignore` to omit irrelevant subdirectories from Bazel
+  processing. For example, if you are adding Bazel support to a
+  project that uses Dune, put `_build` in `.bazelignore`.
+
 * `WORKSPACE.bazel`, not `WORKSPACE`
 
-  * Explicitly name your workspace - make
+    Explicitly name your workspace - make
     `workspace(name="foo")` the first line of `WORKSPACE.bazel`
     (replacing `foo` with your workspace name). This will make log
     messages more decipherable, among other things.
@@ -36,14 +64,15 @@
   * If you want to keep Bazel files segregated, create a top-level
     `bzl` directory and keep Bazel extension files etc. there.
 
-* `tools` subdirectory
+* Use a `tools` subdirectory to store shell scripts and any other tools you want under version control.
 
+* Put the following in `.gitignore`:
 
-
-
-* Put the following in `.gitignore` `dev` - developers can use this
-  * for shell scripts, data files, etc. that should not be under
-  * version control `logs` `tmp`
+  * `dev/` - developers can use this subdirectory for shell scripts,
+    data files, etc. that should not be under version control
+  * `logs/`
+  * `tmp/`
+  * `user.bazelrc`
 
 
 

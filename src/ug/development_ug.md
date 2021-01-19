@@ -3,8 +3,9 @@
 # Developing OCaml software with OBazl
 
 * [Prerequisites](#prerequisites)
+* [Bazel](#bazel)
 * [Setup](#setup)
-* [Inspecting build actions and commands](#inspection)
+* [Inspecting logs, build actions, commands, etc.](#inspection)
 * [Working with external repositories](#externals)
 
 ## <a name="prerequisites">Prerequisites</a>
@@ -75,14 +76,67 @@
   installed resources. For example, package `bignum` depends on
   package `zarith`, which depends on a local installation of `libgmp`.
 
+## <a name="bazel">Bazel</a>
+
+[Installation](https://docs.bazel.build/versions/master/install.html).
+
+>    OBazl recommends using [Bazelisk](https://github.com/bazelbuild/bazelisk) ([Installing Bazel using Bazelisk](https://docs.bazel.build/versions/master/install-bazelisk.html)).
+
+If you use Bazelisk, you can pin the Bazel version by putting file
+`.bazelversion` in the root directory of your project, containing the
+required version string, e.g. `3.7.0`.
+
+If you are just getting started with Bazel, you should work through one of the [Tutorials](https://docs.bazel.build/versions/master/getting-started.html#tutorials)
+
+To work effectively with OBazl you must master the following material at minimum:
+
+* [Bazel Overview](https://docs.bazel.build/versions/master/bazel-overview.html)
+* [Concepts and Terminology](https://docs.bazel.build/versions/master/build-ref.html)
+* [Specifying targets to build](https://docs.bazel.build/versions/master/guide.html)
+
+For reference:
+
+* [User Guide](https://docs.bazel.build/versions/master/guide.html)
+
+**WARNING**: a great deal of Bazel documentation is available, but it
+  is not always easy to find what you need. If you do find it,
+  _bookmark it_! For example, the documentation for `--config` is
+  buried at the bottom of [.bazelrc, the Bazel configuration file](https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file).
+
+**WARNING2**: the documentation is not always up to date. Bazel is
+  very stable, but it is also under very active development so the
+  documentation may lag. For example, the documentation frequently
+  refers to `BUILD` and `WORKSPACE` files. Those still work, but at
+  some point support was added for `BUILD.bazel` and `WORKSPACE.bazel`
+  (which is what OBazl recommends).
+
+OBazl deviates from standard Bazel conventions in a few minor ways:
+
+* Rules that build executable binaries are named `*_executable`, not
+  `*_binary`: `ocaml_executable`, `ppx_executable`
+
+* Library rules (`ocaml_library` and `ppx_library`) do not build
+  "separately compiled modules". Instead they provide a simple
+  aggregation mechanism, so that you can depend on a collection of
+  resources under a single name. In other words, OBazl takes the term
+  "library" to mean "collection of resources"; the resources will
+  almost always be OCaml compiled modules, but may include e.g.
+  runtime data dependencies.
+
+* Archive rules support OCaml archive files ("separately compiled
+  modules"): `ocaml_archive`, `ppx_archive`.
+
 ## <a name="setup">Setup</a>
 
-* user.bazelrc
-  * repo overrides
-* config profiles
+To get the most out of OBazl and Bazel, you need to decide on some
+conventions and do a little configuration. See [OBazl
+Conventions](conventions.md) for a list.
+
+
+
 * shell scripts
 
-## <a name="inspection">Inspecting build actions and commands</a>
+## <a name="inspection">Inspecting logs, build actions, commands, etc.</a>
 
 A single build target may generate multiple build _actions_. For
 example, if an `ocaml_module` rule is parameterized with a `ppx`

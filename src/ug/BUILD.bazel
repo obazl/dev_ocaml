@@ -202,9 +202,9 @@ pandoc(
 
 #######
 pandoc(
-    name = "workflow",
-    src = "workflow_ug.md",
-    output = "workflow.md",
+    name = "workspaces",
+    src = "workspaces_ug.md",
+    output = "workspaces.md",
     visibility = ["//visibility:public"],
 )
 

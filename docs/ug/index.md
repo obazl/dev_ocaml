@@ -23,6 +23,7 @@ OBazl User Guide
 -   [Maintenance Tasks](maintenance.md)
 -   [PPX Support](ppx.md)
 -   [Querying Dependency Graphs](querying.md)
+-   [Repositories](workspaces.md)
 -   Rules
     -   [Bootstrapping](bootstrap.md#rules)
     -   [Build Rules](build_rules.md)
@@ -36,5 +37,6 @@ OBazl User Guide
     etc.
 -   [Troubleshooting](troubleshooting.md)
 -   [Workflow](workflow.md)
+-   [Workspaces](workspaces.md)
 
 [misc](misc.md) - material not yet categorized.
