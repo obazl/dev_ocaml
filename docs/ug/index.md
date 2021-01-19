@@ -36,7 +36,6 @@ OBazl User Guide
 -   [Transparency](transparency.md): Inspecting Build Commands, Actions,
     etc.
 -   [Troubleshooting](troubleshooting.md)
--   [Workflow](workflow.md)
 -   [Workspaces](workspaces.md)
 
 [misc](misc.md) - material not yet categorized.

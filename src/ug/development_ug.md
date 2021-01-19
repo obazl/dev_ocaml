@@ -132,8 +132,6 @@ To get the most out of OBazl and Bazel, you need to decide on some
 conventions and do a little configuration. See [OBazl
 Conventions](conventions.md) for a list.
 
-
-
 * shell scripts
 
 ## <a name="inspection">Inspecting logs, build actions, commands, etc.</a>
