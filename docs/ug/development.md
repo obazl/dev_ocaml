@@ -14,6 +14,7 @@ the [demos](https://github.com/obazl/dev_obazl)
     -   [bazel info](#bazel_info)
     -   [command log](#command_log)
     -   [output base](#output_base)
+    -   [actions](#actions)
 -   [Working with external repositories](#externals)
 
 <a name="overview">Overview</a>
@@ -226,7 +227,7 @@ contains the external repositories your project has configured. You can
 browse the `BUILD.bazel` files of an external repo, for example, to
 verify that you are using the correct target labels.
 
-### actions
+### <a name="actions">actions</a>
 
 A single build target may generate multiple build *actions*. For
 example, if an `ocaml_module` rule is parameterized with a `ppx`
