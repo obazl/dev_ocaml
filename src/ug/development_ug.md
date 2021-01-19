@@ -2,11 +2,50 @@
 
 # Developing OCaml software with OBazl
 
+Quickstart: the quickest way to get started is to clone and run some of the
+[demos](https://github.com/obazl/dev_obazl)
+
+* [Overview](#overview)
 * [Prerequisites](#prerequisites)
 * [Bazel](#bazel)
 * [Setup](#setup)
-* [Inspecting logs, build actions, commands, etc.](#inspection)
+* [Inspecting the Bazel environment, logs, actions, etc.](#inspection)
+  * [bazel info](#bazel_info)
+  * [command log](#command_log)
+  * [output base](#output_base)
 * [Working with external repositories](#externals)
+
+## <a name="overview">Overview</a>
+
+Developing software with Bazel is pretty much like developing software
+with any other build system: lather, rinse, repeat. You edit your
+sources, execute a build command of some kind, run a test driver or
+executable to verify results, and repeat.
+
+The major differences are of course related to the build program and
+the build engine. Bazel build programs are written in the Starlark
+language, and Bazel is also the name of the build engine (of which
+there is only one.)
+
+Bazel provides a great deal of information about your build structure,
+and it provides fine-grained control over build actions. You can build
+any target in your project, and only it and its dependencies will be
+built. You can parameterize your builds at any level of granularity.
+If you include appropriate test targets, you can modularize your
+development even if your source code is not organized in a modular
+manner.
+
+Furthermore, Bazel includes powerful query facilities that make it
+possible to explore the dependency structures of your code. You can
+easily list the dependency chain between two targets, or list the
+targets that have a certain parameter, etc. You can generate SVG
+graphs showing dependency graphs of your code.
+
+Bazel also makes it easy to develop multiple, mutually-dependent
+projects simultaneously. If your main project depends on an external
+repository, you can easily configure your build to use a local copy of
+the dependency _without altering your build code_. One benefit of this
+is that it makes it easy to eliminate embedded git submodules.
 
 ## <a name="prerequisites">Prerequisites</a>
 
@@ -24,7 +63,7 @@
   with version 2.0.7. Earlier versions may work; if not, please [file
   an issue](https://github.com/obazl/rules_opam/issues).
 
-  * Currently the OBazl rules only support a toolchain installed on
+  * Currently the OBazl rules only support an OPAM toolchain installed on
     the local host outside of Bazel's control; they do not support
     fully hermetic builds, where all build inputs including toolchains
     are exclusively controlled by Bazel. A future version of the OBazl
@@ -134,7 +173,36 @@ Conventions](conventions.md) for a list.
 
 * shell scripts
 
-## <a name="inspection">Inspecting logs, build actions, commands, etc.</a>
+## <a name="inspection">Inspecting the Bazel environment, logs, build actions, etc.</a>
+
+### <a name="bazel_info">bazel info</a>
+
+The `bazel info` command will print a dictionary listing the
+parameters, file locations, etc. that Bazel uses internally. It
+supports a large number of options; run `$ bazel help info` to see them
+all; to see just the keys for the dictionary, run `$ bazel help info-keys`.
+
+Most of entries in the dictionary, most of the time, can be safely
+ignored; but if you run into trouble, two of them can be helpful with
+debugging: `command_log` and `output_base`.
+
+### <a name="command_log">command log</a>
+
+Bazel writes logs to a `command_log` file each time it executes a
+command; it overwrites the file. You can discover the location of the
+file by running `$ bazel info command_log`. Since the output of this
+command will overwrite the log file, you must use an alias or shell
+script to enable easy browsing.  See the [aliases](conventions.md#aliases)
+recommendation in [OBazl Conventions](conventions.md) for an example.
+
+### <a name="output_base">output base</a>
+
+The `output_base` directory contains a subdirectory, `external`, that
+contains the external repositories your project has configured. You
+can browse the `BUILD.bazel` files of an external repo, for example,
+to verify that you are using the correct target labels.
+
+### actions
 
 A single build target may generate multiple build _actions_. For
 example, if an `ocaml_module` rule is parameterized with a `ppx`

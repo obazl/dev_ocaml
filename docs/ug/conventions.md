@@ -31,7 +31,15 @@ OBazl Conventions
         build --verbose_failures
         build --sandbox_debug
 
--   Use `.bazelignore` to omit irrelevant subdirectories from Bazel
+-   Put the following in `.gitignore`:
+
+    -   `dev/` - developers can use this subdirectory for shell scripts,
+        data files, etc. that should not be under version control
+    -   `logs/`
+    -   `tmp/`
+    -   `user.bazelrc`
+
+-   Use `.bazelignore` to exclude irrelevant subdirectories from Bazel
     processing. For example, if you are adding Bazel support to a
     project that uses Dune, put `_build` in `.bazelignore`.
 
@@ -72,13 +80,15 @@ OBazl Conventions
 -   Use a `tools` subdirectory to store shell scripts and any other
     tools you want under version control.
 
--   Put the following in `.gitignore`:
+    -   Create a shell **<a name="aliases">alias</a>** to enable easy
+        access to the command log. Put the following (or something
+        similar) in `tools/aliases`, and then source the file:
+        `$ source tools/aliases`. Then `$ bl` will browse the log using
+        `less`.
 
-    -   `dev/` - developers can use this subdirectory for shell scripts,
-        data files, etc. that should not be under version control
-    -   `logs/`
-    -   `tmp/`
-    -   `user.bazelrc`
+<!-- -->
+
+        alias "bl=less `bazel info command_log`"
 
 Naming Conventions
 ------------------

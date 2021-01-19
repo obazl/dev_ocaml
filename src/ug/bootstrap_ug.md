@@ -14,6 +14,16 @@ WORKSPACE.bazel:
 
 ```
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "bazel_skylib",
+    urls = [
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+    ],
+    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+)
 
 git_repository(
     name = "obazl_tools_bazel",
@@ -124,7 +134,10 @@ rust_fetch_rules()
 ...
 ```
 
-### <a name="configrules">Configuring Language Rules</a>
+>    You must [fetch](#fetch_rules) and [configure `obazl_rules_opam`](configuration.md#opamconfig)
+>    before you [configure `obazl_rules_ocaml`](configuration.md#ocamlconfig).
+
+### <a name="config_rules">Configuring Language Rules</a>
 
 Most Language Support Packages (LSPs) contain one or more
 configuration functions. These must be loaded and executed after the
@@ -137,10 +150,7 @@ OCaml rules from the OPAM rules. If your OCaml project does not use
 OPAM, and the OBazl rules do not meet your needs, please [file an
 issue](https://github.com/obazl/rules_ocaml/issues).
 
-You must fetch and [configure `obazl_rules_opam`](configuration.md#opamconfig)
-before you [configure `obazl_rules_ocaml`](configuration.md#ocamlconfig).
-
-See the [Reference Manual](../refman/config.md) for details.
+See the Reference Manual [Functions](../refman/index.md#functions) section for details.
 
 ## <a name="libraries">Bootstrapping Library Repositories</a>
 
