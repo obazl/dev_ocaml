@@ -1,5 +1,6 @@
-Using [obazl\_rules\_ocaml](https://github.com/obazl/rules_ocaml), [obazl\_rules\_opam](https://github.com/obazl/rules_opam), and [obazl\_tools\_bazel](https://github.com/obazl/tools_bazel).
-==============================================================================================================================================================================================
+-   [obazl\_rules\_ocaml](https://github.com/obazl/rules_ocaml)
+-   [obazl\_rules\_opam](https://github.com/obazl/rules_opam)
+-   [obazl\_tools\_bazel](https://github.com/obazl/tools_bazel).
 
 Docs
 ----
