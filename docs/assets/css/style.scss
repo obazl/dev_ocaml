@@ -3,7 +3,7 @@
 
 @import "{{ site.theme }}";
 
-header.h1:before { content: "" !important; }
+h1#site-header:before { content: "" !important; }
 
 code.language-plaintext.highlighter-rouge {
     color:#FF8800 !important;
