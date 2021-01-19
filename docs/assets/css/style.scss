@@ -3,6 +3,8 @@
 
 @import "{{ site.theme }}";
 
+header.h1:before { content: "" !important; }
+
 code.language-plaintext.highlighter-rouge {
     color:#FF8800 !important;
 }
