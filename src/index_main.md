@@ -31,6 +31,8 @@ workspace files, replacing `branch = "main"` with `tag =
 
   * The fetch rules for `obazl_rules_ocaml` etc. are in `WORKSPACE.bzl`.
 
+  * Uses submodules. After cloning, run `$ git checkout bazel && git submodule init && git submodule update --init --recursive`
+
   * To build the main application: `$ bazel build src/app/cli/src:coda.exe`
 
 The remaining repos should build relatively quickly, with the exception of `orocksdb`. To list all targets:
