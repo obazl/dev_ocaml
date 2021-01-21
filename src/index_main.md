@@ -15,9 +15,28 @@
 
 ## Deployments
 
->    To list all targets: `$ bazel query //...:*`, or `$ bazel query src//...:*`
+The following packages use branch 'main' of the OBazl rules, which may
+have changed. Once OBazl gets to version 1.0.0, they will be pinned; in
+the meantime, you may need to edit the `obazl_rules_ocaml` rule in the
+workspace files, replacing `branch = "main"` with `tag =
+"v0.1.0-beta.1"`.
 
 * [Mina Protocol](https://github.com/MinaProtocol/mina/tree/bazel) - bazel branch
+
+  * This was the prototype project used in developing OBazl. It is a
+    fairly complex polyglot project that depends on a substantial
+    number of external repositories, including C/C++, Rust, and Go
+    libraries. The initial build may take over an hour, depending on
+    your hardware.
+
+  * The fetch rules for `obazl_rules_ocaml` etc. are in `WORKSPACE.bzl`.
+
+  * To build the main application: `$ bazel build src/app/cli/src:coda.exe`
+
+The remaining repos should build relatively quickly, with the exception of `orocksdb`. To list all targets:
+
+```$ bazel query //...:*`, or `$ bazel query src//...:*```
+
 * [graphql_ppx](https://github.com/o1-labs/graphql_ppx)
 * [ocaml-extlib](https://github.com/MinaProtocol/ocaml-extlib)
 * [ocaml-jemalloc](git@github.com:obazl/ocaml-jemalloc.git)

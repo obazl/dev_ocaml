@@ -38,4 +38,16 @@ OBazl User Guide
 -   [Troubleshooting](troubleshooting.md)
 -   [Workspaces](workspaces.md)
 
-[misc](misc.md) - material not yet categorized.
+### Additional Topics
+
+-   [Phases of a
+    build](https://docs.bazel.build/versions/master/guide.html#phases-of-a-build),
+    [Evaluation
+    Model](https://docs.bazel.build/versions/master/skylark/concepts.html#evaluation-model)
+-   [Offline
+    builds](https://docs.bazel.build/versions/master/external.html#offline-builds)
+-   [Containerization](https://github.com/bazelbuild/rules_docker)
+-   [Remote
+    caching](https://docs.bazel.build/versions/master/remote-caching.html)
+-   [Remote
+    execution](https://docs.bazel.build/versions/master/remote-execution.html)

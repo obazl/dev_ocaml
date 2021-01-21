@@ -3,7 +3,7 @@
 # Developing OCaml software with OBazl
 
 Quickstart: the quickest way to get started is to clone and run some of the
-[demos](https://github.com/obazl/dev_obazl)
+[demos](https://github.com/obazl/dev_obazl).
 
 * [Overview](#overview)
 * [Prerequisites](#prerequisites)
