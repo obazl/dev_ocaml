@@ -21,6 +21,7 @@
 * [File Generation](filegen.md)
 * [Interop](interop.md)
 * [Maintenance Tasks](maintenance.md)
+* [Offline development](offline.md)
 * [PPX Support](ppx.md)
 * [Querying Dependency Graphs](querying.md)
 * [Repositories](workspaces.md)
@@ -43,6 +44,10 @@
 * [Phases of a build](https://docs.bazel.build/versions/master/guide.html#phases-of-a-build), [Evaluation Model](https://docs.bazel.build/versions/master/skylark/concepts.html#evaluation-model)
 * [Offline builds](https://docs.bazel.build/versions/master/external.html#offline-builds)
 * [Containerization](https://github.com/bazelbuild/rules_docker)
+* Continuous Integration
+  * [Using Bazel in a continuous integration system](https://blog.bazel.build/2016/01/27/continuous-integration.html) - Bazel blog article (2016)
+  * [Continuous Integration on a Huge Scale Using Bazel](https://www.wix.engineering/post/continuous-integration-on-a-mammoth-scale-using-bazel) - WiX Engineering
+  * [Using Bazel on Buildkite](https://buildkite.com/docs/tutorials/bazel)
 * [Remote caching](https://docs.bazel.build/versions/master/remote-caching.html)
 * [Remote execution](https://docs.bazel.build/versions/master/remote-execution.html)
 * [Platforms](https://docs.bazel.build/versions/master/platforms.html) - cross-platform development

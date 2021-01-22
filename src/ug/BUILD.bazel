@@ -162,6 +162,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "offline",
+    src = "offline_ug.md",
+    output = "offline.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "ppx",
     src = "ppx_ug.md",
     output = "ppx.md",
