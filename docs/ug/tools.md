@@ -64,6 +64,12 @@ Third-party tools:
 > now, please [file an
 > issue](https://github.com/obazl/rules_ocaml/issues).
 
+### merlin
+
+Support for [merlin](https://github.com/ocaml/merlin) is planned for a
+future version. (`.merlin` files produced by Dune are not likely to
+work.)
+
 <a name="devtools">Dev tools</a>
 --------------------------------
 
