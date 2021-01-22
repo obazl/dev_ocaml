@@ -12,9 +12,10 @@ the [demos](https://github.com/obazl/dev_obazl).
 -   [Setup](#setup)
 -   [Inspecting the Bazel environment, logs, actions, etc.](#inspection)
     -   [bazel info](#bazel_info)
-    -   [command log](#command_log)
-    -   [output base](#output_base)
+    -   [command\_log](#command_log)
+    -   [output\_base](#output_base)
     -   [actions](#actions)
+-   [Useful tips](#tips)
 -   [Working with external repositories](#externals)
 
 <a name="overview">Overview</a>
@@ -210,7 +211,7 @@ Most of entries in the dictionary, most of the time, can be safely
 ignored; but if you run into trouble, two of them can be helpful with
 debugging: `command_log` and `output_base`.
 
-### <a name="command_log">command log</a>
+### <a name="command_log">command\_log</a>
 
 Bazel writes logs to a `command_log` file each time it executes a
 command; it overwrites the file. You can discover the location of the
@@ -220,7 +221,7 @@ script to enable easy browsing. See the
 [aliases](conventions.md#aliases) recommendation in [OBazl
 Conventions](conventions.md) for an example.
 
-### <a name="output_base">output base</a>
+### <a name="output_base">output\_base</a>
 
 The `output_base` directory contains a subdirectory, `external`, that
 contains the external repositories your project has configured. You can
@@ -258,5 +259,63 @@ are different than those for the compilers `ocamlc` and `ocamlopt`.**
 
 TODO: flesh this out a bit more.
 
+<a name="tips">Useful tips</a>
+------------------------------
+
+-   The `clean` command "\[r\]emoves bazel-created output, including all
+    object files, and bazel metadata." It will not refresh repository
+    dependencies. Adding the `--expunge` option will delete everything;
+    it will also stop the server, so that then next build command will
+    start from scratch. You almost never need to do this.
+
+-   You should rarely need to run `$ bazel clean`. Bazel caches a
+    complete description of the build, so it always knows what needs to
+    be rebuilt. However, if you change the build structure - especially
+    if you remove build targets - you may need this command to rebuild
+    the cache.
+
+-   Do spend some time learning to use the query facilities. On a
+    project of any size you'll be glad you did.
+
+-   To experiment with build rules etc. you can avoid cluttering the
+    source tree by creating `dev/BUILD.bazel` and put the rules there.
+    Since dependencies are expressed as target labels, you can reach
+    into the tree anywhere you like, although you may need to adjust the
+    `visibility` attribute of targets.
+
+-   Use [Bazelisk](https://github.com/bazelbuild/bazelisk) to make sure
+    you're always using the latest version of Bazel. You can pin the
+    version you want by using a `.bazelversion` file.
+
+-   You can enable [command-line
+    completion](https://docs.bazel.build/versions/master/completion.html)
+    (also known as tab-completion) in Bash and Zsh. This lets you
+    tab-complete command names, flags names and flag values, and target
+    names. Caveat: tab-completion may be an issue for Bazelisk; see
+    [Support bash autocomplete
+    \#29](https://github.com/bazelbuild/bazelisk/issues/29).)
+
+-   If you need to make some kind of global change, e.g. renaming a
+    target or adding a dependencie to multiple rules, do not
+    search-and-replace. Use
+    [buildozer](https://github.com/bazelbuild/buildtools/tree/master/buildozer)
+    instead. (See [Batch Editing](maintenance.md#batch) for more
+    information.)
+
 <a name="externals">Working with external repositories</a>
 ----------------------------------------------------------
+
+-   [Working with External
+    Dependencies](https://docs.bazel.build/versions/master/external.html)
+
+Note in particular: [Transitive
+dependencies](https://docs.bazel.build/versions/master/external.html#transitive-dependencies)
+
+To coordinate development of a main directory and external dependencies,
+you can override the declared repositories. See [Overriding repositories
+from the command
+line](https://docs.bazel.build/versions/master/external.html#overriding-repositories-from-the-command-line).
+
+Put your `--override` directives in your `user.bazelrc` file (by
+convention, `dev/user.bazelrc`), and load it from `.bazelrc` with the
+following line: `try-import dev/user.bazelrc`

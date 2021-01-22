@@ -3,6 +3,8 @@
 Testing
 =======
 
+TODO: ocaml\_test, [ppx\_test](../refman/rules_ppx.md#ppx_test) guide.
+
 Resources
 ---------
 

@@ -42,6 +42,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "conditional",
+    src = "conditional_ug.md",
+    output = "conditional.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "configprofiles",
     src = "configprofiles_ug.md",
     output = "configprofiles.md",

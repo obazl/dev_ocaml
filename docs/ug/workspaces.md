@@ -1,9 +1,6 @@
 Workspaces and Repositories
 ===========================
 
-Resources
----------
-
 Official documentation:
 
 -   [Workspace, packages, and

@@ -5,6 +5,15 @@ PPX Support
 
 PPX = PreProcessor eXtension.
 
+Demos:
+[demos/ppx](https://github.com/obazl/dev_obazl/tree/main/demos/ppx)
+
+-   [Main module](#main_module)
+    -   [Ppxlib driver](#ppxlib_driver)
+-   [Adjunct dependencies](#adjunct_deps)
+-   [Runtime dependencies](#runtime_deps)
+-   [PPX attributes](#ppx_attribs)
+
 <a name="main_module">Main Module</a>
 -------------------------------------
 
@@ -29,7 +38,7 @@ receive control after all other modules.
 Demo code:
 [demos/ppx/hello](https://github.com/obazl/dev_obazl/blob/aed0ce898b480c109ccd9b42fddc6f6c1640277c/demos/ppx/hello/BUILD.bazel#L53)
 
-### The Ppxlib Driver module
+### <a name="ppxlib_driver">The Ppxlib Driver module</a>
 
 Here is one way to implement a driver for a `ppx_executable`:
 
@@ -47,17 +56,6 @@ Here is one way to implement a driver for a `ppx_executable`:
             "echo \"let () = Ppxlib.Driver.standalone ()\" >> \"$@\"",
         ]),
     )
-
-<a name="runtime-deps">Runtime dependencies</a>
------------------------------------------------
-
-Runtime dependencies are files that are required by modules and/or
-executables at runtime. For non-PPX modules and executables, such files
-must be passed using the `data` attribute; for PPX modules and
-executables, they must be passed using the `ppx_data` attribute, as
-[described below](#ppx_data). The rules will arrange for the files to be
-included in the generated command line with the appropriate option
-flags.
 
 <a id="adjunct_deps" name="adjunct_deps">Adjunct (a/k/a "runtime") dependencies</a>
 -----------------------------------------------------------------------------------
@@ -89,10 +87,21 @@ See
 [demos/ppx/adjunct\_deps](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps)
 for an example.
 
+<a name="runtime-deps">Runtime dependencies</a>
+-----------------------------------------------
+
+Runtime dependencies are files that are required by modules and/or
+executables at runtime. For non-PPX modules and executables, such files
+must be passed using the `data` attribute; for PPX modules and
+executables, they must be passed using the `ppx_data` attribute, as
+[described below](#ppx_data). The rules will arrange for the files to be
+included in the generated command line with the appropriate option
+flags.
+
 ------------------------------------------------------------------------
 
-<a name="ppx-attrs">PPX attributes</a>
---------------------------------------
+<a name="ppx_attribs">PPX attributes</a>
+----------------------------------------
 
 These attributes apply to rules
 [ocaml\_module](../refman/rules_ocaml.md#ocaml_module),
@@ -108,6 +117,10 @@ The `ppx` attribute takes a `ppx_executable` target. The rule will
 generate several actions - see [Action
 Queries](transparency.md#action_queries) to see how to inspect the
 actions.
+
+### <a name="adjunct_deps_attrib">adjunct\_deps</a>
+
+See above.
 
 ### <a name="ppx_args">ppx\_args</a>
 

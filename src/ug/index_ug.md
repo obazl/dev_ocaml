@@ -5,7 +5,7 @@
 ----
 
 * [Bootstrapping](bootstrap.md)
-* [Conditional Compilation/Building]()
+* [Conditional Compilation/Building](conditional.md)
 * [Configuration](configuration.md)
   * [Bazel Configurations](configuration.md#bazel)
   * [OPAM Rules Configuration](configuration.md#opamconfig)
@@ -43,3 +43,4 @@
 * [Containerization](https://github.com/bazelbuild/rules_docker)
 * [Remote caching](https://docs.bazel.build/versions/master/remote-caching.html)
 * [Remote execution](https://docs.bazel.build/versions/master/remote-execution.html)
+* [Platforms](https://docs.bazel.build/versions/master/platforms.html) - cross-platform development

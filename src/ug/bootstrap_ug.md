@@ -28,17 +28,17 @@ http_archive(
 git_repository(
     name = "obazl_tools_bazel",
     remote = "https://github.com/obazl/tools_bazel",
-    branch = "main",
+    branch = "dev",
 )
 git_repository(
     name = "obazl_rules_opam",
     remote = "https://github.com/obazl/rules_opam",
-    branch = "main",
+    branch = "dev",
 )
 git_repository(
     name = "obazl_rules_ocaml",
     remote = "https://github.com/obazl/rules_ocaml",
-    branch = "main",
+    branch = "dev",
 )
 
 load("@obazl_rules_opam//opam:bootstrap.bzl", opam_configure = "configure")
@@ -52,6 +52,8 @@ ocaml_configure( switch = switch )
 >    **IMPORTANT**: The [OPAM `configure` function](../refman/functions.md#opam_config)
 >    takes an `OpamConfig` provider struct that you must define, as well as some other flags;
 >    see [OPAM Configuration](configuration.md#opamconfig) for details.
+
+Replace `branch = "dev"` as desired (see [git_repository](https://docs.bazel.build/versions/master/repo/git.html).
 
 If your `WORKSPACE.bazel` gets crowded (as may happen if your project
 depends on a lot of external repositories), you may want to wrap the
@@ -96,14 +98,14 @@ def ocaml_fetch_rules():
         git_repository,
         name = "obazl_rules_opam",
         remote = "https://github.com/obazl/rules_opam",
-        branch = "main",
+        branch = "dev",
     )
 
     maybe(
         git_repository,
         name = "obazl_rules_ocaml",
         remote = "https://github.com/obazl/rules_ocaml",
-        branch = "main",
+        branch = "dev",
     )
 
 #######################

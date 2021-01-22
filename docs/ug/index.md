@@ -6,7 +6,7 @@ OBazl User Guide
 ------------------------------------------------------------------------
 
 -   [Bootstrapping](bootstrap.md)
--   [Conditional Compilation/Building]()
+-   [Conditional Compilation/Building](conditional.md)
 -   [Configuration](configuration.md)
     -   [Bazel Configurations](configuration.md#bazel)
     -   [OPAM Rules Configuration](configuration.md#opamconfig)
@@ -51,3 +51,5 @@ OBazl User Guide
     caching](https://docs.bazel.build/versions/master/remote-caching.html)
 -   [Remote
     execution](https://docs.bazel.build/versions/master/remote-execution.html)
+-   [Platforms](https://docs.bazel.build/versions/master/platforms.html) -
+    cross-platform development

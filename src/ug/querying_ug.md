@@ -2,6 +2,9 @@
 
 ## Target Graph Queries
 
+* [Bazel Query How-To](https://docs.bazel.build/versions/master/query-how-to.html)
+* [The Bazel Query Reference](https://docs.bazel.build/versions/master/query.html)
+
 ## Configured Graph Queries
 
 [cquery](https://docs.bazel.build/versions/master/cquery.html) "cquery

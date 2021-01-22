@@ -4,12 +4,9 @@
 
 * [Bazel Configurations](#bazel)
 * [OPAM Rules Configuration](#opamconfig)
-  * [The `OpamConfig` provider](#opamconfig_provider)
-  * [The `configure()` function](#opam_configure)
 * [OCaml Rules Configuration](#ocamlconfig)
-  * [The `configure()` function](#ocaml_configure)
-* [Configuration Rules](#configrules)
-* [Configuration Profiles](#configprofiles)
+* [Configuration Rules](configrules.md)
+* [Configuration Profiles](configprofiles.md)
 
 ## <a name="bazel">Bazel Configurations</a>
 
@@ -108,16 +105,6 @@ Environment variables affecting processing of the `OpamConfig` struct in `WORKSP
 
 * `OBAZL_OPAM_PIN`: if defined, overrides `pin=False`
 
-### <a name="opam_configure">The OPAM configure() Function</a>
-
-
 ## <a name="ocamlconfig">OCaml Rules Configuration</a>
 
-### <a name="ocaml_configure">The OCaml configure() Function</a>
-
-
-## <a name="configrules">Configuration Rules</a>
-
-
-## <a name="configprofiles">Configuration Profiles</a>
-
+[Reference](../refman/functions.md#ocaml_configure)

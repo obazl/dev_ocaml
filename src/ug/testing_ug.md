@@ -2,6 +2,8 @@
 
 # Testing
 
+TODO: ocaml_test, [ppx_test](../refman/rules_ppx.md#ppx_test) guide.
+
 ## Resources
 
 ### Bazel Documentation:

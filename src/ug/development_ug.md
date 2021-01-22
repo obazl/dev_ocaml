@@ -261,7 +261,9 @@ TODO: flesh this out a bit more.
 
 * Use [Bazelisk](https://github.com/bazelbuild/bazelisk) to make sure
   you're always using the latest version of Bazel. You can pin the
-  version you want by using a `.bazelversion` file. Caveat: tab-completion may be an issue; see [Support bash autocomplete #29](https://github.com/bazelbuild/bazelisk/issues/29).)
+  version you want by using a `.bazelversion` file.
+
+* You can enable [command-line completion](https://docs.bazel.build/versions/master/completion.html) (also known as tab-completion) in Bash and Zsh. This lets you tab-complete command names, flags names and flag values, and target names.  Caveat: tab-completion may be an issue for Bazelisk; see [Support bash autocomplete #29](https://github.com/bazelbuild/bazelisk/issues/29).)
 
 * If you need to make some kind of global change, e.g. renaming a
   target or adding a dependencie to multiple rules, do not
@@ -270,3 +272,12 @@ TODO: flesh this out a bit more.
   instead.  (See [Batch Editing](maintenance.md#batch) for more information.)
 
 ## <a name="externals">Working with external repositories</a>
+
+* [Working with External Dependencies](https://docs.bazel.build/versions/master/external.html)
+
+Note in particular: [Transitive dependencies](https://docs.bazel.build/versions/master/external.html#transitive-dependencies)
+
+To coordinate development of a main directory and external
+dependencies, you can override the declared repositories. See [Overriding repositories from the command line](https://docs.bazel.build/versions/master/external.html#overriding-repositories-from-the-command-line).
+
+Put your `--override` directives in your `user.bazelrc` file (by convention, `dev/user.bazelrc`), and load it from `.bazelrc` with the following line:  `try-import dev/user.bazelrc`

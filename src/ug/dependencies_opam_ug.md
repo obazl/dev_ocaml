@@ -4,6 +4,10 @@
 
 ## <a name="ocaml_deps">OPAM Dependencies</a>
 
+OPAM dependencies are in the `@opam//pkg:` namespace/package. Their
+target names match their OPAM/ocamlfind names. E.g. `@opam//pkg:core`,
+`@opam//pkg:ppxlib`, `@opam//pkg:ppx_deriving.show`, etc.
+
 ## misc
 
 Some OPAM packages depend on libraries installed on the local system:

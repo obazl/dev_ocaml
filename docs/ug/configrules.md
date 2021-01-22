@@ -3,10 +3,13 @@
 Configuration Rules
 ===================
 
-A "build setting", in Bazel's terminology, is a rule that ...
+A [user-defined build
+setting](https://docs.bazel.build/versions/master/skylark/config.html#user-defined-build-settings),
+in Bazel's terminology, is a rule that determines a single piece of
+configuration information.
 
-A configuration rule is a build setting rule that is designated as the
-default value of a rule attribute.
+A "configuration rule", in OBazl's terminology, is a build setting rule
+that is designated as the default value of a rule attribute.
 
 Some OCaml compile options are used so commonly that they should
 probably be the default. Changing compiler defaults would break existing

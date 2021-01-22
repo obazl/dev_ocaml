@@ -3,6 +3,10 @@
 OCaml Dependencies
 ==================
 
+> **IMPORTANT**: all direct dependencies must be explicitly listed.
+> OBazl *will not* analyse implicit dependencies. However it *will*
+> automatically handle indirect dependencies.
+
 <a name="ocaml_deps">OCaml Dependencies</a>
 -------------------------------------------
 
@@ -30,12 +34,12 @@ I.e. with dune one says "this build depends on that package", which
 really means that it depends on compiled entities contained in the
 package. With bazel one says "this build depends on that built entity".
 That does not always imply something compiled by bazel; in fact, with
-OBazl, the targets in the @opam//pkg package produce command line
+OBazl, the targets in the `@opam//pkg` package produce command line
 parameters for using OPAM packages.
 
 But in the case of local or immediate deps, there is an ambiguity.
 
-Example: src/lib/syncable\_ledger. The dunefile lists a library with
+Example: `src/lib/syncable_ledger`. The dunefile lists a library with
 name "syncable\_ledger". The directory contains a file named
 "syncable\_ledger.ml". So if we depend on "syncable\_ledger", what is
 the dep, exactly?
