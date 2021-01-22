@@ -1,3 +1,14 @@
+This site documents the first Beta version of OBazl. The OBazl rules
+are deliberately low-level, in keeping with the goal of giving the
+developer complete control (i.e. no magic). Obazl build rules
+correspond more-or-less directly to the build commands they construct.
+The down side of sugar-free rules is a degree of inconvenience. For
+example, OBazl does not analyze implicit dependencies, so it is the
+responsibility of the developer to discover and list them. It does not
+support file globbing, so each source file must have a build rule.
+Most such inconveniences can and will be addressed over time by
+tooling built on the foundation of the primitive rules.
+
 ## Rules & Tools
 
 * [obazl_rules_ocaml](https://github.com/obazl/rules_ocaml)

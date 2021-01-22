@@ -153,7 +153,8 @@ minimum:
 -   [Concepts and
     Terminology](https://docs.bazel.build/versions/master/build-ref.html)
 -   [Specifying targets to
-    build](https://docs.bazel.build/versions/master/guide.html)
+    build](https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build)
+    -   Or: `$ bazel help target-syntax`
 
 For reference:
 

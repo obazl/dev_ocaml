@@ -133,7 +133,8 @@ To work effectively with OBazl you must master the following material at minimum
 
 * [Bazel Overview](https://docs.bazel.build/versions/master/bazel-overview.html)
 * [Concepts and Terminology](https://docs.bazel.build/versions/master/build-ref.html)
-* [Specifying targets to build](https://docs.bazel.build/versions/master/guide.html)
+* [Specifying targets to build](https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build)
+  * Or: `$ bazel help target-syntax`
 
 For reference:
 

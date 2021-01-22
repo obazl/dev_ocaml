@@ -6,6 +6,7 @@ OBazl User Guide
 ------------------------------------------------------------------------
 
 -   [Bootstrapping](bootstrap.md)
+-   [Caching](caching.md)
 -   [Conditional Compilation/Building](conditional.md)
 -   [Configuration](configuration.md)
     -   [Bazel Configurations](configuration.md#bazel)
@@ -24,6 +25,7 @@ OBazl User Guide
 -   [PPX Support](ppx.md)
 -   [Querying Dependency Graphs](querying.md)
 -   [Repositories](workspaces.md)
+-   [Refactoring](refactoring.md)
 -   Rules
     -   [Bootstrapping](bootstrap.md#rules)
     -   [Build Rules](build_rules.md)

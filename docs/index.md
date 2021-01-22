@@ -7,7 +7,7 @@ OBazl does not analyze implicit dependencies, so it is the
 responsibility of the developer to discover and list them. It does not
 support file globbing, so each source file must have a build rule. Most
 such inconveniences can and will be addressed over time by tooling built
-on the foundation of primitive rules.
+on the foundation of the primitive rules.
 
 Rules & Tools
 -------------

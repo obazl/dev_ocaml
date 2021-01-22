@@ -26,6 +26,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "caching",
+    src = "caching_ug.md",
+    output = "caching.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "ccdeps",
     src = "dependencies_cc_ug.md",
     output = "dependencies_cc.md",
@@ -165,6 +173,14 @@ pandoc(
     name = "querying",
     src = "querying_ug.md",
     output = "querying.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "refactoring",
+    src = "refactoring_ug.md",
+    output = "refactoring.md",
     visibility = ["//visibility:public"],
 )
 
