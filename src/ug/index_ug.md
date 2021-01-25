@@ -34,6 +34,10 @@
   * [Build Rules](build_rules.md)
   * [Configuration Rules](configrules.md)
 * [Stamping](stamping.md)
+* Target labels
+  * [Specifying targets to build](https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build)
+  * [Labels](https://docs.bazel.build/versions/master/build-ref.html#labels)
+  * `$ bazel help target-syntax`
 * [Testing](testing.md)
 * [Toolchains](toolchains.md)
   * [ocamlfind](toochains.md#ocamlfind)
@@ -52,6 +56,7 @@
   * [Using Bazel in a continuous integration system](https://blog.bazel.build/2016/01/27/continuous-integration.html) - Bazel blog article (2016)
   * [Continuous Integration on a Huge Scale Using Bazel](https://www.wix.engineering/post/continuous-integration-on-a-mammoth-scale-using-bazel) - WiX Engineering
   * [Using Bazel on Buildkite](https://buildkite.com/docs/tutorials/bazel)
+* [Persistent workers](https://docs.bazel.build/versions/master/persistent-workers.html)
 * [Remote caching](https://docs.bazel.build/versions/master/remote-caching.html)
 * [Remote execution](https://docs.bazel.build/versions/master/remote-execution.html)
 * [Platforms](https://docs.bazel.build/versions/master/platforms.html) - cross-platform development

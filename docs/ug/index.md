@@ -35,6 +35,11 @@ OBazl User Guide
     -   [Build Rules](build_rules.md)
     -   [Configuration Rules](configrules.md)
 -   [Stamping](stamping.md)
+-   Target labels
+    -   [Specifying targets to
+        build](https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build)
+    -   [Labels](https://docs.bazel.build/versions/master/build-ref.html#labels)
+    -   `$ bazel help target-syntax`
 -   [Testing](testing.md)
 -   [Toolchains](toolchains.md)
     -   [ocamlfind](toochains.md#ocamlfind)
@@ -63,6 +68,8 @@ OBazl User Guide
         WiX Engineering
     -   [Using Bazel on
         Buildkite](https://buildkite.com/docs/tutorials/bazel)
+-   [Persistent
+    workers](https://docs.bazel.build/versions/master/persistent-workers.html)
 -   [Remote
     caching](https://docs.bazel.build/versions/master/remote-caching.html)
 -   [Remote
