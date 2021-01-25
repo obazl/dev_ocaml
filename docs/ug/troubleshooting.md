@@ -3,6 +3,15 @@
 Troubleshooting
 ===============
 
+namespace problems
+------------------
+
+    Error: The module String_split is an alias for module Stdune__String_split, which is missing
+
+This can happen if you put .ml sources but not their .mli interfaces
+into the namespace. Both need to use the `ns` attribute so that they
+will be available.
+
 linking problems
 ----------------
 

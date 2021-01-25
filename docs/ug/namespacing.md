@@ -27,6 +27,17 @@ first would contain alias statments:
     identifier. In other words, the `name` attribute names the rule, not
     the namespace.
 
+Example:
+[demos/namespaces](https://github.com/obazl/dev_obazl/tree/main/demos/namespaces)
+
+> **WARNING** If your module has both a source file (`foo.ml`) and an
+> interface file (`foo.mli`), you must put both of them into the
+> namespace. More specifically: both the `ocaml_module` and the
+> `ocaml_interface` rules for these files must include the `ns`
+> attribute that registers them in the namespace. But the `ocaml_ns`
+> rule only needs to list the source files in its `submodules`
+> attribute. (A future version will make this less cumbersome.)
+
 OCaml Modules
 -------------
 
