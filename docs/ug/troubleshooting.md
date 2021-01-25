@@ -40,3 +40,36 @@ workspace names, e.g. writing `@foo/bar:baz` instead of `@foo//bar:baz`.
 If you do this you will get an error like the following:
 
      invalid label '@ppx/print:text' in attribute 'ppx_print' in 'ocaml_module' rule: invalid repository name '@ppx/print:text': workspace names may contain only A-Z, a-z, 0-9, '-', '_' and '.'
+
+permission denied
+-----------------
+
+    ERROR: /Users/gar/bazel/obazl/tools_ocaml/obazl/Stdune/BUILD.bazel:37:9: Writing file obazl/Stdune/_obazl_/stdune.ml failed: unexpected I/O exception: /private/var/tmp/_bazel_gar/b616734bcfffe143a5ddb9085fea0452/execroot/demos/bazel-out/darwin-fastbuild/bin/obazl/Stdune/_obazl_/stdune.ml (Permission denied)
+
+Run `$ bazel clean` and try again.
+
+inconsistent assumptions over interface
+---------------------------------------
+
+    Error: The files bazel-out/darwin-fastbuild/bin/obazl/Stdune/_obazl_/stdune.cmi
+           and bazel-out/darwin-fastbuild/bin/obazl/Stdune/_obazl_/Stdune__Dyn.cmi
+           make inconsistent assumptions over interface Stdune
+
+One possible cause: you've used the same name for namespace module
+(i.e. the 'ns' attribute of the ocaml\_ns rule) and the ocaml\_archive
+containing the ns module. E.g. you have something like:
+
+ocaml\_archive( name = "foo", deps = \[ ...\] ) ocaml\_ns( name =
+"Foo\_ns", ns = "foo" ... )
+
+argument cannot be applied with label
+-------------------------------------
+
+    File "bazel-out/darwin-fastbuild/bin/obazl/stdune/_obazl_/Stdune__String.ml", line 313, characters 30-31:
+    313 |   to_seq t |> Seq.filter_map ~f |> of_seq
+                                        ^
+    Error: The function applied to this argument has type
+             ('a -> 'b option) -> 'a Seq.t -> unit -> 'b Stdlib__seq.node
+    This argument cannot be applied with label ~f
+
+This can happen if you don't "open Core"???

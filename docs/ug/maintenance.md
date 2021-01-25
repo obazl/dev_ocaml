@@ -3,17 +3,58 @@
 Maintenance Tasks
 =================
 
--   [Tasks](#tasks)
-    -   [File edits](#fileedits)
-    -   [Namespace changes](#namespaces)
+This section provides guidance for manual maintenance of OBazl build
+programs. Tools to automate these tasks are under development.
+
+-   [Dependency maintenance](#dependencies)
+-   [Module maintenance](#modules)
+-   [Namespace maintenance](#namespaces)
+    -   [Create a namespace](#nstask_add)
+    -   [Add a module to a namespace](#nstask_add)
 -   [Batch Editing](#batch)
     -   [Patching](#patching)
--   [Case study](#case)
+    -   [Case study](#case)
 
-<a name="tasks">Tasks</a>
--------------------------
+<a name="dependencies">Dependency maintenance</a>
+-------------------------------------------------
 
-### <a name="fileedits">File edits</a>
+Each target must list all of its direct dependencies. OBazl does not
+currently support file globbing, so they must be explicitly enumerated.
+If you make source code changes that introduce or eliminate dependencies
+you must edit the corresponding build rules accordingly.
+
+This presents a challenge if you are adding OBazl support to existing
+projects, since most legacy build systems do not explicitly list
+dependencies. For example, Dune analyzes source files to discover
+dependencies. The current version of OBazl deliberately eschews this
+strategy. \[TODO: explain why\]
+
+You can use the `ocamldep` (with the `-modules` flag) to list the
+(module) dependencies of source files. For example (from
+[demos/rules/ocaml\_archive](https://github.com/obazl/dev_obazl/tree/main/demos/rules/ocaml_archive)):
+
+    $ ocamldep -modules rules/ocaml_archive/main.ml
+    rules/ocaml_archive/main.ml: Core Easy Simple
+
+The dependencies listed are modules; its up to you to map the modules to
+target labels. In this example, `Core` is an OPAM package whose label is
+`@opam//pkg:core`, and the other two dependencies are in the same
+package, so their labels are \":\_Easy\" and \":\_Simple\",
+respectively.
+
+If you are adding OBazl support to a Dune project, you can derive the
+dependecy labels from the `libraries` clause of dune stanzas. Use
+`opam list` and `ocamlfind list` to see which dependencies are in the
+`@opam//pkg:` namespace.
+
+> Tooling to analyze source files and automatically generate dependency
+> labels is under development.
+
+Another (and more powerful) tool you can use to analyze dependencies is
+[codept](https://github.com/Octachron/codept).
+
+<a name="modules">Module maintenance</a>
+----------------------------------------
 
 Changes to source files do not affect build logic, *unless* they involve
 dependencies. If you add or remove a dependency, you should edit the
@@ -41,6 +82,44 @@ attribute.
 PPX extensions may involve file reads; for example,
 [ppx\_optcomp](https://github.com/janestreet/ppx_optcomp) supports an
 `[@@import` *filename*`]` extension.
+
+<a name="namespaces">Namespace maintenance</a>
+----------------------------------------------
+
+#### <a name="nstask_add">Task: add a module to a namespace</a>
+
+Steps:
+
+1.  Copy or create the source files - e.g. foo.ml and foo.mli if
+    needed - in the package containing the namespace module.
+
+2.  If you package the namespace in an aggregate (`ocaml_archive` or
+    `ocaml_library`), add the module target to the `deps` attribute of
+    the aggregate. E.g. `deps = [":_Foo", ...]`. Do not add the
+    interface target.
+
+3.  Add the module source file to the `submodules` attribute of the
+    `ocaml_ns` rule. E.g. `submodules = ["foo.ml", ...]`. Do not add the
+    .mli file.
+
+4.  Add `ocaml_module` and `ocaml_interface` (if needed) rules. Pass the
+    namespace module target label using the `ns` attribute. E.g.
+
+<!-- -->
+
+    ocaml_module(
+        name = "_Foo",
+        src  = "foo.ml",
+        intf = "_Foo.cmi",
+        ns   = ":_Mynamespace_ns",
+        deps = [ ... ]
+    )
+    ocaml_interface(
+        name = "_Foo.cmi",
+        src  = "foo.mli",
+        ns   = ":_Mynamespace_ns",
+        deps = [ ... ]
+    )
 
 <a name="batch">Batch Editing</a>
 ---------------------------------
