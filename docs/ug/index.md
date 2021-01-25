@@ -24,7 +24,7 @@ OBazl User Guide
 -   [File Generation](filegen.md)
 -   [Interop](interop.md)
 -   [Maintenance Tasks](maintenance.md)
--   [Namespacing](namespacing.md)
+-   [Namespacing](namespacing.md) (i.e. "type-level aliases")
 -   [Offline development](offline.md)
 -   [PPX Support](ppx.md)
 -   [Querying Dependency Graphs](querying.md)
