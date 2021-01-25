@@ -90,6 +90,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "deployment",
+    src = "deployment_ug.md",
+    output = "deployment.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "depmgmt",
     src = "depmgmt_ug.md",
     output = "depmgmt.md",
