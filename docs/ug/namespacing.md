@@ -4,7 +4,9 @@ Namespacing
 ===========
 
 "Namespace module" is the term OBazl uses to refer to modules containing
-module alias statements.
+[type-level module
+aliases](https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html),
+i.e. statements of the form `module N = P`.
 
 Example
 -------
@@ -13,11 +15,19 @@ Example
     ocaml_module( name = "_Bar", src = "bar.ml", ns = ":foo_ns")
     ocaml_module( name = "_Baz", src = "baz.ml", ns = ":foo_ns")
 
-This would produce `Foo.cmo`, `Foo__Bar.cmo`, and `Foo__Baz.cmo`. The
-first would contain alias statments:
+This would produce `Foo.cmo` (a "namespace module"), `Foo__Bar.cmo`, and
+`Foo__Baz.cmo` ("submodules" in the namespace). The first would contain
+type-level aliases:
 
     module Bar = Foo__Bar
     module Baz = Foo__Baz
+
+The namespace separator is determined by the attribute `ns_sep` of the
+`ocaml_ns` rule; it defaults to double-underscore, `__`, as seen in this
+example. It is not affected by target names; the underscore here in
+\"\_Bar\" and \"\_Baz\" is completely unrelated. Module names are
+determined by the source file name, not the target name. (see [Naming
+Conventions](conventions.md#naming-conventions)).
 
 **NOTES**
 
@@ -38,8 +48,8 @@ Example:
 > rule only needs to list the source files in its `submodules`
 > attribute. (A future version will make this less cumbersome.)
 
-OCaml Modules
--------------
+Type-Level Module Aliases
+-------------------------
 
 OCaml has a sophisticated module system that is partially tied to the
 file system.
@@ -67,8 +77,9 @@ not explicitly say that references to `Foo.Bar` are translated to
 `foo__Bar.ml`, but that is the implication.
 
 WARNING: The information about double underscores seems to be outdated.
-Experimentation shows that single underscores work as well; see
-examples/hello/raw/single.
+Experimentation shows that any string can be used; see
+[demos/namespaces/minimal/ns\_sep](https://github.com/obazl/dev_obazl/tree/main/demos/namespaces/minimal/ns_sep)
+for examples.
 
 References
 ----------
