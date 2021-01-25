@@ -21,6 +21,7 @@
 * [File Generation](filegen.md)
 * [Interop](interop.md)
 * [Maintenance Tasks](maintenance.md)
+* [Namespacing](namespacing.md)
 * [Offline development](offline.md)
 * [PPX Support](ppx.md)
 * [Querying Dependency Graphs](querying.md)
