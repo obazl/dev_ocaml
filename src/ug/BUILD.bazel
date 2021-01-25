@@ -194,6 +194,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "stamping",
+    src = "stamping_ug.md",
+    output = "stamping.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "testing",
     src = "testing_ug.md",
     output = "testing.md",
