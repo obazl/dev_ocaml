@@ -3,12 +3,55 @@
 Troubleshooting
 ===============
 
-best practices
+checklist
+---------
+
+-   decide on a set of [naming
+    conventions](connventions.md#naming_conventions) and stick to it
+-   spelling
+-   capitalization
+-   dashes and underscores - see [Syntax problems](#syntax) below.
+-   local (private) \[targets\]: don't forget the leading colon!
+-   verify namespace structure:
+    -   the `ocaml_ns` rule lists all submodule source (.ml) files in
+        its `submodules` attribute
+    -   each submodule lists the namespace target (`ocaml_ns` instance)
+        in its `ns` attribute
+    -   if you aggregate the namespace module and submodules in
+        `ocaml_archive` or `ocaml_library`, make sure all submodules are
+        listed as targets in the `deps` attribute of the aggregator
+        rule.
+
+<a name="syntax">Syntax problems</a>
+------------------------------------
+
+    ERROR: ... syntax error at '=': expected ,
+
+This can happen if you mispell and attribute, for example using a dash
+instead of an underscore.
+
+unbound module
 --------------
 
--   check spelling
--   capitalization
--   local (private) targets: don't forget the leading colon!
+-   This can happen if a .cmi file is missing. May indicate a bug in the
+    obazl code.
+
+-   ocaml\_ns: submodules attrib. verify capitalization,
+    e.g. String\_with\_vars, not String\_With\_Vars
+
+Example: capitalization in the submodules list, e.g.
+\":\_OpamLexer":"Opamlexer\", \# not the submod name has incorrect
+lower-case 'l'
+
+required module is unavailable
+------------------------------
+
+    File "_none_", line 1:
+    Error: Required module `Demos_obazl_dune_lang__Atom' is unavailable
+
+This is a supremely unhelpful error message. Required by what?
+
+This probably means your dependencies are in the wrong order.
 
 namespace problems
 ------------------

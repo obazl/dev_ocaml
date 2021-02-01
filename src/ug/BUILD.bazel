@@ -250,6 +250,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "user_bazelrc",
+    src = "user_bazelrc_ug.md",
+    output = "user_bazelrc.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "workspaces",
     src = "workspaces_ug.md",
     output = "workspaces.md",

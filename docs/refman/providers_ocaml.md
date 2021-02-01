@@ -232,7 +232,7 @@ OCaml NS Module payload provider.
 OcamlNsModuleProvider(<a href="#OcamlNsModuleProvider-payload">payload</a>, <a href="#OcamlNsModuleProvider-deps">deps</a>)
 </pre>
 
-OCaml module provider.
+OCaml NS module provider.
 
 **FIELDS**
 

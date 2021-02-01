@@ -13,6 +13,12 @@ OBazl Reference Manual
 -   ocaml [configure](functions.md#ocaml_configure)
 -   opam [configure](functions.md#opam_configure)
 
+<a name="macros">Macros</a>
+---------------------------
+
+-   [ns\_env](macros.md#ns_env) - initialize namespace evaluation
+    environment
+
 <a name="providers">Providers</a>
 ---------------------------------
 

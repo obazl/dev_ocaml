@@ -123,7 +123,7 @@ By default, this rule adds `-predicates ppx_driver` to the command line.
 
 <pre>
 ppx_module(<a href="#ppx_module-name">name</a>, <a href="#ppx_module-adjunct_deps">adjunct_deps</a>, <a href="#ppx_module-cc_deps">cc_deps</a>, <a href="#ppx_module-cc_linkopts">cc_linkopts</a>, <a href="#ppx_module-data">data</a>, <a href="#ppx_module-deps">deps</a>, <a href="#ppx_module-doc">doc</a>, <a href="#ppx_module-intf">intf</a>, <a href="#ppx_module-module_name">module_name</a>, <a href="#ppx_module-msg">msg</a>, <a href="#ppx_module-ns">ns</a>,
-           <a href="#ppx_module-opts">opts</a>, <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-src">src</a>)
+           <a href="#ppx_module-ns_init">ns_init</a>, <a href="#ppx_module-opts">opts</a>, <a href="#ppx_module-ppx">ppx</a>, <a href="#ppx_module-ppx_args">ppx_args</a>, <a href="#ppx_module-ppx_data">ppx_data</a>, <a href="#ppx_module-ppx_print">ppx_print</a>, <a href="#ppx_module-prefix">prefix</a>, <a href="#ppx_module-runtime_deps">runtime_deps</a>, <a href="#ppx_module-struct">struct</a>)
 </pre>
 
 Compiles a Ppx module. Provides: [PpxModuleProvider](providers_ppx.md#ppxmoduleprovider).
@@ -147,41 +147,43 @@ TODO: finish docstring
 | <a id="ppx_module-module_name"></a>module_name |  Allows user to specify a module name different than the target name.  | String | optional | "" |
 | <a id="ppx_module-msg"></a>msg |  DEPRECATED  | String | optional | "" |
 | <a id="ppx_module-ns"></a>ns |  Label of a [ppx_ns](#ppx_ns) target. Used to derive namespace, output name, -open arg, etc.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_module-ns_init"></a>ns_init |  Experimental  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
 | <a id="ppx_module-ppx"></a>ppx |  PPX binary (executable) used to transform source before compilation.  Providers:   [PpxExecutableProvider](providers_ocaml.md#ppxexecutableprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-ppx_args"></a>ppx_args |  Arguments to pass to ppx executable.  (E.g. ["-cookie", "library-name=\"ppx_version\""]  | List of strings | optional | [] |
 | <a id="ppx_module-ppx_data"></a>ppx_data |  PPX runtime dependencies. List of labels of files needed by PPX at preprocessing runtime. E.g. a file used by <code>[%%import ]</code> from [ppx_optcomp](https://github.com/janestreet/ppx_optcomp).  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="ppx_module-ppx_print"></a>ppx_print |  Format of output of PPX transform, binary (default) or text  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | @ppx//print |
+| <a id="ppx_module-prefix"></a>prefix |  Label of an ocaml_ns_env target. Used for renaming struct source file. See [Namepaces](../namespaces.md) for more information.  Providers:   [OcamlNsEnvProvider](providers_ocaml.md#ocamlnsenvprovider) | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
 | <a id="ppx_module-runtime_deps"></a>runtime_deps |  PPX runtime dependencies. E.g. a file used by %%import from ppx_optcomp.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="ppx_module-src"></a>src |  A single .ml source file label.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="ppx_module-struct"></a>struct |  A single .ml source file label.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
 
 ----
 
-<a name="#ppx_ns" id="#ppx_ns"></a>
+<a name="#ppx_ns_module" id="#ppx_ns_module"></a>
 
-## ppx_ns
+## ppx_ns_module
 
 <pre>
-ppx_ns(<a href="#ppx_ns-name">name</a>, <a href="#ppx_ns-module_name">module_name</a>, <a href="#ppx_ns-msg">msg</a>, <a href="#ppx_ns-ns">ns</a>, <a href="#ppx_ns-ns_sep">ns_sep</a>, <a href="#ppx_ns-opts">opts</a>, <a href="#ppx_ns-submodules">submodules</a>)
+ppx_ns_module(<a href="#ppx_ns_module-name">name</a>, <a href="#ppx_ns_module-deps">deps</a>, <a href="#ppx_ns_module-footer">footer</a>, <a href="#ppx_ns_module-main">main</a>, <a href="#ppx_ns_module-msg">msg</a>, <a href="#ppx_ns_module-opts">opts</a>, <a href="#ppx_ns_module-submodules">submodules</a>)
 </pre>
 
 Generate a PPX namespace module.
 
     
 
-**ATTRIBUTES** for rule `ppx_ns`
+**ATTRIBUTES** for rule `ppx_ns_module`
 
 | Name  | Description | Type | Mandatory | Default |
 | ------------- | ------------- | ------------- | :------------- | :------------- |
-| <a id="ppx_ns-name"></a>name |  A unique name for this target.  | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="ppx_ns-module_name"></a>module_name |  -  | String | optional | "" |
-| <a id="ppx_ns-msg"></a>msg |  -  | String | optional | "" |
-| <a id="ppx_ns-ns"></a>ns |  -  | String | optional | "" |
-| <a id="ppx_ns-ns_sep"></a>ns_sep |  Namespace separator.  Default: '__'  | String | optional | "__" |
-| <a id="ppx_ns-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
-| <a id="ppx_ns-submodules"></a>submodules |  List of all submodule source files, including .ml/.mli file(s) whose name matches the ns.  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_ns_module-name"></a>name |  A unique name for this target.  | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="ppx_ns_module-deps"></a>deps |  Dependencies  | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="ppx_ns_module-footer"></a>footer |  Code to be appended to the generated ns module.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_ns_module-main"></a>main |  Code to use as the ns module.  | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional | None |
+| <a id="ppx_ns_module-msg"></a>msg |  -  | String | optional | "" |
+| <a id="ppx_ns_module-opts"></a>opts |  List of OCaml options. Will override configurable default options.  | List of strings | optional | [] |
+| <a id="ppx_ns_module-submodules"></a>submodules |  Dict from submodule target to name  | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 
 
 

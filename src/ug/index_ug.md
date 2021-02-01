@@ -45,6 +45,7 @@
 * [Tools](tools.md)
 * [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
 * [Troubleshooting](troubleshooting.md)
+* [user.bazelrc](user_bazelrc.md)
 * [Workspaces](workspaces.md)
 
 ### Additional Topics
