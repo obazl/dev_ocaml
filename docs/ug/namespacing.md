@@ -3,31 +3,57 @@
 Namespacing
 ===========
 
+OCaml supports namespaces _within the language_. But unlike many other
+languages that support articulated names like `A.B.C`, it does not map
+such "module paths" to filesystem paths.
+
+OCaml uses a flat namespace for module source files. If you use
+the same module file name in different file system locations within a
+project you will get a name clash. Every module source file must be
+uniquely named.
+
+The "top-level module aliases" facility provides a mechanism that
+tools can use to emulate hierarchical filesystem-based namespacing.
+
+Terminology:
+
+* namespace
+* ns module
+  * main ns module
+  * ns resolver module a/k/a resolver
+* submodule
+
+OBazl namespacing is built on two key mechanisms: renaming and
+aliasing. Renaming is an OBazl feature; aliasing is and OCaml feature.
+
 "Namespace module" is the term OBazl uses to refer to modules containing
 [type-level module
 aliases](https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html),
 i.e. statements of the form `module N = P`.
 
+>    Dune uses the term "wrapped library" and variants where OBazl uses namespacing terminology.
+
+
+## ocaml_ns_resolver
+
+Macro: ns
+
+Purpose: determines a namespace prefix for renaming files, and writes
+a resolver file mapping raw module names to prefixed module names.
+Modules (ocaml_module rules) depend on this to decide how to rename
+source files.
+
+## ocaml_ns_module
+
+## ocaml_module ns attribute
+
+----
+
+## OBSOLETE docs
+
 Example
 -------
 
-    ocaml_ns( name = "foo_ns", ns = "foo", submodules = ["bar.ml", "baz.ml"])
-    ocaml_module( name = "_Bar", src = "bar.ml", ns = ":foo_ns")
-    ocaml_module( name = "_Baz", src = "baz.ml", ns = ":foo_ns")
-
-This would produce `Foo.cmo` (a "namespace module"), `Foo__Bar.cmo`, and
-`Foo__Baz.cmo` ("submodules" in the namespace). The first would contain
-type-level aliases:
-
-    module Bar = Foo__Bar
-    module Baz = Foo__Baz
-
-The namespace separator is determined by the attribute `ns_sep` of the
-`ocaml_ns` rule; it defaults to double-underscore, `__`, as seen in this
-example. It is not affected by target names; the underscore here in
-\"\_Bar\" and \"\_Baz\" is completely unrelated. Module names are
-determined by the source file name, not the target name. (see [Naming
-Conventions](conventions.md#naming-conventions)).
 
 **NOTES**
 

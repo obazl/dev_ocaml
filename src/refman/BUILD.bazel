@@ -33,35 +33,23 @@ stardoc(
 )
 
 ################################################################
-# genrule(
-#     name = "x",
-#     srcs = [":ocaml_archive.md"],
-#     outs = ["ocaml_archive.dita"],
-#     cmd  = "cp $< $@"
-# )
-
-# stardoc(
-#     name = "ocaml_archive",
-#     input = "rules_ocaml.bzl",
-#     # out = "ocaml_archive.dita",
-#     out = "ocaml_archive.md",
-#     rule_template = select({
-#         "//:dita_enabled": "//templates/dita:rule.vm",
-#         "//conditions:default": "//templates/markdown:rule.vm"
-#     }),
-#     header_template = select({
-#         "//:dita_enabled": "//templates/dita:header_rules.vm",
-#         "//conditions:default": "//templates/markdown:header_rules_ocaml.vm"
-#     }),
-#     deps  = [
-#         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-#         "@obazl_rules_ocaml//ocaml:bootstrap",
-#         "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
-#     ],
-#     symbol_names = [
-#         "ocaml_archive",
-#     ]
-# )
+stardoc(
+    name = "macros",
+    input = ":macros_refman.bzl",
+    out = "macros.md",
+    func_template = "//templates/markdown:macros.vm",
+    header_template = "//templates/markdown:header_macros.vm",
+    deps  = [
+        "@obazl_rules_ocaml//ocaml:macros",
+        "@obazl_rules_ocaml//ocaml:rules",
+        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
+        "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
+        "@obazl_rules_ocaml//ppx/_transitions:transitions",
+    ],
+    symbol_names = [
+        "ns_env"
+    ]
+)
 
 ################################################################
 stardoc(
@@ -84,7 +72,8 @@ stardoc(
         "ocaml_interface",
         "ocaml_library",
         "ocaml_module",
-        "ocaml_ns",
+        "ocaml_ns_env",
+        "ocaml_ns_module",
     ]
 )
 
@@ -100,7 +89,7 @@ stardoc(
         "ppx_executable",
         # "ppx_library",
         "ppx_module",
-        "ppx_ns",
+        "ppx_ns_module",
         "ppx_test",
     ]
 )

@@ -83,7 +83,7 @@
     alias "bl=less `bazel info command_log`"
 ```
 
-## Naming Conventions
+## <a name="naming_conventions">Naming Conventions</a>
 
 * Repository fetching functions:
 

@@ -13,7 +13,8 @@
 * [ocaml_interface](#ocaml_interface)
 * [ocaml_library](#ocaml_library)
 * [ocaml_module](#ocaml_module)
-* [ocaml_ns](#ocaml_ns)
+* [ocaml_ns_env](#ocaml_ns_env)
+* [ocaml_ns_module](#ocaml_ns_module)
 
 **<a name="configdefs">OCaml Rules - Configurable defaults</a>**:
 

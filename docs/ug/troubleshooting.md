@@ -3,6 +3,13 @@
 Troubleshooting
 ===============
 
+best practices
+--------------
+
+-   check spelling
+-   capitalization
+-   local (private) targets: don't forget the leading colon!
+
 namespace problems
 ------------------
 
@@ -72,4 +79,8 @@ argument cannot be applied with label
              ('a -> 'b option) -> 'a Seq.t -> unit -> 'b Stdlib__seq.node
     This argument cannot be applied with label ~f
 
-This can happen if you don't "open Core"???
+This may mean that you've got the wrong modules; in particular, that you
+need a customized version but you're using the default version. I.e. you
+should be using a module that shadows the default provided by OCaml. In
+the example above, a custom implementation of `Seq` had been
+inadvertently omitted from the deps list.
