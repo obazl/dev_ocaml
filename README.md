@@ -1,5 +1,6 @@
 # docs_obazl
-=======
+
+Online at [https://obazl.github.io/docs_obazl/](https://obazl.github.io/docs_obazl/)
 
 Documentation, demos, and tools for obazl_rules_ocaml and obazl_rules_opam.
 
