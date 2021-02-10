@@ -12,9 +12,9 @@ on the foundation of the primitive rules.
 Rules & Tools
 -------------
 
--   [obazl\_rules\_ocaml](https://github.com/obazl/rules_ocaml)
--   [obazl\_rules\_opam](https://github.com/obazl/rules_opam)
--   [obazl\_tools\_bazel](https://github.com/obazl/tools_bazel)
+-   [rules\_ocaml](https://github.com/obazl/rules_ocaml)
+-   [rules\_opam](https://github.com/obazl/rules_opam)
+-   [tools\_obazl](https://github.com/obazl/tools_obazl)
 
 Docs
 ----
