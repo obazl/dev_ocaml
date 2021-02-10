@@ -11,9 +11,9 @@ tooling built on the foundation of the primitive rules.
 
 ## Rules & Tools
 
-* [obazl_rules_ocaml](https://github.com/obazl/rules_ocaml)
-* [obazl_rules_opam](https://github.com/obazl/rules_opam)
-* [obazl_tools_bazel](https://github.com/obazl/tools_bazel)
+* [rules_ocaml](https://github.com/obazl/rules_ocaml)
+* [rules_opam](https://github.com/obazl/rules_opam)
+* [tools_obazl](https://github.com/obazl/tools_obazl)
 
 ## Docs
 
