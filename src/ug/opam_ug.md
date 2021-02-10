@@ -1,12 +1,12 @@
 [User Guide](index.md)
 
-# OPAM Dependencies
+# OPAM
 
-## <a name="ocaml_deps">OPAM Dependencies</a>
+## <a name="dependencies">OPAM Dependencies</a>
 
-OPAM dependencies are in the `@opam//pkg:` namespace/package. Their
-target names match their OPAM/ocamlfind names. E.g. `@opam//pkg:core`,
-`@opam//pkg:ppxlib`, `@opam//pkg:ppx_deriving.show`, etc.
+OPAM dependencies specified by passing their names via the `deps_opam`
+attribute.
+
 
 ## misc
 

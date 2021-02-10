@@ -77,7 +77,7 @@ OCaml PPX binary provider.
 ## PpxModuleProvider
 
 <pre>
-PpxModuleProvider(<a href="#PpxModuleProvider-payload">payload</a>, <a href="#PpxModuleProvider-deps">deps</a>)
+PpxModuleProvider(<a href="#PpxModuleProvider-name">name</a>, <a href="#PpxModuleProvider-module">module</a>)
 </pre>
 
 OCaml PPX module provider.
@@ -87,7 +87,7 @@ OCaml PPX module provider.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="PpxModuleProvider-payload"></a>payload |  A struct with the following fields:             cmi: .cmi file produced by the target             # mli: ???             cm: .cmx or .cmo file produced by the target             o  : .o file produced by the target    |
-| <a id="PpxModuleProvider-deps"></a>deps |  A collectikon of depsets:             opam : direct and transitive opam deps (Labels) of target             opam_adjunct : extension output deps; needed when transformed source is compiled             nopam: direct and transitive non-opam deps (Files) of target             nopam_adjunct : extension output deps; needed when transformed source is compiled             cc_deps : C/C++ deps    |
+| <a id="PpxModuleProvider-name"></a>name |  Module name    |
+| <a id="PpxModuleProvider-module"></a>module |  Module file    |
 
 

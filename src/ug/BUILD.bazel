@@ -10,6 +10,22 @@ pandoc(
 
 #######
 pandoc(
+    name = "aggregators",
+    src = "aggregators_ug.md",
+    output = "aggregators.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "aspects",
+    src = "aspects_ug.md",
+    output = "aspects.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "bootstrap",
     src = "bootstrap_ug.md",
     output = "bootstrap.md",
@@ -114,14 +130,6 @@ pandoc(
 
 #######
 pandoc(
-    name = "deps_opam",
-    src = "dependencies_opam_ug.md",
-    output = "dependencies_opam.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
     name = "development",
     src = "development_ug.md",
     output = "development.md",
@@ -178,9 +186,33 @@ pandoc(
 
 #######
 pandoc(
+    name = "opam",
+    src = "opam_ug.md",
+    output = "opam.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "optimization",
+    src = "optimization_ug.md",
+    output = "optimization.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "ppx",
     src = "ppx_ug.md",
     output = "ppx.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
+    name = "providers",
+    src = "providers_ug.md",
+    output = "providers.md",
     visibility = ["//visibility:public"],
 )
 
@@ -278,9 +310,9 @@ pandoc(
     visibility = ["//visibility:public"],
 )
 pandoc(
-    name = "ocaml_interface",
-    src = "ocaml_interface_ug.md",
-    output = "ocaml_interface.md",
+    name = "ocaml_signature",
+    src = "ocaml_signature_ug.md",
+    output = "ocaml_signature.md",
     visibility = ["//visibility:public"],
 )
 pandoc(

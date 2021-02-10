@@ -10,7 +10,7 @@
 ## ocaml_configure
 
 <pre>
-ocaml_configure(<a href="#ocaml_configure-debug">debug</a>, <a href="#ocaml_configure-switch">switch</a>)
+ocaml_configure(<a href="#ocaml_configure-opam">opam</a>, <a href="#ocaml_configure-switch">switch</a>, <a href="#ocaml_configure-hermetic">hermetic</a>, <a href="#ocaml_configure-verify">verify</a>, <a href="#ocaml_configure-install">install</a>, <a href="#ocaml_configure-pin">pin</a>, <a href="#ocaml_configure-force">force</a>, <a href="#ocaml_configure-debug">debug</a>, <a href="#ocaml_configure-verbose">verbose</a>)
 </pre>
 
 Declares workspaces (repositories) the Ocaml rules depend on.
@@ -20,8 +20,15 @@ Declares workspaces (repositories) the Ocaml rules depend on.
 
 | Name  | Description | Default Value |
 | ------------- | ------------- | ------------- |
+| <a id="ocaml_configure-opam"></a>opam |  an [OpamConfig](#provider-opamconfig) provider   |  <code>None</code> |
+| <a id="ocaml_configure-switch"></a>switch |  <p align="center"> - </p>   |  <code>None</code> |
+| <a id="ocaml_configure-hermetic"></a>hermetic |  <p align="center"> - </p>   |  <code>False</code> |
+| <a id="ocaml_configure-verify"></a>verify |  <p align="center"> - </p>   |  <code>False</code> |
+| <a id="ocaml_configure-install"></a>install |  <p align="center"> - </p>   |  <code>False</code> |
+| <a id="ocaml_configure-pin"></a>pin |  <p align="center"> - </p>   |  <code>False</code> |
+| <a id="ocaml_configure-force"></a>force |  <p align="center"> - </p>   |  <code>False</code> |
 | <a id="ocaml_configure-debug"></a>debug |  enable debugging   |  <code>False</code> |
-| <a id="ocaml_configure-switch"></a>switch |  name of OPAM switch to use for builds   |  <code>None</code> |
+| <a id="ocaml_configure-verbose"></a>verbose |  <p align="center"> - </p>   |  <code>False</code> |
 
 
 <a id="#opam_configure"></a>

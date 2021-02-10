@@ -1,27 +1,19 @@
 ## NOTE: rules must be aliased.
 
-load("@obazl_rules_ocaml//ocaml/_providers:ocaml.bzl",
-     _OcamlArchivePayload  = "OcamlArchivePayload",
+load("@obazl_rules_ocaml//ocaml:providers.bzl",
      _OcamlArchiveProvider = "OcamlArchiveProvider",
      _OcamlDepsetProvider  = "OcamlDepsetProvider",
-     _OcamlLibraryProvider = "OcamlLibraryProvider",
      _OcamlImportProvider  = "OcamlImportProvider",
-     _OcamlInterfaceProvider = "OcamlInterfaceProvider",
-     _OcamlInterfacePayload  = "OcamlInterfacePayload",
+     _OcamlLibraryProvider = "OcamlLibraryProvider",
      _OcamlModuleProvider    = "OcamlModuleProvider",
-     _OcamlModulePayload     = "OcamlModulePayload",
-     _OcamlNsModuleProvider  = "OcamlNsModuleProvider",
-     _OcamlNsModulePayload   = "OcamlNsModulePayload"
+     _OcamlNsLibraryProvider  = "OcamlNsLibraryProvider",
+     _OcamlSignatureProvider = "OcamlSignatureProvider",
      )
 
-OcamlDepsetProvider    = _OcamlDepsetProvider
-OcamlArchivePayload    = _OcamlArchivePayload
 OcamlArchiveProvider   = _OcamlArchiveProvider
+OcamlDepsetProvider    = _OcamlDepsetProvider
 OcamlImportProvider    = _OcamlImportProvider
-OcamlInterfaceProvider = _OcamlInterfaceProvider
-OcamlInterfacePayload  = _OcamlInterfacePayload
 OcamlLibraryProvider   = _OcamlLibraryProvider
 OcamlModuleProvider    = _OcamlModuleProvider
-OcamlModulePayload     = _OcamlModulePayload
-OcamlNsModuleProvider  = _OcamlNsModuleProvider
-OcamlNsModulePayload   = _OcamlNsModulePayload
+OcamlNsLibraryProvider  = _OcamlNsLibraryProvider
+OcamlSignatureProvider = _OcamlSignatureProvider

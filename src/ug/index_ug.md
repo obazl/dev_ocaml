@@ -3,9 +3,16 @@
 [Developing OCaml software with OBazl](development.md)
 
 ----
+## Topics
 
+* [Aggregators](aggregators.md)
+  * [Archives](aggregators.md#archives)
+  * [Libraries](aggregators.md#libraries)
+  * [Namespace Libraries](aggregators.md#nslibraries)
+* [Aspects](aspects.md)
 * [Bootstrapping](bootstrap.md)
 * [Caching](caching.md)
+* [Compilation Mode]() - bytecode v. native
 * [Conditional Compilation/Building](conditional.md)
 * [Configuration](configuration.md)
   * [Bazel Configurations](configuration.md#bazel)
@@ -16,15 +23,21 @@
 * [Conventions](conventions.md)
 * [Dependency Management](depmgmt.md)
   * [OCaml Dependencies](dependencies_ocaml.md)
-  * [OPAM Dependencies](dependencies_opam.md)
+  * [Runtime Dependencies]()
+  * [OPAM Dependencies](opam.md#dependencies)
+  * [PPX Adjunct Dependencies]()
   * [CC Dependencies](dependencies_cc.md)
 * [Deployment](deployment.md)
   * [Stamping binaries](stamping.md)
 * [File Generation](filegen.md)
 * [Interop](interop.md)
 * [Maintenance Tasks](maintenance.md)
+* [Modules](build_rules.md#modules)
 * [Namespacing](namespacing.md) (i.e. "type-level aliases")
 * [Offline development](offline.md)
+* [OPAM]()
+* [Optimization](optimization.md)
+* [Providers](providers.md)
 * [PPX Support](ppx.md)
 * [Querying Dependency Graphs](querying.md)
 * [Repositories](workspaces.md)
@@ -33,6 +46,8 @@
   * [Bootstrapping](bootstrap.md#rules)
   * [Build Rules](build_rules.md)
   * [Configuration Rules](configrules.md)
+* [Signatures](build_rules.md#signatures)
+* [Structures](build_rules.md#structures)
 * [Stamping](stamping.md)
 * Target labels
   * [Specifying targets to build](https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build)
@@ -46,6 +61,7 @@
 * [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
 * [Troubleshooting](troubleshooting.md)
 * [user.bazelrc](user_bazelrc.md)
+* [Visibility]()
 * [Workspaces](workspaces.md)
 
 ### Additional Topics

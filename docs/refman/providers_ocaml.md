@@ -16,47 +16,23 @@
 * [OcamlNsModulePayload](#ocamlnsmodulepayload)
 
 ----
-<a id="#OcamlArchivePayload"></a>
-
-## OcamlArchivePayload
-
-<pre>
-OcamlArchivePayload(<a href="#OcamlArchivePayload-archive">archive</a>, <a href="#OcamlArchivePayload-cma">cma</a>, <a href="#OcamlArchivePayload-cmxa">cmxa</a>, <a href="#OcamlArchivePayload-a">a</a>)
-</pre>
-
-A Provider struct used by [OcamlArchiveProvider](#ocamlarchiveprovider) and [PpxArchiveProvider](providers_ppx.md#ppxarchiveprovider). Not directly provided by any rule.
-
-**FIELDS**
-
-
-| Name  | Description |
-| ------------- | ------------- |
-| <a id="OcamlArchivePayload-archive"></a>archive |  Name of archive    |
-| <a id="OcamlArchivePayload-cma"></a>cma |  .cma file produced by the target (bytecode mode)    |
-| <a id="OcamlArchivePayload-cmxa"></a>cmxa |  .cmxa file produced by the target (native mode)    |
-| <a id="OcamlArchivePayload-a"></a>a |  .a file produced by the target (native mode)    |
-
-
 <a id="#OcamlArchiveProvider"></a>
 
 ## OcamlArchiveProvider
 
 <pre>
-OcamlArchiveProvider(<a href="#OcamlArchiveProvider-payload">payload</a>, <a href="#OcamlArchiveProvider-deps">deps</a>)
+OcamlArchiveProvider(<a href="#OcamlArchiveProvider-name">name</a>, <a href="#OcamlArchiveProvider-module">module</a>)
 </pre>
 
 OCaml archive provider.
-
-Provided by rule: [ocaml_archive](rules_ocaml.md#ocaml_archive)
-    
 
 **FIELDS**
 
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlArchiveProvider-payload"></a>payload |  An [OcamlArchivePayload](#ocamlarchivepayload) provider    |
-| <a id="OcamlArchiveProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider) provider.    |
+| <a id="OcamlArchiveProvider-name"></a>name |  Module name    |
+| <a id="OcamlArchiveProvider-module"></a>module |  Module file    |
 
 
 <a id="#OcamlDepsetProvider"></a>
@@ -99,44 +75,6 @@ OCaml import provider.
 | <a id="OcamlImportProvider-indirect"></a>indirect |  A depset of indirect deps.    |
 
 
-<a id="#OcamlInterfacePayload"></a>
-
-## OcamlInterfacePayload
-
-<pre>
-OcamlInterfacePayload(<a href="#OcamlInterfacePayload-cmi">cmi</a>, <a href="#OcamlInterfacePayload-mli">mli</a>)
-</pre>
-
-OCaml interface payload.
-
-**FIELDS**
-
-
-| Name  | Description |
-| ------------- | ------------- |
-| <a id="OcamlInterfacePayload-cmi"></a>cmi |  .cmi file produced by the target    |
-| <a id="OcamlInterfacePayload-mli"></a>mli |  .mli source file. without the source file, the cmi file will be ignored!    |
-
-
-<a id="#OcamlInterfaceProvider"></a>
-
-## OcamlInterfaceProvider
-
-<pre>
-OcamlInterfaceProvider(<a href="#OcamlInterfaceProvider-payload">payload</a>, <a href="#OcamlInterfaceProvider-deps">deps</a>)
-</pre>
-
-OCaml interface provider.
-
-**FIELDS**
-
-
-| Name  | Description |
-| ------------- | ------------- |
-| <a id="OcamlInterfaceProvider-payload"></a>payload |  An [OcamlInterfacePayload](#ocamlinterfacepayload) structure.    |
-| <a id="OcamlInterfaceProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider).    |
-
-
 <a id="#OcamlLibraryProvider"></a>
 
 ## OcamlLibraryProvider
@@ -159,35 +97,12 @@ Provided by rule: [ocaml_library](rules_ocaml.md#ocaml_library)
 | <a id="OcamlLibraryProvider-deps"></a>deps |  A pair of depsets:             opam : direct and transitive opam deps (Labels) of target             nopam: direct and transitive non-opam deps (Files) of target             cclib: c/c++ lib deps    |
 
 
-<a id="#OcamlModulePayload"></a>
-
-## OcamlModulePayload
-
-<pre>
-OcamlModulePayload(<a href="#OcamlModulePayload-cmx">cmx</a>, <a href="#OcamlModulePayload-o">o</a>, <a href="#OcamlModulePayload-cmo">cmo</a>, <a href="#OcamlModulePayload-cmi">cmi</a>, <a href="#OcamlModulePayload-mli">mli</a>, <a href="#OcamlModulePayload-cmt">cmt</a>)
-</pre>
-
-OCaml module payload.
-
-**FIELDS**
-
-
-| Name  | Description |
-| ------------- | ------------- |
-| <a id="OcamlModulePayload-cmx"></a>cmx |  .cmx file produced from the target (native mode)    |
-| <a id="OcamlModulePayload-o"></a>o |  .o file produced from the target (native mode)    |
-| <a id="OcamlModulePayload-cmo"></a>cmo |  .cmo file produced from the target (bytecode mode)    |
-| <a id="OcamlModulePayload-cmi"></a>cmi |  .cmi file. Passed through from <code>intf</code> attrib if present, otherwise generated from <code>src</code>.    |
-| <a id="OcamlModulePayload-mli"></a>mli |  .mli source file passed through from <code>intf</code> attrib if present, otherwise None    |
-| <a id="OcamlModulePayload-cmt"></a>cmt |  .cmt file produced from the target (optional)    |
-
-
 <a id="#OcamlModuleProvider"></a>
 
 ## OcamlModuleProvider
 
 <pre>
-OcamlModuleProvider(<a href="#OcamlModuleProvider-payload">payload</a>, <a href="#OcamlModuleProvider-deps">deps</a>)
+OcamlModuleProvider(<a href="#OcamlModuleProvider-name">name</a>, <a href="#OcamlModuleProvider-module">module</a>)
 </pre>
 
 OCaml module provider.
@@ -197,49 +112,45 @@ OCaml module provider.
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlModuleProvider-payload"></a>payload |  An [OcamlModulePayload](#ocamlmodulepayload) provider.    |
-| <a id="OcamlModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider) provider.    |
+| <a id="OcamlModuleProvider-name"></a>name |  Module name    |
+| <a id="OcamlModuleProvider-module"></a>module |  Module file    |
 
 
-<a id="#OcamlNsModulePayload"></a>
+<a id="#OcamlNsLibraryProvider"></a>
 
-## OcamlNsModulePayload
+## OcamlNsLibraryProvider
 
 <pre>
-OcamlNsModulePayload(<a href="#OcamlNsModulePayload-ns">ns</a>, <a href="#OcamlNsModulePayload-sep">sep</a>, <a href="#OcamlNsModulePayload-cmx">cmx</a>, <a href="#OcamlNsModulePayload-o">o</a>, <a href="#OcamlNsModulePayload-cmo">cmo</a>, <a href="#OcamlNsModulePayload-cmi">cmi</a>)
+OcamlNsLibraryProvider(<a href="#OcamlNsLibraryProvider-name">name</a>, <a href="#OcamlNsLibraryProvider-module">module</a>)
 </pre>
 
-OCaml NS Module payload provider.
+OCaml NS Library provider.
 
 **FIELDS**
 
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlNsModulePayload-ns"></a>ns |  namespace string    |
-| <a id="OcamlNsModulePayload-sep"></a>sep |  separator string    |
-| <a id="OcamlNsModulePayload-cmx"></a>cmx |  .cmx file produced from the target (native mode)    |
-| <a id="OcamlNsModulePayload-o"></a>o |  .o file produced from the target (native mode)    |
-| <a id="OcamlNsModulePayload-cmo"></a>cmo |  .cmo file produced from the target (native mode)    |
-| <a id="OcamlNsModulePayload-cmi"></a>cmi |  .cmi file produced from the target    |
+| <a id="OcamlNsLibraryProvider-name"></a>name |  Module name    |
+| <a id="OcamlNsLibraryProvider-module"></a>module |  Module file    |
 
 
-<a id="#OcamlNsModuleProvider"></a>
+<a id="#OcamlSignatureProvider"></a>
 
-## OcamlNsModuleProvider
+## OcamlSignatureProvider
 
 <pre>
-OcamlNsModuleProvider(<a href="#OcamlNsModuleProvider-payload">payload</a>, <a href="#OcamlNsModuleProvider-deps">deps</a>)
+OcamlSignatureProvider(<a href="#OcamlSignatureProvider-name">name</a>, <a href="#OcamlSignatureProvider-module">module</a>)
 </pre>
 
-OCaml NS module provider.
+OCaml interface provider.
 
 **FIELDS**
 
 
 | Name  | Description |
 | ------------- | ------------- |
-| <a id="OcamlNsModuleProvider-payload"></a>payload |  An [OcamlNsModulePayload](#ocamlnsmodulepayload) structure.    |
-| <a id="OcamlNsModuleProvider-deps"></a>deps |  An [OcamlDepsetProvider](#ocamldepsetprovider)    |
+| <a id="OcamlSignatureProvider-name"></a>name |  Module name    |
+| <a id="OcamlSignatureProvider-module"></a>module |  Module file    |
 
 

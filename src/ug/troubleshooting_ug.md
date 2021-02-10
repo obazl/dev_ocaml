@@ -42,7 +42,7 @@ Error: Required module `Demos_obazl_dune_lang__Atom' is unavailable
 
 This is a supremely unhelpful error message. Required by what?
 
-This probably means your dependencies are in the wrong order.
+This may mean your dependencies are in the wrong order.
 
 ## namespace problems
 

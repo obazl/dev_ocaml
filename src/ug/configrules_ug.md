@@ -2,6 +2,9 @@
 
 # Configuration Rules
 
+* [Overrides](#overrides)
+* [Resources](#resources)
+
 A [user-defined build setting](https://docs.bazel.build/versions/master/skylark/config.html#user-defined-build-settings), in Bazel's terminology, is a rule that determines a single piece of configuration information.
 
 A "configuration rule", in OBazl's terminology, is a build setting
@@ -48,8 +51,7 @@ the default to false by passing `--no@ocaml//short-paths` (or
 `--@ocaml//short-paths:disable`) simply prevents the addition of that
 flag.
 
-Case-by-case overrides
-----------------------
+## <a name="overrides">Case-by-case overrides</a>
 
 These configuration rules - flags and options - have global effect; each
 instance of each `ocaml_*` rule will be controlled by these
@@ -88,3 +90,7 @@ for the command-line.
   flags is the compiler `--help` option. At time of writing, the
   official OCaml manual is incomplete (for example, it does not
   document `-keep-locs`).
+
+## <a name="resources">Resources</a>
+
+* [Label-typed build settings](https://docs.bazel.build/versions/master/skylark/config.html#label-typed-build-settings)

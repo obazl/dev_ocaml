@@ -1,8 +1,10 @@
 load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+load("@bazel_skylib//lib:new_sets.bzl", "sets")
 
 RULES_PPX_DEPS = [
     "@bazel_skylib//lib:collections",
+    "@bazel_skylib//lib:new_sets",
     "@bazel_skylib//lib:types",
     "@obazl_rules_ocaml//ocaml:bootstrap",
     "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
@@ -40,6 +42,7 @@ stardoc(
     func_template = "//templates/markdown:macros.vm",
     header_template = "//templates/markdown:header_macros.vm",
     deps  = [
+        "@bazel_skylib//lib:new_sets",
         "@obazl_rules_ocaml//ocaml:macros",
         "@obazl_rules_ocaml//ocaml:rules",
         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
@@ -59,6 +62,7 @@ stardoc(
     header_template = "//templates/markdown:header_rules_ocaml.vm",
     rule_template = "//templates/markdown:rule.vm",
     deps  = [
+        "@bazel_skylib//lib:new_sets",
         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
         "@obazl_rules_ocaml//ocaml:bootstrap",
         "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
@@ -69,11 +73,11 @@ stardoc(
         "ocaml_archive",
         "ocaml_executable",
         "ocaml_import",
-        "ocaml_interface",
         "ocaml_library",
         "ocaml_module",
         "ocaml_ns_env",
-        "ocaml_ns_module",
+        "ocaml_ns_library",
+        "ocaml_signature",
     ]
 )
 
@@ -121,18 +125,18 @@ stardoc(
         "@obazl_rules_ocaml//ocaml:providers",
     ],
     symbol_names = [
-        "OpamPkgInfo",
-        "OcamlDepsetProvider",
-        "OcamlArchivePayload",
-        "OcamlArchiveProvider",
-        "OcamlImportProvider",
-        "OcamlInterfaceProvider",
-        "OcamlInterfacePayload",
-        "OcamlLibraryProvider",
-        "OcamlModuleProvider",
-        "OcamlModulePayload",
-        "OcamlNsModuleProvider",
-        "OcamlNsModulePayload"
+        # "OpamPkgInfo",
+        # "OcamlDepsetProvider",
+        # "OcamlArchivePayload",
+        # "OcamlArchiveProvider",
+        # "OcamlImportProvider",
+        # "OcamlSignatureProvider",
+        # "OcamlInterfacePayload",
+        # "OcamlLibraryProvider",
+        # "OcamlModuleProvider",
+        # "OcamlModulePayload",
+        # "OcamlNsLibraryProvider",
+        # "OcamlNsModulePayload"
     ]
 )
 
@@ -145,6 +149,7 @@ stardoc(
     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
     deps  = [
         "@bazel_skylib//lib:collections",
+        "@bazel_skylib//lib:new_sets",
         "@bazel_skylib//lib:types",
         "@obazl_rules_opam//opam:bootstrap",
         "@obazl_rules_opam//opam/_bootstrap:bootstrap",
