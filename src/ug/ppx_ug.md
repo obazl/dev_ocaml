@@ -2,17 +2,195 @@
 
 # PPX Support
 
+* [Overview](#overview)
+* [Building PPX resources](#building)
+* [Preprocessing v. build dependencies](#ppx_deps)
+* [Adjunct dependencies](#adjunct_deps)
+* [Runtime dependencies](#runtime_deps)
+* [Ppx executables](#executables)
+  * [Main module](#main_module)
+    * [Ppxlib driver](#ppxlib_driver)
+* [PPX attributes](#ppx_attribs)
+* [PPX Testing](#testing)
+
+## <a id="overview" name="overview">Overview</a>
+
 PPX = PreProcessor eXtension.
 
 Demos: [demos/ppx](https://github.com/obazl/dev_obazl/tree/main/demos/ppx)
 
-* [Main module](#main_module)
-  * [Ppxlib driver](#ppxlib_driver)
-* [Adjunct dependencies](#adjunct_deps)
-* [Runtime dependencies](#runtime_deps)
-* [PPX attributes](#ppx_attribs)
+## <a id="building" name="building">Building PPX resources</a>
 
-## <a name="main_module">Main Module</a>
+See also [PPX Optimizations](optimization.md#ppx).
+
+* [modules](#modules)
+* [libraries](#libraries)
+* [archives](#archives)
+* [executables](#executables)
+
+#### <a name="modules">Building PPX modules</a>
+
+Rule: [ppx_module](../refman/rules_ppx.md#ppx_module)
+
+Building:
+
+```
+load("@obazl_rules_ocaml//ocaml:rules.bzl", "ppx_module")
+...
+ppx_module(
+    name      = "ppx_greeting",
+    struct    = ":ppx_greeting.ml",
+    deps_opam = ["ppxlib"]
+)
+```
+
+Demo: [demos/ppx/rewriter/greeting](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting)
+
+#### <a name="libraries">Building PPX libraries</a>
+
+Rule: [ppx_library](../refman/rules_ppx.md#ppx_library)
+
+#### <a name="archives">Building PPX archives</a>
+
+Rule: [ppx_archive](../refman/rules_ppx.md#ppx_archive)
+
+#### <a name="executables">Building PPX executables</a>
+
+Rule: [ppx_executable](../refman/rules_ppx.md#ppx_executable)
+
+[**WARNING** This documentation assumes you are using
+[ppxlib](https://github.com/ocaml-ppx/ppxlib). TODO: how to do it without ppxlib.]
+
+A PPX (ppxlib) executable requires a _driver_, which can easily be
+created using a Bazel [genrule](https://docs.bazel.build/versions/master/be/general.html#genrule):
+
+```
+load("@obazl_rules_ocaml//ocaml:rules.bzl", "ppx_module")
+...
+ppx_module(
+    name = "Driver",
+    struct = ":ppxlib_driver.ml",
+    deps_opam = ["ppxlib"]
+)
+genrule(
+    name = "gendriver",
+    outs = ["ppxlib_driver.ml"],
+    # In the cmd string, '$@' == outs file, here ppxlib_driver.ml
+    cmd = "\n".join([
+        "echo \"(* GENERATED FILE - DO NOT EDIT *)\" > \"$@\"",
+        "echo \"let () = Ppxlib.Driver.standalone ()\" >> \"$@\"",
+    ]),
+)
+```
+
+The PPX executable will depend on any PPX modules it needs, and the
+driver must be placed last in the dependency list. OBazl provides an
+optional convenience attribute to support this: pass the driver via
+the `main` attribute of `ppx_executable`, and OBazl will arrange for
+it to come last in the dep list:
+
+```
+load("@obazl_rules_ocaml//ocaml:rules.bzl", "ppx_executable")
+...
+ppx_executable(
+    name = "ppx.exe",
+    main = ":Driver",
+    deps = [":ppx_greeting"] # ppx_module containing handler for [%greeting ...] extension points
+)
+```
+
+equivalently:
+
+```
+ppx_executable(
+    name = "ppx.exe",
+    deps = [":ppx_greeting", ":Driver"]
+)
+```
+
+>    **IMPORTANT** Remember that compilation of an executable can succeed
+  even if you omit critical dependencies, since OCaml does not define
+  a required 'main' routine. The purpose of the `main` attribute is to
+  minimize the probability of putting the `deps` in the wrong order or
+  inadvertently omitting a driver.
+
+Demo: [demos/ppx/rewriter/greeting](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting)
+
+## <a id="ppx_deps" name="ppx_deps">Preprocessing v. build dependencies</a>
+
+Every OCaml module (archive, executable) has its own _build_
+dependency graph, which is a tree containing the modules upon which it
+directly and indirectly depends.
+
+OCaml extension points introduce a second dependency graph we call a
+_preprocessing_ dependency graph. A source file that contains an
+extension point, such as `[%greeting "Hello"]`, must be preprocessed
+by code that is capable of handling the extension point. This
+_preprocessing_ dependency is orthogonal to any _build_ dependencies
+the source file may have; normally it is a single PPX executable
+containing PPX modules that implement handle extension point handlers.
+
+Thus any module that contains OCaml extension points has two distinct
+dependency graphs, one for build dependencies and one for
+preprocessing dependencies. In OBazl rules, ordinary build
+dependencies are usually expressed using a `deps` attribute, and
+preprocessing dependencies are expressed using the `ppx` attribute and
+a few additional `ppx_*` attributes to parameterize the PPX executable.
+
+## <a id="adjunct_deps" name="adjunct_deps">Adjunct (a/k/a "runtime") dependencies</a>
+
+Sometimes PPX processing injects code that induces compile-time
+dependencies; such dependencies must be listed as `deps` in the
+`ocaml_module` or `ppx_module` rule that compiles the transformed
+source file. These are often erroneously called "runtime"
+dependencies, but [runtime dependency](#runtime-deps) is a different
+concept. Runtime dependencies of a module or executable are needed
+when that module or executable is executed. These dependencies do not
+fit that description, so OBazl calls them _adjunct dependencies_.
+
+In other words, adjunct dependencies are build dependencies that are
+attached to a preprocessing dependency graph and passed on to
+preprocessing outputs.
+
+One way to support adjunct dependencies is to list them in the `deps`
+attribute of the `ocaml_module` or `ppx_module` rule instances that
+use the PPX executable, as noted above. However this requires
+maintenance of the `deps` attribute for each rule instance using the
+PPX executable in question. Since PPX executables may be shared by
+many targets, this is cumbersome and error-prone.
+
+attribute: **`adjunct_deps`**
+
+As a convenience, OBazl supports an attribute, `adjunct_deps`, on
+`ppx_module` and `ppx_executable` rules. Dependencies listed in this
+attribute will be automatically propagated through the preprocessing
+dependency graph to the build rule of the transformed source. For
+example, if an `ocaml_module` rule instance lists a `ppx` dependency,
+then any adjunct dependencies listed in the dependency graph of that
+ppx will be added as build dependencies of the module being compiled
+by the rule.
+
+See
+[demos/ppx/adjunct_deps](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps)
+for an example.
+
+## <a name="runtime-deps">Runtime dependencies</a>
+
+Runtime dependencies are files that are required by modules and/or
+executables at runtime. For example, a common pattern is to have a
+module read a file of configuration data at runtime; such a data file
+constitutes a runtime dependency of the module.
+
+For non-PPX modules and executables, such
+files must be passed using the `data` attribute; for PPX modules and
+executables, they must be passed using the `ppx_data` attribute, as
+[described below](#ppx_data).
+The rules will arrange for the files to be included in the generated
+command line with the appropriate option flags.
+
+## <a name="executables">PPX executables</a>
+
+### <a name="main_module">Main Module</a>
 
 Unlike many compiled languages, OCaml does not define a `main` entry
 point for executables. The modules used to construct an executable are
@@ -34,7 +212,7 @@ all other modules.
 
 Demo code:  [demos/ppx/hello](https://github.com/obazl/dev_obazl/blob/aed0ce898b480c109ccd9b42fddc6f6c1640277c/demos/ppx/hello/BUILD.bazel#L53)
 
-### <a name="ppxlib_driver">The Ppxlib Driver module</a>
+#### <a name="ppxlib_driver">The Ppxlib Driver module</a>
 
 Here is one way to implement a driver for a `ppx_executable`:
 
@@ -54,45 +232,6 @@ genrule(
     ]),
 )
 ```
-
-## <a id="adjunct_deps" name="adjunct_deps">Adjunct (a/k/a "runtime") dependencies</a>
-
-Sometimes PPX processing injects code that induces compile-time
-dependencies; such dependencies must be listed as `deps` in the
-`ocaml_module` or `ppx_module` rule that compiles the transformed
-source file. These are often called "runtime" dependencies, but OBazl
-calls them _adjunct dependencies_, since they are not in fact runtime
-dependencies. Runtime dependencies of a module or executable are
-needed when that module or executable is executed. These dependencies
-do not fit that description.
-
-One way to support adjunct dependencies is to list them in the `deps`
-attribute of the `ocaml_module` or `ppx_module` rule instances that
-use the PPX executable, as noted above. However this requires
-maintenance of the `deps` attribute for each rule instance using the
-PPX executable in question. Since PPX executables may be shared by
-many targets, this is cumbersome and error-prone.
-
-attribute: **`adjunct_deps`**
-
-As a convenience, OBazl supports an attribute, `adjunct_deps`, on the
-`ppx_executable` rule. Dependencies listed in this attribute will be
-automatically added the `deps` attribute of any rule that uses the
-`ppx_executable` (via the `ppx` attribute) to transform sources.
-
-See
-[demos/ppx/adjunct_deps](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps)
-for an example.
-
-## <a name="runtime-deps">Runtime dependencies</a>
-
-Runtime dependencies are files that are required by modules and/or
-executables at runtime. For non-PPX modules and executables, such
-files must be passed using the `data` attribute; for PPX modules and
-executables, they must be passed using the `ppx_data` attribute, as
-[described below](#ppx_data).
-The rules will arrange for the files to be included in the generated
-command line with the appropriate option flags.
 
 ----
 ## <a name="ppx_attribs">PPX attributes</a>
@@ -157,3 +296,10 @@ The default print output format is determined by the
 `@ppx//print`, which in turn defaults to binary. You can change the
 global default to print by passing `--@ppx//print:text` on the command
 line. Use the `ppx_print` attribute to override this global default.
+
+## <a name="testing">PPX Testing</a>
+
+Rules
+
+* [ocaml_test](../refman/rules_ocaml.md#ocaml_test)
+* [ppx_test](../refman/rules_ppx.md#ppx_test)

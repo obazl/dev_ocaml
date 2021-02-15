@@ -11,6 +11,7 @@
   * [Namespace Libraries](aggregators.md#nslibraries)
 * [Aspects](aspects.md)
 * [Bootstrapping](bootstrap.md)
+* [Build Profiles and Contexts](profiles.md)
 * [Caching](caching.md)
 * [Compilation Mode]() - bytecode v. native
 * [Conditional Compilation/Building](conditional.md)
@@ -29,6 +30,7 @@
   * [CC Dependencies](dependencies_cc.md)
 * [Deployment](deployment.md)
   * [Stamping binaries](stamping.md)
+* [Diagnostics](diagnostics.md): Inspecting Build Commands, Actions, etc.
 * [File Generation](filegen.md)
 * [Interop](interop.md)
 * [Maintenance Tasks](maintenance.md)
@@ -58,7 +60,6 @@
   * [ocamlfind](toochains.md#ocamlfind)
   * [ocamlc/ocamlopt](toochains.md#ocamlc)
 * [Tools](tools.md)
-* [Transparency](transparency.md): Inspecting Build Commands, Actions, etc.
 * [Troubleshooting](troubleshooting.md)
 * [user.bazelrc](user_bazelrc.md)
 * [Visibility]()

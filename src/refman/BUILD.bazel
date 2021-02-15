@@ -6,16 +6,7 @@ RULES_PPX_DEPS = [
     "@bazel_skylib//lib:collections",
     "@bazel_skylib//lib:new_sets",
     "@bazel_skylib//lib:types",
-    "@obazl_rules_ocaml//ocaml:bootstrap",
-    "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
-    "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-    "@obazl_rules_ocaml//ocaml/_rules:ppx_rules",
-    "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
-    "@obazl_rules_opam//opam:bootstrap",
-    "@obazl_rules_opam//opam/_bootstrap:bootstrap",
-    "@obazl_rules_opam//opam/_debug:debug",
-    "@obazl_rules_opam//opam/_functions:functions",
-    "@obazl_rules_ocaml//ppx/_transitions:transitions",
+    "@obazl_rules_ocaml//ocaml:stardoc",
     "@obazl_tools_bazel//tools/functions",
 ]
 
@@ -26,11 +17,10 @@ stardoc(
     out = "functions.md",
     func_template = "//templates/markdown:functions.vm",
     header_template = "//templates/markdown:header_functions.vm",
-    deps  = RULES_PPX_DEPS + [
-    ],
+    deps  = RULES_PPX_DEPS,
     symbol_names = [
         "ocaml_configure",
-        "opam_configure"
+        # "opam_configure"
     ]
 )
 
@@ -43,14 +33,10 @@ stardoc(
     header_template = "//templates/markdown:header_macros.vm",
     deps  = [
         "@bazel_skylib//lib:new_sets",
-        "@obazl_rules_ocaml//ocaml:macros",
-        "@obazl_rules_ocaml//ocaml:rules",
-        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-        "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
-        "@obazl_rules_ocaml//ppx/_transitions:transitions",
+        "@obazl_rules_ocaml//ocaml:stardoc",
     ],
     symbol_names = [
-        "ns_env"
+        # "ns_env"
     ]
 )
 
@@ -63,21 +49,21 @@ stardoc(
     rule_template = "//templates/markdown:rule.vm",
     deps  = [
         "@bazel_skylib//lib:new_sets",
-        "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-        "@obazl_rules_ocaml//ocaml:bootstrap",
-        "@obazl_rules_ocaml//ocaml/_bootstrap:bootstrap",
-        "@obazl_rules_ocaml//ocaml/_rules/utils:utils",
-        "@obazl_rules_ocaml//ppx/_transitions:transitions",
+        "@obazl_rules_ocaml//ocaml:stardoc",
     ],
     symbol_names = [
         "ocaml_archive",
         "ocaml_executable",
         "ocaml_import",
+        "ocaml_lex",
         "ocaml_library",
         "ocaml_module",
+        "ocaml_ns_archive",
         "ocaml_ns_env",
         "ocaml_ns_library",
         "ocaml_signature",
+        "ocaml_test",
+        "ocaml_yacc",
     ]
 )
 
@@ -87,32 +73,22 @@ stardoc(
     out = "rules_ppx.md",
     header_template = "//templates/markdown:header_rules_ppx.vm",
     rule_template = "//templates/markdown:rule.vm",
-    deps  = RULES_PPX_DEPS,
+    deps  = [
+        # "@bazel_skylib//lib:collections",
+        # "@bazel_skylib//lib:new_sets",
+        # "@bazel_skylib//lib:types",
+        "@obazl_rules_ocaml//ocaml:stardoc",
+        # "@obazl_tools_bazel//tools/functions",
+    ],
     symbol_names = [
-        "ppx_archive",
-        "ppx_executable",
+        # "ppx_archive",
+        # "ppx_executable",
         # "ppx_library",
-        "ppx_module",
-        "ppx_ns_module",
-        "ppx_test",
+        # "ppx_module",
+        # # "ppx_ns_module",
+        # "ppx_expect_test",
     ]
 )
-
-# stardoc(
-#     name = "ocaml_archive_doc",
-#     input = "@obazl_rules_ocaml//ocaml/_rules:ocaml_archive.bzl",
-#     out = "ocaml_archive_doc.md",
-#     provider_template = "//templates/markdown:provider.vm",
-#     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
-#     rule_template = "//templates/markdown:rule.vm",
-#     # rule_template = "@io_bazel_stardoc//stardoc:templates/html_tables/rule.vm",
-#     deps  = [
-#         "@obazl_rules_ocaml//ocaml/_rules:ocaml_rules",
-#     ],
-#     symbol_names = [
-#         "ocaml_archive",
-#     ]
-# )
 
 stardoc(
     name = "providers_ocaml",
@@ -122,48 +98,47 @@ stardoc(
     provider_template = "//templates/markdown:provider.vm",
     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
     deps  = [
-        "@obazl_rules_ocaml//ocaml:providers",
+        "@obazl_rules_ocaml//ocaml:stardoc",
     ],
     symbol_names = [
-        # "OpamPkgInfo",
-        # "OcamlDepsetProvider",
-        # "OcamlArchivePayload",
-        # "OcamlArchiveProvider",
-        # "OcamlImportProvider",
-        # "OcamlSignatureProvider",
-        # "OcamlInterfacePayload",
-        # "OcamlLibraryProvider",
-        # "OcamlModuleProvider",
-        # "OcamlModulePayload",
-        # "OcamlNsLibraryProvider",
-        # "OcamlNsModulePayload"
+        "AdjunctDepsProvider",
+        "CcDepsProvider",
+        "OcamlArchiveProvider",
+        "OpamDepsProvider",
+        "OcamlImportProvider",
+        "OcamlLibraryProvider",
+        "OcamlModuleProvider",
+        "OcamlNsArchiveProvider",
+        "OcamlNsEnvProvider",
+        "OcamlNsLibraryProvider",
+        "OcamlSignatureProvider",
     ]
 )
 
-stardoc(
-    name = "providers_opam",
-    input = ":providers_opam.bzl",
-    out = "providers_opam.md",
-    header_template   = "//templates/markdown:header_providers_opam.vm",
-    provider_template = "//templates/markdown:provider.vm",
-    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
-    deps  = [
-        "@bazel_skylib//lib:collections",
-        "@bazel_skylib//lib:new_sets",
-        "@bazel_skylib//lib:types",
-        "@obazl_rules_opam//opam:bootstrap",
-        "@obazl_rules_opam//opam/_bootstrap:bootstrap",
-        "@obazl_rules_opam//opam/_debug:debug",
-        "@obazl_rules_opam//opam/_functions:functions",
-        "@obazl_rules_opam//opam/_providers:providers",
-        "@obazl_tools_bazel//tools/functions",
-    ],
-    symbol_names = [
-        "OpamPkgInfo",
-        "OpamConfig",
-        "OpamSwitch"
-    ]
-)
+# stardoc(
+#     name = "providers_opam",
+#     input = ":providers_opam.bzl",
+#     out = "providers_opam.md",
+#     header_template   = "//templates/markdown:header_providers_opam.vm",
+#     provider_template = "//templates/markdown:provider.vm",
+#     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+#     deps  = [
+#         "@bazel_skylib//lib:collections",
+#         "@bazel_skylib//lib:new_sets",
+#         "@bazel_skylib//lib:types",
+#         "@obazl_rules_opam//opam:bootstrap",
+#         "@obazl_rules_opam//opam/_bootstrap:bootstrap",
+#         "@obazl_rules_opam//opam/_debug:debug",
+#         "@obazl_rules_opam//opam/_functions:functions",
+#         "@obazl_rules_opam//opam/_providers:providers",
+#         "@obazl_tools_bazel//tools/functions",
+#     ],
+#     symbol_names = [
+#         "OpamPkgInfo",
+#         "OpamConfig",
+#         "OpamSwitch"
+#     ]
+# )
 
 stardoc(
     name = "providers_ppx",
@@ -173,7 +148,7 @@ stardoc(
     provider_template = "//templates/markdown:provider.vm",
     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
     deps  = [
-        "@obazl_rules_ocaml//ocaml:providers",
+        "@obazl_rules_ocaml//ocaml:stardoc",
     ],
     symbol_names = [
         "PpxDepsetProvider",

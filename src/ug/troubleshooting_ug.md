@@ -16,6 +16,48 @@
     `ocaml_archive` or `ocaml_library`, make sure all submodules are
     listed as targets in the `deps` attribute of the aggregator rule.
 
+## module naming
+
+Some projects may generate files for compilation by transforming
+source files, where the source files use the intended module name. For
+example, ocaml-extlib uses
+[cppo](https://github.com/ocaml-community/cppo) to transform some
+source files. The original filenames are the the module names used by
+the code. This is a problem with OBazl rules, since by default the
+output file names are taken from the input file names, which are
+changed, since a transform cannot use the same name for input and
+output files.
+
+For example, `extString.ml` must be processed by `cppo`, and the
+output written to some other file name, say `extString.cppo.ml`. If we
+use `ocaml_module` to compile this, we get `extString.cppo.cmo`; but
+clients will try to `open` the module `ExtString`.
+
+To solve this problem the rules `ocaml_module` and `ocaml_signature`
+support a `module` attribute, which can be used to specify the name to
+which the output should be written.  In this case, we would have something like:
+
+```
+ocaml_module(
+    name   = "ExtString",
+    struct = ":ExtString_cppo", ## label of cppo rule producing extString.cppo.ml from extString.ml
+    module = "ExtString",  ## extString.cppo.ml compiles to ExtString.cmo
+    ...
+)
+```
+
+However a much better way to handle this is to have the `cppo` rule
+write its output to the same name in a working directory.  E.g.
+
+```
+cppo(
+    name = "ExtString_cppo",
+    src  = "extString.ml",
+    out  = "cppo/extString.ml",  ## 'cppo' or any string that does not clash with existing src dir
+)
+```
+
+
 ## <a name="syntax">Syntax problems</a>
 
 ```
@@ -28,7 +70,11 @@ This can happen if you mispell and attribute, for example using a dash instead o
 
 * This can happen if a .cmi file is missing.  May indicate a bug in the obazl code.
 
-* ocaml_ns: submodules attrib. verify capitalization, e.g. String_with_vars, not String_With_Vars
+* ocaml_ns:
+
+  * this can happen if you do not include the `aliases` attribute of your `ns_env` rule
+
+  * submodules attrib. verify capitalization, e.g. String_with_vars, not String_With_Vars
 
 Example: capitalization in the submodules list, e.g.
         ":_OpamLexer": "Opamlexer",  # not the submod name has incorrect lower-case 'l'
@@ -120,3 +166,36 @@ I.e. you should be using a module that shadows the default provided by
 OCaml. In the example above, a custom implementation of `Seq` had been
 inadvertently omitted from the deps list.
 
+## both cma files define a module
+
+```
+File "bazel-out/darwin-fastbuild/bin/src/lib/logproc_lib/_obazl_/interpolator_lib.cma", line 1:
+Error (warning 31): files bazel-out/darwin-fastbuild/bin/src/lib/logproc_lib/_obazl_/interpolator_lib.cma and bazel-out/darwin-fastbuild/bin/src/lib/logproc_lib/_obazl_/logproc_lib.cma both define a module named Interp__00_ns_env_interpolator
+```
+
+## uninterpreted extension
+
+This means PPX processing failed.
+
+```
+bazel-out/darwin-fastbuild/bin/ppx/_obazl_/Snarky_Ppx__Snarkydef.ml)
+File "ppx/snarkydef.ml", line 10, characters 4-8:
+Error: Uninterpreted extension 'expr'.
+```
+
+
+## bootstrap problems
+
+
+```
+$ ocamlobjinfo bazel-out/darwin-fastbuild/bin/fold_lib/_obazl_/fold_lib.cma
+File bazel-out/darwin-fastbuild/bin/fold_lib/_obazl_/fold_lib.cma
+Wrong magic number:
+this tool only supports object files produced by compiler version
+	4.11.1
+This seems to be a bytecode library (cma) for an older version of OCaml.
+```
+
+This can happen if your current switch and the switch used by your
+BuildConfig don't match. Set your current switch to match the switch
+used by ocaml_configure() to fix.

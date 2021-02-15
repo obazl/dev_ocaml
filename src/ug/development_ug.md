@@ -59,7 +59,7 @@ is that it makes it easy to eliminate embedded git submodules.
   server](https://discord.gg/PHSAW5DUva) and I will be happy to help.
 
 * Build tools. The OCaml toolchain depends on a C/C++ compiler and
-  tools. Normally this will be installed by OPAM.
+  tools.
 
 * [OPAM](https://opam.ocaml.org/) installation. The rules have been used
   with version 2.0.7. Earlier versions may work; if not, please [file

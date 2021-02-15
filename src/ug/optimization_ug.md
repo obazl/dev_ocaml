@@ -1,8 +1,8 @@
 # Optimization
 
-* Libraries v. Archives
+## Libraries v. Archives
 
-* PPX
+## <a name="ppx">PPX Optimizations</a>
 
   * shared ppx executables
   * single driver

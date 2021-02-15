@@ -3,16 +3,16 @@
 # ocaml providers
 **WARNING** Beta version - subject to change
 
-* [OcamlDepsetProvider](#ocamldepsetprovider)
-* [OcamlArchivePayload](#ocamlarchivepayload)
+* [AdjunctDepsProvider](#adjunctdepsprovider)
+* [CcDepsProvider](#ccdepsprovider)
 * [OcamlArchiveProvider](#ocamlarchiveprovider)
 * [OcamlImportProvider](#ocamlimportprovider)
-* [OcamlInterfaceProvider](#ocamlinterfaceprovider)
-* [OcamlInterfacePayload](#ocamlinterfacepayload)
 * [OcamlLibraryProvider](#ocamllibraryprovider)
 * [OcamlModuleProvider](#ocamlmoduleprovider)
-* [OcamlModulePayload](#ocamlmodulepayload)
-* [OcamlNsModuleProvider](#ocamlnsmoduleprovider)
-* [OcamlNsModulePayload](#ocamlnsmodulepayload)
+* [OcamlNsArchiveProvider](#ocamlnsarchiveprovider)
+* [OcamlNsEnvProvider](#ocamlnsenvprovider)
+* [OcamlNsLibraryProvider](#ocamlnslibraryprovider)
+* [OcamlSignatureProvider](#ocamlsignatureprovider)
+* [OpamDepsProvider](#opamdepsprovider)
 
 ----

@@ -7,8 +7,8 @@
 
 * [ppx_archive](#ppx_archive)
 * [ppx_executable](#ppx_executable)
+* [ppx_library](#ppx_library)
 * [ppx_module](#ppx_module)
-* [ppx_ns](#ppx_ns)
 * [ppx_test](#ppx_test)
 
 **<a name="configdefs">Ppx Rules - Configurable defaults</a>**:

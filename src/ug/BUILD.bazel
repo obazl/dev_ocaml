@@ -138,6 +138,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "diagnostics",
+    src = "diagnostics_ug.md",
+    output = "diagnostics.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "filegen",
     src = "filegen_ug.md",
     output = "filegen.md",
@@ -210,6 +218,14 @@ pandoc(
 
 #######
 pandoc(
+    name = "profiles",
+    src = "profiles_ug.md",
+    output = "profiles.md",
+    visibility = ["//visibility:public"],
+)
+
+#######
+pandoc(
     name = "providers",
     src = "providers_ug.md",
     output = "providers.md",
@@ -245,14 +261,6 @@ pandoc(
     name = "testing",
     src = "testing_ug.md",
     output = "testing.md",
-    visibility = ["//visibility:public"],
-)
-
-#######
-pandoc(
-    name = "transparency",
-    src = "transparency_ug.md",
-    output = "transparency.md",
     visibility = ["//visibility:public"],
 )
 

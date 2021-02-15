@@ -1,6 +1,10 @@
 [User Guide](index.md)
 
-# Transparency: Inspecting Build Commands, Actions, etc.
+# Diagnostics: Inspecting Build Commands, Actions, etc.
+
+* [The Command Log](#command_log)
+* [Action Queries](#aquery)
+* [Repositories](#repos)
 
 ## The command log
 
@@ -13,19 +17,17 @@ alias, e.g. <pre>$ alias "bl=less `bazel info command_log`"</pre> You
 can put this in a file and source it, or add it to your
 `.bash_profile`.
 
-## Inspecting command lines
+## <a name="aquery">Action Queries</a>
 
-Bazel rules typically generate _action_ commands that drive build
-tools (compilers, linkers, etc.). Bazel also caches aggressively; when
-you build a target, its target/dependency/action graphs are cached, so
-if you build it again Bazel will just show you the cached result of
-the previous build instead of rebuilding (unless its dependencies have
+Bazel rules typically generate _actions_ that drive build tools
+(compilers, linkers, etc.). Bazel also caches aggressively; when you
+build a target, its target/dependency/action graphs are cached, so if
+you build it again Bazel will just show you the cached result of the
+previous build instead of rebuilding (unless its dependencies have
 changed). If you need to see the command that was used to build it,
 you can delete its output or run `bazel clean` to force a rebuild. But
 that's inefficient, and Bazel offers a much better way: [action graph
 queries](https://blog.bazel.build/2019/02/15/introducing-aquery.html).
-
-### <a name="action_queries">Action Queries</a>
 
 Bazel rules may generate multiple actions. For example, if you pass a
 `ppx_executable` to an instance of the `ocaml_module` rule via the

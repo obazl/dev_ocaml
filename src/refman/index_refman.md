@@ -6,7 +6,6 @@
 
 ## <a name="functions">Functions</a>
 * ocaml [configure](functions.md#ocaml_configure)
-* opam [configure](functions.md#opam_configure)
 
 ## <a name="macros">Macros</a>
 * [ns_env](macros.md#ns_env) - initialize namespace evaluation environment
