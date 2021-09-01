@@ -31,14 +31,14 @@ uniquely named.
 #### <a name="naming">Renaming</a>
 
 One way to do it: give your source files names that are unlikely to
-clash with source filenames from other projectgs. The easy way to do
+clash with source filenames from other projects. The easy way to do
 this is to decide on a prefix string likely to be unique. That might
 start with your project name, or it might replicate the filesystem
 path locating your source file, by replacing filesystem separator
 (usually '/') with '_' or some other character.
 
 Another form of renaming supported by OBazl: renaming of the module
-names underwhich implementations are accessible. The module name of a
+names under which implementations are accessible. The module name of a
 renamed module file need not be derived from the original file name.
 
 #### <a name="aliasing">Aliasing</a>
@@ -70,10 +70,10 @@ Special considerations: `-no-alias-deps`, `-opaque`, and `-linkall`.
   * endogenous
   * exogenous
 
-## <a name="obazl">OBazl</a>
+## <a name="obazl">OBazl namespacing</a>
 
 OBazl namespacing is built on two key mechanisms: renaming and
-aliasing. Renaming is an OBazl feature; aliasing is and OCaml feature.
+aliasing. Renaming is an OBazl feature; aliasing is an OCaml feature.
 
 "Namespace module" is the term OBazl uses to refer to modules containing
 [type-level module
@@ -82,27 +82,72 @@ i.e. statements of the form `module N = P`.
 
 >    Dune uses variations on the term "wrapped library" where OBazl uses namespacing terminology.
 
+OBazl rules implementing namespacing:
 
-### rule: ocaml_ns_env
+* ocaml_ns_archive
+* ocaml_ns_library
+* ppx_ns_archive
+* ppx_ns_library
 
-Purpose: determines a namespace prefix for renaming files, and writes
-a resolver file mapping raw module names to prefixed module names.
-Modules (ocaml_module rules) depend on this to decide how to rename
-source files.
+Each of these rules has a `submodules` attribute which contains a list
+of the labels of modules to be included in the namespace.
 
-#### macro: ns_env
+For example, if the name of an `ocaml_ns_library` rule is `foo`, and
+it contains submodule `:bar`, then the ns module will be `Foo.cmx`,
+and the bar submodule will be renamed to `Foo__Bar.cmx`. To produce
+`Foo.cmx`, OBazl will generate `Foo.ml`, containing aliasing equations
+like `module Bar = Foo__Bar`.
 
-This macro instantiates rule `ocaml_ns_env`, which initializes a
-_namespace evaluation environment_ or `ns env`. An `ns env` consists
-of a pseudo-namespace prefix string and optionally an ns resolver
-module.
+This approach involves a circularity: in order to generate and compile
+`Foo.cmx`, the `ocaml_ns_library` rule must depend on the submodules;
+but the submodules must depend on the ns module (`Foo.cmx` in this
+case). OBazl can get around this, though, since in fact the ns module
+(which we call the "resolver" module, since it is used to resolve
+references to submodules) only depends on the module names, not the
+compiled modules. This is achieved using the `-no-alias-deps` option.
+
+**WARNING** the following is not very clear; until I find time to
+write something better, consult the `*_ns_*` rules in
+`@obazl_rules_ocaml//_rules`, the `options_ns_resolver` function in
+`@obazl_rules_ocaml//_rules/options.bzl` and the template file
+`@obazl_rules_ocaml//_templates/BUILD.ocaml.ns`
+
+That solves half of the problem; the other problem to be resolved is
+that each submodule must depend on the resolver module. We solve this
+using Bazel _**transition functions**_. The `ocaml_module` rule (and
+other rules that may be involved in namespaces, like `ocaml_signature`
+and the analogous `ppx_*` rules.) have a hidden dependency on a single
+`ocaml_ns_resolver` rule and a `submodules` string list flag. The
+`ocaml_ns_resolver` target, in turn, depends on some other label
+attributes. The transition functions set these attributes at build
+time; in effect, they allow us to give this resolver target "reverse
+dependencies": the attributes that control its build are set by
+targets that depend on it.  Submodules depend on these two deps, but
+since the parameters controlling them are set dynamically, at build
+time, the object depended on will be customized for the submodule that
+depends on it.
+
+[more specifically: rule `ocaml_module` (for example) has an
+`_ns_resolver` attribute whose default value is `@ocaml//ns` (i.e.
+`@ocaml//ns:ns`). The latter is a 'label_setting' whose value is [the
+label of] an `ocaml_ns_resolver` rule (actually, the sole such rule).
+so this institutes a dependency on a resolver whose build params will
+be set dynamically using transition functions. the `_ns_submodules`
+attribute is a label attr whose default value is
+`@ocaml//ns:submodules`, which also gets set dynamically.]
 
 
-### ocaml_ns_module
+For example, when we build an `ocaml_ns_library` target, the
+transition functions will set the value of `_ns_resolver` to the
+desired namespace, and `_ns_submodules` to the list of submodules for
+the namespace. These settings will be set before bazel proceeds to
+build the submodules. When the time comes to build a submodule, Bazel
+will see that it depends on the ns resolver, so it will first build
+the latter. The build rule for it uses the values set by the
+transition functions, so the result is a resolver that depends on the
+information needed to make it work to compile the submodule.
 
-### attribute: ns_env
-
-Used by `ocaml_module` and `ocaml_signature` to join a namespace.
+[TODO: concrete example]
 
 ## <a name="clashes">Resolving name clashes</a>
 
@@ -150,6 +195,8 @@ it within `dune_lang/template.ml` would be resolved without using any
 namespace (i.e. aliasign) lookups.
 
 To make this work in OBazl use the following technique:
+
+**WARNING** the following is obsolete (our namespacing strategy has changed)
 
 * Exclude the non-namespaced files from the ns-env. One way to do this is to use the `exclude` parameter of the `glob` function; for example:
 
@@ -307,3 +354,24 @@ References
 -   [Better namespaces through module
     aliases](https://blog.janestreet.com/better-namespaces-through-module-aliases)
     (blogpost, 2014)
+
+## obsolete stuff
+
+### rule: ocaml_ns_env
+
+Purpose: determines a namespace prefix for renaming files, and writes
+a resolver file mapping raw module names to prefixed module names.
+Modules (ocaml_module rules) depend on this to decide how to rename
+source files.
+
+#### macro: ns_env
+
+This macro instantiates rule `ocaml_ns_env`, which initializes a
+_namespace evaluation environment_ or `ns env`. An `ns env` consists
+of a pseudo-namespace prefix string and optionally an ns resolver
+module.
+
+### attribute: ns_env
+
+Used by `ocaml_module` and `ocaml_signature` to join a namespace.
+

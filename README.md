@@ -4,6 +4,9 @@ Online at [https://obazl.github.io/docs_obazl/](https://obazl.github.io/docs_oba
 
 Documentation, demos, and tools for obazl_rules_ocaml and obazl_rules_opam.
 
+**WARNING** Stardoc is broken, it won't parse code that works with
+bazel build. This affects some of our documentation (ocaml_archive, ocaml_module, ocaml_signature).
+
 To generate the documentation:
 
 * Edit `src`, not `docs`

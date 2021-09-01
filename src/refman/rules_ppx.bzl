@@ -1,7 +1,10 @@
 ## NOTE: rules must be aliased.
 
 # load("@obazl_rules_ocaml//ocaml/_rules:ppx_archive.bzl"       , _ppx_archive      = "ppx_archive")
-load("@obazl_rules_ocaml//ocaml/_rules:ppx_executable.bzl"    , _ppx_executable   = "ppx_executable")
+
+load("@obazl_rules_ocaml//ocaml/_rules:ppx_executable.bzl",
+     _ppx_executable   = "ppx_executable")
+
 # load("@obazl_rules_ocaml//ocaml/_rules:ppx_library.bzl"       , _ppx_library      = "ppx_library")
 # load("@obazl_rules_ocaml//ocaml/_rules:ppx_module.bzl"        , _ppx_module       = "ppx_module")
 # load("@obazl_rules_ocaml//ocaml/_rules:ppx_expect_test.bzl"   , _ppx_expect_test  = "ppx_expect_test")

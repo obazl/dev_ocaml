@@ -7,7 +7,8 @@ RULES_PPX_DEPS = [
     "@bazel_skylib//lib:new_sets",
     "@bazel_skylib//lib:types",
     "@obazl_rules_ocaml//ocaml:stardoc",
-    "@obazl_tools_bazel//tools/functions",
+    "@obazl_rules_ocaml//opam:stardoc",
+    # "@obazl_tools_obazl//tools/functions",
 ]
 
 ################################################################
@@ -25,20 +26,20 @@ stardoc(
 )
 
 ################################################################
-stardoc(
-    name = "macros",
-    input = ":macros_refman.bzl",
-    out = "macros.md",
-    func_template = "//templates/markdown:macros.vm",
-    header_template = "//templates/markdown:header_macros.vm",
-    deps  = [
-        "@bazel_skylib//lib:new_sets",
-        "@obazl_rules_ocaml//ocaml:stardoc",
-    ],
-    symbol_names = [
-        # "ns_env"
-    ]
-)
+# stardoc(
+#     name = "macros",
+#     input = ":macros_refman.bzl",
+#     out = "macros.md",
+#     func_template = "//templates/markdown:macros.vm",
+#     header_template = "//templates/markdown:header_macros.vm",
+#     deps  = [
+#         "@bazel_skylib//lib:new_sets",
+#         "@obazl_rules_ocaml//ocaml:stardoc",
+#     ],
+#     symbol_names = [
+#         # "ns_env"
+#     ]
+# )
 
 ################################################################
 stardoc(
@@ -52,18 +53,21 @@ stardoc(
         "@obazl_rules_ocaml//ocaml:stardoc",
     ],
     symbol_names = [
-        "ocaml_archive",
+        ## stardoc is broken, it won't parse code that works with bazel build
+        # "ocaml_archive",
+
         "ocaml_executable",
         "ocaml_import",
         "ocaml_lex",
         "ocaml_library",
-        "ocaml_module",
+        # "ocaml_module",
         "ocaml_ns_archive",
-        "ocaml_ns_env",
         "ocaml_ns_library",
-        "ocaml_signature",
+        # "ocaml_signature",
         "ocaml_test",
         "ocaml_yacc",
+
+        # # "ocaml_ns_env",
     ]
 )
 
@@ -78,7 +82,7 @@ stardoc(
         # "@bazel_skylib//lib:new_sets",
         # "@bazel_skylib//lib:types",
         "@obazl_rules_ocaml//ocaml:stardoc",
-        # "@obazl_tools_bazel//tools/functions",
+        # "@obazl_tools_obazl//tools/functions",
     ],
     symbol_names = [
         # "ppx_archive",
@@ -104,14 +108,16 @@ stardoc(
         "AdjunctDepsProvider",
         "CcDepsProvider",
         "OcamlArchiveProvider",
-        "OpamDepsProvider",
+        "OcamlExecutableProvider",
         "OcamlImportProvider",
         "OcamlLibraryProvider",
         "OcamlModuleProvider",
         "OcamlNsArchiveProvider",
-        "OcamlNsEnvProvider",
         "OcamlNsLibraryProvider",
         "OcamlSignatureProvider",
+        # obsolete:
+        # "OpamDepsProvider",
+        # "OcamlNsEnvProvider",
     ]
 )
 
@@ -131,7 +137,7 @@ stardoc(
 #         "@obazl_rules_opam//opam/_debug:debug",
 #         "@obazl_rules_opam//opam/_functions:functions",
 #         "@obazl_rules_opam//opam/_providers:providers",
-#         "@obazl_tools_bazel//tools/functions",
+#         "@obazl_tools_obazl//tools/functions",
 #     ],
 #     symbol_names = [
 #         "OpamPkgInfo",

@@ -38,10 +38,16 @@ pandoc_repositories()
 
 ################################################################
 git_repository(
-    name = "obazl_tools_bazel",
-    remote = "https://github.com/obazl/tools_bazel",
-    branch = "main",
+    name = "obazl_tools_obazl",
+    remote = "https://github.com/obazl/tools_obazl",
+    branch = "dev",
 )
+
+# git_repository(
+#     name = "obazl_tools_bazel",
+#     remote = "https://github.com/obazl/tools_bazel",
+#     branch = "main",
+# )
 
 git_repository(
     name = "obazl_rules_ocaml",

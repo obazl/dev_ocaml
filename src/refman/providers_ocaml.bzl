@@ -9,21 +9,22 @@ load("@obazl_rules_ocaml//ocaml:providers.bzl",
      _OcamlLibraryProvider = "OcamlLibraryProvider",
      _OcamlModuleProvider    = "OcamlModuleProvider",
      _OcamlNsArchiveProvider  = "OcamlNsArchiveProvider",
-     _OcamlNsEnvProvider  = "OcamlNsEnvProvider",
      _OcamlNsLibraryProvider  = "OcamlNsLibraryProvider",
      _OcamlSignatureProvider = "OcamlSignatureProvider",
-     _OpamDepsProvider  = "OpamDepsProvider",
+     # _OpamDepsProvider  = "OpamDepsProvider",
+     # _OcamlNsEnvProvider  = "OcamlNsEnvProvider",
      )
 
-CcDepsProvider   = _CcDepsProvider
 AdjunctDepsProvider   = _AdjunctDepsProvider
+CcDepsProvider   = _CcDepsProvider
 OcamlArchiveProvider   = _OcamlArchiveProvider
 OcamlExecutableProvider = _OcamlExecutableProvider
 OcamlImportProvider    = _OcamlImportProvider
 OcamlLibraryProvider   = _OcamlLibraryProvider
 OcamlModuleProvider    = _OcamlModuleProvider
 OcamlNsArchiveProvider  = _OcamlNsArchiveProvider
-OcamlNsEnvProvider      = _OcamlNsEnvProvider
 OcamlNsLibraryProvider  = _OcamlNsLibraryProvider
 OcamlSignatureProvider = _OcamlSignatureProvider
-OpamDepsProvider       = _OpamDepsProvider
+
+# OpamDepsProvider       = _OpamDepsProvider
+# OcamlNsEnvProvider      = _OcamlNsEnvProvider
