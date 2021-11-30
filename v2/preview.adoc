@@ -1,0 +1,543 @@
+# OBazl Version 2: Preview
+
+OBazl is a Bazel Language Support Pack (LSP) for OCaml.  Version 2 of OBazl contains many improvements.
+
+### Breaking Changes
+
+* renaming
+  ** `ocaml_module` attributes `src` and `intf` renamed to `struct` and `sig`, respectively
+  ** rule `ocaml_interface` renamed to `ocaml_signature`
+  ** `deps_adjunct` renamed to `ppx_codeps` (i.e. co-dependencies)
+  ** OPAM package labels now have the form `@pkg//:pkg`; subpackages
+  have the form `@pkg//subpkg`, or ``@pkg//subpkg1/subpkg2`; for
+  example, `ppx_deriving.eq -> @ppx_deriving//eq`, `mtime.clock.os ->
+  @mtime//clock/os`. To make these targets available the new OPAM
+  bootstrapper tool must be run separately.
+* namespacing support has been thoroughly revised, see below for details
+
+* deletions
+  ** all `ppx_*` rules except `ppx_executable` removed
+  ** attribute `deps_opam` removed; opam deps are no longer special, and are treated like any other dep
+  ** attribute `deps_adjunct_opam` removed
+
+### Non-breaking changes
+
+Version 1 generated build commands that used `ocamlfind`, which it
+assumed to be installed in OPAM. Version 2 does not use `ocamlfind`;
+the commands it generates invoke the OCaml compilers directly. This
+change should not affect existing build code.
+
+### New stuff
+
+* cc deps produced by `cc_*` rules (e.g. `cc_library`) may be added directly to the `deps` attribute of `ocaml_module`
+* new rules:
+  ** `ocaml_lex`
+  ** `ocaml_yacc`
+  ** `ocaml_test`
+
+### Tools
+  ** an OPAM bootstrap tool that generates BUILD.bazel files and corresponding repository rules for all packages in the current OPAM switch
+  ** a conversion tool that converts dune files to BUILD.bazel files;
+     some hand-editing may be required for dune files that contain
+     complex `rule` stanzas
+  ** a conversion tool that generates BUILD.bazel files from scratch
+     for any directory containing OCaml source files. The generated
+     targets contain dependencies derived from running `codept`, which
+     may need to be hand-edited; in addition, namespacing must be
+     added by hand.
+  ** a tool that supports scripted (in Scheme) batch editing of BUILD.bazel files
+
+# Design principles and goals:
+
+### Transparency
+
+A primary design goal of OBazl is transparency. It should be possible
+  with little effort to see exactly what Bazel does when it builds a
+  target. Fortunately we get this for free from Bazel: the query
+  facility can print, for any build target, the command line generated
+  by the rule and the complete list of inputs and outputs. [TODO:
+  mention other diagnostics features supported by the rules, e.g.
+  aspects, `--output_groups=fileset`?]
+
+### Faithfulness (immediacy?)
+
+Build rules should map as directly as possible to the toolset. That
+  is, rules should generate command lines that directly use tools from
+  the OCaml toolchain, and the mapping from the rule expressed in the
+  build file to the generated command line should be direct and
+  transparent.
+
+### Parsimony
+
+Each build rule should do one (minimal) thing, without side-effects.
+
+What does the OBazl ruleset do that Bazel could not do using just
+genrules? Mainly dependency management. One could write genrules to
+compile things, but getting the deps right would be hard.
+
+So the definition of "minimal requirements" for OBazl rules is a
+matter of judgement. "Minimal" means the least required to meet our
+design goals, not the least possible.
+
+In fact, the only indispensable part of OBazl is the toolchain definition.
+All build tasks could in principle be accomplished using `genrule`,
+using the tools provided by the OBazl toolchain definition.
+
+Minimal requirements:
+
+* compile .ml and .mli files
+* link archive files
+* link executables
+* link to C/C++ libs. this is not strictly speaking a requirement for
+  OCaml; it's not something the compiler does, its something the
+  linker does. But that's part of the standard build toolset and it is
+  not something that can be handled separately, so it counts as a
+  minimal requirement, even though most projects won't need it.
+* manage dependencies automatically. a requirement not in the sense
+  that builds would otherwise be impossible, since deps could always
+  be handled manually, but rather a requirement imposed by a design
+  goal, namely, make developing with OBazl as simple, clear, easy, etc.
+  as possible.
+* support for toolchain variants:
+  ** opam installation
+  ** standard direct installation w/o opam, e.g. via brew on Macos, apt-get, etc. (https://ocaml.org/docs/install.html)
+  ** custom install from sources: https://github.com/ocaml/ocaml/blob/trunk/INSTALL.adoc
+
+
+Not minimal (or: not core) requirements:
+
+* integrated generic preprocessing. The compilers do support preprocessing,
+  but this is added functionality that has nothing to do with
+  compiling OCaml code. All preprocessing can be handled separately,
+  before the build. That's why it's call _pre_processing, after all.
+
+To be clear, it is not that preprocessing support is not required; it
+is just not required as a feature of the minimal OBazl rules.
+
+* namespacing. Like preprocessing, support for namespacing is a
+  practical requirement, but is not a minimal requirement. Namespacing
+  can be implemented by hand, without special support from build
+  tools.
+
+* special support for OPAM pkgs
+
+[The point of all this blather about minimal this-and-that is to emphasize
+composiitonality; the rules start with the "kernel" functionality,
+then we add stuff needed to make a nicer user experience, etc. It's
+not always compositional on the surface; for example adding support
+for ppx is not the result of composing a ppx element with a basic rule
+element. Although we could have done it that way: define a
+`ppx_transformation` rule responsible for running the transform, and
+have the `ocaml_module` rule depend its output. Maybe I'll
+implement that, if only for demo purposes.]
+
+### Compositionality
+
+
+Build rules should be composable. The semantics of
+  compositionality is simple: the meaning of the whole must be the sum
+  of the meanings of the parts. But semantics alone is insufficient;
+  we also want the language to be compositional. That is, it should be
+  possible to read the compositionality of the build from the
+  compositionality of the build program.
+
+### Expressivity
+
+The build language (Starlark plus the OBazl rules)
+  must allow the developer to express build structure clearly and at
+  the desired level of abstraction, independently of the
+  expressiveness of the compiler command line "language". For example,
+  support for a "business concept" may be distributed across multiple
+  files and directories; the language should allow the developer to
+  express the concept, in the build language, in a way that abstracts
+  from the details. See below [x] for an example.
+
+OBazl can express composites that have no corresponding built
+artifact. For example, the `ocaml_library` rule expresses the
+composition of a list of modules and signatures (.cm[xo] and .cmi
+files). The rule does not build anything, it just aggregates its input
+dependencies; the output it delivers is its dependency graph, merged
+and ordered. Furthermore, such a library may depend in other
+`ocaml_library` targets. This makes it possible to express a build
+structure in terms of whatever groupings make sense to the developer.
+For example, the OCaml compiler Makefiles express similar
+compositionality using rules like the following:
+
+```
+COMMON_CMI = $(UTILS_CMI) $(PARSING_CMI) $(TYPING_CMI) $(LAMBDA_CMI) $(COMP_CMI)
+COMMON = $(UTILS) $(PARSING) $(TYPING) $(LAMBDA) $(COMP)
+...
+PARSING = \
+  parsing/location.cmo \
+  parsing/longident.cmo \
+  ...
+PARSING_CMI = \
+  parsing/asttypes.cmi \
+  parsing/parsetree.cmi
+...
+compilerlibs/ocamlcommon.cma: $(COMMON_CMI) $(COMMON)
+    ... build action ...
+```
+
+One problem with this is that the rules for building the `.cmo` and
+`.cmi` files may be listed just about anywhere - the codebase contains
+48 Makefiles. With OBazl we can make this much more direct and
+transparent. First of all, Bazel does not support Make-style pattern
+rules - it will not infer a build rule from a file extension, for
+example. The rules for building things are encoded in the OBazl rules,
+and we must write one target (apply an OBazl rule) for each file we
+want to compile. So we localize the rules for building modules and
+signatures; for example the rule to build `parsing/location.cmo` is in
+`parsing/BUILD.bazel`(here we use the `bootstrap` ruleset, but the
+same principles apply to the standard `ocaml_` ruleset):
+
+[source,bazel]
+```
+bootstrap_module(
+    name   = "Location",
+    struct = "location.ml",
+    ...
+```
+
+(Yes, writing such rules by hand is tedious, but you only have to do
+it once, and the OBazl toolset includes tools for automatically
+generating such rules; see below.)
+
+Then we add a `bootstrap_library` (equivalently for ordinary projects:
+`ocaml_library)` target for each aggregate - in this case, we would
+add (to `parsing/BUILD.bazel`):
+
+[source,bazel]
+```
+bootstrap_library(name = "parsing", manifest = [":Location", "Longident", ...) ...)
+```
+
+Now our `ocamlcommon` archive can depend on these libraries:
+
+[source,bazel]
+```
+bootstrap_archive(
+    name = "ocamlcommon",
+    mode = "bytecode",
+    modules  = [
+        "//utils",
+        "//parsing",
+        ...
+        ])
+```
+
+Since an `ocaml_library` can contain other ocaml_libraries (i.e.
+depend on the modules and signatures they aggregate), a hierarchy of
+source code can easily be "rolled up" into a single target. For
+example, suppose we have a concept (i.e. module) A whose dependency
+graph contains code that can in turn be partitioned into several
+distinct concepts, say B and C. With OBazl it is easy to implement
+such code in a hierarchy of directories `a/b/c`, each of which
+contains the source files supporting the concept. Then `a/BUILD.bazel`
+might contain an `ocaml_library` target named `A` that depends on an
+`ocaml_library` target named `B` defined in `a/b/BUILD.bazel`, which
+would depend on an `ocaml_library` target named `C` defined in
+`a/b/c/BUILD.bazel`. Client code that needs to use module A would then
+depend on `//a:A`. For an example, see link:https://github.com/obazl/dev_obazl/tree/main/demos[TODO: ref
+to demo].
+
+## Parsimony
+
+A truly minimal LSP for ocaml - or any language, for that matter -
+would contain no build rules at all. The built-in `genrule` (general
+rule), designed to run shell scripts, could in principal be used to
+implement all the steps of any build, just as any build could be
+expressed using nothing but shell scripts. The only indispensable part
+of an LSP is the toolchain definition that is responsible for
+integrating built tools (compilers, linkers, etc.) into the Bazel
+system, so that they become available for use in `genrule` targets.
+
+[Maybe we should introduce a concept of "core" or "kernel"
+ functionality, since "minimal" is hard to pin down.]
+
+To support clarity, simplicity, etc. a major design goal was to
+implement a core set of rules with the simplest possible capabilities
+needed to support composition of more powerful abstractions.
+
+I'm struggling with how best to express this. But I can easily put it
+in the negative: what we do _not_ want to do is what Dune does, namely
+present only high-level stuff and keep the details behind the curtain.
+We want to make it easy for the developer to always see exactly what
+OBazl is doing, and we want to make it easy for developers to compose
+builds, and even to e.g. write macros or custom rules compositionaly.
+
+The task of the Bazel rule developer is to design function-like rules
+that translate their arguments into the command line instructions that
+drive the build tools. This frees the user from having to worry about
+the precise syntax of build commands. In addition, build rules usually
+automate dependency management, may implement additional
+functionality. In the case of OCaml, the latter could include handling:
+
+* the tasks required to support namespacing (Dune: "wrapped" libraries)
+  ** renaming the namespaced modules to add the namespace prefix
+  ** generating the _resolver_ module containing the module aliasing equations needed to support the namespace
+* `PPX`  and other preprocessing tasks
+*  the details involved in linking foreign-language libraries (usually via the standard C interface)
+
+
+    Unix philosophy: each tool accomplishes one well-defined task.
+
+    Parsimony: tasks are minimal
+
+    Separation of Concerns
+
+        One rule for each build task: sigs, modules, archives, executables
+
+        Module deps v. Sig deps
+
+## Compositionality
+
+    Reducing complexity and reptition by composing mashups. For common
+    patterns, OBazl provides predefined higher-level functionality,
+    e.g. ppx attributes.
+
+    Case: ppx support
+
+    Case: namespacing support (automatic renaming; autogenned resolvers)
+
+    Case: common config patterns: linkall, keep_locs, etc. Both global
+    and rule-specific, e.g. `@ocaml//noassert` v. `@ocaml//module/linkall` etc.
+
+
+# The Ruleset(s)
+
+OBazl includes two rulesets:
+
+* a `bootstrap` ruleset (rule names prefixed by `bootstrap_`)
+* the standard ruleset (rule names prefixed by `ocaml_` or `ppx_`)
+
+The `bootstrap` ruleset is a special case. It is designed expressly
+and solely to support building the OCaml compiler. Building the
+compiler requires bootstrapping: the build rules cannot rely on an
+OCaml compiler to build the OCaml compiler. Instead they must first
+compile the bootstrapping compiler, which is written in C, and then
+use it to compile the OCaml sources and produce an OCaml compiler
+proper. The standard OBazl ruleset cannot be used to build the
+compiler, since it depends on an already-built compiler.
+
+The `bootstrap` ruleset uses a stripped-down version of the standard
+ruleset, and replaces the standard toolchain with a toolchain that
+uses the bootstrapping tools. The compiler code does not use PPX
+preprocessing, and uses only a single hand-coded namespace (the
+Stdlib), so it does not need support for general namespacing. So the
+bootstrap rules use the same code as the standard ruleset, except that
+everything not necessary to build the compiler is stripped out.
+Consequently the bootstrap rules are much simpler than the standard
+rules, and users interested in knowing how OBazl works should start by
+studying the bootstrap rules.
+
+Because the `bootstrap` ruleset is designed only to be used in
+building the compiler, it is not distributed with the OBazl package,
+nor is it independently downloadable. Instead it is included directly
+in the link:https://github.com/obazl-repository/ocaml[OBazl fork of the compiler].
+
+The standard `obazl_rules_ocaml` ruleset can be thought of as a layer
+that sits on top of and extends the bootstrap ruleset. It adds support for:
+
+* PPX processing, including automated management of so-called "runtime dependencies"
+
+* Generalized namespacing (automatic generation of "ns resolver"
+  modules) to compliment the automatic module renaming supported by
+  the bootstrap rules.
+
+* Contingent dependencies - selection of dependencies based on configuration state
+  ** corresponds to Dune's "alternative dependencies" using `(select ... from ...)`
+  ** no special syntax or functionality is involved; dependencies may
+     be selected using Bazel's standard, generic `select` function
+  ** NB: this is just a matter of using Bazel's `select` function for deps, so it is available in the bootstrap ruleset.
+
+* Full control over module bindings
+  ** A module rule can select any implementation file for binding to
+     any particular signature (.cmi) file, based on configuration
+     settings; for example, binding `clock.cmi` to a platform-specific
+     implementation e.g. `clock_linux.ml` is expressible using a
+     simple `select` statement on a single `ocaml_module` target.
+  ** Eliminates need for
+     link:https://dune.readthedocs.io/en/stable/variants.html?highlight=virtual%20modules#virtual-library["virtual
+     libraries"]. Module bindings like this need not be delayed to
+     link-time.
+
+## Modules: Interface + Implementation
+
+`ocaml_signature`, `ocaml_module`
+
+Module Bindings - Dune's link:https://dune.readthedocs.io/en/stable/variants.html?highlight=virtual%20modules#virtual-library[virtual libraries]
+
+## Aggregates: library v. archive
+
+In contrast to other build systems, and the OCaml community in
+general, OBazl makes a distinction between the concepts `library` and `archive`.
+
+An OBazl _library_ is just an aggregate - a collection of
+compiled modules, signatures. An `ocaml_library` target lists its
+contents in a `manifest` attribute: it constructs nothing and delivers
+its contents as a list in dependency order.
+
+An _archive_ is a library packaged as an OCaml archive (`.cma/.cmxa`)
+file. Like an `ocaml_library`, an `ocaml_archive` target lists its
+contents in a `manifest` attribute, but unlike `ocaml_library` it
+executes a build action that constructs an OCaml archive. An
+`ocaml_archive` may contain `ocaml_library` deps, but may not contain
+other `ocaml_archive` deps (since the OCaml compiler will not accept
+archives as input to an archive build command).
+
+
+## Executables
+
+# Enhancements
+
+
+The minimal `bootstrap` rules do not support:
+
+* preprocessing
+* namespacing
+
+
+
+## Preprocessing
+
+Minimal: use genrule. But since preprocessing, exp. ppx, is so common, OBazl comes with built-in support.
+
+### PPX
+
+        Special `ppx_executable` rule
+        PPX co-deps ("runtime" deps)
+
+PPX support involves some "special" considerations.
+
+* ppx args
+* ppx_print
+* ppx_codeps must be propagated - attached to the transformation output, then added to the deps for compilation
+
+# Dependency Management
+
+    Separation of concerns:  discovery v. normalization v. optimization
+
+## Module deps v. Sig deps.
+
+OCaml interface and implementation files for a given module may have very different dependency graphs.
+
+Since OBazl supports separate builds of .ml and .mli files, users can
+optimize by listing (as appropriate) only `cmi` deps for an `mli`
+file. Note that dep analysis tools like `ocamldeps` and `codept` will
+tell you which _modules_ an interface file depends on, but will not
+indicate whether the dependency is in fact only on the `.cmi` file; so
+this kind of optimization must generally be done by hand.
+
+Since modules depend on sigs, but not the other way around, this means
+that signature dep graphs can be built without causing the build of
+any modules, and queries can show just the signature dependency graph
+of a target.
+
+
+### Optional dependencies
+
+solves same problem as Dune's `(select ... from ...)` (
+    link:https://dune.readthedocs.io/en/stable/concepts.html#alternative-dependencies["alternative dependencies"])
+
+### External Dependencies
+
+handled by standard bazel mechanisms
+
+### OPAM
+
+Version 1 depended on the `ocmlfind` program and thus on opam metadata
+files at build time. Version 2 removes the dependency on `ocamlfind`
+and does not depend on any OPAM tools or metadata at build time. Projects may depend
+on the compiled files produced by OPAM, which are imported by the
+build files produced by the new opam bootstrap tool.
+
+The opam bootstrapping tool writes build files for each OPAM package,
+whch makes them just like any other dep. The build files use rule
+`ocaml_import` to import the files compiled under the control of `opam
+install`. Once those build files are in place, nothing special need be
+done to depend on opam packages; all you need is the target label.
+
+# Namespacing
+
+## Top-down
+
+## Bottom-up
+
+* supports direct dependency on individual submodules in the
+  namespace. We cannot depend on a dotted module path, but we can
+  depend on a module in a namespace, and we can use a naming
+  convention to me it look like a dotted path. For example, the
+  bazelized version of the OCaml compiler uses dotted names for the
+  Stdlib; so the target name to compile the `buffer.ml` module of the
+  stdlib is `Stdlib.Buffer`; to build it: `bazel build
+  //stdlib/Stdlib.Buffer`. NB this is just a convention.
+
+* normalized/optimized build files can be queried to show optimized
+  dep graphs i.e. no spurious dependencies. I.e. if you depend on a a top-down
+  `ocaml_ns_library`, the dep graph will show a dependency on all
+  submodules in the ns lib. With bottom-up namespacing and optimized
+  build files no spurious deps will be shown.
+* OTOH, if you depend on the `ns_resolver` of a bottom-up namespace,
+  the dep graph will not include the submodules, since the submodules
+  depend on the resolver, not the other way around. So there are trade-offs.
+  ** FIXME: is there a way to write a query that will show the
+     submodules too? probably. can this be done by an aspect?
+
+## Foreign Deps
+
+### C/C++ dependencies
+
+### Other languages - Rust, Go, etc.
+
+
+
+# Configuration
+
+    Predefined global configs: `@ocaml//debug`, `@ocaml//module/linkall`, etc.
+
+# Toolchains & Hermeticity
+
+# Tooling
+
+# CI Support
+
+# Docker Support
+
+# Misc
+
+* eliminates need for Dune's `install` stanza
+  * dependencies on executables or other built outputs can be
+    expressed directly; no need to install and then refer
+* supports direct expression of various things that are hard to express in Dune, or that require "tricks"
+  ** use of "alternative dependencies" with bogus (empty) libraries in the test condition, to emulate genuine conditional deps (example: tezos `src/bin_node/dune`)
+  ** with dune, dependencies on built outputs may require expicit
+    hand-coded reference to the build output directory tree; with
+    OBazl all such deps can be expressed directly as ordinary target
+    deps.  Example: tezos `src/lib_protocol_compiler/dune` contains:
+
+```
+    (rule
+        ...
+           %{dep:.tezos_protocol_registerer.objs/byte/tezos_protocol_registerer__Registerer.cmi}
+    ...)
+    ...
+    (library
+     (name tezos_protocol_registerer)
+     (public_name tezos-protocol-compiler.registerer)
+     ...
+```
+
+With OBazl this reference would look something like:
+`//src/lib_protoco_compiler:Registerer_cmi`, referencing the
+`ocaml_signature` rule responsible for producing the `cmi` file.
+
+What problems does OBazl solve? What can it do that Dune cannot do, or can only do with difficulty?
+
+* virtual modules/libs (http://rgrinberg.com/posts/virtual-libraries/#id4)
+* bottom-up namespacing
+* cmi deps
+* granularity
+  ** build one submodule in an ns aggregate
+  ** build and inspect cmi-only dep graphs
+* hermeticity
