@@ -462,7 +462,32 @@ done to depend on opam packages; all you need is the target label.
 
 ## Top-down
 
+
+
 ## Bottom-up
+
+* bottom-up ns does not automatically entail and aggregate. Aggregates
+  containing namespaced modules must be explicitly defined, and they
+  may contain a subset of the submodules in an ns, or submodules from
+  multiple namespaces. IOW, aggregation and namespacing are orthogonal.
+
+* clients cannot depend on a namespace; they can only depend on
+  aggregates or singletons (modules, sigs).
+
+* a change to a submodule in a ns will cause a recompile of any
+  aggregate that contains it, and of anything that depends on the
+  aggregate. but targets that depend on a submod directly will not be
+  affected by changes to other submods in the ns. Whereas with a
+  top-down ns, targets can only depend on the ns-aggregates, so any
+  change in any submodule will force a recompile of all cllients.
+
+* changing one submodule does not entail a rebuild of any sibling submodules.
+
+* the user may provide a custom resolver module, which can be any
+  module that contains the module aliasing equations needed to support
+  the ns. submodules then just list this module's label in their `ns`
+  attribute. This is what happens with the Stdlib modules of the
+  compiler.
 
 * supports direct dependency on individual submodules in the
   namespace. We cannot depend on a dotted module path, but we can
