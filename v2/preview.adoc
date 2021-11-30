@@ -72,7 +72,12 @@ _before_ the build process commences, and we record its results and
 pass them as input to the build process.
 
 Version 2 of OBazl includes tooling that can largely if not entirely
-automate the enumeration of dependencies.
+automate the enumeration of dependencies. Currently there are some
+cases where it is difficult to discover all dependencies; for example
+targets that involve lots of indirection, `-open` arguments and
+`include` directives in source files. A goal of the OBazl project is
+to perfect this tool so that can always emit complete and correct
+dependency graphs.
 
 ## The OBazl Rulesets
 
