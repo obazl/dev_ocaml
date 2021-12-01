@@ -1,7 +1,12 @@
 # OBazl Version 2: Preview
 
-OBazl is a Bazel Language Support Pack (LSP) for OCaml.  Version 2 of OBazl contains many improvements.
+OBazl is a Bazel Language Support Pack (LSP) for OCaml. This article
+provides a preview/overview of OBazl version 2. Version 2 contains
+many improvements over version 1, but this article does not discuss
+specific differences. They will be listed in a changelog when version
+2 is release.
 
+*Intro*
 The OCaml build discipline is notoriously daunting. The most common
 advice to those who want to know how to build OCaml software runs along
 the following lines: "Just use Dune, and let Dune worry about the gory
@@ -13,7 +18,30 @@ information, but the official documentation for the compilers does not
 even mention it.
 
 The development of OBazl was largely motivated by dissatisfaction with
-this state of affairs.
+this state of affairs. 1. intentional lack of transparency 2. lack of info about how the compilers work (e.g. search paths, )
+
+where Dune's opacity is annoying:
+* build cmds
+* depgraphs
+* namespacing
+* preprocessing
+* build environment, including tools and output dirs
+
+So the first order of business was transparency, and Bazel supports a great deal of transparency out-of-the-box:
+
+* `bazel aquery <target>` prints cmd line and inputs/outputs, without running a build
+* the `build` command always prints the path of its outputs
+* target labels are "homo-indexical" - they cause the generation of
+  outputs (indexicality), and the form of a target label maps directly to
+  the form of the output names (both are paths). So the form of target and dependency labels in the build program text already tells you what will be produced, where. [FIXME: homo-indexicality is not a necessary feature of target labels; a rule can put its output elsewhere; but they are, generally, in OBazel. TODO: list cases where they are not]
+* `bazel info` prints the info you need to inspect the build environment:
+  ** `bazel info command_log` tells you where you can find the log that Bazel writes for every command
+  ** the `external` subdir of the path printed by `bazel info output_base` is where you can find external repos
+  ** `bazel info output_path` tells you where outputs are placed
+     (normally a system `/var` or `/tmp` dir symlinked to `bazel-out` in the
+     project root dir)
+
+
 
 #### Build Commands
 
@@ -44,6 +72,12 @@ projects.
 
 The strategy for managing dependencies adopted by Bazel (and thus
 OBazl) is starkly different from that of most other build systems.
+
+[FIXME: three points:
+
+* finding and listing deps as input to the build
+* transparency of actual depgraphs (inspection using `query "deps(...)`, `aquery`, `--output_groups=closure`, etc.)
+* how OBazl normalizes and propagates depgraphs, advantages compared to dune, e.g. ppx_codeps]
 
 Many build systems, Dune included, conflate dependency _discovery_ and
 the build process. For example, Makefiles for building OCaml projects
@@ -78,6 +112,34 @@ targets that involve lots of indirection, `-open` arguments and
 `include` directives in source files. A goal of the OBazl project is
 to perfect this tool so that can always emit complete and correct
 dependency graphs.
+
+Another notable feature of OBazl with respect to dependencies is that
+we get correct ordering for free, so to speak. Dependency ordering for
+compiler inputs, and for most build tools, is expressed syntactically,
+as list ordering (which is in part why managing deps in such systems
+is difficult). But OBazl maintains dependencies as a graph structure,
+so ordering is expressed as hierarchy. The only way to express a
+dependency of A on B is to list B explicitly in the `deps` attribute
+of A; there is no way to express it as the list `B A`, as one must do
+on the compiler command line. In particular, listing `["A", "B"] in a
+`deps`` attribute does not express a dependency of B on A. In fact, it
+could be the case that A depends on B (either directly or indirectly),
+so when we serialize the graph derived from this list we will get `B
+A`. It follows that dependencies can be listed in any order; you can
+list them in alphabetical order if you wish.
+
+The critical feature here is that Bazel provides out-of-the-box
+support for merging dependency graphs. If your dependencies are
+expressed as ordered lists, and you have multiple dependencies, then
+you have the task of merging the ordered lists in such a way that
+dependency order is maintained, which is non-trivial, since the same
+item may occur in different contexts in more than one list. [TODO:
+simple example]. Bazel provides a `depset` facility that handles such
+merging automatically and efficiently. OBazl rules use depsets to
+manage all dependencies.
+
+deps that require special handling by the build engine: runtime data
+deps; runtime code deps (plugins); ppx-codeps
 
 ## The OBazl Rulesets
 
@@ -115,24 +177,29 @@ the output of another pipeline ending in an `ocaml_executable` that
 produces the PPX executable. Both `genrule` steps would involve a
 shell command that must be written by the programmer.
 
-In principle, such composable pipelines could be used to build any
-OCaml project; in practice, build files written at such a low level of
-detail would be tedious to write, error-prone (since they involve
+In this case Bazel would function more or less as a glorified Make; it
+would analyze dependencies and invoke the build actions required by a
+change in sources, but would delegate actual build responsibility to
+the shell scripts written in the genrules (except for the final
+`ocaml_*` rule). So this is not something one would do in practice.
+Nonetheless, in principle such composable pipelines could be used to
+build any OCaml project. But build files written at such a low level
+of detail would be tedious to write, error-prone (since they involve
 shell scripting), verbose, and hard to maintain. So in order to meet
 its design goals (Ease of Use, etc.), OBazl extends some of its rules
-to automated the most common build patterns in a more convenient and
-expressive manner. For example, instead of passing the PPX executable
-to a genrule (which runs a shell command that the developer must
-write) that runs it as a separate task, we can pass it directly to the
+to automate the most common build patterns in a more convenient and
+expressive manner, and to take advantage of the Bazel's specialized
+build API. For example, instead of passing the PPX executable to a
+genrule (which runs a shell command that the developer must write)
+that runs it as a separate task, we can pass it directly to the
 `ocaml_module` rule via its `ppx` attribute, which has the effect of
 directing the rule to run the transform and compiles output. The
 transform will still be executed as a separate build _action_, but it
 will be managed by the `ocaml_module` rule, so the developer doesn't
-have to bother directly with the details of a shell command. The
-OBazl rules have also been extended to automate namespacing, so that
-the developer is responsible only for annotating the rules with
-attributes indicating namespace membership, and OBazl takes care of
-the rest.
+have to bother directly with the details of a shell command. The OBazl
+rules have also been extended to automate namespacing, so that the
+developer is responsible only for annotating the rules with attributes
+indicating namespace membership, and OBazl takes care of the rest.
 
 NB: compositionality:  rules v. build actions
 
@@ -239,6 +306,22 @@ Minimal requirements:
   ** custom install from sources: https://github.com/ocaml/ocaml/blob/trunk/INSTALL.adoc
 
 
+What distinguishes OCaml from other langauges wrt builds?
+
+* ppx
+* pseudo-namespacing
+* separate compilation of interfaces and implementations
+  ** OBazl treats sigs and structs as co-equal citizens. Dune favors
+     structs (modules, .ml files). This shows up when you need to
+     depend on just a cmi file from a Dune wrapped lib. Tezos example
+     below.
+  ** separate depgraphs for sigs and structs
+  ** addressability of cmi files, thanks to `ocaml_signature`
+  ** cmi files as "modules_without_implementation" or "mli only
+     modules" doesn't even make sense. a sig is not a "module without
+     a struct", and a struct is not a "module without a sig". maybe a
+     half-modules.
+
 Not minimal (or: not core) requirements:
 
 * integrated generic preprocessing. The compilers do support preprocessing,
@@ -286,6 +369,7 @@ The build language (Starlark plus the OBazl rules)
   files and directories; the language should allow the developer to
   express the concept, in the build language, in a way that abstracts
   from the details. See below [x] for an example.
+
 
 OBazl can express composites that have no corresponding built
 artifact. For example, the `ocaml_library` rule expresses the
