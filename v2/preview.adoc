@@ -532,6 +532,17 @@ Minimal: use genrule. But since preprocessing, exp. ppx, is so common, OBazl com
 
 
 
+= OPAM, findlib, and Dune
+
+These tools play a special role in the OCaml build discipline. They
+are not necessary - one can build OCaml software without them - but
+they are so widely used that any build system must accomodate them in
+some manner.
+
+Dune is the most widely-used OCaml build tool. OBazl provides tooling
+to automate conversion from Dune to OBazl, and since OBazl can coexist
+with Dune some support for automated maintenance is provided.
+
 = The OBazl Rulesets
 
 Core collection of primitives (build rules) that can be composed to accomplish any build task.
