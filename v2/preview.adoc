@@ -61,6 +61,8 @@ for any target without waiting for a build to complete.
 
 = Design principles and goals:
 
+[NOTE:] this section will be drastically reduced.
+
 === Transparency
 
 A primary design goal of OBazl is transparency. It should be possible
