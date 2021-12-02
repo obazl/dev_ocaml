@@ -411,9 +411,37 @@ archives as input to an archive build command).
 * data v. code
 * PPX co-dependencies
 
+==== Optional dependencies
+
+solves same problem as Dune's `(select ... from ...)` (
+    link:https://dune.readthedocs.io/en/stable/concepts.html#alternative-dependencies["alternative dependencies"])
+
+==== External Dependencies
+
+handled by standard bazel mechanisms
+
+
 === discovery v. normalization v. optimization
 
+=== Split dependencies
+
+OCaml interface and implementation files for a given module may have very different dependency graphs.
+
+Since OBazl supports separate builds of .ml and .mli files, users can
+optimize by listing (as appropriate) only `cmi` deps for an `mli`
+file. Note that dep analysis tools like `ocamldeps` and `codept` will
+tell you which _modules_ an interface file depends on, but will not
+indicate whether the dependency is in fact only on the `.cmi` file; so
+this kind of optimization must generally be done by hand.
+
+Since modules depend on sigs, but not the other way around, this means
+that signature dep graphs can be built without causing the build of
+any modules, and queries can show just the signature dependency graph
+of a target.
+
+
 === Configurable ("dynamic") deps
+
 
 === Separation of concerns:  dep mgmt v. build
 
@@ -497,11 +525,6 @@ manage all dependencies.
 
 deps that require special handling by the build engine: runtime data
 deps; runtime code deps (plugins); ppx-codeps
-
-==== Split Dependencies
-
-Module v. Interface depgraphs
-
 
 
 == Compilation modes
@@ -667,31 +690,6 @@ that sits on top of and extends the bootstrap ruleset. It adds support for:
 
 == Executables
 
-== Module deps v. Sig deps.
-
-OCaml interface and implementation files for a given module may have very different dependency graphs.
-
-Since OBazl supports separate builds of .ml and .mli files, users can
-optimize by listing (as appropriate) only `cmi` deps for an `mli`
-file. Note that dep analysis tools like `ocamldeps` and `codept` will
-tell you which _modules_ an interface file depends on, but will not
-indicate whether the dependency is in fact only on the `.cmi` file; so
-this kind of optimization must generally be done by hand.
-
-Since modules depend on sigs, but not the other way around, this means
-that signature dep graphs can be built without causing the build of
-any modules, and queries can show just the signature dependency graph
-of a target.
-
-
-=== Optional dependencies
-
-solves same problem as Dune's `(select ... from ...)` (
-    link:https://dune.readthedocs.io/en/stable/concepts.html#alternative-dependencies["alternative dependencies"])
-
-=== External Dependencies
-
-handled by standard bazel mechanisms
 
 === OPAM
 
