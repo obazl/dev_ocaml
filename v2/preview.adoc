@@ -317,6 +317,34 @@ to demo].
 
 == Simplicity
 
+== Mechanism before Policy
+
+OBazl provides machinery to get things done; how that machinery is
+used is up to the developer - a matter of policy. For each mechanism,
+OBazl provides a default policy and methods for overriding the default
+globally and locally.
+
+* output naming: by default, OBazl normalizes names; for example,
+  `foo.ml` compiles to `Foo.cmo`. This can be overridden globally by
+  passing `--@ocaml//naming:normalize=False`, and for a particular
+  target by setting attribute `normalize-output=False`.
+
+* namespace renaming defaults to normalization; for example, if
+  `bar.ml` is a submodule in a namespace whose resolver is `foo.ml`,
+  it will be renamed to `Foo__Bar.ml` and compiled to `Foo_Bar.cmo`.
+  This can be overridden (globally only) to any of the renaming
+  possibilities, e.g. `foo_bar.ml`, `Foo_bar.ml`, etc.
+
+* Compiler options represent policies that configure compiler
+  mechanisms. For example, `-linkall` enables the like-named mechanism
+  of the compiler/linker. OBazl comes with a default set of policies
+  that globally set the most commonly used options, such as
+  `-strict-sequence`. These can be disabled globally by passing e.g.
+  `--no@ocaml//strict-sequence` or `--@ocaml//strict-sequence=False`.
+  They can be disabled for particular targets by passing
+  `-no-<option>` to the `opts` attribute; for example, `opts =
+  ["-no-strict-sequence"]`
+
 = The OCaml Build Discipline
 
 NOTE: This section provides a high-level description the concepts
@@ -360,7 +388,7 @@ archives as input to an archive build command).
 
 === Bottom-up
 
-* bottom-up ns does not automatically entail and aggregate. Aggregates
+* bottom-up ns does not automatically entail an aggregate. Aggregates
   containing namespaced modules must be explicitly defined, and they
   may contain a subset of the submodules in an ns, or submodules from
   multiple namespaces. IOW, aggregation and namespacing are orthogonal.
@@ -409,19 +437,11 @@ archives as input to an archive build command).
 
 * direct and indirect
 * module v. interface
-* config-time v. build-time v. compile-time v. runtime
-* data v. code
+* configurable ("dynamic") deps
+* runtime deps (data v. code)
 * PPX co-dependencies
-
-==== Optional dependencies
-
-solves same problem as Dune's `(select ... from ...)` (
-    link:https://dune.readthedocs.io/en/stable/concepts.html#alternative-dependencies["alternative dependencies"])
-
-==== External Dependencies
-
-handled by standard bazel mechanisms
-
+* local v. external deps
+* OPAM pkg deps (special case)
 
 === discovery v. normalization v. optimization
 
@@ -443,6 +463,10 @@ of a target.
 
 
 === Configurable ("dynamic") deps
+
+solves same problem as Dune's `(select ... from ...)` (
+    link:https://dune.readthedocs.io/en/stable/concepts.html#alternative-dependencies["alternative dependencies"])
+
 
 
 === Separation of concerns:  dep mgmt v. build
@@ -568,6 +592,13 @@ Dune is the most widely-used OCaml build tool. OBazl provides tooling
 to automate conversion from Dune to OBazl, and since OBazl can coexist
 with Dune some support for automated maintenance is provided.
 
+=== Custom OPAM installations
+
+Some projects, especially large-scale projects where build
+replicability is critical, employ their own customized OPAM
+installations. So it's a requirement the OBazl work well with such
+installations.
+
 = The OBazl Rulesets
 
 Core collection of primitives (build rules) that can be composed to accomplish any build task.
@@ -663,8 +694,21 @@ nor is it independently downloadable. Instead it is included directly
 in the link:https://github.com/obazl-repository/ocaml[OBazl fork of the compiler].
 
 == rules_ocaml
+
 The standard `obazl_rules_ocaml` ruleset can be thought of as a layer
-that sits on top of and extends the bootstrap ruleset. It adds support for:
+that sits on top of and extends the bootstrap ruleset. All the added
+functionality could be implemented using generic Bazel facilities
+(genrules, macros, custom rules), but OBazl provides built-in support
+for the most commonly needed to ensure ease-of-use etc.
+
+NOTE: The point being that Bazel (Starlark) is the build language,
+OBazl just uses it to define rules that make life easier, and the
+programmer always has access to the full power Bazel. I.e. you're not
+limited in to the functionality OBazl supports out-of-the-box. Contrast
+Dune, which does not build on a lower-level build DSL in this way.
+
+
+It adds support for:
 
 * PPX processing, including automated management of so-called "runtime dependencies"
 
@@ -690,10 +734,10 @@ that sits on top of and extends the bootstrap ruleset. It adds support for:
      link-time.
 
 
-== Executables
+=== Executables
 
 
-=== OPAM
+=== OPAM support
 
 Version 1 depended on the `ocmlfind` program and thus on opam metadata
 files at build time. Version 2 removes the dependency on `ocamlfind`
