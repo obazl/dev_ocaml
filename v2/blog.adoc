@@ -447,3 +447,27 @@ linked at most once, no matter how many modules you attach it to. So
 for example if you split the OCaml interface to a monster C library
 across multiple OCaml modules, you can attach the library to each
 module.
+
+== Roadmap
+
+For most purposes, OBazl is feature-complete, but there are a few more items to be addressed:
+
+* Plugins (`.cmxs` files)
+* Custom toolchains
+* Building the OCaml compiler. This is partially implemented, it just needs to be finished.
+* Support for Coq
+* Documentation, especially for the tools
+* Dune conversion can always be improved in various ways
+* Automated conversion for other build tools. This will probably never
+  happen, but some kind of guidance for conversion should be provided
+  for the most popular legacy tools, e.g. `ocamlbuild`.
+* Code refactoring - the OBazl sources could use a thorough cleanup.
+
+Another project under consideration is the establishment of an OBazl
+repository that would contain OBazl build programs for arbitrary OCaml
+projects. Using external (usually OPAM) dependencies will require
+writing OBazl code to build them. The conversion tools can handle part
+of that job, but it will often be the case that the code will need to
+be tuned by hand. Once that has been done, the OBazl repository would
+serve as a place where such OBazl programs could be shared.
+
