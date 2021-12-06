@@ -356,6 +356,8 @@ graphs of submodules, and OBazl's dependency manager will always
 normalize the graphs to remove duplicates while retaining dependency
 order.
 
+Compare Java's `import package.name.*` vs.`import package.name.ClassName`.
+
 As an example: just about everything in the OCaml compiler sources
 depends on the standard library, which is packaged as an archive
 `stdlib.cma` built by target `//stdlib`. If those dependencies are
