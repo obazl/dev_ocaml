@@ -75,7 +75,7 @@ on this.
 A future version of OBazl will support configuration of arbitrary
 OCaml toolchains.
 
- == Separate compilation and split dependencies.
+== Separate compilation and split dependencies.
 
 One of the distinguishing features of OCaml is its support for
 separate compilation of interfaces and implementations. But there is
