@@ -221,7 +221,7 @@ build scripts. OBazl makes dependency management relatively painless.
 
 * Targets must list their direct dependencies.
 
-* Targets can depend on a stand-alone interfaces.
+* Targets can depend on stand-alone interfaces.
 
 * Interface and implementation dependencies are directory-independent,
   but OBazl always presents them to the compiler in the same
@@ -248,11 +248,11 @@ been removed, and OPAM dependencies are treated the same way as any
 other dependency.
 
 To enable this version 2 includes an OPAM bootstrapping tool whose job
-is to generate, for each OPAM package, a repository rule (i.e.
-WORKSPACE) and a BUILD.bazel file using a new rule, `opam_import`, to
-add the compiled code (`.cma`/`.cmxa`/etc files built by OPAM) to the
-dependency graph. The labels for OPAM targets map directly to their
-OPAM names; for example:
+is to generate, for each OPAM package, a repository rule (which
+determines a Bazel workspace) and a BUILD.bazel file that uses a new rule,
+`opam_import`, to add the compiled code (`.cma`/`.cmxa`/etc files
+built by OPAM) to the dependency graph. The labels for OPAM targets
+map directly to their OPAM names; for example:
 
 * `yojson => @yojson//:yojson`
 * `mtime.clock.os => @mtime//clock/os`.
