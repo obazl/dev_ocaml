@@ -7,6 +7,44 @@
 // #gtitle span{font-size: normal;}
 // #gtitle a {color: white;}
 
+// body{
+//     background: none;
+// }
+
+// details{
+//     margin-left: 1rem;
+//     background: white;
+// }
+
+div.sect2 { margin-bottom:3ex; }
+
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+}
+
+// details summary::before {
+//   content:"🡒";
+//   color: red;
+//   /* you can style it however you want, use background-image for example */
+// }
+
+summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+details[open] {
+    padding: .5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+
 #header nav{background:transparent;}
 // #header nav ul > li div {margin-bottom: 8px;}
 

@@ -7,6 +7,21 @@ layout: page_opam_ug
 * link:overview[Overview]
 
 
+=== Bootstrap Tools
+
+Project-local:
+
+* link:opam_here[here]
+* link:opam_here_init[here init]
+* link:opam_here_config[here config]
+
+Shared:
+
+* link:opam_xdg[xdg]
+* link:opam_xdg_init[xdg init]
+* link:opam_xdg_config[xdg config]
+
+
 OBazl provides:
 
 * OPAM bootstrapper tools that generate Bazel files containing
