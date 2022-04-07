@@ -5,6 +5,9 @@
 <pre>
 ${util.providerSummary($providerName, $providerInfo)}
 </pre>
+<style>
+td {vertical-align: top;}
+</style>
 
 ${providerInfo.docString}
 

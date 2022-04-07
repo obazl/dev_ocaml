@@ -1,0 +1,6 @@
+= conditional compilation
+
+Use the link:https://docs.bazel.build/versions/master/be/functions.html#select[select]
+function to choose dependencies to build.
+
+You can use `select` to control any link:https://docs.bazel.build/versions/master/configurable-attributes.html[configurable attribute], such as `opts`.

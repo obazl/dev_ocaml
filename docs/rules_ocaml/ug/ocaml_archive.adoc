@@ -1,0 +1,6 @@
+= ocaml_archive
+link:index.md[User Guide]
+
+link:../refman/rules_ocaml.md#ocaml_archive[Reference Manual]
+
+## <a name="examples">Examples</a>

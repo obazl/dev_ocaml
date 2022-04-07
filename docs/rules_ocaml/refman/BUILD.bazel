@@ -1,0 +1,195 @@
+load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+load("@bazel_skylib//lib:new_sets.bzl", "sets")
+
+RULES_PPX_DEPS = [
+    "@bazel_skylib//lib:collections",
+    "@bazel_skylib//lib:new_sets",
+    "@bazel_skylib//lib:types",
+    "@rules_ocaml//doc:stardoc",
+    # "@rules_ocaml//opam:stardoc",
+    # "@obazl_tools_obazl//tools/functions",
+]
+
+################################################################
+stardoc(
+    name = "functions",
+    input = ":functions_refman.bzl",
+    out = "functions.md",
+    func_template = "//templates/markdown:functions.vm",
+    header_template = "//templates/markdown:header_functions.vm",
+    deps  = RULES_PPX_DEPS,
+    symbol_names = [
+        "ocaml_configure",
+        # "opam_configure"
+    ]
+)
+
+################################################################
+# stardoc(
+#     name = "macros",
+#     input = ":macros_refman.bzl",
+#     out = "macros.md",
+#     func_template = "//templates/markdown:macros.vm",
+#     header_template = "//templates/markdown:header_macros.vm",
+#     deps  = [
+#         "@bazel_skylib//lib:new_sets",
+#         "@obazl_rules_ocaml//ocaml:stardoc",
+#     ],
+#     symbol_names = [
+#         # "ns_env"
+#     ]
+# )
+
+################################################################
+stardoc(
+    name = "rules_ocaml",
+    input = "@rules_ocaml//build:rules.bzl",
+    out = "rules_ocaml.md",
+    header_template = "//templates/markdown:header_rules_ocaml.vm",
+    rule_template = "//templates/markdown:rule.vm",
+    # deps must contain bzl_library targets containing files loaded by input
+    deps  = [
+        "@bazel_skylib//lib:dicts",
+        "@bazel_skylib//lib:new_sets",
+        "@rules_ocaml//doc:stardoc",
+    ],
+    symbol_names = [
+        "ocaml_archive",
+        "ocaml_genrule",
+        "ocaml_executable",
+        "ocaml_import",
+        "ocaml_lex",
+        "ocaml_library",
+        "ocaml_module",
+        "ocaml_ns_archive",
+        "ocaml_ns_library",
+        "ocaml_ns_module",
+        "ocaml_ns_resolver",
+        "ocaml_signature",
+        "ocaml_test",
+        "ocaml_yacc",
+
+        # # "ocaml_ns_env",
+    ]
+)
+
+stardoc(
+    name = "providers_ocaml",
+    # input = ":providers_ocaml.bzl",
+    input = "@rules_ocaml//ocaml:providers.bzl",
+    out = "providers_ocaml.md",
+    header_template   = "//templates/markdown:header_providers_ocaml.vm",
+    provider_template = "//templates/markdown:provider.vm",
+    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    deps  = [
+        "@rules_ocaml//doc:stardoc",
+    ],
+    symbol_names = [
+        # "CcDepsProvider",
+        "OcamlProvider",
+        "OcamlArchiveMarker",
+        "OcamlExecutableMarker",
+        "OcamlImportMarker",
+        "OcamlLibraryMarker",
+        "OcamlModuleMarker",
+        "OcamlNsMarker",
+        "OcamlNsLibraryProvider",
+        "OcamlSignatureProvider",
+
+        "PpxCodepsProvider",
+
+        # obsolete:
+        # "OpamDepsProvider",
+        # "OcamlNsEnvProvider",
+    ]
+)
+
+stardoc(
+    name = "rules_ppx",
+    input = ":rules_ppx.bzl",
+    out = "rules_ppx.md",
+    header_template = "//templates/markdown:header_rules_ppx.vm",
+    rule_template = "//templates/markdown:rule.vm",
+    deps  = [
+        # "@bazel_skylib//lib:collections",
+        # "@bazel_skylib//lib:new_sets",
+        # "@bazel_skylib//lib:types",
+        "@rules_ocaml//doc:stardoc",
+        # "@obazl_tools_obazl//tools/functions",
+    ],
+    symbol_names = [
+        # "ppx_archive",
+        # "ppx_executable",
+        # "ppx_library",
+        # "ppx_module",
+        # # "ppx_ns_module",
+        # "ppx_expect_test",
+    ]
+)
+
+# stardoc(
+#     name = "providers_opam",
+#     input = ":providers_opam.bzl",
+#     out = "providers_opam.md",
+#     header_template   = "//templates/markdown:header_providers_opam.vm",
+#     provider_template = "//templates/markdown:provider.vm",
+#     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+#     deps  = [
+#         "@bazel_skylib//lib:collections",
+#         "@bazel_skylib//lib:new_sets",
+#         "@bazel_skylib//lib:types",
+#         "@obazl_rules_opam//opam:bootstrap",
+#         "@obazl_rules_opam//opam/_bootstrap:bootstrap",
+#         "@obazl_rules_opam//opam/_debug:debug",
+#         "@obazl_rules_opam//opam/_functions:functions",
+#         "@obazl_rules_opam//opam/_providers:providers",
+#         "@obazl_tools_obazl//tools/functions",
+#     ],
+#     symbol_names = [
+#         "OpamPkgInfo",
+#         "OpamConfig",
+#         "OpamSwitch"
+#     ]
+# )
+
+stardoc(
+    name = "providers_ppx",
+    input = ":providers_ppx.bzl",
+    out = "providers_ppx.md",
+    header_template   = "//templates/markdown:header_providers_ppx.vm",
+    provider_template = "//templates/markdown:provider.vm",
+    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    deps  = [
+        "@rules_ocaml//doc:stardoc",
+    ],
+    symbol_names = [
+        "PpxDepsetProvider",
+        "PpxArchiveProvider",
+        "PpxExecutableProvider",
+        "PpxModuleProvider"
+    ]
+)
+
+################################################################
+pandoc(
+    name = "index",
+    src = "index_refman.md",
+    output = "index.md",
+    visibility = ["//visibility:public"],
+)
+
+pandoc(
+    name = "linkmode",
+    src = "linkmode.md",
+    output = "linkmode_doc.md",
+    visibility = ["//visibility:public"],
+)
+
+pandoc(
+    name = "interop",
+    src = "interop.md",
+    output = "interop_doc.md",
+    visibility = ["//visibility:public"],
+)
+

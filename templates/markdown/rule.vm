@@ -4,6 +4,10 @@
 
 #[[##]]# ${ruleName}
 
+<style>
+td {vertical-align: top;}
+</style>
+
 <pre>
 ${util.ruleSummary($ruleName, $ruleInfo)}
 </pre>
@@ -17,9 +21,12 @@ ${ruleInfo.docString}
 | ------------- | ------------- | ------------- | :------------- | :------------- |
 #foreach ($attribute in $ruleInfo.getAttributeList())
 | <a id="${ruleName}-${attribute.name}"></a>$attribute.name | #if(!$attribute.docString.isEmpty()) ${util.markdownCellFormat($attribute.docString)} #else - #end
-#if(!${attribute.getProviderNameGroupList().isEmpty()}) Providers: #foreach ($pg in ${attribute.getProviderNameGroupList()}) #foreach ($pl in ${pg.getProviderNameList()}) [${pl}](providers_ocaml.md#${pl.toLowerCase()})#end
-#end
-#end | ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} | $attribute.defaultValue |
+## ProviderNameGroup seems to be broken, we always get "Unknown Provider"
+## <br/>#if(!${attribute.getProviderNameGroupList().isEmpty()}) Provider Groups: #foreach ($pg in ${attribute.getProviderNameGroupList()})
+## <br/>Providers: #foreach ($pl in ${pg.getProviderNameList()}) <br/> [${pl}](providers_ocaml.md#${pl.toLowerCase()})#end
+## #end
+## #end
+| ${util.attributeTypeString($attribute)} | ${util.mandatoryString($attribute)} | $attribute.defaultValue |
 #end
 #end
 

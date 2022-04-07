@@ -2,6 +2,9 @@
 ==============================
 :toc: left
 
+working title:  OBazl Rules:  Metaprogramming OCaml with Bazel
+
+
 OBazl is a Bazel Language Support Pack (LSP) for OCaml. This article
 provides a preview/overview of OBazl version 2.
 
@@ -81,7 +84,11 @@ Build rules should map as directly as possible to the toolset. That
   build file to the generated command line should be direct and
   transparent.
 
-=== Parsimony
+=== Felicitudinosity
+
+OBazl programs should be felicitous. They should make us happy.
+
+ === Parsimony
 
 Each build rule should do one (minimal) thing, without side-effects.
 
@@ -443,6 +450,45 @@ archives as input to an archive build command).
 * local v. external deps
 * OPAM pkg deps (special case)
 
+=== transitivity
+
+Trickier than it seems, because there are several different kinds of depgraph.
+
+* target depgraph
+* action depgraph
+* module (implementation) depgraph
+* interface depgraph
+
+Depgraphs are fully transitive wrt build actions: when you build a target, its complete depgraph gets built.
+
+OTOH, the kind of transitivity involved in constructing build commands
+is only partially transitive. Interface depgraphs are treated
+differently than imlementation depgraphs.
+
+Each `ocaml_module` target propagates its module depgraph to its
+clients. That includes its own interface dep, but excludes the
+interface deps of its module deps.
+
+For example, suppose A.cmo depends on B.cmo, and A.cmi depends on
+B.cmi. A.cmo's depgraph will include A.cmi and B.cmo as direct
+dependencies. And since B.cmo depends directy on B.cmi, the latter
+will be included indirectly in A.cmo's depgraph. But A.cmi's depgraph
+will not be included; only A.cmi will be included in A.cmo's depgraph.
+
+Now suppose A.cmi depends on C.cmi in addition to B.cmi, but neither
+A.cmo nor B.cmo depend C.cmo. [Can this happen?] Then A.cmo depends on
+A.cmi, but not C.cmi; iow, it only uses the API declared by A.cmi.
+Building A.cmi will ccause C.cmi to be built, but the result need not
+be added to the depgraph of A.cmo, because the compiler will not need
+to find C.cmo in order to compile A.cmo. It only needs to find A.cmi.
+
+
+To build A, we need B.cmi and B.cmo on the search path. Since A.cmo
+depends on B.cmo, and B.cmo depends on B.cmi, ... B.cmi must be listed
+as an input the the A build action, so it must be provided by the
+B.cmo depgraph.  But it is not provided by the A.cmi dep, even though A.cmi depends on B.cmi.
+
+
 === discovery v. normalization v. optimization
 
 === Split dependencies
@@ -784,6 +830,11 @@ done to depend on opam packages; all you need is the target label.
 = Docker Support
 
 = Misc
+
+* structural independence, for lack of a better term. Build structure
+  is independent of filesystem structure. Easy to aggregate and
+  disaggregate, selecting subsets of files across multiple
+  directories.
 
 * eliminates need for Dune's `install` stanza
   * dependencies on executables or other built outputs can be

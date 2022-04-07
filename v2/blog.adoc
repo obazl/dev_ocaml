@@ -307,11 +307,15 @@ top-down and bottom-up.
 A namespace is a collection of modules and/or interfaces named with a
 namespace prefix (such as `Stdlib\__`), together with _resolver_
 module containing an aliasing equation for each submodule (e.g.
-`module List = Stdlib__List`). (What OBazl calls a "resolver" is
-sometimes called a "mapper" or "wrapper".) A namespace may be packaged
-as an OCaml archive, but this is not a requirement; under OBazl,
-bottom-up namespaces may be aggregated using `ocaml_archive` or
-`ocaml_library`, or may not be aggregated at all.
+`module List = Stdlib__List`). The name of the resolver module serves
+as the name of the namespace, the entry point to the namespace, as it were.
+
+(What OBazl calls a "resolver" is sometimes called a "mapper" or
+"wrapper".)
+
+A namespace may be packaged as an OCaml archive, but this is not a
+requirement; under OBazl, bottom-up namespaces may be aggregated using
+`ocaml_archive` or `ocaml_library`, or may not be aggregated at all.
 
 Top-down namespaces are defined at the aggregate level. This is the
 strategy pursued by Dune: membership in a namespace is expressed by

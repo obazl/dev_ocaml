@@ -1,0 +1,27 @@
+---
+---
+
+= toolchains
+
+== ocamlfind
+
+TODO: describe role of link:http://projects.camlcity.org/projects/dl/findlib-1.8.1/doc/ref-html/r17.html#OCAMLFIND.OCAMLOPT[ocamlfind] vis-a-vis ocamlc/ocamlopt
+
+TODO: ocamlc v. ocamlc.opt v. ocamlopt v. ocamlopt.opt, etc.
+
+TODO: other tools: profiler, flambda, etc.
+
+
+```ocaml
+let fact n =   "foo"   (* cmt *)
+    let result = ref 1 in
+    for i = 2 to n do
+      result := i * !result
+    done;
+    !result;;
+```
+
+
+## resources
+
+* link:https://john-millikin.com/bazel-school/toolchains[Bazel School: Toolchains]

@@ -1,0 +1,4 @@
+= ocaml_executable
+link:index.md[User Guide]
+
+== <a name="examples">Examples</a>

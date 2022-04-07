@@ -1,0 +1,86 @@
+---
+layout: page_ocaml_ug
+---
+
+= OBazl User Guide
+:url-asciidoctor: http://asciidoctor.org
+
+link:development.adoc[Developing OCaml software with OBazl]
+
+
+== Topics
+
+* link:aggregators[Aggregators]
+** link:aggregators#archives[Archives]
+** link:aggregators#libraries[Libraries]
+** link:aggregators#nslibraries[Namespace Libraries]
+* link:aspects[Aspects]
+* link:bootstrap[Bootstrapping]
+* link:profiles[Build Profiles and Contexts]
+* link:caching[Caching]
+* Compilation Mode - bytecode v. native
+* link:conditional[Conditional Compilation/Building]
+* link:configuration[Configuration]
+** link:configuration#bazel[Bazel Configurations]
+** link:configuration#opamconfig[OPAM Rules Configuration]
+** link:configuration#ocamlconfig[OCaml Rules Configuration]
+** link:configrules[Configuration Rules]
+** link:configprofiles[Config Profiles]
+* link:conventions[Conventions]
+* link:depmgmt[Dependency Management]
+** link:dependencies_ocaml[OCaml Dependencies]
+** [Runtime Dependencies]()
+** link:opam#dependencies[OPAM Dependencies]
+** [PPX Adjunct Dependencies]()
+** link:dependencies_cc[CC Dependencies]
+* link:deployment[Deployment]
+** link:stamping[Stamping binaries]
+* link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.
+* link:filegen[File Generation]
+* link:interop[Interop]
+* link:maintenance[Maintenance Tasks]
+* Modules
+** link:module_binding[Module Binding]
+** link:signatures[Signatures]
+** link:structures[Structures]
+* link:namespacing[Namespacing] (i.e. "type-level aliases")
+* link:offline[Offline development]
+* link:/tools_opam/ug[OPAM]
+* link:optimization[Optimization]
+* link:providers[Providers]
+* link:ppx[PPX Support]
+* link:querying[Querying Dependency Graphs]
+* link:workspaces[Repositories]
+* link:refactoring[Refactoring]
+* Rules
+** link:bootstrap#rules[Bootstrapping]
+** link:build_rules[Build Rules]
+** link:configrules[Configuration Rules]
+* link:stamping[Stamping]
+* Target labels
+** link:https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build[Specifying targets to build]
+** link:https://docs.bazel.build/versions/master/build-ref.html#labels[Labels]
+** `$ bazel help target-syntax`
+* link:testing[Testing]
+* link:toolchains[Toolchains]
+** link:toolchains#ocamlfind[ocamlfind]
+** link:toolchains#ocamlc[ocamlc/ocamlopt]
+* link:tools[Tools]
+* link:troubleshooting[Troubleshooting]
+* link:user_bazelrc[user.bazelrc]
+* [Visibility]()
+* link:workspaces[Workspaces]
+
+=== Additional Topics
+
+* link:https://docs.bazel.build/versions/master/guide.html#phases-of-a-build[Phases of a build], link:https://docs.bazel.build/versions/master/skylark/concepts.html#evaluation-model[Evaluation Model]
+* link:https://docs.bazel.build/versions/master/external.html#offline-builds[Offline builds]
+* link:https://github.com/bazelbuild/rules_docker[Containerization]
+* Continuous Integration
+** link:https://blog.bazel.build/2016/01/27/continuous-integration.html[Using Bazel in a continuous integration system] - Bazel blog article (2016)
+** link:https://www.wix.engineering/post/continuous-integration-on-a-mammoth-scale-using-bazel[Continuous Integration on a Huge Scale Using Bazel] - WiX Engineering
+** link:https://buildkite.com/docs/tutorials/bazel[Using Bazel on Buildkite]
+* link:https://docs.bazel.build/versions/master/persistent-workers.html[Persistent workers]
+* link:https://docs.bazel.build/versions/master/remote-caching.html[Remote caching]
+* link:https://docs.bazel.build/versions/master/remote-execution.html[Remote execution]
+* link:https://docs.bazel.build/versions/master/platforms.html[Platforms] - cross-platform development
