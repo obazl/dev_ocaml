@@ -1,1 +1,1 @@
-try-import user.bazelrc
+try-import .private/user.bazelrc

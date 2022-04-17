@@ -43,7 +43,7 @@ link:development.adoc[Developing OCaml software with OBazl]
 ** link:module_binding[Module Binding]
 ** link:signatures[Signatures]
 ** link:structures[Structures]
-* link:namespacing[Namespacing] (i.e. "type-level aliases")
+* link:namespacing[Namespacing]
 * link:offline[Offline development]
 * link:/tools_opam/ug[OPAM]
 * link:optimization[Optimization]

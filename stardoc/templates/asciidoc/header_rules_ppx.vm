@@ -1,0 +1,52 @@
+[Reference Manual](index.md)
+
+# ppx rules
+**WARNING** Beta version - subject to change
+
+----
+
+* [ppx_archive](#ppx_archive)
+* [ppx_executable](#ppx_executable)
+* [ppx_library](#ppx_library)
+* [ppx_module](#ppx_module)
+* [ppx_test](#ppx_test)
+
+**<a name="configdefs">Ppx Rules - Configurable defaults</a>**:
+
+These options apply to all `ppx_*` rules. They can be overridden on
+the command line; for example, to enable verbosity (`-verbose`) for
+all `ppx_*` build targets, pass `--@ppx//verbose`. See
+[Configurable_Defaults](../ug/configurable_defaults.md) for more
+information.
+
+**Options** May be enums, strings, labels, etc.
+
+| Label | Default |  |
+| ----- | ------- | ------- |
+| @ppx//mode | @ppx//mode:bytecode | Enum: :bytecode, :native |
+
+**Boolean Flags** Each boolean flag `foo` may be enabled by
+`--@ppx//foo` or `--@ppx//foo:enable`, and disabled with
+`--no@ppx//foo` or `--@ppx//foo:disable`. Each flag has a
+corresponding Ppx option and an OBazl (not an OCaml) negation; see
+[Configurable_Defaults:
+Disabling](../ug/configurable_defaults.md#disabling) for information
+on how to use negated options to override defaults.
+
+In addition to these, which apply to all `ppx_*` rules, each rule
+may have its own set of configurable defaults.
+
+| Label | Default | `opts` attrib |
+| ----- | ------- | ------- |
+| @ppx//debug | disabled | `-g`, `-no-g`|
+| @ppx//cmt | disabled | `-bin-annot`, `-no-bin-annot` |
+| @ppx//keep-locs | enabled | `-keep-locs`, `-no-keep-locs` |
+| @ppx//noassert | enabled | `-noassert`, `-no-noassert` |
+| @ppx//opaque | enabled | `-opaque`, `-no-opaque` |
+| @ppx//short-paths | enabled | `-short-paths`, `-no-short-paths` |
+| @ppx//strict-formats | enabled | `-strict-formats`, `-no-strict-formats` |
+| @ppx//strict-sequence | enabled | `-strict-sequence`, `-no-strict-sequence` |
+| @ppx//verbose<sup>1</sup> | disabled | `-verbose`, `-no-verbose` |
+
+<sup>1</sup> Each `ppx_*` rule also has it's own `verbose` flag.
+

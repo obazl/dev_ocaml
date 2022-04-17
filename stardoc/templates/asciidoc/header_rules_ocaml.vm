@@ -1,25 +1,9 @@
-[Reference Manual](index.md)
-
 = ocaml rules
+:toc:
 
 **WARNING** Beta version - subject to change
 
-**Rules**:
-
-* <<_ocaml_archive>>
-* [ocaml_executable](#ocaml_executable)
-* [ocaml_import](#ocaml_import)
-* [ocaml_lex](#ocaml_lex)
-* [ocaml_library](#ocaml_library)
-* [ocaml_module](#ocaml_module)
-* [ocaml_ns_archive](#ocaml_ns_archive)
-* [ocaml_ns_env](#ocaml_ns_env)
-* [ocaml_ns_library](#ocaml_ns_library)
-* [ocaml_signature](#ocaml_signature)
-* [ocaml_test](#ocaml_test)
-* [ocaml_yacc](#ocaml_yacc)
-
-**<a name="configdefs">OCaml Rules - Configurable defaults</a>**:
+== OCaml Rules - Configurable defaults
 
 These options apply to all `ocaml_*` rules. They can be overridden on
 the command line; for example, to enable verbosity (`-verbose`) for

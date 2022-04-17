@@ -17,6 +17,10 @@ Site is at `localhost:4000`
 
 ## Stardoc (Reference Manuals)
 
+`$ bazel build //stardoc/rules_ocaml`
+
+Then copy bazel-bin/stardoc/rules_ocaml.adoc to docs/rules_ocaml/refman
+
 OUTDATED:
 
 To generate the documentation:

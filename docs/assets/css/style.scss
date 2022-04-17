@@ -7,9 +7,20 @@
 // #gtitle span{font-size: normal;}
 // #gtitle a {color: white;}
 
-// body{
-//     background: none;
-// }
+// Adjustment for anchor tag positioning with fixed header
+:target:before
+{
+   content: "";
+   display: block;
+   height: 85px; //Height of header
+   margin-top: -85px;
+}
+
+table.rule_attrs td {vertical-align: top;}
+
+body{
+    position:flex;
+}
 
 // details{
 //     margin-left: 1rem;
@@ -44,6 +55,8 @@ details[open] summary {
     border-bottom: 1px solid #aaa;
     margin-bottom: .5em;
 }
+
+#header {height:80px;}
 
 #header nav{background:transparent;}
 // #header nav ul > li div {margin-bottom: 8px;}
@@ -82,21 +95,30 @@ details[open] summary {
 }
 
 #header nav ul li h1#opam_ug_header{
-    text-align:center;
+    // text-align:center;
     margin:0;
     padding:0;
     // margin: 14px 0px 0px 2em;
     // padding: 14px 0px 0px 2em;
 }
 
+div.hdr_wrapper{
+    float: left;
+    height:100%;
+    margin:auto 0 auto 0;
+    vertical-align:middle;
+}
+
 #header nav ul li h1#opam_ug_header a.ug_title{
+    // float:left;
     // font-size:large !important;
     display: inline-block;
-    margin: 0;
+    bottom:0px;
+    margin: auto 0 0 0;
     padding: 0;
-    text-align: center;
-    line-height: 24px;
-    font-size: 24px;
+    // text-align: left;
+    // line-height: 20px;
+    // font-size: 20px;
     color: white;
     border: none;
     background: transparent;
@@ -105,9 +127,27 @@ details[open] summary {
     background-color: none;
 }
 
+// div#chapter_header {
+//     position:relative;
+//     margin:70px auto 0 auto;
+//     max-width:650px;
+//     font-size:24px;
+//     text-align:center;
+// }
+
 // #header nav li.fork{float: right !important;}
 
-div.wrapper > section{ padding: 10px 0px 0px 0px; }
+div#chapter_title {
+    text-align:center;
+    margin-right:80px;
+    font-size:48px;
+}
+
+div.wrapper > section{
+    padding: 10px 0px 0px 0px;
+}
+
+section { margin-top: 90px; }
 
 section #title{ margin: 0px; }
 

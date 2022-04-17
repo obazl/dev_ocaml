@@ -6,6 +6,8 @@ layout: page_opam_ug
 
 * link:overview[Overview]
 
+* link:coswitches[Coswitches]: seamless OPAM integration
+
 
 === Bootstrap Tools
 
@@ -14,6 +16,7 @@ Project-local:
 * link:opam_here[here]
 * link:opam_here_init[here init]
 * link:opam_here_config[here config]
+* link:opam_here_install[here install] - install OPAM package into 'here' switch
 
 Shared:
 

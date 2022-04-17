@@ -5,7 +5,7 @@ layout: page_ocaml_refman
 ## OBazl Reference Manual
 
 ## <a name="rules">Rules</a>
-* link:rules_ocaml.md[ocaml rules]
+* link:rules_ocaml[ocaml rules]
 * link:rules_ppx.md[ppx rules]
 
 ## <a name="functions">Functions</a>

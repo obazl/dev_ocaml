@@ -61,11 +61,18 @@ Special considerations: `-no-alias-deps`, `-opaque`, and `-linkall`.
 == Terminology
 
 * namespace
+* topdown v. bottomup
+* namespace composition
+** conjunction: combining of namespaces
+** fusion: selective merging of components
 * alias/aliasing equation
 * ns module
   * main ns module
   * ns resolver module a/k/a resolver
 * submodule
+** selection (topdown)
+** election (bottomup)
+* endogenous v. exogenous
 * pseudo-namespace prefix
 * pseudo-recursion
 * dependencies
