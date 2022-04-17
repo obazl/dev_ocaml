@@ -18,9 +18,9 @@
   </head>
   <body>
       <div id="header">
+        <div>{% include header_global.html %}</div>
         <nav>
           <ul>
-          <li>{% include header_global.html %}</li>
           <li>{% include header_ocaml_refman.html %}</li>
             <!-- <li class="fork"><a href="{{ site.github.repository_url }}">View On GitHub</a></li> -->
             {% if site.show_downloads %}
@@ -41,7 +41,6 @@
         <!--   <hr> -->
         <!-- </div> -->
 
-        <h1>REFMAN: rules_ocaml</h1>
         {{ content }}
 
       </section>

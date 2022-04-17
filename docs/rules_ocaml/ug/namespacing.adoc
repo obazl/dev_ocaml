@@ -2,7 +2,7 @@
 layout: page_ocaml_ug
 ---
 
-== Namespacing
+= Namespacing
 
 
 * link:#overview[Overview]
@@ -10,8 +10,8 @@ layout: page_ocaml_ug
   * [Solutions]()
     * link:#renaming[Renaming]
     * link:#aliasing[Aliasing]
-    * link:#namespacing[Namespacing]
-* link:#terminology[Terminology]
+    * <<_namespacing>>
+* <<_terminology>>
 * link:#clashes[Resolving name clashes]
 * [Troubleshooting]
   * link:#cases[Case studies]

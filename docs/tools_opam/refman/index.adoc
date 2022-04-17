@@ -2,5 +2,5 @@
 layout: page_opam_refman
 ---
 
-== tools_opam Reference Manual
+= Reference: tools_opam
 

@@ -2,7 +2,7 @@
 layout: page_ocaml_ug
 ---
 
-= OBazl User Guide
+= User Guide: rules_ocaml
 :url-asciidoctor: http://asciidoctor.org
 
 link:development.adoc[Developing OCaml software with OBazl]
@@ -10,6 +10,7 @@ link:development.adoc[Developing OCaml software with OBazl]
 
 == Topics
 
+[.ug_toc]
 * link:aggregators[Aggregators]
 ** link:aggregators#archives[Archives]
 ** link:aggregators#libraries[Libraries]

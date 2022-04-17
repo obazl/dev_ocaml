@@ -2,7 +2,7 @@
 layout: page_ocaml_ug
 ---
 
-== Configuration
+= Configuration
 
 
 * link:#bazel[Bazel Configurations]

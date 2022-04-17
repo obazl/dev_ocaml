@@ -11,6 +11,39 @@ RULES_PPX_DEPS = [
     # "@obazl_tools_obazl//tools/functions",
 ]
 
+stardoc(
+    name = "rules_ocaml",
+    input = "@rules_ocaml//build:rules.bzl",
+    out = "rules_ocaml.adoc",
+    header_template = "//stardoc/templates/asciidoc:header_rules_ocaml.vm",
+    rule_template = "//stardoc/templates/asciidoc:rule.vm",
+    # deps must contain bzl_library targets containing files loaded by input
+    deps  = [
+        "@bazel_skylib//lib:dicts",
+        "@bazel_skylib//lib:new_sets",
+        "@rules_ocaml//stardoc",
+        "@rules_ocaml//ppx:stardoc",
+    ],
+    symbol_names = [
+        "ocaml_archive",
+        "ocaml_genrule",
+        "ocaml_executable",
+        "ocaml_import",
+        "ocaml_lex",
+        "ocaml_library",
+        "ocaml_module",
+        "ocaml_ns_archive",
+        "ocaml_ns_library",
+        "ocaml_ns_module",
+        "ocaml_ns_resolver",
+        "ocaml_signature",
+        "ocaml_test",
+        "ocaml_yacc",
+
+        # # "ocaml_ns_env",
+    ]
+)
+
 ################################################################
 stardoc(
     name = "functions",
@@ -52,49 +85,20 @@ stardoc(
 # )
 
 stardoc(
-    name = "rules_ocaml",
-    input = "@rules_ocaml//build:rules.bzl",
-    out = "rules_ocaml.adoc",
-    header_template = "//stardoc/templates/asciidoc:header_rules_ocaml.vm",
-    rule_template = "//stardoc/templates/asciidoc:rule.vm",
-    # deps must contain bzl_library targets containing files loaded by input
-    deps  = [
-        "@bazel_skylib//lib:dicts",
-        "@bazel_skylib//lib:new_sets",
-        "@rules_ocaml//stardoc",
-        "@rules_ocaml//ppx:stardoc",
-    ],
-    symbol_names = [
-        "ocaml_archive",
-        "ocaml_genrule",
-        "ocaml_executable",
-        "ocaml_import",
-        "ocaml_lex",
-        "ocaml_library",
-        "ocaml_module",
-        "ocaml_ns_archive",
-        "ocaml_ns_library",
-        "ocaml_ns_module",
-        "ocaml_ns_resolver",
-        "ocaml_signature",
-        "ocaml_test",
-        "ocaml_yacc",
-
-        # # "ocaml_ns_env",
-    ]
-)
-
-stardoc(
     name = "providers_ocaml",
-    # input = ":providers_ocaml.bzl",
     input = "@rules_ocaml//ocaml:providers.bzl",
-    out = "providers_ocaml.md",
-    header_template   = "//stardoc/templates/markdown:header_providers_ocaml.vm",
-    provider_template = "//stardoc/templates/markdown:provider.vm",
-    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    out = "providers_ocaml.adoc",
+    header_template   = "//stardoc/templates/asciidoc:header_providers_ocaml.vm",
+    provider_template = "//stardoc/templates/asciidoc:provider.vm",
     deps  = [
-        "@rules_ocaml//doc:stardoc",
+        "@rules_ocaml//stardoc",
     ],
+    # deps  = [
+    #     "@bazel_skylib//lib:dicts",
+    #     "@bazel_skylib//lib:new_sets",
+    #     "@rules_ocaml//stardoc",
+    #     "@rules_ocaml//ppx:stardoc",
+    # ],
     symbol_names = [
         # "CcDepsProvider",
         "OcamlProvider",

@@ -18,9 +18,9 @@
 
 table.rule_attrs td {vertical-align: top;}
 
-body{
-    position:flex;
-}
+// body{
+//     position:flex;
+// }
 
 // details{
 //     margin-left: 1rem;
@@ -60,6 +60,16 @@ details[open] summary {
 
 #header nav{background:transparent;}
 // #header nav ul > li div {margin-bottom: 8px;}
+
+#running_hdr {
+    width: 100%;
+    margin:0;
+}
+#running_hdr span#part {
+    display:inline-block;
+    float:right;
+    margin-right:1em;
+}
 
 #header nav ul li {
     font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -102,14 +112,14 @@ details[open] summary {
     // padding: 14px 0px 0px 2em;
 }
 
-div.hdr_wrapper{
-    float: left;
-    height:100%;
-    margin:auto 0 auto 0;
-    vertical-align:middle;
-}
+// div.hdr_wrapper{
+//     float: left;
+//     height:100%;
+//     margin:auto 0 auto 0;
+//     vertical-align:middle;
+// }
 
-#header nav ul li h1#opam_ug_header a.ug_title{
+#header nav ul li h1#part_header a.part_title{
     // float:left;
     // font-size:large !important;
     display: inline-block;
@@ -143,6 +153,24 @@ div#chapter_title {
     font-size:48px;
 }
 
+xdiv#chapter_title > a.part {
+    display: inline-block;
+    font-size:24px;
+    margin: 0;
+    padding:0;
+    // text-align: center;
+    // line-height: 14px;
+    // font:14px/1.5 "OpenSansRegular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    // font-size: 14px;
+    // font-weight: 800;
+    color: white;
+    border: none;
+    background: transparent;
+    // border-radius: 2px;
+    box-shadow: none;
+    background-color: none;
+}
+
 div.wrapper > section{
     padding: 10px 0px 0px 0px;
 }
@@ -154,3 +182,10 @@ section #title{ margin: 0px; }
 // .admonitionblock.note{font-size:large;}
 
 pre code{text-shadow: none; color:black;}
+
+div.ug_toc p {
+    margin:0;
+}
+div.ug_toc ul {
+    margin:0;
+}

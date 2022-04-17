@@ -1,6 +1,6 @@
 [Reference Manual](index.md)
 
-# ocaml providers
+= ocaml providers
 **WARNING** Beta version - subject to change
 
 * [CcDepsProvider](#ccdepsprovider)

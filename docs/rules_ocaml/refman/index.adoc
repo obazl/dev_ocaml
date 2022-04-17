@@ -2,20 +2,17 @@
 layout: page_ocaml_refman
 ---
 
-## OBazl Reference Manual
+= rules_ocaml: reference
 
-## <a name="rules">Rules</a>
+== Rules
 * link:rules_ocaml[ocaml rules]
 * link:rules_ppx.md[ppx rules]
 
-## <a name="functions">Functions</a>
-* ocaml link:functions.md#ocaml_configure[configure]
-
-## <a name="macros">Macros</a>
-* link:macros.md#ns_env[ns_env] - initialize namespace evaluation environment
-
-## <a name="providers">Providers</a>
-* link:providers_ocaml.md[ocaml providers]
+== Providers
+* link:providers_ocaml[ocaml providers]
 * link:providers_ppx.md[ppx providers]
 * link:providers_opam.md[opam providers]
+
+// == Functions
+// * ocaml link:functions.md#ocaml_configure[configure]
 
