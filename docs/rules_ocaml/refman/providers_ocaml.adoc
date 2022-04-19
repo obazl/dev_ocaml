@@ -1,4 +1,6 @@
-[Reference Manual](index.md)
+---
+layout: page_ocaml_refman
+---
 
 = ocaml providers
 **WARNING** Beta version - subject to change
@@ -16,7 +18,6 @@
 * [OpamDepsProvider](#opamdepsprovider)
 * [PpxCodepsProvider](#adjunctdepsprovider)
 
-----
 
 <a id="#OcamlArchiveMarker"></a>
 

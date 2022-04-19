@@ -1,7 +1,7 @@
 ---
 ---
 
-@import "jekyll-theme-midnight";
+// @import "jekyll-theme-midnight";
 
 // #gtitle{float: left; line-height: 50px; font-size: small;}
 // #gtitle span{font-size: normal;}
@@ -54,6 +54,14 @@ details[open] {
 details[open] summary {
     border-bottom: 1px solid #aaa;
     margin-bottom: .5em;
+}
+
+#home_header {
+    display:flex;
+    flex-direction:column;
+    // height:80px;
+    background:blue;
+    text-align:center;
 }
 
 #header {height:80px;}
@@ -171,11 +179,16 @@ xdiv#chapter_title > a.part {
     background-color: none;
 }
 
+div.wrapper{
+    display:flex;
+    flex-direction:column
+}
+
 div.wrapper > section{
     padding: 10px 0px 0px 0px;
 }
 
-section { margin-top: 90px; }
+section { margin-top: 0px; }
 
 section #title{ margin: 0px; }
 
