@@ -1,6 +1,0 @@
----
-layout: page_opam_refman
----
-
-= Reference: tools_opam
-

@@ -1,41 +1,20 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+repository: obazl/docs_obazl
 
-title: 'The OBazl Book'
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
- Rules and tools for building OCaml software with Bazel.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: obazldev
-github_username:  mobileink
+output: web
 
-# Build settings
-# theme: minima
-# remote_theme: pages-themes/hacker@v0.2.0
-remote_theme: pages-themes/midnight@v0.2.0
-# remote_theme: pages-themes/modernist@v0.2.0
-plugins:
-  - jekyll-feed
-  - jekyll-remote-theme
+topnav_title: The OBazl Book
+site_title:   The OBazl Book B
+company_name:
+github_editme_path:
+google_analytics:
 
+# host: 127.0.0.1
+# port: 4000
+
+exclude:
+  - .idea/
+  - .gitignore
+  - vendor
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -56,9 +35,94 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+
+feedback_subject_line: OBazl
+feedback_email: editor@obazl.org
+feedback_disable: true
+# feedback_text: "Need help?"
+# feedback_link: "http://helpy.io/"
+
+# highlighter: rouge
+# library used for syntax highlighting
+
+# markdown: kramdown
+# kramdown:
+#  input: GFM
+#  auto_ids: true
+#  hard_wrap: false
+#  syntax_highlighter: rouge
+
+collections:
+  tooltips:
+    output: false
+# collections are declared here. this renders the content in _tooltips and processes it, but doesn't output it as actual files in the output unless you change output to true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      comments: true
+      # if you don't want to use Commento.io and just hide comments, change true to false wherever you see the comments property
+      search: true
+      sidebar: home_sidebar
+      topnav: topnav
+  -
+    scope:
+      path: ""
+      type: "tooltips"
+    values:
+      layout: "page"
+      search: true
+      tooltip: true
+
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+      # if you don't want to use Commento.io and just hide comments, change true to false wherever you see the comments property
+      search: true
+      sidebar: home_sidebar
+      topnav: topnav
+
+# these are defaults used for the frontmatter for these file types
+
+sidebars:
+- home_sidebar
+- mydoc_sidebar
+- product1_sidebar
+- product2_sidebar
+- other
+
+description: "blah ..."
+
+title: 'The OBazl Book'
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+ Rules and tools for building OCaml software with Bazel.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: obazldev
+github_username:  mobileink
+
+# Build settings
+# theme: minima
+# remote_theme: pages-themes/hacker@v0.2.0
+# remote_theme: pages-themes/midnight@v0.2.0
+# remote_theme: pages-themes/modernist@v0.2.0
+plugins:
+  - jekyll-feed
+  - jekyll-remote-theme
+
 asciidoctor:
   attributes:
   - idprefix=_
   - source-highlighter=pygments
-  - pygments-css=style
+  - pygments-css=class
+  - pygments-stylesheet=css/asciidoc-pygments.css
   - icons=font

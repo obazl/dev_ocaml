@@ -61,6 +61,3 @@ git_repository(
     remote = "https://github.com/obazl/rules_ocaml",
     branch = "obazl3",
 )
-
-load("@rules_ocaml//:WORKSPACE.bzl", "ocaml_configure")
-ocaml_configure()

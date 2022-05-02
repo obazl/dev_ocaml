@@ -1,0 +1,23 @@
+entries:
+- title: OCaml Rules
+  levels: one
+  folders:
+
+  - title: Configurable Defaults
+    open: true
+    output: web
+    folderitems:
+
+    - title: Options
+      url: ocaml-rules.html#_options
+      output: web
+
+    - title: Flags
+      url: ocaml-rules.html#_flags
+      output: web
+
+  - title: Rules
+    open: true
+    output: web
+    folderitems:
+

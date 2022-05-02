@@ -1,3 +1,0 @@
-= ocaml_library
-link:index.md[User Guide]
-

@@ -26,7 +26,6 @@ stardoc(
     ],
     symbol_names = [
         "ocaml_archive",
-        "ocaml_genrule",
         "ocaml_executable",
         "ocaml_import",
         "ocaml_lex",
@@ -40,6 +39,40 @@ stardoc(
         "ocaml_test",
         "ocaml_yacc",
 
+        # "ocaml_genrule",
+        # # "ocaml_ns_env",
+    ]
+)
+
+stardoc(
+    name = "rules_ocaml_sidebar",
+    input = "@rules_ocaml//build:rules.bzl",
+    out = "sidebar_rules_ocaml.adoc",
+    header_template = "//stardoc/templates/asciidoc:sidebar_rules_ocaml_hdr.vm",
+    rule_template = "//stardoc/templates/asciidoc:sidebar_rules_ocaml_item.vm",
+    # deps must contain bzl_library targets containing files loaded by input
+    deps  = [
+        "@bazel_skylib//lib:dicts",
+        "@bazel_skylib//lib:new_sets",
+        "@rules_ocaml//stardoc",
+        "@rules_ocaml//ppx:stardoc",
+    ],
+    symbol_names = [
+        "ocaml_archive",
+        "ocaml_executable",
+        "ocaml_import",
+        "ocaml_lex",
+        "ocaml_library",
+        "ocaml_module",
+        "ocaml_ns_archive",
+        "ocaml_ns_library",
+        "ocaml_ns_module",
+        "ocaml_ns_resolver",
+        "ocaml_signature",
+        "ocaml_test",
+        "ocaml_yacc",
+
+        # "ocaml_genrule",
         # # "ocaml_ns_env",
     ]
 )

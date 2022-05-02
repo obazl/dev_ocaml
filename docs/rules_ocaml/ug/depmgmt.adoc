@@ -1,8 +1,0 @@
-= Dependency Management
-link:index.md[User Guide]
-
-TODO: how OBazl manages transistive deps.
-
-* link:dependencies_ocaml.md[OCaml Dependencies]
-* link:dependencies_opam.md[OPam Dependencies]
-* link:dependencies_cc.md[CC Dependencies]

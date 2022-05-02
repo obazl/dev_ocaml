@@ -1,10 +1,12 @@
----
-layout: home
----
+= The OBazl Book
+:page-permalink: /
+:page-tags: [bazel]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-sidebar: false
+:page-toc: false
 
-= OBazl: rules_ocaml
-
-This site documents the first Beta version of OBazl. The OBazl rules
+This site documents the OBazl toolsuite, version 2. The OBazl rules
 are deliberately low-level, in keeping with the goal of giving the
 developer complete control (i.e. no magic). Obazl build rules
 correspond more-or-less directly to the build commands they construct.
@@ -15,36 +17,44 @@ support file globbing, so each source file must have a build rule.
 Most such inconveniences can and will be addressed over time by
 tooling built on the foundation of the primitive rules.
 
-* rules_ocaml:
-  ** link:rules_ocaml/ug/index[User Guide]
-  ** link:rules_ocaml/refman/index[Reference Manual]
+link:changelog[Changes] from version 1.
 
-* tools_opam:
-** link:tools_opam/ug/index[User Guide]
-** link:tools_opam/refman/index[Reference Manual]
+== rules_ocaml:
+
+* link:rules-ocaml/user-guide[User Guide]
+* link:rules-ocaml/reference[Reference Manual]
+* https://github.com/obazl/rules_ocaml[https://github.com/obazl/rules_ocaml,window=_blank]
+
+
+== tools_opam:
+
+* link:tools-opam/user-guide[User Guide]
+* link:tools-opam/reference[Reference Manual]
+* link:https://github.com/obazl/tools_opam[https://github.com/obazl/tools_opam,window=_blank]
+
+
+== tools_obazl:
+
+* link:https://github.com/obazl/tools_obazl[https://github.com/obazl/tools_obazl,window=_blank]
 
 
 
 == Demos
 
-* https://github.com/obazl/dev_obazl[dev_obazl]
+* https://github.com/obazl/demos_obazl[https://github.com/obazl/demos_obazl,window=_blank]
 
 // * link:deployments/mina
 
 
-== Github
-
-* https://github.com/obazl/rules_ocaml[rules_ocaml]
-* https://github.com/obazl/tools_opam[tools_opam]
 // * https://github.com/obazl/tools_obazl[tools_obazl]
 
 
 == Support
-* Discord: [OBazl](https://discord.gg/PHSAW5DUva)
-* Twitter: [@obazldev](https://twitter.com/obazldev)
+* Discord: link:https://discord.gg/PHSAW5DUva[OBazl,window=_blank]
+* Twitter: link:https://twitter.com/obazldev[@obazldev,window=_blank]
 
 
 === Acknowledgements
 
 Support for the development of OBazl was provided by a Mina Genesis
-Token Grant and the generous assistance of the [Mina](https://minaprotocol.com/) team.
+Token Grant and the generous assistance of the link:https://minaprotocol.com[Mina,window=_blank] team. Additional support provided by link:https://www.tweag.io[Tweag,window=_blank]
