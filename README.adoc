@@ -114,3 +114,9 @@ The Stardoc rules are in link:stardoc/BUILD.bazel[], templates in link:stardoc/t
    `symbol_names` attribute of the stardoc targets, so the indices (in
    the header templates) must be (manually) kept in sync with this
    list.
+
+== Github Actions
+
+link:https://jekyllrb.com/docs/continuous-integration/github-actions/
+
+link:https://github.com/marketplace/actions/jekyll-action-ts[jekyll-action-ts]

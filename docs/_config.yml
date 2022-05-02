@@ -119,6 +119,7 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme
 
+asciidoc: {}
 asciidoctor:
   attributes:
   - idprefix=_
