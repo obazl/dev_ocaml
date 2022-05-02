@@ -1,0 +1,40 @@
+= Build Rules
+:page-permalink: rules-ocaml/user-guide/build-rules
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [rules]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+link:index.md[User Guide]
+
+== Modules
+
+An OCaml module is a composite formed by pairing a
+[signature](#signatures)
+and a
+[structure](#structures).
+
+== Signatures
+
+A signature expressed as a file is traditionally called an
+"interface". The filename conventionally has a ".mli" extension, but
+this is not required, since a `-intf` parameter may be used to
+designate a sigfile.
+
+OBazl calls such files _signature files_, or _sigfiles_ for short. The
+`ocaml_signature` rule is used to compile them.
+
+== Structures
+
+== The Build Rules
+
+* link:ocaml_archive.md[ocaml_archive]
+* link:ocaml_executable.md[ocaml_executable]
+* link:ocaml_import.md[ocaml_import]
+* link:ocaml_interface.md[ocaml_interface]
+* link:ocaml_library.md[ocaml_libary]
+* link:ocaml_module.md[ocaml_module]
+* link:ocaml_ns.md[ocaml_ns]

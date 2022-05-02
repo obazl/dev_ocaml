@@ -1,0 +1,21 @@
+= @opam//here:clean
+:page-layout: page_tools_opam
+:page-pkg: tools_opam
+:page-doc: refman
+// sidebar: sidebar_tools_opam_ref
+:page-permalink: tools-opam/reference/here-clean
+:page-tags: [opam,here,clean]
+// keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: April 28, 2022
+:page-toc: false
+
+Delete `.obazl.d/opam/here`
+
+[sidebar]
+Here's an asciidoc sidebar
+
+== hdr 1
+
+fsdaf
+
+== hdr 2

@@ -1,0 +1,17 @@
+---
+layout: page_tools_opam
+pkg: tools_opam
+doc: refman
+permalink: tools-opam/reference/here-opam-expunge
+tags: [opam,here,expunge,delete]
+keywords: notes, tips, cautions, warnings, admonitions
+last_updated: April 28, 2022
+toc: true
+---
+
+= @opam//here/opam:expunge
+
+Delete OPAM `here` switch at `<projroot>/.opam`.
+
+
+

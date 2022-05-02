@@ -1,0 +1,18 @@
+---
+layout: page_tools_opam
+pkg: tools_opam
+doc: refman
+// sidebar: sidebar_tools_opam_ref
+permalink: tools-opam/reference/here-opam-install
+tags: [opam,here,set]
+keywords: notes, tips, cautions, warnings, admonitions
+last_updated: April 28, 2022
+toc: true
+---
+
+= @opam//here/opam:install
+
+Initialize OPAM package in `here` switch at `<projroot>/.opam`.
+
+
+

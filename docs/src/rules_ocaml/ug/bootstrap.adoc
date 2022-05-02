@@ -1,0 +1,144 @@
+= Bootstrapping
+:page-permalink: rules-ocaml/user-guide/bootstrapping
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [aggregation]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+
+// * link:#bootstrap_obazl[Bootstrapping OBazl]
+// * link:#rules[Interop: Bootstrapping Language Rules]
+//   * link:#fetch_rules[Fetch]
+//   * link:#config_rules[Configure]
+// * link:#libraries[Bootstrapping Library Repositories]
+
+==  Bootstrapping OBazl Rules
+
+.WORKSPACE.bazel
+[%collapsible]
+====
+
+[source,python]
+----
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+http_archive(
+    name = "bazel_skylib",    <1>
+    urls = [
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.1.1/bazel-skylib-1.1.1.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.1.1/bazel-skylib-1.1.1.tar.gz",
+    ],
+    sha256 = "c6966ec828da198c5d9adbaa94c05e3a1c7f21bd012a0b29ba8ddbccb2c93b0d",
+)
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+bazel_skylib_workspace()
+
+git_repository(
+    name = "rules_ocaml",
+    remote = "https://github.com/obazl/rules_ocaml",
+    branch = "obazl3",  <2>
+)
+----
+<1> rules_ocaml depends on skylib
+<2> Replace `branch = "..."` as desired (see link:https://docs.bazel.build/versions/master/repo/git.html[git_repository].
+
+====
+
+If your `WORKSPACE.bazel` gets crowded (as may happen if your project
+depends on a lot of external repositories), you may want to wrap the
+repository rules in a `fetch()` function and put it in an _extension
+file_ (a file with extension `.bzl`). The link:conventions.md[OBazl
+convention] is to put such extension functions in
+`WORKSPACE.bzl`.
+
+== Bootstrapping OPAM support
+
+
+
+== Bootstrapping Other Language Rules
+
+=== Fetching Rules Repositories
+
+The link:conventions.md[OBazl convention] is to put fetch code in
+`WORKSPACE.bzl`, but that is a convention, not a requirement; they can
+go in any extension file (with extension `.bzl`).
+
+Define one `*_fetch_rules` function for each language, and call them
+from `WORKSPACE.bazel`.
+
+Example:
+
+.WORKSPACE.bzl:
+[%collapsible]
+====
+----
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+
+#####################
+def cc_fetch_rules():
+    maybe(
+        git_repository,
+        name = "rules_cc",
+        remote = "https://github.com/bazelbuild/rules_cc",
+        commit = "b1c40e1de81913a3c40e5948f78719c28152486d",
+        shallow_since = "1605101351 -0800"
+    )
+
+########################
+def ocaml_fetch_rules():
+    maybe(
+        git_repository,
+        name = "obazl_rules_opam",
+        remote = "https://github.com/obazl/rules_opam",
+        branch = "dev",
+    )
+
+    maybe(
+        git_repository,
+        name = "obazl_rules_ocaml",
+        remote = "https://github.com/obazl/rules_ocaml",
+        branch = "dev",
+    )
+
+#######################
+def rust_fetch_rules():
+
+    maybe(
+        http_archive,
+        name = "io_bazel_rules_rust",
+        sha256 = "618cba29165b7a893960de7bc48510b0fb182b21a4286e1d3dbacfef89ace906",
+        strip_prefix = "rules_rust-5998baf9016eca24fafbad60e15f4125dd1c5f46",
+        urls = [
+            # Master branch as of 2020-09-24
+            "https://github.com/bazelbuild/rules_rust/archive/5998baf9016eca24fafbad60e15f4125dd1c5f46.tar.gz",
+        ],
+    )
+----
+====
+
+.WORKSPACE.bazel:
+[%collapsible]
+====
+----
+load("//:WORKSPACE.bzl", "cc_fetch_rules", "ocaml_fetch_rules", "rust_fetch_rules")
+cc_fetch_rules()
+ocaml_fetch_rules()
+rust_fetch_rules()
+...
+## load and run config functions for language rules...
+----
+====
+
+=== Configuring Language Rules
+
+Most Language Support Packages (LSPs) contain one or more
+configuration functions. These must be loaded and executed after the
+rules are fetched.  See the LSP documentation for details.
+
+

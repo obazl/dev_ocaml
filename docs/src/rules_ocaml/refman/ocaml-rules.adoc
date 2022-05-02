@@ -1,0 +1,1074 @@
+---
+// layout: page_ocaml_refman
+title: rules_ocaml
+permalink: rules-ocaml/reference/ocaml-rules
+toc: false
+tags: [rules,ocaml]
+keywords: notes, tips, cautions, warnings, admonitions
+last_updated: April 19, 2020
+// summary: "You can insert notes, tips, warnings, and important alerts in your content."
+sidebar: sidebar_rules_ocaml
+---
+
+= OCaml Rules
+
+**WARNING** Beta version - subject to change
+
+== Configurable defaults
+
+=== Options
+These options apply to all `ocaml_*` rules. They can be overridden on
+the command line; for example, to enable verbosity (`-verbose`) for
+all `ocaml_*` build targets, pass `--@ocaml//verbose`. See
+link:../user-guide/configurable-defaults[Configurable Defaults] for more
+information.
+
+**Options** May be enums, strings, labels, etc.
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | x
+
+| @rules_ocaml//build/mode | @ocaml//build/mode:bytecode | Enum: :bytecode, :native
+
+| @rules_ocaml//build/cc/mode | @ocaml//build/cc/mode:fastbuild | Enum: :dbg, :fastbuild, :opt
+
+| @rules_ocaml//build/profile | @ocaml//build/profile:fastbuild | Enum: :dbg, :fastbuild, :opt
+|===
+
+=== Flags
+
+**Boolean Flags** Each boolean flag `foo` may be enabled by
+`--@ocaml//foo` or `--@ocaml//foo:enable`, and disabled with
+`--no@ocaml//foo` or `--@ocaml//foo:disable`. Each flag has a
+corresponding OCaml option and an OBazl (not an OCaml) negation; see
+[Configurable_Defaults:
+Disabling](../ug/configurable_defaults.md#disabling) for information
+on how to use negated options to override defaults.
+
+In addition to these, which apply to all `ocaml_*` rules, each rule
+may have its own set of configurable defaults.
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | `opts` attrib
+
+| @rules_ocaml//cfg/debug | disabled | `-g`, `-no-g`
+
+| @rules_ocaml//cfg/cmt | disabled | `-bin-annot`, `-no-bin-annot`
+
+| @rules_ocaml//cfg/keep-locs | enabled | `-keep-locs`, `-no-keep-locs`
+
+| @rules_ocaml//cfg/noassert | enabled | `-noassert`, `-no-noassert`
+
+| @rules_ocaml//cfg/opaque | enabled | `-opaque`, `-no-opaque`
+
+| @rules_ocaml//cfg/short-paths | enabled | `-short-paths`, `-no-short-paths`
+
+| @rules_ocaml//cfg/strict-formats | enabled | `-strict-formats`, `-no-strict-formats`
+
+| @rules_ocaml//cfg/strict-sequence | enabled | `-strict-sequence`, `-no-strict-sequence`
+
+| @rules_ocaml//cfg/verbose^1^ | disabled | `-verbose`, `-no-verbose`
+
+|===
+
+^1^ Each `ocaml_*` rule also has it's own `verbose` flag.
+
+== ocaml_archive
+
+[.prototype]
+pass:[
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-args">args</a>, <a href="#ocaml_archive-args0">args0</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-manifest">manifest</a>, <a href="#ocaml_archive-mode">mode</a>, <a href="#ocaml_archive-opts">opts</a>, <a href="#ocaml_archive-shared">shared</a>,
+              <a href="#ocaml_archive-standalone">standalone</a>)
+]
+
+
+Generates an OCaml archive file.
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_archive-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_archive-archive_name"></a>+++archive_name
+|  Name of generated archive file, without extension. If not provided, name will be derived from target 'name' attribute. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_archive-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_archive-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_archive-cc_deps"></a>+++cc_deps
+|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_archive-cc_linkopts"></a>+++cc_linkopts
+|  List of C/C++ link options, to be passed to compiler using `-ccopt`. For example, `["-lstd++"]`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_archive-manifest"></a>+++manifest
+|  List of component modules. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_archive-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_archive-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_archive-shared"></a>+++shared
+|  True: build a shared lib (.cmxs) | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_archive-standalone"></a>+++standalone
+|  True: link total depgraph. False: link only direct deps. | +++Boolean+++
+| optional
+| False
+
+|===
+
+
+
+== ocaml_executable
+
+[.prototype]
+pass:[
+ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-args">args</a>, <a href="#ocaml_executable-args0">args0</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe">exe</a>, <a href="#ocaml_executable-main">main</a>, <a href="#ocaml_executable-mode">mode</a>,
+                 <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
+]
+
+
+Generates an OCaml executable binary. Provides only standard DefaultInfo provider.
+
+**CONFIGURABLE DEFAULTS** for rule `ocaml_executable`
+
+In addition to the <<Configurable defaults>> that
+apply to all `ocaml_*` rules, the following apply to this rule. (Note
+the difference between '/' and ':' in such labels):
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | `opts` attrib
+
+| @rules_ocaml//cfg/executable/linkall | True | `-linkall`, `-no-linkall`
+
+| @rules_ocaml//cfg/executable:warnings | `@1..3@5..28@30..39@43@46..47@49..57@61..62-40`| `-w` plus option value
+
+|===
+
+// | @rules_ocaml//cfg/executable/threads | True | `-thread`, `-no-thread`
+
+
+**NOTE** These do not support `:enable`, `:disable` syntax.
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_executable-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_executable-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_executable-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_executable-cc_deps"></a>+++cc_deps
+|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_executable-cc_linkall"></a>+++cc_linkall
+|  True: use `-whole-archive` (GCC toolchain) or `-force_load` (Clang toolchain). Deps in this attribute must also be listed in cc_deps. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_executable-cc_linkopts"></a>+++cc_linkopts
+|  List of C/C++ link options. E.g. `["-lstd++"]`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_executable-data"></a>+++data
+|  Runtime dependencies: list of labels of data files needed by this executable at runtime. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_executable-deps"></a>+++deps
+|  List of OCaml dependencies. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_executable-exe"></a>+++exe
+|  By default, executable name is derived from 'name' attribute; use this to override. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_executable-main"></a>+++main
+|  Label of module containing entry point of executable. This module will be placed last in the list of dependencies. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_executable-mode"></a>+++mode
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| @rules_ocaml//build/mode
+| +++<a class="rule-attr" id="ocaml_executable-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_executable-strip_data_prefixes"></a>+++strip_data_prefixes
+|  Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data -> foo.data. | +++Boolean+++
+| optional
+| False
+
+|===
+
+
+
+== ocaml_import
+
+[.prototype]
+pass:[
+ocaml_import(<a href="#ocaml_import-name">name</a>, <a href="#ocaml_import-all">all</a>, <a href="#ocaml_import-archive">archive</a>, <a href="#ocaml_import-deps">deps</a>, <a href="#ocaml_import-doc">doc</a>, <a href="#ocaml_import-modules">modules</a>, <a href="#ocaml_import-plugin">plugin</a>, <a href="#ocaml_import-ppx">ppx</a>, <a href="#ocaml_import-ppx_codeps">ppx_codeps</a>, <a href="#ocaml_import-signature">signature</a>, <a href="#ocaml_import-srcs">srcs</a>,
+             <a href="#ocaml_import-version">version</a>)
+]
+
+
+Imports pre-compiled OCaml files. [User Guide](../ug/ocaml_import.md).
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_import-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_import-all"></a>+++all
+|  Glob all cm* files except for 'archive' or 'plugin' so theey can be added to action inputs (rather than cmd line). I.e. the (transitive) deps of an archive, which must be accessible to the compiler (via search path, not command line), and so must be added to the action inputs. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-archive"></a>+++archive
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-deps"></a>+++deps
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-doc"></a>+++doc
+|  - | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_import-modules"></a>+++modules
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-plugin"></a>+++plugin
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-ppx"></a>+++ppx
+|  precompiled ppx executable | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_import-ppx_codeps"></a>+++ppx_codeps
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-signature"></a>+++signature
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-srcs"></a>+++srcs
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_import-version"></a>+++version
+|  - | +++String+++
+| optional
+| ""
+
+|===
+
+
+
+== ocaml_lex
+
+[.prototype]
+pass:[
+ocaml_lex(<a href="#ocaml_lex-name">name</a>, <a href="#ocaml_lex-opts">opts</a>, <a href="#ocaml_lex-out">out</a>, <a href="#ocaml_lex-src">src</a>)
+]
+
+
+Generates an OCaml source file from an ocamllex source file.
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_lex-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_lex-opts"></a>+++opts
+|  Options | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_lex-out"></a>+++out
+|  Output filename. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_lex-src"></a>+++src
+|  A single .mll source file label | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+
+|===
+
+
+
+== ocaml_library
+
+[.prototype]
+pass:[
+ocaml_library(<a href="#ocaml_library-name">name</a>, <a href="#ocaml_library-args">args</a>, <a href="#ocaml_library-args0">args0</a>, <a href="#ocaml_library-manifest">manifest</a>, <a href="#ocaml_library-mode">mode</a>, <a href="#ocaml_library-opts">opts</a>)
+]
+
+
+Aggregates a collection of OCaml modules. [User Guide](../ug/ocaml_library.md). Provides: [OcamlLibraryMarker](providers_ocaml.md#ocamllibraryprovider).
+
+**WARNING** Not yet fully supported - subject to change. Use with caution.
+
+An `ocaml_library` is a collection of modules packaged into an OBazl
+target; it is not a single binary file. It is a OBazl convenience rule
+that allows a target to depend on a collection of deps under a single
+label, rather than having to list each individually.
+
+Be careful not to confuse `ocaml_library` with `ocaml_archive`. The
+latter generates OCaml binaries (`.cma`, `.cmxa`, '.a' archive files);
+the former does not generate anything, it just passes on its
+dependencies under a single label, packaged in a
+[OcamlLibraryMarker](providers_ocaml.md#ocamllibraryprovider). For
+more information see [Collections: Libraries, Archives and
+Packages](../ug/collections.md).
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_library-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_library-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_library-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_library-manifest"></a>+++manifest
+|  List of component modules. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_library-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_library-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+
+|===
+
+
+
+== ocaml_module
+
+[.prototype]
+pass:[
+ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args">args</a>, <a href="#ocaml_module-args0">args0</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-forcename">forcename</a>, <a href="#ocaml_module-mode">mode</a>, <a href="#ocaml_module-ns_resolver">ns_resolver</a>,
+             <a href="#ocaml_module-open">open</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_module-sig">sig</a>, <a href="#ocaml_module-struct">struct</a>)
+]
+
+
+Compiles an OCaml module.
+
+**CONFIGURABLE DEFAULTS** for rule `ocaml_module`
+
+In addition to the <<Configurable defaults>> that apply to all
+`ocaml_*` rules, the following apply to this rule:
+
+**Options**
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | `opts` attrib
+
+| @rules_ocaml//cfg/module:deps | `@rules_ocaml//cfg:null` | list of OCaml deps to add to all `ocaml_module` instances
+
+| @rules_ocaml//cfg/module:cc_deps^1^ | `@rules_ocaml//cfg:null` | list of cc_deps to add to all `ocaml_module` instances
+
+| @rules_ocaml//cfg/module:cc_linkstatic^1^ | `@rules_ocaml//cfg:null` | list of cc_deps to link statically (DEPRECATED)
+
+| @rules_ocaml//cfg/module:warnings | `@1..3@5..28@30..39@43@46..47@49..57@61..62-40`| sets `-w` option for all `ocaml_module` instances
+
+|===
+
+^1^ See [CC Dependencies](../ug/cc_deps.md) for more information on CC deps.
+
+**Boolean Flags**
+
+NOTE: These do not support `:enable`, `:disable` syntax.
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | `opts` attrib
+
+| @rules_ocaml//cfg/module:linkall | True | `-linkall`, `-no-linkall`
+
+| @rules_ocaml//cfg/module:verbose | True | `-verbose`, `-no-verbose`
+
+|===
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_module-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_module-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_module-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_module-cc_deps"></a>+++cc_deps
+|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_module-data"></a>+++data
+|  Runtime data dependencies: list of labels of data files needed by this module at runtime. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-deps"></a>+++deps
+|  List of dependencies. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-deps_runtime"></a>+++deps_runtime
+|  Runtime module dependencies, e.g. .cmxs plugins. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-forcename"></a>+++forcename
+|  Derive module name from target name. May differ            from what would be derived from sig/struct filenames. | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_module-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_module-ns_resolver"></a>+++ns_resolver
+|  Resolver for bottom-up namespacing | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_module-open"></a>+++open
+|  List of OCaml dependencies to be passed with `-open`. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-ppx"></a>+++ppx
+|  
+Label of `ppx_executable` target to be used to transform source before compilation.
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_module-ppx_args"></a>+++ppx_args
+|  Options to pass to PPX executable passed by the `ppx` attribute. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-ppx_data"></a>+++ppx_data
+|  PPX runtime data dependencies. List of labels of files needed by the PPX executable passed via the `ppx` attribute when it is executed to transform the source file. For example, a source file using link:https://github.com/janestreet/ppx_optcomp[ppx_optcomp] may import a file using extension `[%%import ]`; this file should be listed in this attribute. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_module-ppx_print"></a>+++ppx_print
+|  Format of output of PPX transform. Value must be one of `@rules_ocaml//ppx/print:binary`, `@rules_ocaml//ppx/print:text`.  See link:../ug/ppx.md#ppx_print[PPX Support] for more information | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| @rules_ocaml//ppx/print
+| +++<a class="rule-attr" id="ocaml_module-ppx_verbose"></a>+++ppx_verbose
+|  - | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_module-sig"></a>+++sig
+|  Single label of a target producing `OcamlSignatureProvider` (i.e. rule `ocaml_signature`) OR a sig source file. Optional. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_module-struct"></a>+++struct
+|  A single module (struct) source file label. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| required
+| 
+
+|===
+
+
+
+== ocaml_ns_archive
+
+[.prototype]
+pass:[
+ocaml_ns_archive(<a href="#ocaml_ns_archive-name">name</a>, <a href="#ocaml_ns_archive-args">args</a>, <a href="#ocaml_ns_archive-args0">args0</a>, <a href="#ocaml_ns_archive-mode">mode</a>, <a href="#ocaml_ns_archive-ns">ns</a>, <a href="#ocaml_ns_archive-opts">opts</a>, <a href="#ocaml_ns_archive-shared">shared</a>, <a href="#ocaml_ns_archive-submodules">submodules</a>)
+]
+
+
+Generate a 'namespace' module. [User Guide](../ug/ocaml_ns.md).  Provides: [OcamlNsMarker](providers_ocaml.md#ocamlnsmoduleprovider).
+
+**NOTE** 'name' must be a legal OCaml module name string.  Leading underscore is illegal.
+
+See [Namespacing](../ug/namespacing.md) for more information on namespaces.
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_ns_archive-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_ns_archive-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_archive-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_archive-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_archive-ns"></a>+++ns
+|  Namespace name is derived from 'name' attribute by default; use this to override. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_archive-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_ns_archive-shared"></a>+++shared
+|  True: build a shared lib (.cmxs) | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_ns_archive-submodules"></a>+++submodules
+|  List of *_module submodules | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+
+|===
+
+
+
+== ocaml_ns_library
+
+[.prototype]
+pass:[
+ocaml_ns_library(<a href="#ocaml_ns_library-name">name</a>, <a href="#ocaml_ns_library-args">args</a>, <a href="#ocaml_ns_library-args0">args0</a>, <a href="#ocaml_ns_library-deps">deps</a>, <a href="#ocaml_ns_library-mode">mode</a>, <a href="#ocaml_ns_library-ns">ns</a>, <a href="#ocaml_ns_library-opts">opts</a>, <a href="#ocaml_ns_library-resolver">resolver</a>, <a href="#ocaml_ns_library-submodules">submodules</a>)
+]
+
+
+Generate a 'namespace' module. [User Guide](../ug/ocaml_ns.md).  Provides: [OcamlNsMarker](providers_ocaml.md#ocamlnsmoduleprovider).
+
+**NOTE** 'name' must be a legal OCaml module name string.  Leading underscore is illegal.
+
+See [Namespacing](../ug/namespacing.md) for more information on namespaces.
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_ns_library-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_ns_library-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_library-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_library-deps"></a>+++deps
+|  Non-namespaced deps of ns. Will not be renamed. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_ns_library-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_library-ns"></a>+++ns
+|  Namespace name is derived from 'name' attribute by default; use this to override. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_library-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_ns_library-resolver"></a>+++resolver
+|  User-provided resolver module | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_library-submodules"></a>+++submodules
+|  List of namespaced submodules; will be renamed by prefixing the namespace, | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+
+|===
+
+
+
+== ocaml_ns_resolver
+
+[.prototype]
+pass:[
+ocaml_ns_resolver(<a href="#ocaml_ns_resolver-name">name</a>, <a href="#ocaml_ns_resolver-args">args</a>, <a href="#ocaml_ns_resolver-args0">args0</a>, <a href="#ocaml_ns_resolver-embed">embed</a>, <a href="#ocaml_ns_resolver-include">include</a>, <a href="#ocaml_ns_resolver-merge">merge</a>, <a href="#ocaml_ns_resolver-mode">mode</a>, <a href="#ocaml_ns_resolver-ns">ns</a>, <a href="#ocaml_ns_resolver-opts">opts</a>, <a href="#ocaml_ns_resolver-submodules">submodules</a>)
+]
+
+
+OBSOLETE DOCSTRING!  under revision...
+
+This rule initializes a 'namespace evaluation environment' consisting of a pseudo-namespace prefix string and optionally an ns resolver module.  A pseudo-namespace prefix string is a string that is used to form (by prefixation) a (presumably) globally unique name for a module. An ns resolver module is a module that contains nothing but alias equations mapping module names to pseudo-namespaced module names.
+
+You may use the [ppx_ns](macros.md#ppx_ns) macro instead of instantiating this rule directly.
+
+This rule is designed to work in conjujnction with rules
+[ocaml_module](rules_ocaml.md#ocaml_module) and
+[ocaml_ns_module](rules_ocaml.md#ocaml_ns_module). An `ocaml_module`
+instance can use the prefix string of an `ppx_ns` to rename its
+source file by using attribute `ns` to reference the label of an
+`ppx_ns` target. Instances of `ocaml_ns_module` can list such
+modules as `submodule` dependencies. They can also use an
+`ppx_ns` prefix string to name themselves, by using their `ns`
+attribute similarly. This allows ns modules to be (pseudo-)namespaced in the
+same way submodules are namespaced.
+
+The prefix string defaults to the (Bazel) package name string, with
+each segment capitalized and the path separator ('/') replaced by the
+`sep` string (default: `_`). If you pass a prefix string it must be a
+legal OCaml module path; each segment will be capitalized and the segment
+separator ('.') will be replaced by the `sep` string. The resulting
+prefix may be used by `ocaml_module` rules (via the `ns` attribute) to
+rename their source files, and, if `module = True`, by this rule to
+generate alias equations.
+
+For example, if package `//alpha/beta/gamma` contains`foo.ml`:
+
+```
+ns_resolver() => Alpha_Beta_Gamma__foo.ml
+ns_resolver(sep="") => AlphaBetaGamma__foo.ml
+ns_resolver(sep="__") => Alpha__Beta__Gamma__foo.ml
+ns_resolver(prefix="foo.bar") => Foo_Bar__foo.ml (pkg path ignored)
+ns_resolver(prefix="foo.bar", sep="") => FooBar__foo.ml
+```
+
+
+The optional ns resolver module will be named `<prefix>__00.ml`; since
+`0` is not a legal initial character for an OCaml module name, this
+ensures it will never clash with a user-defined module.
+
+The ns resolver module will contain alias equations mapping module
+names derived from the `srcs` list to pseudo-namespaced module names
+(and thus indirectly filenames). For example, if `srcs` contains
+`foo.ml`, and the prefix is `a.b`, then the resolver module will
+contain `module Foo = A_b_foo`.
+
+Submodule file names will be formed by prefixing the pseudo-ns prefix to the (original, un-namespaced) module name, separated by 'sep' (default: '__'). For example, if the prefix is 'Foo_bar' and the module is 'baz.ml', the submodule file name will be 'Foo_bar__baz.ml'.
+
+The main namespace module will contain aliasing equations that map module names to these prefixed module names.
+
+By default, the ns prefix string is formed from the package name, with '/' replaced by '_'. You can use the 'ns' attribute to change this:
+
+ns(ns = "foobar", srcs = glob(["*.ml"]))
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_ns_resolver-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_ns_resolver-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_resolver-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_ns_resolver-embed"></a>+++embed
+|  
+Exogenous namespaces (resolver modules).
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_ns_resolver-include"></a>+++include
+|  
+Exogenous (sub)modules, namespaced or non-namespaced.  Aliased names will not be prefixed with ns name of this ns_resolver.
+
+Keys: labels of modules;
+Values: alias name to be used in this resolver.
+
+e.g. '//mwe/rgb:R': 'Red' will generate
+
+module R = Red
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_ns_resolver-merge"></a>+++merge
+|  
+Includes all submodules of an exogenous namespace.
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_ns_resolver-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_resolver-ns"></a>+++ns
+|  - | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_ns_resolver-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_ns_resolver-submodules"></a>+++submodules
+|  
+List of strings from which submodule names are to be derived for aliasing. Bazel labels may be used; the submodule name will be derived from the target part. For example, '//a/b:c' normalizes to C. But they are just strings, and will not be checked against any files.
+
+The normalized submodule names must match the names of the modules electing membership via the 'ns_resolver' attribute.
+
+ Module source code generated by ocamllex and ocamlyacc can be accomodated by using the module name for the source file and generating a .ml source file of the same name, e.g. lexer.mll -> lexer.ml.
+             | +++List of strings+++
+| optional
+| []
+
+|===
+
+
+
+== ocaml_signature
+
+[.prototype]
+pass:[
+ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args">args</a>, <a href="#ocaml_signature-args0">args0</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-forcename">forcename</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>, <a href="#ocaml_signature-pack">pack</a>, <a href="#ocaml_signature-ppx">ppx</a>,
+                <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
+]
+
+
+Generates OCaml .cmi (inteface) file. [User Guide](../ug/ocaml_signature.md). Provides `OcamlSignatureProvider`.
+
+**CONFIGURABLE DEFAULTS** for rule `ocaml_signature`
+
+In addition to the <<Configurable defaults>> that
+apply to all `ocaml_*` rules, the following apply to this rule. (Note
+the difference between '/' and ':' in such labels):
+
+[.rule_attrs]
+[cols="1,1,1"]
+|===
+| Label | Default | `opts` attrib
+
+| @rules_ocaml//cfg/signature/linkall | True | `-linkall`, `-no-linkall`
+
+| @rules_ocaml//cfg/signature:warnings | `@1..3@5..28@30..39@43@46..47@49..57@61..62-40`| `-w` plus option value
+
+|===
+
+// | @rules_ocaml//cfg/signature/threads | False | true: `-I +threads`
+
+
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_signature-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_signature-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_signature-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_signature-as_cmi"></a>+++as_cmi
+|  For use with ns_module only. Creates a symlink from the extracted cmi file. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_signature-data"></a>+++data
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-deps"></a>+++deps
+|  List of OCaml dependencies. Use this for compiling a .mli source file with deps. See [Dependencies](#deps) for details. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-forcename"></a>+++forcename
+|  Derive module name from target name. May differ            from what would be derived from sig/struct filenames. | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_signature-mode"></a>+++mode
+|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_signature-ns"></a>+++ns
+|  Bottom-up namespacing | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_signature-open"></a>+++open
+|  List of OCaml dependencies to be passed with -open. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-pack"></a>+++pack
+|  Experimental | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_signature-ppx"></a>+++ppx
+|  
+Label of `ppx_executable` target to be used to transform source before compilation.
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_signature-ppx_args"></a>+++ppx_args
+|  Options to pass to PPX executable passed by the `ppx` attribute. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-ppx_data"></a>+++ppx_data
+|  PPX runtime data dependencies. List of labels of files needed by the PPX executable passed via the `ppx` attribute when it is executed to transform the source file. For example, a source file using link:https://github.com/janestreet/ppx_optcomp[ppx_optcomp] may import a file using extension `[%%import ]`; this file should be listed in this attribute. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_signature-ppx_print"></a>+++ppx_print
+|  Format of output of PPX transform. Value must be one of `@rules_ocaml//ppx/print:binary`, `@rules_ocaml//ppx/print:text`.  See link:../ug/ppx.md#ppx_print[PPX Support] for more information | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| @rules_ocaml//ppx/print
+| +++<a class="rule-attr" id="ocaml_signature-ppx_verbose"></a>+++ppx_verbose
+|  - | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="ocaml_signature-src"></a>+++src
+|  A single .mli source file label | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+
+|===
+
+
+
+== ocaml_test
+
+[.prototype]
+pass:[
+ocaml_test(<a href="#ocaml_test-name">name</a>, <a href="#ocaml_test-args">args</a>, <a href="#ocaml_test-args0">args0</a>, <a href="#ocaml_test-cc_deps">cc_deps</a>, <a href="#ocaml_test-cc_linkall">cc_linkall</a>, <a href="#ocaml_test-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_test-data">data</a>, <a href="#ocaml_test-deps">deps</a>, <a href="#ocaml_test-exe">exe</a>, <a href="#ocaml_test-main">main</a>, <a href="#ocaml_test-mode">mode</a>, <a href="#ocaml_test-opts">opts</a>,
+           <a href="#ocaml_test-strip_data_prefixes">strip_data_prefixes</a>)
+]
+
+
+OCaml test rule.
+
+**CONFIGURABLE DEFAULTS** for rule `ocaml_test`
+
+In addition to the [OCaml configurable defaults](#configdefs) that apply to all
+`ocaml_*` rules, the following apply to this rule:
+
+| Label | Default | `opts` attrib |
+| ----- | ------- | ------- |
+| @rules_ocaml//cfg/executable:linkall | True | `-linkall`, `-no-linkall`|
+| @rules_ocaml//cfg/executable:threads | False | true: `-I +thread`|
+| @rules_ocaml//cfg/executable:warnings | `@1..3@5..28@30..39@43@46..47@49..57@61..62-40`| `-w` plus option value |
+
+**NOTE** These do not support `:enable`, `:disable` syntax.
+
+ See [Configurable Defaults](../ug/configdefs_doc.md) for more information.
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_test-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_test-args"></a>+++args
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_test-args0"></a>+++args0
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_test-cc_deps"></a>+++cc_deps
+|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).
+             | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="ocaml_test-cc_linkall"></a>+++cc_linkall
+|  True: use `-whole-archive` (GCC toolchain) or `-force_load` (Clang toolchain). Deps in this attribute must also be listed in cc_deps. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_test-cc_linkopts"></a>+++cc_linkopts
+|  List of C/C++ link options. E.g. `["-lstd++"]`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_test-data"></a>+++data
+|  Runtime dependencies: list of labels of data files needed by this executable at runtime. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_test-deps"></a>+++deps
+|  List of OCaml dependencies. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_test-exe"></a>+++exe
+|  By default, executable name is derived from 'name' attribute; use this to override. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_test-main"></a>+++main
+|  Label of module containing entry point of executable. This module will be placed last in the list of dependencies. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="ocaml_test-mode"></a>+++mode
+|  - | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| @rules_ocaml//build/mode
+| +++<a class="rule-attr" id="ocaml_test-opts"></a>+++opts
+|  List of compile options; overrides configurable default options. Supports `+-no-+` prefix for each option; for example, `-no-linkall`. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_test-strip_data_prefixes"></a>+++strip_data_prefixes
+|  Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data -> foo.data. | +++Boolean+++
+| optional
+| False
+
+|===
+
+
+
+== ocaml_yacc
+
+[.prototype]
+pass:[
+ocaml_yacc(<a href="#ocaml_yacc-name">name</a>, <a href="#ocaml_yacc-opts">opts</a>, <a href="#ocaml_yacc-out">out</a>, <a href="#ocaml_yacc-src">src</a>)
+]
+
+
+Generates an OCaml source file from an ocamlyacc source file.
+    
+
+**ATTRIBUTES:**
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="ocaml_yacc-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_yacc-opts"></a>+++opts
+|  Options | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="ocaml_yacc-out"></a>+++out
+|  Output filename. | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="ocaml_yacc-src"></a>+++src
+|  A single .mly ocamlyacc source file label | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| optional
+| None
+
+|===
+
+
+

@@ -1,0 +1,336 @@
+---
+layout: page_tools_opam
+pkg: tools_opam
+doc: ug
+// sidebar: sidebar_tools_opam
+title: Coswitches
+permalink: tools-opam/user-guide/coswitches
+tags: [coswitch]
+keywords: notes, tips, cautions, warnings, admonitions
+last_updated: April 21, 2022
+toc: false
+---
+
+= Coswitches
+
+== Switches & Coswitches
+
+An OPAM *_switch_* is a version of the OCaml toolsuite together with a
+collection of OPAM packages compiled with that toolsuite.
+
+An OBazl *_coswitch_* is a collection of symlinks and Bazel files that
+serve to integrate an OPAM switch into the Bazel ecosystem.
+
+OPAM switches are located in an OPAM _installation_; the default
+location is `$HOME/.opam`, but users can initialize an OPAM
+installation in any directory. Coswitches are located in their own
+directories, outside of any OPAM installation. They have the following
+structure:
+
+----
+
+----
+
+
+== The _here_ coswitch
+
+== Shared coswitches
+
+== Troubleshooting
+
+here-switches are not copyable - if you copy a project to a different
+name, you must delete `.opam` and `.obazl.d` and recreate. This is
+because the location of the toolchain is hardcoded into the toolchain
+when it is built. For example, browse `lib/ocaml/camlheader` of any
+toolhchain installation.
+
+If you create a `here` coswitch using an OPAM "sys" switch you may run
+into trouble. An OPAM sys switch is a switch you've installed in your
+system, e.g. in `/usr/local/bin` and `/usr/local/lib`. In that case,
+if you have the same compiler version installed in OPAM, you'll get
+something like the following when youu run `opam switch
+list-available`.  The fix is
+
+`bazel run @ocaml//here:install \-- ocaml-base-compiler`
+
+----
+$ opam switch list-available
+# Listing available compilers from repositories: default
+# Name                                 # Version             # Synopsis
+ocaml-option-32bit                     1                     Set OCaml to be compiled in 32-bit mode for 64-bit Linux and OS X hosts
+...
+ocaml-base-compiler                    4.12.0~rc1            First release candidate of OCaml 4.12.0
+ocaml-variants                         4.12.0~rc1+options    First release candidate of OCaml 4.12.0
+ocaml-base-compiler  <1>               4.12.0                Official release 4.12.0
+ocaml-system         <2>               4.12.0                The OCaml compiler (system version, from outside of opam)
+ocaml-variants                         4.12.0+domains        OCaml 4.12.0, with support for multicore domains
+...
+----
+<1> version 4.12.0 is available
+<2> it is also installed in the local system
+
+
+
+
+
+.Action: @opam//here/install -- -h
+[%collapsible]
+====
+----
+$ bazel run @opam//here/init -- -h
+...
+Usage: bazel run @opam//here/init -- [args]
+	args:
+		-c	compiler version
+		-s	switch name
+		-x	dry-run
+		-d	debug
+		-v	verbose
+	Default: uses compiler version listed in .obazl.d/here.compiler
+        if found; otherwise prompts user.
+----
+====
+
+
+=== case 1:
+
+.Initial conditions: `@opam//here/init` has been run
+[%collapsible]
+====
+----
+$ bazel run @opam//here/status
+...
+----
+====
+
+.Action: install
+[%collapsible]
+====
+----
+$ bazel run @opam//here/install -- -p ounit2
+...
+Begining OPAM processor output:
+The following actions will be performed:
+  ∗ install seq          base  [required by ounit2]
+  ∗ install ocamlfind    1.9.3 [required by base-bytes]
+  ∗ install dune         3.0.3 [required by ounit2]
+  ∗ install base-bytes   base  [required by ounit2]
+  ∗ install stdlib-shims 0.3.0 [required by ounit2]
+  ∗ install ounit2       2.2.6
+===== ∗ 6 =====
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+⬇ retrieved ounit2.2.2.6  (https://opam.ocaml.org/cache)
+∗ installed seq.base
+⬇ retrieved ocamlfind.1.9.3  (https://opam.ocaml.org/cache)
+⬇ retrieved stdlib-shims.0.3.0  (https://opam.ocaml.org/cache)
+⬇ retrieved dune.3.0.3  (https://opam.ocaml.org/cache)
+∗ installed ocamlfind.1.9.3
+∗ installed base-bytes.base
+∗ installed dune.3.0.3
+∗ installed stdlib-shims.0.3.0
+∗ installed ounit2.2.2.6
+Done.
+----
+====
+
+
+.Post-install status
+[%collapsible]
+====
+
+----
+<projroot>$ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   <projroot>/.opam/here
+lib      <projroot>/.opam/here/lib
+bin      <projroot>/.opam/here/bin
+sbin     <projroot>/.opam/here/sbin
+share    <projroot>/.opam/here/share
+doc      <projroot>/.opam/here/doc
+etc      <projroot>/.opam/here/etc
+man      <projroot>/.opam/here/man
+toplevel <projroot>/.opam/here/lib/toplevel
+stublibs <projroot>/.opam/here/lib/stublibs
+user     <user id>
+group    <grp name>
+Begining OPAM processor output:
+# Packages matching: installed
+# Name                # Version
+base-bigarray         base
+base-bytes            base
+base-threads          base
+base-unix             base
+dune                  3.0.3
+ocaml                 4.13.0
+ocaml-base-compiler   4.13.0
+ocaml-config          2
+ocaml-options-vanilla 1
+ocamlfind             1.9.3
+ounit2                2.2.6
+seq                   base
+stdlib-shims          0.3.0
+WORKSPACEs:
+toolchain: .obazl.d/opam/here/ocaml
+	stublibs
+	bin
+	WORKSPACE.bazel
+	bigarray
+	compiler-libs
+	unix
+	threads
+	str
+	c_api
+	toolchains
+	dynlink
+----
+====
+
+.Action: config
+[%collapsible]
+====
+----
+$ bazel run @opam//here/config
+...
+Begining OPAM processor output:
+The following actions will be performed:
+  ∗ install seq          base  [required by ounit2]
+  ∗ install ocamlfind    1.9.3 [required by base-bytes]
+  ∗ install dune         3.0.3 [required by ounit2]
+  ∗ install base-bytes   base  [required by ounit2]
+  ∗ install stdlib-shims 0.3.0 [required by ounit2]
+  ∗ install ounit2       2.2.6
+===== ∗ 6 =====
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+⬇ retrieved ounit2.2.2.6  (https://opam.ocaml.org/cache)
+∗ installed seq.base
+⬇ retrieved ocamlfind.1.9.3  (https://opam.ocaml.org/cache)
+⬇ retrieved stdlib-shims.0.3.0  (https://opam.ocaml.org/cache)
+⬇ retrieved dune.3.0.3  (https://opam.ocaml.org/cache)
+∗ installed ocamlfind.1.9.3
+∗ installed base-bytes.base
+∗ installed dune.3.0.3
+∗ installed stdlib-shims.0.3.0
+∗ installed ounit2.2.2.6
+Done.
+----
+====
+
+
+=== case 4: prior installation
+
+.Initial conditions
+[%collapsible]
+====
+----
+<projroot> $ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   <projroot>/.opam/here
+lib      <projroot>/.opam/here/lib
+bin      <projroot>/.opam/here/bin
+sbin     <projroot>/.opam/here/sbin
+share    <projroot>/.opam/here/share
+doc      <projroot>/.opam/here/doc
+etc      <projroot>/.opam/here/etc
+man      <projroot>/.opam/here/man
+toplevel <projroot>/.opam/here/lib/toplevel
+stublibs <projroot>/.opam/here/lib/stublibs
+user     <user id>
+group    <grp name>
+Begining OPAM processor output:
+# Packages matching: installed
+# Name                # Version
+base-bigarray         base
+base-threads          base
+base-unix             base
+ocaml                 4.13.0
+ocaml-base-compiler   4.13.0
+...
+----
+====
+
+.Action: `$ bazel run @opam//here/init`
+[%collapsible]
+====
+----
+<projroot> $ bazel run @opam//here/init
+OPAM here-switch already configured at root ./.opam, switch 'here', compiler: '4.13.0'.
+Replace? [yN] N
+cancelling here-switch init
+
+<projroot> $ bazel run @opam//here/init
+OPAM here-switch already configured at root ./.opam, switch 'here', compiler: '4.13.0'.
+Replace? [yN] y
+removing ./.opam
+Your here switch is configured to use compiler version: 4.13.0 (specified in .obazl.d/opam/here.compiler)
+Reconfigure using with same version? (if no, you will be prompted for a different version)
+[Yn] n
+Current OPAM switch name is '4.13.0', configured with compiler version 4.13.0
+Configure here-switch with compiler version 4.13.0? [Yn] n
+Which compiler version do you want to install? (<enter> to cancel) 4.11.0
+Begining OPAM processor output:
+No configuration file found, using built-in defaults.
+
+<><> Fetching repository information ><><><><><><><><><><><><><><><><><><><>
+[default] Initialised
+Begining OPAM processor output:
+
+<><> Installing new switch packages <><><><><><><><><><><><><><><><><><><><>  🐫
+Switch invariant: ["ocaml-base-compiler" {= "4.11.0"} | "ocaml-system" {= "4.11.0"}]
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><>  🐫
+∗ installed base-bigarray.base
+∗ installed base-threads.base
+∗ installed base-unix.base
+⬇ retrieved ocaml-base-compiler.4.11.0  (https://opam.ocaml.org/cache)
+∗ installed ocaml-base-compiler.4.11.0
+∗ installed ocaml-config.1
+∗ installed ocaml.4.11.0
+Done.
+----
+====
+
+
+.Postcondition status
+[%collapsible]
+====
+
+----
+$ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   <projroot>/.opam/here
+lib      <projroot>/.opam/here/lib
+bin      <projroot>/.opam/here/bin
+sbin     <projroot>/.opam/here/sbin
+share    <projroot>/.opam/here/share
+doc      <projroot>/.opam/here/doc
+etc      <projroot>/.opam/here/etc
+man      <projroot>/.opam/here/man
+toplevel <projroot>/.opam/here/lib/toplevel
+stublibs <projroot>/.opam/here/lib/stublibs
+user     <user id>
+group    <grp name>
+Begining OPAM processor output:
+# Packages matching: installed
+# Name              # Version
+base-bigarray       base
+base-threads        base
+base-unix           base
+ocaml               4.11.0
+ocaml-base-compiler 4.11.0
+ocaml-config        1
+----
+====

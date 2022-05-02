@@ -1,0 +1,166 @@
+= Providers
+:page-permalink: rules-ocaml/providers
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: refman
+:page-tags: [providers]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+// permalink: rules-ocaml/reference
+
+**WARNING** Beta version - subject to change
+
+* [CcDepsProvider](#ccdepsprovider)
+* [OcamlArchiveProvider](#ocamlarchiveprovider)
+* [OcamlImportMarker](#ocamlimportprovider)
+* [OcamlLibraryMarker](#ocamllibraryprovider)
+* [OcamlModuleMarker](#ocamlmoduleprovider)
+* [OcamlNsMarker](#ocamlnsarchiveprovider)
+* [OcamlNsEnvProvider](#ocamlnsenvprovider)
+* [OcamlNsLibraryProvider](#ocamlnslibraryprovider)
+* [OcamlProvider](#ocamlprovider)
+* [OcamlSignatureProvider](#ocamlsignatureprovider)
+* [OpamDepsProvider](#opamdepsprovider)
+* [PpxCodepsProvider](#adjunctdepsprovider)
+
+----
+
+== OcamlArchiveMarker
+
+OCaml Archive Marker provider.
+
+**FIELDS**
+
+
+
+== OcamlExecutableMarker
+
+
+**FIELDS**
+
+
+
+== OcamlImportMarker
+
+<pre>
+OcamlImportMarker()
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml Import Marker provider.
+
+**FIELDS**
+
+
+
+<a id="#OcamlLibraryMarker"></a>
+
+## OcamlLibraryMarker
+
+<pre>
+OcamlLibraryMarker()
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml Library Marker provider.
+
+**FIELDS**
+
+
+
+<a id="#OcamlModuleMarker"></a>
+
+## OcamlModuleMarker
+
+<pre>
+OcamlModuleMarker()
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml Module Marker provider.
+
+**FIELDS**
+
+
+
+<a id="#OcamlNsMarker"></a>
+
+## OcamlNsMarker
+
+<pre>
+OcamlNsMarker()
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml Namespace Marker provider.
+
+**FIELDS**
+
+
+
+<a id="#OcamlProvider"></a>
+
+## OcamlProvider
+
+<pre>
+OcamlProvider(<a href="#OcamlProvider-fileset">fileset</a>, <a href="#OcamlProvider-cmi">cmi</a>, <a href="#OcamlProvider-closure">closure</a>, <a href="#OcamlProvider-inputs">inputs</a>, <a href="#OcamlProvider-linkargs">linkargs</a>, <a href="#OcamlProvider-paths">paths</a>, <a href="#OcamlProvider-files">files</a>, <a href="#OcamlProvider-archives">archives</a>, <a href="#OcamlProvider-archive_deps">archive_deps</a>,
+              <a href="#OcamlProvider-ppx_codeps">ppx_codeps</a>, <a href="#OcamlProvider-ppx_codep_paths">ppx_codep_paths</a>, <a href="#OcamlProvider-cc_deps">cc_deps</a>, <a href="#OcamlProvider-ns_resolver">ns_resolver</a>)
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml build provider; content depends on target rule type.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="OcamlProvider-fileset"></a>fileset |  depset of files emitted by the Ocaml compiler. For modules: .cmx, .cmi, .o; for sigs, just .cmi; for libs and archives, filesets for submodules, plus resolver fileset if namespaced.    |
+| <a id="OcamlProvider-cmi"></a>cmi |  Cmi files provided    |
+| <a id="OcamlProvider-closure"></a>closure |  File depset of transitive closure of deps    |
+| <a id="OcamlProvider-inputs"></a>inputs |  file depset    |
+| <a id="OcamlProvider-linkargs"></a>linkargs |  file depset    |
+| <a id="OcamlProvider-paths"></a>paths |  string depset    |
+| <a id="OcamlProvider-files"></a>files |  DEPRECATED    |
+| <a id="OcamlProvider-archives"></a>archives |  file depset    |
+| <a id="OcamlProvider-archive_deps"></a>archive_deps |  file depset of archive deps    |
+| <a id="OcamlProvider-ppx_codeps"></a>ppx_codeps |  file depset    |
+| <a id="OcamlProvider-ppx_codep_paths"></a>ppx_codep_paths |  string depset    |
+| <a id="OcamlProvider-cc_deps"></a>cc_deps |  dictionary depset    |
+| <a id="OcamlProvider-ns_resolver"></a>ns_resolver |  single target    |
+
+
+<a id="#OcamlSignatureProvider"></a>
+
+## OcamlSignatureProvider
+
+<pre>
+OcamlSignatureProvider(<a href="#OcamlSignatureProvider-mli">mli</a>, <a href="#OcamlSignatureProvider-cmi">cmi</a>)
+</pre>
+<style>
+td {vertical-align: top;}
+</style>
+
+OCaml interface provider.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| <a id="OcamlSignatureProvider-mli"></a>mli |  .mli input file    |
+| <a id="OcamlSignatureProvider-cmi"></a>cmi |  .cmi output file    |
+
+

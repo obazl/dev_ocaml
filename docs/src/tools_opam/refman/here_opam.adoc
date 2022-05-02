@@ -1,0 +1,17 @@
+---
+layout: page_tools_opam
+pkg: tools_opam
+doc: ref
+permalink: tools-opam/reference/here-opam
+tags: [opam,here,set]
+keywords: notes, tips, cautions, warnings, admonitions
+last_updated: April 28, 2022
+toc: true
+---
+
+= @opam//here/opam
+
+Control OPAM `here` switch at `<projroot>/.opam`.
+
+
+
