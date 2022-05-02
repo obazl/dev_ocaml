@@ -399,10 +399,10 @@ li.sidebarTitle a {
     padding-left:0;
 }
 
-div#tg-sb-sidebar {
-    /* position: -webkit-sticky !important; */
-    /* position: sticky !important; */
-    top:50px !important;
+div#tg-sb-sidebar  {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top:70px !important;
 }
 
 div#tg-sb-content {

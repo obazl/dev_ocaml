@@ -47,7 +47,7 @@ stardoc(
 stardoc(
     name = "rules_ocaml_sidebar",
     input = "@rules_ocaml//build:rules.bzl",
-    out = "sidebar_rules_ocaml.adoc",
+    out = "sidebar_rules_ocaml.yml",
     header_template = "//stardoc/templates/asciidoc:sidebar_rules_ocaml_hdr.vm",
     rule_template = "//stardoc/templates/asciidoc:sidebar_rules_ocaml_item.vm",
     # deps must contain bzl_library targets containing files loaded by input
