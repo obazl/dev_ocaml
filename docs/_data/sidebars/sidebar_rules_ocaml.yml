@@ -1,0 +1,84 @@
+entries:
+- title: OCaml Rules
+  levels: one
+  folders:
+
+  - title: Configurable Defaults
+    open: true
+    output: web
+    folderitems:
+
+    - title: Options
+      url: ocaml-rules.html#_options
+      output: web
+
+    - title: Flags
+      url: ocaml-rules.html#_flags
+      output: web
+
+  - title: Rules
+    open: true
+    output: web
+    folderitems:
+
+
+    - title: ocaml_archive
+      url: ocaml-rules.html#_ocaml_archive
+      output: web
+
+
+    - title: ocaml_executable
+      url: ocaml-rules.html#_ocaml_executable
+      output: web
+
+
+    - title: ocaml_import
+      url: ocaml-rules.html#_ocaml_import
+      output: web
+
+
+    - title: ocaml_lex
+      url: ocaml-rules.html#_ocaml_lex
+      output: web
+
+
+    - title: ocaml_library
+      url: ocaml-rules.html#_ocaml_library
+      output: web
+
+
+    - title: ocaml_module
+      url: ocaml-rules.html#_ocaml_module
+      output: web
+
+
+    - title: ocaml_ns_archive
+      url: ocaml-rules.html#_ocaml_ns_archive
+      output: web
+
+
+    - title: ocaml_ns_library
+      url: ocaml-rules.html#_ocaml_ns_library
+      output: web
+
+
+    - title: ocaml_ns_resolver
+      url: ocaml-rules.html#_ocaml_ns_resolver
+      output: web
+
+
+    - title: ocaml_signature
+      url: ocaml-rules.html#_ocaml_signature
+      output: web
+
+
+    - title: ocaml_test
+      url: ocaml-rules.html#_ocaml_test
+      output: web
+
+
+    - title: ocaml_yacc
+      url: ocaml-rules.html#_ocaml_yacc
+      output: web
+
+

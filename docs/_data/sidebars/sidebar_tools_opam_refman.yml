@@ -1,0 +1,108 @@
+entries:
+- title: tools_opam
+  part: Reference
+  url:  /tools-opam/reference
+  product: tools_opam
+  version: 2.0
+  levels: one
+  folders:
+
+  - title: Here coswitch
+    open: true
+    output: web
+    folderitems:
+
+    - title: '@opam//here'
+      url: here
+      output: web
+
+    - title: '@opam//here:clean'
+      url: here-clean
+      output: web
+
+    - title: '@opam//here:clone'
+      url: here-clone
+      output: web
+
+    - title: '@opam//here:create'
+      url: here-create
+      output: web
+
+    - title: '@opam//here:export'
+      url: here-export
+      output: web
+
+    - title: '@opam//here:expunge'
+      url: here-expunge
+      output: web
+
+    - title: '@opam//here:import'
+      url: here-import
+      output: web
+
+    - title: '@opam//here:list'
+      url: here-list
+      output: web
+
+    - title: '@opam//here:refresh'
+      url: here-refresh
+      output: web
+
+    - title: '@opam//here:reinit'
+      url: here-reinit
+      output: web
+
+    - title: '@opam//here:set'
+      url: here-set
+      output: web
+
+  - title: Primitive OPAM ops
+    open: true
+    output: web
+    folderitems:
+
+    - title: '@opam//here/opam:expunge'
+      url: here-opam-expunge
+      output: web
+
+    - title: '@opam//here/opam:init'
+      url: here-opam-init
+      output: web
+
+    - title: '@opam//here/opam:install'
+      url: here-opam-install
+      output: web
+
+    - title: '@opam//here/opam:remove'
+      url: here-opam-remove
+      output: web
+
+  - title: Shared coswitch ops
+    open: true
+    output: web
+    folderitems:
+
+    - title: '@opam//coswitch'
+      url: coswitch
+      output: web
+
+    - title: '@opam//coswitch:list'
+      url: coswitch-list
+      output: web
+
+    - title: '@opam//coswitch:refresh'
+      url: coswitch-refresh
+      output: web
+
+    - title: '@opam//coswitch:remove'
+      url: coswitch-remove
+      output: web
+
+    - title: '@opam//coswitch:set'
+      url: coswitch-set
+      output: web
+
+    - title: '@opam//coswitch:show'
+      url: coswitch-show
+      output: web
+
