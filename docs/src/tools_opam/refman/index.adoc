@@ -1,10 +1,12 @@
 = Reference Manual: tools_opam
-// layout: page_opam_refman
 :page-permalink: tools-opam/reference
+:page-sidebar: false
+// :page-layout: page_tools_opam
+:page-pkg: tools_opam
+:page-doc: refman
 :page-tags: [opam]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: April 27, 2022
-:page-sidebar: false
 :page-toc: false
 
 
