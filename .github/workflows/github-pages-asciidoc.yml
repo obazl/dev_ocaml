@@ -65,9 +65,9 @@ jobs:
           ### If you need to specify any Jekyll build options, enable the above input
           ### Flags accepted can be found here https://jekyllrb.com/docs/configuration/options/#build-command-options
 
-      - name: List files in the repository
+      - name: List files in _site
         run: |
-          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/_site
 
       - name: 🚀 deploy
         uses: peaceiris/actions-gh-pages@v3
