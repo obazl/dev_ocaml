@@ -1,7 +1,7 @@
 = User Guide: rules_ocaml
 // :url-asciidoctor: http://asciidoctor.org
 // layout: page_ocaml_ug
-:page-permalink: rules-ocaml/user-guide
+:page-permalink: /:path/index.html
 :page-pkg: rules_ocaml
 :page-doc: ug
 :page-sidebar: false

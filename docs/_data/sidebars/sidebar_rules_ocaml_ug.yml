@@ -2,7 +2,7 @@ entries:
 - title: rules_ocaml
   part: User Guide
   product: rules_ocaml
-  url:  /rules_ocaml/user-guide
+  url:  /docs_obazl/rules-ocaml/user-guide
   version: 2.0
   levels: one
   folders:
