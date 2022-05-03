@@ -56,10 +56,14 @@ entries:
       url: here-set
       output: web
 
-  - title: Primitive OPAM ops
+  - title: Primitive here-switch ops
     open: true
     output: web
     folderitems:
+
+    - title: '@opam//here/opam'
+      url: here-opam
+      output: web
 
     - title: '@opam//here/opam:expunge'
       url: here-opam-expunge

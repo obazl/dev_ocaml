@@ -405,9 +405,9 @@ div#tg-sb-sidebar  {
     top:70px !important;
 }
 
-div#tg-sb-content {
-    top:50px;
-}
+/* div#tg-sb-content { */
+/*     top:50px; */
+/* } */
 
 li.selected{
     background:red;
@@ -1304,3 +1304,7 @@ i.conum:after{
     padding:1em;
     margin:0;
 }
+
+div#main{
+    position:relative;
+    top: 80px;
