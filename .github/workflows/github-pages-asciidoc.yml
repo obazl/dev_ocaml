@@ -48,7 +48,7 @@ jobs:
           ### If the jekyll website source is not in root, specify the directory. (in this case, sample_site)
           ### By default, this is not required as the action searches for a _config.yml automatically.
           #
-          gem_src: docs
+          # gem_src: docs
           ### By default, this is not required as the action searches for a _config.yml automatically.
           ### However, if there are multiple Gemfiles, the action may not be able to determine which to use.
           ### In that case, specify the directory. (in this case, sample_site)
