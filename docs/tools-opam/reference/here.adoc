@@ -10,7 +10,7 @@
 Commands for controlling "here" switch, installed in <projroot>/.opam.
 
 
-=== case 0: help
+== case 0: help
 
 .Action: @opam//here
 [%collapsible]

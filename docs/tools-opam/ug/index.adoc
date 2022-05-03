@@ -1,10 +1,10 @@
 = User Guide: tools_opam
+:page-permalink: tools-opam/user-guide
 :url-asciidoctor: http://asciidoctor.org
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: ug
 // :page-sidebar: false
-:page-permalink: tools-opam/user-guide
 :page-otags: [opam,tools]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022
@@ -19,7 +19,7 @@
 WARNING: if you move a project directory that has a here switch, you
 must run `bazel run @opam//here:refresh` after the move.
 
-=== Bootstrap Tools
+== Bootstrap Tools
 
 Project-local:
 

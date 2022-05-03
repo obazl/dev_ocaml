@@ -1,5 +1,5 @@
 = @opam//here:import
-:page-permalink: tools-opam/reference/here-import
+:page-permalink: /:path/X/here-import
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: refman

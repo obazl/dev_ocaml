@@ -1,5 +1,5 @@
 = @opam//here:export
-:page-permalink: tools-opam/reference/here-export
+:page-permalink: /:path/here-export
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: refman

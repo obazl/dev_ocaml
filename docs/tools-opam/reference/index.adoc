@@ -1,5 +1,5 @@
 = Reference Manual: tools_opam
-:page-permalink: tools-opam/reference
+:page-permalink: /:path/index.html
 :page-sidebar: false
 // :page-layout: page_tools_opam
 :page-pkg: tools_opam
