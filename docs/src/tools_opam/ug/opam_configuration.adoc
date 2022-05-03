@@ -1,18 +1,14 @@
----
-layout: page_tools_opam
-// sidebar: sidebar_tools_opam
-pkg: tools_opam
-doc: ug
-title: OPAM Configuration
-permalink: tools-opam/user-guide/opam-configuration
-tags: [coswitch]
-keywords: notes, tips, cautions, warnings, admonitions
-last_updated: April 21, 2022
-toc: false
----
+= OPAM Configuration
+:page-permalink: tools-opam/user-guide/opam-configuration
+:page-layout: page_tools_opam
+:page-pkg: tools_opam
+:page-doc: ug
+:page-tags: [opam,configuration]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
 
-= OPAM Configurations
-:toc: right
+permalink: tools-opam/user-guide/opam-configuration
 
 == Local directory switches
 

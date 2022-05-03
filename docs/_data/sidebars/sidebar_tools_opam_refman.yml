@@ -33,7 +33,7 @@ entries:
       output: web
 
     - title: '@opam//here:expunge'
-      url: here-expunge
+      url: here-expunge.html
       output: web
 
     - title: '@opam//here:import'
