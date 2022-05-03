@@ -30,7 +30,7 @@ To enable a boolean flag, just pass the flag: `--@ocaml//verbose`, or
 equivalently: `--@ocaml//verbose:enable`. To disable, prefix `no` to
 the flag: `--no@ocaml//keep-locs`, or equivalently `--@ocaml//keep-locs:disable`.
 
-**WARNING** These flags/options apply to rules, and therefore to all
+WARNING: These flags/options apply to rules, and therefore to all
   instances of the rules. This means that changing one of them will
   trigger a rebuild of all direct and indirect dependencies of the
   build target!
