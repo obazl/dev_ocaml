@@ -1,4 +1,4 @@
-name: Build and deploy jekyll site
+name: Build and deploy jekyll-asciidoc site
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         with:
           ruby-version: 3.1.2
 
-      - name: 🔨 install dependencies & build site
+      - name: Jekyll Action TS
         uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: true
