@@ -1,11 +1,22 @@
-= Aspects
-:page-permalink: rules-ocaml/user-guide/aspects
+= Aggregators
+:page-permalink: /:path/aggregators
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug
-:page-tags: [aspects]
+:page-tags: [aggregation]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022
 :page-toc: false
 
-== Providers
+== Libraries
+
+asgernqerj
+
+== Archives
+
+asdf asfd
+
+
+== Namespace Libraries
+
+trewry ry etu rt
