@@ -1,5 +1,5 @@
 = @opam//here:clean
-:page-permalink: tools-opam/reference/here-clean
+:page-permalink: /:path/here-clean
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: refman
@@ -17,3 +17,6 @@ Here's an asciidoc sidebar
 fsdaf
 
 == hdr 2
+
+
+asdf
