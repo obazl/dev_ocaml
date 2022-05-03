@@ -1,10 +1,10 @@
 = User Guide: rules_ocaml
 // :url-asciidoctor: http://asciidoctor.org
 // layout: page_ocaml_ug
+:page-permalink: rules-ocaml/user-guide
 :page-pkg: rules_ocaml
 :page-doc: ug
 :page-sidebar: false
-:page-permalink: rules-ocaml/user-guide
 :page-tags: [formatting]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: July 3, 2016
