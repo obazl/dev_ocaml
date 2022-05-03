@@ -67,7 +67,7 @@ jobs:
 
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/_site
 
       - name: 🚀 deploy
         uses: peaceiris/actions-gh-pages@v3
