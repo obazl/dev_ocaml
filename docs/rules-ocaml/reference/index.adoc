@@ -1,6 +1,5 @@
 =  Reference Manual: rules_ocaml
-:page-permalink: rules-ocaml/reference
-// :page-layout: page_rules_ocaml
+:page-permalink: /:path/index.html
 :page-pkg: rules_ocaml
 :page-doc: refman
 :page-sidebar: false
