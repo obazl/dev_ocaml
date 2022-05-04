@@ -12,15 +12,6 @@
 
 == link:working-with-bazel[Working with Bazel]
 
-WARNING: a warning
-
-NOTE: a note
-
-TIP: a tip
-
-IMPORTANT: something important
-
-CAUTION: be careful!
 
 == Topics
 
