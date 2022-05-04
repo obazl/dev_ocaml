@@ -1,10 +1,8 @@
 = User Guide: tools_opam
-:page-permalink: tools-opam/user-guide
-:url-asciidoctor: http://asciidoctor.org
+:page-permalink: /:path/index.html
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: ug
-// :page-sidebar: false
 :page-otags: [opam,tools]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022

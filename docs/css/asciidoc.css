@@ -127,7 +127,7 @@ i.fa {
 }
 
 .admonitionblock td.content {
-    padding: 1rem 1rem .75rem;
+    padding: 2rem 1rem .75rem;
     background: #fafafa;
     background: var(--admonition-background);
     width: 100%;
