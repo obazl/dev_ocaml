@@ -1,5 +1,14 @@
 :root {
+    --caution-color: #802392;
+    --caution-on-color: var(--color-white);
+    --color-brand-primary: #e40046;
     --color-white: #fff;
+    --important-color: var(--color-brand-primary);
+    --important-on-color: var(--color-white);
+    --note-color: #2d7dd2;
+    --note-on-color: var(--color-white);
+    --tip-color: #43b929;
+    --tip-on-color: var(--color-white);
     --warning-color: #f70;
     --warning-on-color: var(--color-white);
 }
@@ -18,30 +27,56 @@ span.icon > .fa {
     position: relative;
     width: 100%;
 }
-/* .admonitionblock td.icon { */
-/*   text-align: center; */
-/*   width: 80px; */
-/* } */
-/* .admonitionblock td.icon [class^="fa icon-"] { */
-/*   font-size: 2.5em; */
-/*   text-shadow: 1px 1px 2px rgba(0,0,0,.5); */
-/*   cursor: default; */
-/* } */
+
+.admonitionblock.caution td.icon {
+    /* background-color: #e40046; */
+    background-color: var(--caution-color);
+    /* color: #fff; */
+    color: var(--caution-on-color);
+}
+.admonitionblock.caution td.icon i {
+    background-image: url(/docs_obazl/images/octicons-16.svg#view-flame);
+}
+
+.admonitionblock.important td.icon {
+    /* background-color: #e40046; */
+    background-color: var(--important-color);
+    /* color: #fff; */
+    color: var(--important-on-color);
+}
+.admonitionblock.important td.icon i {
+    background-image: url(/docs_obazl/images/octicons-16.svg#view-stop);
+}
+
+.admonitionblock.note td.icon {
+    /* background-color: #2d7dd2; */
+    background-color: var(--note-color);
+    /* color: #fff; */
+    color: var(--note-on-color);
+}
+.admonitionblock.note td.icon i {
+    background-image: url(/docs_obazl/images/octicons-16.svg#view-info);
+}
+
+.admonitionblock.tip td.icon {
+    /* background-color: #2d7dd2; */
+    background-color: var(--tip-color);
+    /* color: #fff; */
+    color: var(--tip-on-color);
+}
+.admonitionblock.tip td.icon i {
+    background-image: url(/docs_obazl/images/octicons-16.svg#view-light-bulb);
+}
 
 .admonitionblock.warning td.icon {
-    background-color: #f70;
+    /* background-color: #f70; */
     background-color: var(--warning-color);
     /* color: #fff; */
     color: var(--warning-on-color);
 }
-
-.admonitionblock td.icon .icon-warning:before {
-    content: "\f071";
-    /* color: white; */
+.admonitionblock.warning td.icon i {
+    background-image: url(/docs_obazl/images/octicons-16.svg#view-alert);
 }
-/* .admonitionblock.warning td.icon i { */
-/*     content: "\f071"; */
-/* } */
 
 .admonitionblock td.icon {
     position: absolute;
@@ -62,8 +97,19 @@ span.icon > .fa {
     width: auto;
     background-position-x: .5em;
     filter: invert(100%);
-    padding-left: .75em;
+    padding-left: 2em;
     vertical-align: initial;
+}
+
+.admonitionblock td.icon i::after {
+    content: attr(title);
+    text-transform: uppercase;
+    filter: invert(100%);
+    font-weight: 500;
+    font-weight: var(--admonition-label-font-weight);
+    font-style: normal;
+    padding: 0 .5em;
+    margin: -.05em;
 }
 
 i.fa {
@@ -78,45 +124,6 @@ i.fa {
     height: 1em;
     width: 1em;
     vertical-align: -.125em;
-}
-
-.admonitionblock td.icon i::after {
-    content: attr(title);
-    text-transform: uppercase;
-    filter: invert(100%);
-    font-weight: 500;
-    font-weight: var(--admonition-label-font-weight);
-    font-style: normal;
-    padding: 0 .5em;
-    margin: -.05em;
-}
-
-/* .admonitionblock td.icon .icon-note:before { */
-/*   content: "\f05a"; */
-/*   color: #19407c; */
-/* } */
-/* .admonitionblock td.icon .icon-tip:before { */
-/*   content: "\f0eb"; */
-/*   text-shadow: 1px 1px 2px rgba(155,155,0,.8); */
-/*   color: #111; */
-/* } */
-/* .admonitionblock td.icon .icon-caution:before { */
-/*   content: "\f06d"; */
-/*   color: #bf3400; */
-/* } */
-/* .admonitionblock td.icon .icon-important:before { */
-/*   content: "\f06a"; */
-/*   color: #bf0000; */
-/* } */
-
-.main .admonitionblock td.icon i {
-    display: inline-flex;
-    align-items: center;
-    width: auto;
-    background-position-x: .5em;
-    filter: invert(100%);
-    padding-left: 2em;
-    vertical-align: initial;
 }
 
 .admonitionblock td.content {

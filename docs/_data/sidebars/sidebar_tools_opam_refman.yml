@@ -1,8 +1,8 @@
 entries:
 - title: tools_opam
   part: Reference
-  url:  /docs_obazl/tools-opam/reference
   product: tools_opam
+  url:  /docs_obazl/tools-opam/reference
   version: 2.0
   levels: one
   folders:

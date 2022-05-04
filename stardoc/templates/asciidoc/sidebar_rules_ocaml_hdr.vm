@@ -2,6 +2,7 @@
 
 entries:
 - title: OCaml Rules
+  version: 2.0
   levels: one
   folders:
 

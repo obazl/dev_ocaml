@@ -16,9 +16,10 @@
 
 == Bazel Configurations
 
->    **WARNING**: Bazel has several different notions of "configuration".
->    A complete discussion of these is beyond the scope of this manual,
->    but the following links will give you more information.
+
+WARNING: Bazel has several different notions of "configuration".
+A complete discussion of these is beyond the scope of this manual,
+but the following links will give you more information.
 
 * link:https://bazel.build/rules/rules#configurations[Platform Configurations].
 * link:https://bazel.build/rules/config[Starlark Build Configurations], a/k/a "build settings".  See below, link:#configrules[Configuration Rules]

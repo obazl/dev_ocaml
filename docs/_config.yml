@@ -118,6 +118,7 @@ github_username:  mobileink
 plugins:
   - jekyll-asciidoc
   - jekyll-feed
+  - jekyll-octicons
   # - jekyll-remote-theme
 
 asciidoc: {}

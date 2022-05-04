@@ -1,16 +1,13 @@
----
-// layout: page_ocaml_refman
-title: rules_ocaml
-permalink: rules-ocaml/reference/ocaml-rules
-toc: false
-tags: [rules,ocaml]
-keywords: notes, tips, cautions, warnings, admonitions
-last_updated: April 19, 2020
-// summary: "You can insert notes, tips, warnings, and important alerts in your content."
-sidebar: sidebar_rules_ocaml
----
-
+// GENERATED FILE - do not edit
 = OCaml Rules
+:page-permalink: /:path/ocaml-rules
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: refman
+:page-tags: [configation,defaults]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
 
 **WARNING** Beta version - subject to change
 
