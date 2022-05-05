@@ -1,0 +1,79 @@
+= Tools
+:page-permalink: /:path/tools
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [maintenance]
+:page-last_updated: May 5, 2022
+:toc-title:
+:toc: true
+
+== Bazel tools
+
+* link:https://github.com/bazelbuild/buildtools/tree/master/buildozer[Buildozer,window=_blank] batch editor
+* link:https://github.com/bazelbuild/buildtools/blob/master/buildifier[Buildifier,window=_blank] formatter
+* link:https://github.com/bazelbuild/bazel-skylib[Skylib,window=_blank] "library of Starlark functions for manipulating collections, file paths, and various other data types in the domain of Bazel build rules."
+
+== OBazl tools
+
+The following tools are under development:
+
+* Dune conversion tool
+* Shared PPX executables generator
+* Visibility generator
+* ...etc...
+
+== OCaml tools
+
+The OCaml toolchain comes with a collection of useful
+link:https://caml.inria.fr/pub/docs/manual-ocaml/index.html#sec286[tools,window=_blank]
+
+To see all of them, list the `bin` directory of your switch, which you
+can find by running `$ opam config list` or `$ opam var bin`. So: ```$ ls `opam var bin` ```.
+
+These will probably be useful for Obazl development:
+
+* link:https://caml.inria.fr/pub/docs/manual-ocaml/depend.html[ocamldep,window=_blank] - given a list of source files, prints information about their dependencies. Since Bazel requires that all build dependencies be explicitly enumerated, this can be a very useful tool.
+* `ocamlobjinfo` - shows the internal structure of compiled modules, interfaces, and archives. You can use this to verify that your build outputs are as expected.
+
+Third-party tools:
+
+* link:https://github.com/Octachron/codept[codept,window=_blank] "Codept intends to be
+  a dependency solver for OCaml projects and an alternative to
+  ocamldep."
+* link:https://github.com/ocaml-community/cppo[cppo,window=_blank] "Cppo is an equivalent of the C preprocessor for OCaml programs."
+* link:https://fdopen.github.io/ppx_cstubs/[ppx_cstubs,window=_blank] "ppx_cstubs is a ppx-based preprocessor for stub generation with link:https://github.com/ocamllabs/ocaml-ctypes[ctypes,window=_blank]"
+
+WARNING: OBazl currently does not offer direct support for these
+OCaml tools; that will be added on an as-needed basis.
+If you need it now, please link:https://github.com/obazl/rules_ocaml/issues[file an issue,window=_blank].
+
+=== merlin
+
+Support for link:https://github.com/ocaml/merlin[merlin,window=_blank] is planned for a future version.  (`.merlin` files produced by Dune are not likely to work.)
+
+== Dev tools
+
+* Pagers. Common choices are  link:https://www.slackbook.org/html/file-commands-pagers.html[more, less, and
+  most,window=_blank]. You
+  can also use `vim` as a pager; it ships with a script `less.sh` to
+  support this use (usually in `/usr/share/vim/vim81/macros`). You can
+  make an alias to keep it available, e.g. add `alias
+  vls='/usr/share/vim/vim81/macros/less.sh'` to your `~/.bashrc` file.
+
+* link:https://github.com/BurntSushi/ripgrep[ripgrep,window=_blank] A very fast and powerful replacement for `grep`
+
+* link:https://github.com/sharkdp/fd[fd,window=_blank] A fast and simple replacement for `find`
+
+* link:https://github.com/ttscoff/mdless[mdless,window=_blank] view md files from the command line.
+
+== MacOS
+
+XCode command line tools (with manpages):
+
+* **otool** you may need this if you have problems linking to C/C++ code
+* **install_name_tool** "change dynamic shared library install names"
+
+link:https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/Quicklook_Programming_Guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005020-CH1-SW1[Quick Look,window=_blank] "makes it possible for users to quickly discover the contents of listed documents, both as thumbnail images and as full-size preview images, without requiring the launch of a document’s application."
+
+cmd: **qlmanage -p**

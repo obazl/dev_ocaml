@@ -1,0 +1,15 @@
+= Optimization
+:page-permalink: /:path/optimization
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [maintenance]
+:page-last_updated: May 4, 2022
+
+== Libraries v. Archives
+
+== PPX Optimizations
+
+  * shared ppx executables
+  * single driver
+  * mixed-mode compilation

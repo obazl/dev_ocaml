@@ -1,0 +1,33 @@
+= Toolchains
+:page-permalink: /:path/toolchains
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [maintenance]
+:page-last_updated: May 5, 2022
+// :toc-title:
+// :toc: true
+
+TODO: ocamlc v. ocamlc.opt v. ocamlopt v. ocamlopt.opt, etc.
+
+TODO: other tools: profiler, flambda, etc.
+
+
+```ocaml
+let fact n =   "foo"   (* cmt *)
+    let result = ref 1 in
+    for i = 2 to n do
+      result := i * !result
+    done;
+    !result;;
+```
+
+
+== resources
+
+* link:https://john-millikin.com/bazel-school/toolchains[Bazel School: Toolchains]
+
+
+NOTE: todo: note on ocamlfind - we don't use it, why?
+
+

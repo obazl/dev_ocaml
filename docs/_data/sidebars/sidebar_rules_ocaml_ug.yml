@@ -4,7 +4,7 @@ entries:
   product: rules_ocaml
   url:  /docs_obazl/rules-ocaml/user-guide
   version: 2.0
-  levels: one
+  levels: two
   folders:
 
   - title: Topics
@@ -15,6 +15,7 @@ entries:
     - title: Aggregators
       url: aggregators
       output: web
+      subfolders:
 
     - title: Aspects
       url: aspects.html
@@ -22,10 +23,6 @@ entries:
 
     - title: Bootstrapping
       url: bootstrapping.html
-      output: web
-
-    - title: Build Profiles
-      url: profiles.html
       output: web
 
     - title: Caching
@@ -36,20 +33,30 @@ entries:
       url: conditional.html
       output: web
 
+    # - title: Configurationx
+    #   open: true
+    #   output: web
+      subfolders:
+
     - title: Configuration
       url: configuration.html
       output: web
+      # subfolderitems:
 
     - title: Configurable Defaults
       url: configurable-defaults.html
+      output: web
+
+    - title: Configuration Profiles
+      url: profiles.html
       output: web
 
     - title: Conventions
       url: conventions.html
       output: web
 
-    - title: Dependency Management
-      url: dependency-mgmt.html
+    - title: Dependencies
+      url: dependencies.html
       output: web
 
     - title: Deployment
@@ -72,8 +79,8 @@ entries:
       url: maintenance.html
       output: web
 
-    - title: Module Binding
-      url: module-binding.html
+    - title: Modules
+      url: modules.html
       output: web
 
     - title: Namespacing
@@ -132,8 +139,8 @@ entries:
       url: testing.html
       output: web
 
-    - title: Thread Library
-      url: thread-lib.html
+    - title: Threading
+      url: threading.html
       output: web
 
     - title: Toolchains

@@ -1,0 +1,24 @@
+= Interop
+:page-permalink: /:path/interop
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [dependencies]
+:page-last_updated: May 4, 2022
+:page-toc: false
+
+
+This section provides guidance for manual maintenance of OBazl build
+programs. Tools to automate these tasks are under development.
+
+== C/C++
+
+adsfas
+
+== Rust, Go, etc.
+
+asdfsdaf
+
+== javascript
+
+asdf

@@ -1,0 +1,30 @@
+= OPAM
+:page-permalink: /:path/opam
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [opam]
+:page-last_updated: May 4, 2022
+:toc-title:
+:toc: true
+
+
+== OPAM Dependencies
+
+OPAM dependencies specified by passing their names via the `deps_opam`
+attribute.
+
+
+== misc
+
+Some OPAM packages depend on libraries installed on the local system:
+
+* all of the conf-* libs?  e.g. conf-gmp
+* pkg-config is require by something - ctypes?
+* zarith - contains c code and needs libgmp-dev, perl
+* async - ?
+* ctypes etc.
+* something depends on libffi, I forget what. ctypes?
+* perl - needed by zarith
+* etc.
+

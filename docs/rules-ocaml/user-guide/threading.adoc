@@ -1,0 +1,14 @@
+= Threading
+:page-permalink: /:path/threading
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [threads,concurrency]
+:page-last_updated: May 5, 2022
+// :toc-title:
+// :toc: true
+
+OCaml includes a
+link:https://v2.ocaml.org/manual/libthreads.html[threads] library.
+Current versions of OCaml enable the library by simply linking to it.
+To enable it in OBazl just add dependency `@ocaml//threads`.

@@ -1,0 +1,17 @@
+= Dependencies
+:page-permalink: /:path/dependencies
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [dependencies]
+:page-last_updated: May 4, 2022
+:toc:
+
+
+TODO: how OBazl manages transitive deps.
+
+
+include::rules-ocaml/user-guide/dependencies_ocaml.adoc[]
+
+
+include::rules-ocaml/user-guide/dependencies_cc.adoc[]

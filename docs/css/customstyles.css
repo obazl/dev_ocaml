@@ -353,6 +353,10 @@ a.accordion-toggle, a.accordion-collapsed {
     content: '\25B8';
     margin-right: 4px;
 }
+.nav li > a.subfolder:before {
+    content: '\25B8';
+    margin-right: 4px;
+}
 /* .nav li > a > span:after { */
 /*     content: '\25B8'; */
 /* } */

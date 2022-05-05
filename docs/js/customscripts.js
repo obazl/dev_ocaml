@@ -1,7 +1,77 @@
 $('#mysidebar').height($(".nav").height());
 
+/**
+  * @param {String} url - address for the HTML to fetch
+  * @return {String} the resulting HTML string fragment
+  */
+// async function fetchHtmlAsText(url) {
+//     return await (await fetch(url)).text();
+// }
+
+// async function loadFrag() {
+//     const contentDiv = document.getElementById("content");
+//     contentDiv.innerHTML = await fetchHtmlAsText("home.html");
+// }
+
+// window.addEventListener("scroll", function () {
+
+//     console.log("hello");
+//     // Track the current scrolledsec
+
+//     let currentScrolledsec;
+
+//     // Add/remove the "your-active-class" to the proper sections first
+
+//     const myAllSections = document.querySelectorAll("mysidebar li");
+//     myAllSections.forEach(function (scrolledsec) {
+//         scrolledsec.classList.remove("your-active-class");
+
+//         if (
+//             pageYOffset >= scrolledsec.offsetTop &&
+//                 pageYOffset < scrolledsec.offsetTop + scrolledsec.offsetHeight
+//         ) {
+//             scrolledsec.classList.add("your-active-class");
+
+//             // Set as current scrolledsec
+//             currentScrolledsec = scrolledsec;
+//         }
+//     });
+
+//     // Now highlight/unhighlight the links using the current scrolledsec in view.
+
+//     //the result that when we scroll the section inview with the active class  will take a different style
+
+//     const myAllLinks = document.querySelectorAll("a"); // defining a variable contains all links to loop over it
+//     /*looping over all links when a link text equal section name
+//       (data-nav) and that section in active the link will get
+//       highlighted in nav bar menu */
+//     myAllLinks.forEach((link) => {
+//         if (currentScrolledsec.getAttribute("data-nav") === link.innerText) {
+//             link.style.color = "red";
+//         } else {
+//             link.style.color = "white";
+//         }
+//         /* the result that when we scroll to specific section the 
+//            nav list with the same name as section name will get highlighted*/
+//     });
+// });
 
 $( document ).ready(function() {
+
+   //  console.log("ready")
+
+   // var lis = document.getElementById("mysidebar").getElementsByTagName('a');
+
+    // for (var i=0; i<lis.length; i++) {
+    //     lis[i].addEventListener('click', (e) => {
+    //         e.target.parentNode.classList.add("active");
+    //         console.log("e parent: " + e.target.parentNode.getAttribute("class"));
+    //         e.stopPropagation();
+    //         $(document.body).load(e.target.getAttribute("href"));
+    //     })
+    // }
+
+
 
     //this script says, if the height of the viewport is greater than 800px, then insert affix class, which makes the nav bar float in a fixed
     // position as your scroll. if you have a lot of nav items, this height may not work for you.

@@ -1,0 +1,16 @@
+= Workspaces and Repositories
+:page-permalink: /:path/workspaces
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [repositories,workspaces]
+:page-last_updated: May 5, 2022
+// :toc-title:
+// :toc: true
+
+Official documentation:
+
+* link:https://bazel.build/concepts/build-ref["Workspace, packages, and targets",window="_blank"]
+* link:https://bazel.build/concepts/build-ref#repositories[Repositories,window="_blank"]
+* link:https://bazel.build/docs/bzlmod#modules[Bazel Modules,window="_blank"]
+* link:https://bazel.build/docs/external[Working with External Dependencies,window=_blank]

@@ -14,6 +14,8 @@ Based on the
 link:https://jekyllthemes.io/theme/documentation[Documentation,window="_blank"] Jekyll
 theme.
 
+See also link:https://idratherbewriting.com/documentation-theme-jekyll/index.html[Getting started with the Documentation Theme for Jekyll]
+
 == Asciidoc sources
 
 Pages for the User Guides and the `tools_opam` Reference Manual are

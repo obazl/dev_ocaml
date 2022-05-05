@@ -1,0 +1,17 @@
+= Stamping
+:page-permalink: /:path/stamping
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [maintenance]
+:page-last_updated: May 5, 2022
+// :toc-title:
+// :toc: true
+
+Bazel docs:
+
+* link:https://docs.bazel.build/versions/master/user-manual.html#workspace_status[Workspace status]
+
+== Resources
+
+* link:https://kchodorow.com/2017/03/27/stamping-your-builds[Stamping your builds] Blog post. A little outdated but still useful, until I get this documented.
