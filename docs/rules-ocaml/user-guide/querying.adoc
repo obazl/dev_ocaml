@@ -11,16 +11,16 @@
 
 == Target Graph Queries
 
-* [Bazel Query How-To](https://docs.bazel.build/versions/master/query-how-to.html)
-* [The Bazel Query Reference](https://docs.bazel.build/versions/master/query.html)
+* link:https://bazel.build/docs/query-how-to[Bazel Query How-To,window="_blank"]
+* link:https://bazel.build/reference/query[The Bazel Query Reference,window="_blank"]
 
 == Configured Graph Queries
 
-[cquery](https://docs.bazel.build/versions/master/cquery.html) "cquery
+link:https://bazel.build/docs/cquery[cquery,window="_blank"] "cquery
 is a variant of query that correctly handles select() and build
 options' effects on the build graph."
 
 == Action Graph Queries
 
-* [Aquery (Action Graph Query)](https://docs.bazel.build/versions/master/aquery.html) Reference doc.
-* [Introducing Bazel Aquery](https://blog.bazel.build/2019/02/15/introducing-aquery.html)
+* link:https://blog.bazel.build/2019/02/15/introducing-aquery.html[Introducing Bazel Aquery,window="_blank"]
+* link:https://bazel.build/docs/aquery[Aquery (Action Graph Query),window="_blank"] Reference doc.
