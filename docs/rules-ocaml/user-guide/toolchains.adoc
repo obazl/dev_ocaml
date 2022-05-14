@@ -13,15 +13,293 @@ TODO: ocamlc v. ocamlc.opt v. ocamlopt v. ocamlopt.opt, etc.
 TODO: other tools: profiler, flambda, etc.
 
 
-```ocaml
-let fact n =   "foo"   (* cmt *)
-    let result = ref 1 in
-    for i = 2 to n do
-      result := i * !result
-    done;
-    !result;;
+## Bazel toolchains
+
+Toolchains involve:
+
+* A toolchain *_type_*, defined using the predefined Bazel rule `toolchain_type`. Bazel convention recommends naming such targets "toolchain_type", and using the package name to convey the language involved; for example, a toolchain type for language "foo" might be defined in package `@rules_foo//foo`, yielding a toolchain type label (tag) `@rules_foo//foo:toolchain_type`.
+
+CAUTION: These are not proper types. The `toolchain_type` rule does
+not buid or deliver anything; it is just a mechanism for declaring a
+label that can serve to mark a toolchain as a member of a class of
+toolchains.
+
+* An abstract toolchain *_rule_*, used to construct concrete
+  toolchains. Toolchain rules are parameterized by the artifacts
+  (compilers, linkers, etc) of the toolchain; they produce a
+  `ToolchainInfo` provider containing those artifacts. Rules that need
+  to use a build tool will depend on a toolchain target and extract
+  the required tool from the `ToolchainInfo` provider.
+
+
+* For each concrete toolchain:
+
+** A build target using the abstract toolchain rule, passing specific
+  tools as arguments;
+** A toolchain "classifier", that associates the concrete toolchain with a toolchain type, and specifies its platform compatibilities;
+** Registration of each toolchain/toolchain type pair.
+
+### declaration, definition, and selection of toolchains
+
+link:https://bazel.build/docs/toolchains#toolchain-definitions[defining toolchains,window="_blank"]
+
+To define some toolchains for a given toolchain type, you need three things:
+
+1. A language-specific rule representing the kind of tool or tool suite. By convention this rule’s name is suffixed with “_toolchain”.
+
+2. Several targets of this rule type, representing versions of the tool or tool suite for different platforms.
+
+3. For each such target, an associated target of the generic toolchain rule, to provide metadata used by the toolchain framework. This toolchain target also refers to the toolchain_type associated with this toolchain. This means that a given _toolchain rule could be associated with any toolchain_type, and that only in a toolchain instance that uses this _toolchain rule that the rule is associated with a toolchain_type.
+
+
+The terminology here is a little awkward; we have to kinds of
+toolchain rule, the "language-specific rule" and the "generic
+toolchain rule".  Also unclear are the distinctions between declaration, definition, and selection of toolchains.
+
+To avoid confusion we adopt the following terminology:
+
+#### family of toolchains
+
+A "language-specific rule" must produce a `ToolchainInfo` provider, so
+we could call it a "toolchain-info" rule. However, as described below,
+such rules implicitly define a family of toolchains, so we will call
+them "toolchain-family" rules.
+
+Such rules do not, strictly speaking, _define_ a toolchain; it's more
+of a _declaration_ that generates a definition when provided with
+arguments. That is, it declares (defines?) an abstract structure of
+tools (and other resources, such as files and directories needed by
+the tools), and it is up to the user to _define_ those tools by
+applying the rule to a set of arguments. In other words such a rule
+defines a _**family**_ of toolchains.
+
+In the following examples we are defining toolchains for a (fictional) programming language named `barlang`.
+
+Consider the example at link:https://bazel.build/docs/toolchains#toolchain-definitions[Defining toolchains,window="_blank"] (warning: we've changed `bar` to `barlang`):
+
+```
+For our running example, here’s a definition for a barlang_toolchain rule. Our example has only a compiler, but other tools such as a linker could also be grouped underneath it.
+
+def _barlang_toolchain_impl(ctx):
+    toolchain_info = platform_common.ToolchainInfo(
+        barlangInfo = BarlangInfo(
+            compiler_path = ctx.attr.compiler_path,
+            system_lib = ctx.attr.system_lib,
+            arch_flags = ctx.attr.arch_flags,
+        ),
+    )
+    return [toolchain_info]
+
+// barlang_toolchain = rule(
+deftc_barlang = rule(
+    implementation = _barlang_toolchain_impl,
+    attrs = {
+        "compiler_path": attr.string(),
+        "system_lib": attr.string(),
+        "arch_flags": attr.string_list(),
+    },
+)
 ```
 
+Here `barlang_toolchain` does nothing more than wrap some parameters
+in a `ToolchainInfo` structure. It does not _define_ a compiler, for
+example; it only _declares_ that each `barlang` toolchain must define
+a `compiler_path`, etc. In addition, it does _not_ define a toolchain;
+rather, it implicitly defines a _**family**_ of toolchains. The family
+is parameterized by the rule attributes; providing a particular set of
+attributes selects a member of the family. Thus it is the _use_ of
+such a rule that defines (selects) a (concrete) toolchain.
+
+**IMPORTANT** A "language-specific" toolchain rule implicitly defines
+a family of toolchains (it defines the family, not the toolchains)
+but this family is _not_ related to any (toolchain) type defined by a
+`toolchain_type` rule.
+
+The standard convention is to name such rules with a "_toolchain"
+suffix; this is plainly confusing, since targets defined using such
+rules are also appropriately named with the same suffix, not to
+mention "instances" of the generic toolchain rule.
+
+To use such a rule is to define a toolchain; therefore, to bring this
+logic to the surface, we will follow the convention of naming such
+rules with prefix `deftc_` and suffix `_toolchain`. So when used we will
+have `deftc_barlang(...)` instead of `barlang_toolchain(...)`.
+
+To name such toolchains defined using a toolchain-family rule we use
+prefix `barlang_toolchain` (or an unambiguous abbreviation where
+possible, e.g. `barlang_tc`), e.g.
+
+```
+deftc_barlang(
+    name = "barlang_tc_linux",
+    arch_flags = [
+        "--arch=Linux",
+        "--debug_everything",
+    ],
+    compiler_path = "/path/to/barlang/on/linux",
+    system_lib = "/usr/lib/libbarlang.so",
+)
+```
+
+We reserve "toolchain" for the toolchains defined as just described - by parameterizing a toolchain-family rule to select a concrete toolchain.
+Note that this is in contrast to standard Bazel usage, which uses the
+term "toolchain" somewhat loosely.
+
+**IMPORTANT** Do not confuse toolchain definitions and tool
+definitions. In our example, we are defining toolchains in package
+`//barlang_tools`, and the tools are named in some manner using `barlang`.
+But a toolchain can use whatever tools you care to define for it. In
+our example: the resources used to parameterize `deftc_barlang`
+need not have any relation to `barlang_tools`. Furthermore, the toolchain
+mechanism described here (declaration, definition, selection) does not
+_build_ the tools, it only configures/selects tools, which may be
+built by other rules, or by processes outside of Bazel.
+
+
+The generic toolchain rule (`toolchain`, defined by Bazel itself) is
+simply misnamed. It neither defines nor declares a toolchain; rather
+binds a toolchain-info target (defined by applying `deftc_*_toolchain`
+to args) to a toolchain_type target, and expresses a set of
+compatibility constraints governing selection of the (generic
+toolchain) rule during toolchain resolution at build time. So we'll
+call it a "toolchain-selector", and name it using suffix
+`_toolchain_selector` (or `_tc_selector`). Continuing the example:
+
+```
+toolchain(  ## misnamed; should be something like `toolchain_selector` or `toolchain_spec` or the like
+    name = "barlang_tc_linux_selector",  ## not "barlangc_linux_toolchain"
+    toolchain = ":barlang_tc_linux",   ## instead of :barlangc_linux
+    toolchain_type = ":toolchain_type", ## bad; should name the type, e.g. barlang_tools_tc
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ]
+)
+```
+
+Even this is rather weak, though. A `toolchain` rule always selects a
+toolchain of a particular type (value of the `toolchain-type`
+attribute); why not make that explicit in the target name? To support
+this, the first step is to give toolchain types meaningful names,
+rather than merely `:toolchain_type` (which effectively conveys no
+information). The convention recommended by Bazel is to always use the
+name "toolchain_type" for `toolchain_type` targets, and to rely on the
+package path to distinguish toolchain types, which would give us
+toolchain type labels like `//foo:toolchain_type`,
+`//barlang:toolchain_type`. We think this is a (very) bad idea and instead
+recommend choosing a target name that conveys meaningful information; for
+example, `//foo:foo_tc`, `//barlang:barlang_tc`. That makes the
+`toolchain_type` attribute of the `toolchain` rule more legible:
+`toolchain_type = ":barlang_tc"` instead of `toolchain_type =
+":toolchain_type"`, which conveys little information.
+
+Note that we need not suffix `_type` to the names of such
+targets, any more that we need to suffix it to type names like "int".
+
+(A counterargument might be that since `:toolchain_type` implies
+`barlang_tools:toolchain_type`, there is no missing information. But this
+is cumbersome; among other things, it means that such a code fragment
+cannot be used out of context (e.g. in documentation) without also
+providing the package name. Furthermore, what if more than one
+`toolchain_type` is defined in package `//barlang_tools`? Of course,
+another option is to always use the fully-qualified label of
+`toolchain_type` rules.)
+
+Following our conventions:
+
+[in barlang_tools/BUILD.bazel]
+```
+toolchain_type(name = "barlang_tc")  ## not "toolchain_type"
+
+# declare (a family of toolchains)
+_deftc_barlang_impl(ctx):
+    toolchain_info = platform_common.ToolchainInfo(...)
+    return [toolchain_info] # effectively defines a family of toolchains
+
+deftc_barlang = rule(
+    implementation = _deftc_barlang_impl,
+    attrs = {...}
+
+# parameterize deftc_* rule to define (select) some (concrete) toolchains from the family
+deftc_barlang(
+    name = "barlang_tc_linux",
+    arch_flags = ["--arch=Linux", "--debug_everything"],
+    compiler_path = "/path/to/barlang/on/linux",
+    system_lib = "/usr/lib/libbarlang.so",
+)
+
+deftc_barlang(  ## using a different barlang compiler on linux
+    name = "barlang_tc_linux_x",
+    arch_flags = ["--arch=Linux", "--debug_everything"],
+    compiler_path = "/path/to/barlang/x/linux",
+    system_lib = "/usr/lib/libbarlang.so",
+)
+
+deftc_barlang(
+    name = "barlang_tc_windows",
+    arch_flags = ["--arch=Windows"],
+    compiler_path = "C:\\path\\on\\windows\\barlang.exe",
+    system_lib = "C:\\path\\on\\windows\\barlanglib.dll",
+)
+
+toolchain(
+    name = "barlang_tc_linux_selector",
+    toolchain_type = "@foo//barlang:toolchain_type", toolchain = ":barlang_tc_linux",
+    ... compatibility constraints ...
+)
+toolchain(
+    name = "barlang_tc_linux_x_selector",
+    toolchain_type = ":barlang_tc", toolchain = ":barlang_tc_linux_x",
+    ... compatibility constraints ...
+)
+toolchain(
+    name = "barlang_tc_windows_selector",
+    toolchain_type = ":barlang_tc", toolchain = ":barlang_tc_windows",
+    ... compatibility constraints ...
+)
+
+register_toolchains(
+    "//bar_tools:barlang_tc_linux_selector",
+    "//bar_tools:barlang_tc_linux_x_selector",
+    "//bar_tools:barlang_tc_windows_selector",
+)
+
+## a build rule that uses the toolchain, possibly defined in a different BUILD file
+def _barlang_binary_impl(ctx):
+    ...
+    info = ctx.toolchains["//barlang_tools:barlang_tc"].barlangcinfo
+    ...
+
+barlang_binary = rule(
+    implementation = _barlang_binary_impl,
+    attrs = {...},
+    toolchains = ["//barlang_tools:barlang_tc"]
+)
+
+```
+
+IOW, the toolchain is declared by the toolchain-info rule, defined by
+application of the toolchain-info rule, and selected for use by the
+toolchain-selector rule.
+
+### tool definition
+
+Toolchains use tools; they do not define or build them.
+
+
+#### cross-compilation
+
+[OCaml cross-toolchains and cross-packages](https://github.com/ocaml-cross/)
+
+* [opam-cross-windows](https://github.com/ocaml-cross/opam-cross-windows)
+* [crosstool-NG](https://crosstool-ng.github.io/)
+* [MXE](https://mxe.cc/) - M Cross Environment
+* [OMicroB](https://github.com/stevenvar/OMicroB) - OCaml on Microcontroller Boards
+* [OCaPIC](http://www.algo-prog.info/ocapic/web/index.php?id=ocapic) - OCaPIC: Programming PIC microcontrollers in OCaml
 
 == resources
 

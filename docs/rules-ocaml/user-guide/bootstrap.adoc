@@ -51,7 +51,7 @@ git_repository(
 If your `WORKSPACE.bazel` gets crowded (as may happen if your project
 depends on a lot of external repositories), you may want to wrap the
 repository rules in a `fetch()` function and put it in an _extension
-file_ (a file with extension `.bzl`). The link:conventions.md[OBazl
+file_ (a file with extension `.bzl`). The link:obazl-conventions[OBazl
 convention] is to put such extension functions in
 `WORKSPACE.bzl`.
 
@@ -63,7 +63,7 @@ convention] is to put such extension functions in
 
 === Fetching Rules Repositories
 
-The link:conventions.md[OBazl convention] is to put fetch code in
+The link:obazl-conventions[OBazl convention] is to put fetch code in
 `WORKSPACE.bzl`, but that is a convention, not a requirement; they can
 go in any extension file (with extension `.bzl`).
 

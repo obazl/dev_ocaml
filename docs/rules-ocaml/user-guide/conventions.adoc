@@ -1,5 +1,5 @@
 = OBazl Conventions
-:page-permalink: rules-ocaml/user-guide/conventions
+:page-permalink: rules-ocaml/user-guide/obazl-conventions
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug
@@ -11,24 +11,13 @@
 * `.bazelrc` - always put this file in the project root directory; at
   a minimum, it should contain `+try-import .private/user.bazelrc+`.
 +
-See link:https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file[.bazelrc, the Bazel configuration file] for more information.
-
+See link:https://bazel.build/docs/bazelrc[Write bazelrc configuration files,window="_blank"] for more information.
 
 * Use `.private/user.bazelrc` to pass arguments to Bazel. Do not put
   it under version control. Add it to `.gitignore`.
 
-** Use `:name` suffixes to control configurations at the command line
-    using `--config` (documented under `--config` at the bottom of:
-    link:https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file[.bazelrc, the Bazel configuration file]).
-+
-For example, use `:quiet` to mark arguments you want to disable by passing `--config=quiet`:
-+
-[listing]
-build --color=yes
-build --subcommands=pretty_print
-build:quiet --subcommands=false
-build --verbose_failures
-build --sandbox_debug
+** Use `:name` suffixes to control sets of configuration settings ("profiles") at the command line
+    using link:https://bazel.build/docs/bazelrc#config[--config,window="_blank"]
 
 
 * Put the following in `.gitignore`:
@@ -45,14 +34,13 @@ build --sandbox_debug
 
 * `WORKSPACE.bazel`, not `WORKSPACE`
 
-    Explicitly name your workspace - make
-    `workspace(name="foo")` the first line of `WORKSPACE.bazel`
-    (replacing `foo` with your workspace name). This will make log
-    messages more decipherable, among other things.
+* Explicitly name your workspace - make `workspace(name="foo")` the
+    first line of `WORKSPACE.bazel` (replacing `foo` with your
+    workspace name). This will make log messages more decipherable,
+    among other things.
 
 * Use `WORKSPACE.bzl` for extension code needed by `WORKSPACE.bazel`,
-  such as `fetch()` functions that link:bootstrap.md#fetch_rules[fetch]
-  language rules and external repositories.
+  such as `fetch()` functions that link:bootstrapping.html#fetching-rules-repositories[fetch language rules and external repositories].
 
 * `BUILD.bazel`, not `BUILD`
 
@@ -67,7 +55,7 @@ build --sandbox_debug
 ** Otherwise, define one or more bootstrapping functions in
     `WORKSPACE.bzl` (note the extension, `.bzl`, not `.bazel`)
     responsible for fetching the repositories. See
-    link:bootstrap.md[Bootstrapping] for an example. Name them
+    link:bootstrapping[Bootstrapping] for an example. Name them
     `<lang>_fetch_rules` (for fetching language support packages) and
     `<lang>_fetch_repos` for library repositories.
 
@@ -79,7 +67,7 @@ build --sandbox_debug
 
 * Use a `tools` subdirectory to store shell scripts and any other tools you want under version control.
 
-** Create a shell **<a name="aliases">alias</a>** to enable easy access
+** Create a shell alias to enable easy access
     to the command log. Put the following (or something similar) in
     `tools/aliases`, and then source the file: `$ source
     tools/aliases`. Then `$ bl` will browse the log using `less`.
@@ -93,22 +81,18 @@ build --sandbox_debug
 * Repository fetching functions:
 
 ** `<lang>_fetch_rules` - for fetching rules packages
-** `<lang>_fetch_repo`, `<lang>_fetch_repos` - for fetching library
-** repositories alternative: `<lang>_fetch_lib`, `<lang>_fetch_libs`
+** `<lang>_fetch_repo`, `<lang>_fetch_repos` - for fetching library repositories
+** alternative: `<lang>_fetch_lib`, `<lang>_fetch_libs`
 
 * primary target names should match package name. E.g. `//foo/bar:bar`
 
-* `ocaml_module` and `ppx_module` targets that are package-internal
-  should capitalize the initial character (i.e. should match the OCaml
-  module name), with a prefixed underscore. For example,
-  `ocaml_module(name="_Foo", src="foo.ml"...)`. Public module targets
-  (those used by other packages) should use the same convention
-  without the underscore prefix, except for the primary target, whose
-  case should match the package name.
+* `ocaml_module` and `ppx_module` targets should capitalize the
+  initial character (i.e. should match the OCaml module name). For
+  example, `ocaml_module(name="Foo", src="foo.ml"...)`.
 
-* `ocaml_interface` targets should follow the same convention as for
-  modules, suffixed by `.cmi`. For example:
-  `ocaml_interface(name="_Foo.cmi", src="foo.mli"...)`
+* `ocaml_signature` targets should follow the same convention as for
+  modules, suffixed by `_cmi`. For example:
+  `ocaml_interface(name="Foo_cmi", src="foo.mli"...)`
 
-* `ocaml_ns` and `ppx_ns` target names should be suffixed by `_ns`.
+* `ocaml_ns_resolver` target names should be suffixed by `_ns`.
 

@@ -1,14 +1,13 @@
 = OPAM Configuration
-:page-permalink: tools-opam/user-guide/opam-configuration
+:page-permalink: /:path/opam-configuration
 :page-layout: page_tools_opam
 :page-pkg: tools_opam
 :page-doc: ug
 :page-tags: [opam,configuration]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: May 2, 2022
-:page-toc: false
-
-permalink: tools-opam/user-guide/opam-configuration
+:page-last_updated: May 14, 2022
+// :toc-title:
+// :toc: true
 
 == Local directory switches
 

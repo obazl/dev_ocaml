@@ -17,22 +17,6 @@
 WARNING: if you move a project directory that has a here switch, you
 must run `bazel run @opam//here:refresh` after the move.
 
-== Bootstrap Tools
-
-Project-local:
-
-* link:opam_here[here]
-* link:opam_here_init[here init]
-* link:opam_here_config[here config]
-* link:opam_here_install[here install] - install OPAM package into 'here' switch
-
-Shared:
-
-* link:opam_xdg[xdg]
-* link:opam_xdg_init[xdg init]
-* link:opam_xdg_config[xdg config]
-
-
 OBazl provides:
 
 * OPAM bootstrapper tools that generate Bazel files containing
@@ -58,4 +42,21 @@ A primary goal of OBazl is to support fully hermetic OCaml builds. For
 reasons explained below, hermetic builds are not possible with a
 standard OPAM installation. The remainder of this article describes
 the problems and OBazl's approach to addressing them.
+
+
+== Bootstrap Tools
+
+Project-local:
+
+* link:opam_here[here]
+* link:opam_here_init[here init]
+* link:opam_here_config[here config]
+* link:opam_here_install[here install] - install OPAM package into 'here' switch
+
+Shared:
+
+* link:opam_xdg[xdg]
+* link:opam_xdg_init[xdg init]
+* link:opam_xdg_config[xdg config]
+
 

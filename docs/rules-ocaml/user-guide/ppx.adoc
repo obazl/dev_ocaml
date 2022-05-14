@@ -59,15 +59,15 @@ ppx_module(
 
 Demo: [demos/ppx/rewriter/greeting](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting)
 
-==== Building PPX libraries
+=== Building PPX libraries
 
 Rule: [ppx_library](../refman/rules_ppx.md#ppx_library)
 
-==== Building PPX archives
+=== Building PPX archives
 
 Rule: [ppx_archive](../refman/rules_ppx.md#ppx_archive)
 
-==== Building PPX executables
+=== Building PPX executables
 
 Rule: [ppx_executable](../refman/rules_ppx.md#ppx_executable)
 

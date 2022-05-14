@@ -12,10 +12,13 @@ entries:
     output: web
     folderitems:
 
+    - title: Accessibility
+      url: visibility
+      output: web
+
     - title: Aggregators
       url: aggregators
       output: web
-      subfolders:
 
     - title: Aspects
       url: aspects.html
@@ -52,7 +55,7 @@ entries:
       output: web
 
     - title: Conventions
-      url: conventions.html
+      url: obazl-conventions.html
       output: web
 
     - title: Dependencies

@@ -6,9 +6,12 @@
 :page-tags: [configation,defaults]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022
-:page-toc: false
+// :page-toc: false
 
-A link:https://docs.bazel.build/versions/master/skylark/config.html#user-defined-build-settings[user-defined build setting], in Bazel's terminology, is a rule that determines a single piece of configuration information.
+A
+link:https://bazel.build/rules/config#user-defined-build-settings[user-defined
+build setting,window="_blank"], in Bazel's terminology, is a rule that
+determines a single piece of configuration information.
 
 A "configuration rule", in OBazl's terminology, is a build setting
 rule that is designated as the default value of a rule attribute.
@@ -17,7 +20,7 @@ Some OCaml compile options are used so commonly used that they should
 probably be the default. Changing compiler defaults would break
 existing code, so OBazl does the next best thing: it defines a set of
 configuration rules that control the construction of compile commands.
-These are documented in the link:/rules-ocaml/reference[rules_ocaml Reference Manual].
+These are documented in the link:/docs_obazl/rules-ocaml/reference[rules_ocaml Reference Manual].
 
 Each configuration rule has a default value, which may be globally
 overridden on the command line. For example, verbosity is controlled
@@ -94,4 +97,4 @@ for the command-line.
 
 == Resources
 
-* link:https://docs.bazel.build/versions/master/skylark/config.html#label-typed-build-settings[Label-typed build settings]
+* link:https://bazel.build/rules/config#label-typed-build-settings[Label-typed build settings,window="_blank"]

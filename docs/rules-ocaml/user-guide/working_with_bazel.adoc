@@ -1,14 +1,13 @@
 = Working with Bazel
-:page-layout: page_tools_opam
-:page-pkg: tools_opam
+:page-permalink: /:path/working-with-bazel
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
 :page-doc: ug
-// :page-sidebar: false
-:page-permalink: rules-ocaml/user-guide/working-with-bazel
-:page-tags: [bazel]
+:page-tags: [aggregation]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: May 2, 2022
-:page-toc: true
-
+:page-last_updated: May 14, 2022
+:toc-title:
+:toc: false
 
 Quickstart: the quickest way to get started is to clone and run some of the
 link:https://github.com/obazl/demos_obazl[demos,window="_blank"].
@@ -37,7 +36,7 @@ the build engine. Bazel build programs are written in the Starlark
 language, and Bazel is also the name of the build engine (of which
 there is only one.)
 
-Bazel provides a great deal of information about your build structure,
+Bazel provides a great deal of information about your build program,
 and it provides fine-grained control over build actions. You can build
 any target in your project, and only it and its dependencies will be
 built. You can parameterize your builds at any level of granularity.
@@ -57,23 +56,61 @@ repository, you can easily configure your build to use a local copy of
 the dependency _without altering your build code_. One benefit of this
 is that it makes it easy to eliminate embedded git submodules.
 
-== Prerequisites
+== Bazel
+
+TIP: OBazl recommends using link:https://github.com/bazelbuild/bazelisk[Bazelisk,window="_blank"] (link:https://bazel.build/install/bazelisk[Installing Bazel using Bazelisk,window="_blank"]).
+
+link:https://bazel.build/docs[Using Bazel,window="_blank"]
+
+TIP: A great deal of Bazel documentation is available, but it
+  is not always easy to find what you need. If you do find it, you probably want to
+  bookmark it.
+
+If you use Bazelisk, you can pin the Bazel version by putting file
+`.bazelversion` in the root directory of your project, containing the
+required version string, e.g. `latest` or `5.1.1`.
+
+To work effectively with OBazl you must master the following material at minimum:
+
+* link:https://bazel.build/concepts/build-ref["Workspaces, packages, and targets",window="_blank"]
+* link:https://bazel.build/concepts/labels[Labels,window="_blank"] (See also: `$ bazel help target-syntax`)
+* link:https://bazel.build/docs/bazelrc[Write bazelrc configuration files,window="_blank"]
+
+If you are just getting started with Bazel, you should work through one of the link:https://bazel.build/start/bazel-intro#getting-started-tutorials[Tutorials,window="_blank"]
+
+
+== OBazl
+
+OBazl deviates from standard Bazel conventions in a few minor ways:
+
+* Rules that build executable binaries are named `*_executable`, not
+  `*_binary`: `ocaml_executable`, `ppx_executable`
+
+* Library rules (`ocaml_library` and `ppx_library`) do not build
+  "separately compiled modules". Instead they provide a simple
+  aggregation mechanism, so that you can depend on a collection of
+  resources under a single name. In other words, OBazl takes the term
+  "library" to mean "collection of resources"; the resources will
+  almost always be OCaml compiled modules, but may include e.g.
+  runtime data dependencies.
+
+=== Prerequisites
 
 * Platform: Linux or MacOS. Both Bazel and OCaml support windows, so
   OBazl may work, but it has not been tested and there are no plans to
   do so. However, it should not be terribly difficult to port it to
   Windows. If you have the time and energy to work on this please
   reach out on the link:https://discord.gg/PHSAW5DUva[OBazl Discord
-  server] and I will be happy to help.
+  server,window="_blank"] and I will be happy to help.
 
 * Build tools. The OCaml toolchain depends on a C/C++ compiler and
   tools.
 
-* link:https://opam.ocaml.org/[OPAM] installation. The rules have been used
+* link:https://opam.ocaml.org/[OPAM,window="_blank"] installation. The rules have been used
   with version 2.0.7. Earlier versions may work; if not, please link:https://github.com/obazl/rules_opam/issues[file
-  an issue].
+  an issue,window="_blank"].
 
-* An OPAM link:https://opam.ocaml.org/doc/Usage.html#opam-switch[switch]
+* An OPAM link:https://opam.ocaml.org/doc/Usage.html#opam-switch[switch,window="_blank"]
   containing the OCaml compiler and OPAM packages your project needs.
 
 ** Currently the OBazl rules only support an OPAM toolchain installed on
@@ -116,7 +153,7 @@ WARNING: "opam var --package ..." may be very, very slow.
 
 NOTE: Compiler versions are treated as (pseudo) packages. When you run
 `$ opam switch` you will see that the "compiler" column lists strings of
-form `<pkgname>:<varname>`; for example, `ocaml-base-compiler.4.12.0`.
+form `<pkgname>.<varname>`; for example, `ocaml-base-compiler.4.12.0`.
 If you have installed a compiler with `+options` the string will look
 like `ocaml-variants.4.14.0+options`. Use the `<pkgname>` part to obtain information about the compiler, e.g. `$ opam var --package ocaml-base-compiler:version --switch myswitch`.
 
@@ -128,66 +165,13 @@ WARNING: The `ocaml-base-compiler` variable is unreliable! Don't use it unless i
 
 * Locally installed (system) libraries. Some OPAM packages depend on locally
   installed resources. For example, package `bignum` depends on
-  package `zarith`, which depends on a local installation of `libgmp`.
-
-== Bazel
-
-link:https://docs.bazel.build/versions/master/install.html[Installation].
-
-TIP: OBazl recommends using link:https://github.com/bazelbuild/bazelisk[Bazelisk] (link:https://docs.bazel.build/versions/master/install-bazelisk.html[Installing Bazel using Bazelisk]).
-
-
-If you use Bazelisk, you can pin the Bazel version by putting file
-`.bazelversion` in the root directory of your project, containing the
-required version string, e.g. `3.7.0`.
-
-If you are just getting started with Bazel, you should work through one of the link:https://docs.bazel.build/versions/master/getting-started.html#tutorials[Tutorials]
-
-To work effectively with OBazl you must master the following material at minimum:
-
-* link:https://docs.bazel.build/versions/master/bazel-overview.html[Bazel Overview]
-* link:https://docs.bazel.build/versions/master/build-ref.html[Concepts and Terminology]
-* link:https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build[Specifying targets to build]
-  * Or: `$ bazel help target-syntax`
-
-For reference:
-
-* link:https://docs.bazel.build/versions/master/guide.html[User Guide]
-
-**WARNING**: a great deal of Bazel documentation is available, but it
-  is not always easy to find what you need. If you do find it,
-  _bookmark it_! For example, the documentation for `--config` is
-  buried at the bottom of link:https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file[.bazelrc, the Bazel configuration file].
-
-**WARNING2**: the documentation is not always up to date. Bazel is
-  very stable, but it is also under very active development so the
-  documentation may lag. For example, the documentation frequently
-  refers to `BUILD` and `WORKSPACE` files. Those still work, but at
-  some point support was added for `BUILD.bazel` and `WORKSPACE.bazel`
-  (which is what OBazl recommends).
-
-OBazl deviates from standard Bazel conventions in a few minor ways:
-
-* Rules that build executable binaries are named `*_executable`, not
-  `*_binary`: `ocaml_executable`, `ppx_executable`
-
-* Library rules (`ocaml_library` and `ppx_library`) do not build
-  "separately compiled modules". Instead they provide a simple
-  aggregation mechanism, so that you can depend on a collection of
-  resources under a single name. In other words, OBazl takes the term
-  "library" to mean "collection of resources"; the resources will
-  almost always be OCaml compiled modules, but may include e.g.
-  runtime data dependencies.
-
-* The `ocaml_archive` rule supports OCaml archive files.
+  package `zarith`, which depends on a local installation of `libgmp` (usually in `/usr/local`).
 
 == Setup
 
 To get the most out of OBazl and Bazel, you need to decide on some
 conventions and do a little configuration. See link:obazl-conventions[OBazl
 Conventions] for a list.
-
-* shell scripts
 
 == Inspecting the Bazel environment, logs, build actions, etc.
 
