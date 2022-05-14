@@ -78,8 +78,8 @@ may have its own set of configurable defaults.
 
 [.prototype]
 pass:[
-ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-args">args</a>, <a href="#ocaml_archive-args0">args0</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-manifest">manifest</a>, <a href="#ocaml_archive-mode">mode</a>, <a href="#ocaml_archive-opts">opts</a>, <a href="#ocaml_archive-shared">shared</a>,
-              <a href="#ocaml_archive-standalone">standalone</a>)
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-args0file">args0file</a>, <a href="#ocaml_archive-argsfile">argsfile</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-manifest">manifest</a>, <a href="#ocaml_archive-mode">mode</a>, <a href="#ocaml_archive-opts">opts</a>,
+              <a href="#ocaml_archive-shared">shared</a>, <a href="#ocaml_archive-standalone">standalone</a>)
 ]
 
 
@@ -100,12 +100,12 @@ Generates an OCaml archive file.
 |  Name of generated archive file, without extension. If not provided, name will be derived from target 'name' attribute. | +++String+++
 | optional
 | ""
-| +++<a class="rule-attr" id="ocaml_archive-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_archive-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_archive-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_archive-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_archive-cc_deps"></a>+++cc_deps
@@ -146,8 +146,8 @@ Generates an OCaml archive file.
 
 [.prototype]
 pass:[
-ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-args">args</a>, <a href="#ocaml_executable-args0">args0</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe">exe</a>, <a href="#ocaml_executable-main">main</a>, <a href="#ocaml_executable-mode">mode</a>,
-                 <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
+ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-args0file">args0file</a>, <a href="#ocaml_executable-argsfile">argsfile</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe">exe</a>, <a href="#ocaml_executable-main">main</a>,
+                 <a href="#ocaml_executable-mode">mode</a>, <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
 ]
 
 
@@ -188,12 +188,12 @@ the difference between '/' and ':' in such labels):
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_executable-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_executable-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_executable-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_executable-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_executable-cc_deps"></a>+++cc_deps
@@ -358,7 +358,7 @@ Generates an OCaml source file from an ocamllex source file.
 
 [.prototype]
 pass:[
-ocaml_library(<a href="#ocaml_library-name">name</a>, <a href="#ocaml_library-args">args</a>, <a href="#ocaml_library-args0">args0</a>, <a href="#ocaml_library-manifest">manifest</a>, <a href="#ocaml_library-mode">mode</a>, <a href="#ocaml_library-opts">opts</a>)
+ocaml_library(<a href="#ocaml_library-name">name</a>, <a href="#ocaml_library-args0file">args0file</a>, <a href="#ocaml_library-argsfile">argsfile</a>, <a href="#ocaml_library-manifest">manifest</a>, <a href="#ocaml_library-mode">mode</a>, <a href="#ocaml_library-opts">opts</a>)
 ]
 
 
@@ -391,12 +391,12 @@ Packages](../ug/collections.md).
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_library-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_library-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_library-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_library-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_library-manifest"></a>+++manifest
@@ -420,8 +420,8 @@ Packages](../ug/collections.md).
 
 [.prototype]
 pass:[
-ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args">args</a>, <a href="#ocaml_module-args0">args0</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-forcename">forcename</a>, <a href="#ocaml_module-mode">mode</a>, <a href="#ocaml_module-ns_resolver">ns_resolver</a>,
-             <a href="#ocaml_module-open">open</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_module-sig">sig</a>, <a href="#ocaml_module-struct">struct</a>)
+ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args0file">args0file</a>, <a href="#ocaml_module-argsfile">argsfile</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-forcename">forcename</a>, <a href="#ocaml_module-mode">mode</a>,
+             <a href="#ocaml_module-ns_resolver">ns_resolver</a>, <a href="#ocaml_module-open">open</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_module-sig">sig</a>, <a href="#ocaml_module-struct">struct</a>)
 ]
 
 
@@ -479,12 +479,12 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_module-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_module-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_module-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_module-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_module-cc_deps"></a>+++cc_deps
@@ -563,7 +563,7 @@ Label of `ppx_executable` target to be used to transform source before compilati
 
 [.prototype]
 pass:[
-ocaml_ns_archive(<a href="#ocaml_ns_archive-name">name</a>, <a href="#ocaml_ns_archive-args">args</a>, <a href="#ocaml_ns_archive-args0">args0</a>, <a href="#ocaml_ns_archive-mode">mode</a>, <a href="#ocaml_ns_archive-ns">ns</a>, <a href="#ocaml_ns_archive-opts">opts</a>, <a href="#ocaml_ns_archive-shared">shared</a>, <a href="#ocaml_ns_archive-submodules">submodules</a>)
+ocaml_ns_archive(<a href="#ocaml_ns_archive-name">name</a>, <a href="#ocaml_ns_archive-args0file">args0file</a>, <a href="#ocaml_ns_archive-argsfile">argsfile</a>, <a href="#ocaml_ns_archive-mode">mode</a>, <a href="#ocaml_ns_archive-ns">ns</a>, <a href="#ocaml_ns_archive-opts">opts</a>, <a href="#ocaml_ns_archive-shared">shared</a>, <a href="#ocaml_ns_archive-submodules">submodules</a>)
 ]
 
 
@@ -586,12 +586,12 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_ns_archive-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_archive-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_ns_archive-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_archive-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_archive-mode"></a>+++mode
@@ -623,7 +623,7 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 
 [.prototype]
 pass:[
-ocaml_ns_library(<a href="#ocaml_ns_library-name">name</a>, <a href="#ocaml_ns_library-args">args</a>, <a href="#ocaml_ns_library-args0">args0</a>, <a href="#ocaml_ns_library-deps">deps</a>, <a href="#ocaml_ns_library-mode">mode</a>, <a href="#ocaml_ns_library-ns">ns</a>, <a href="#ocaml_ns_library-opts">opts</a>, <a href="#ocaml_ns_library-resolver">resolver</a>, <a href="#ocaml_ns_library-submodules">submodules</a>)
+ocaml_ns_library(<a href="#ocaml_ns_library-name">name</a>, <a href="#ocaml_ns_library-args0file">args0file</a>, <a href="#ocaml_ns_library-argsfile">argsfile</a>, <a href="#ocaml_ns_library-deps">deps</a>, <a href="#ocaml_ns_library-mode">mode</a>, <a href="#ocaml_ns_library-ns">ns</a>, <a href="#ocaml_ns_library-opts">opts</a>, <a href="#ocaml_ns_library-resolver">resolver</a>, <a href="#ocaml_ns_library-submodules">submodules</a>)
 ]
 
 
@@ -646,12 +646,12 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_ns_library-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_library-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_ns_library-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_library-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_library-deps"></a>+++deps
@@ -687,7 +687,7 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 
 [.prototype]
 pass:[
-ocaml_ns_resolver(<a href="#ocaml_ns_resolver-name">name</a>, <a href="#ocaml_ns_resolver-args">args</a>, <a href="#ocaml_ns_resolver-args0">args0</a>, <a href="#ocaml_ns_resolver-embed">embed</a>, <a href="#ocaml_ns_resolver-include">include</a>, <a href="#ocaml_ns_resolver-merge">merge</a>, <a href="#ocaml_ns_resolver-mode">mode</a>, <a href="#ocaml_ns_resolver-ns">ns</a>, <a href="#ocaml_ns_resolver-opts">opts</a>, <a href="#ocaml_ns_resolver-submodules">submodules</a>)
+ocaml_ns_resolver(<a href="#ocaml_ns_resolver-name">name</a>, <a href="#ocaml_ns_resolver-args0file">args0file</a>, <a href="#ocaml_ns_resolver-argsfile">argsfile</a>, <a href="#ocaml_ns_resolver-embed">embed</a>, <a href="#ocaml_ns_resolver-include">include</a>, <a href="#ocaml_ns_resolver-merge">merge</a>, <a href="#ocaml_ns_resolver-mode">mode</a>, <a href="#ocaml_ns_resolver-ns">ns</a>, <a href="#ocaml_ns_resolver-opts">opts</a>, <a href="#ocaml_ns_resolver-submodules">submodules</a>)
 ]
 
 
@@ -759,12 +759,12 @@ ns(ns = "foobar", srcs = glob(["*.ml"]))
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_ns_resolver-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_resolver-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_ns_resolver-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_ns_resolver-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_resolver-embed"></a>+++embed
@@ -823,8 +823,8 @@ The normalized submodule names must match the names of the modules electing memb
 
 [.prototype]
 pass:[
-ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args">args</a>, <a href="#ocaml_signature-args0">args0</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-forcename">forcename</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>, <a href="#ocaml_signature-pack">pack</a>, <a href="#ocaml_signature-ppx">ppx</a>,
-                <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
+ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args0file">args0file</a>, <a href="#ocaml_signature-argsfile">argsfile</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-forcename">forcename</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>,
+                <a href="#ocaml_signature-pack">pack</a>, <a href="#ocaml_signature-ppx">ppx</a>, <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
 ]
 
 
@@ -863,12 +863,12 @@ the difference between '/' and ':' in such labels):
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_signature-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_signature-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_signature-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_signature-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_signature-as_cmi"></a>+++as_cmi
@@ -942,8 +942,8 @@ Label of `ppx_executable` target to be used to transform source before compilati
 
 [.prototype]
 pass:[
-ocaml_test(<a href="#ocaml_test-name">name</a>, <a href="#ocaml_test-args">args</a>, <a href="#ocaml_test-args0">args0</a>, <a href="#ocaml_test-cc_deps">cc_deps</a>, <a href="#ocaml_test-cc_linkall">cc_linkall</a>, <a href="#ocaml_test-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_test-data">data</a>, <a href="#ocaml_test-deps">deps</a>, <a href="#ocaml_test-exe">exe</a>, <a href="#ocaml_test-main">main</a>, <a href="#ocaml_test-mode">mode</a>, <a href="#ocaml_test-opts">opts</a>,
-           <a href="#ocaml_test-strip_data_prefixes">strip_data_prefixes</a>)
+ocaml_test(<a href="#ocaml_test-name">name</a>, <a href="#ocaml_test-args0file">args0file</a>, <a href="#ocaml_test-argsfile">argsfile</a>, <a href="#ocaml_test-cc_deps">cc_deps</a>, <a href="#ocaml_test-cc_linkall">cc_linkall</a>, <a href="#ocaml_test-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_test-data">data</a>, <a href="#ocaml_test-deps">deps</a>, <a href="#ocaml_test-exe">exe</a>, <a href="#ocaml_test-main">main</a>, <a href="#ocaml_test-mode">mode</a>,
+           <a href="#ocaml_test-opts">opts</a>, <a href="#ocaml_test-strip_data_prefixes">strip_data_prefixes</a>)
 ]
 
 
@@ -976,12 +976,12 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 |  A unique name for this target. | +++<a href="https://bazel.build/docs/build-ref.html#name">Name</a>+++
 | required
 | 
-| +++<a class="rule-attr" id="ocaml_test-args"></a>+++args
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_test-args0file"></a>+++args0file
+|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
-| +++<a class="rule-attr" id="ocaml_test-args0"></a>+++args0
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+| +++<a class="rule-attr" id="ocaml_test-argsfile"></a>+++argsfile
+|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_test-cc_deps"></a>+++cc_deps

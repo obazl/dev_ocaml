@@ -78,6 +78,10 @@ entries:
       url: interop.html
       output: web
 
+    - title: Labels
+      external_url: https://bazel.build/concepts/labels
+      output: web
+
     - title: Maintenance
       url: maintenance.html
       output: web
@@ -100,6 +104,10 @@ entries:
 
     - title: Optimization
       url: optimization.html
+      output: web
+
+    - title: Packages
+      external_url: https://bazel.build/concepts/build-ref#packages
       output: web
 
     - title: Profiles
@@ -138,6 +146,10 @@ entries:
       url: structures.html
       output: web
 
+    - title: Targets
+      external_url: https://bazel.build/concepts/build-ref#targets
+      output: web
+
     - title: Testing
       url: testing.html
       output: web
@@ -162,12 +174,12 @@ entries:
       url: user-bazelrc.html
       output: web
 
-    - title: Workspaces
-      url: workspaces.html
+    - title: Visibility
+      url: visibility.html
       output: web
 
-    - title: Namespacing
-      url: namespacing.html
+    - title: Workspaces
+      url: workspaces.html
       output: web
 
 

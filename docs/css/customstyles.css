@@ -308,6 +308,9 @@ a.accordion-toggle, a.accordion-collapsed {
     text-decoration: none;
 }
 
+.navlist {
+    padding-bottom: 2em !important;
+}
 /* navgoco sidebar styles (customized) */
 .nav, .nav ul, .nav li {
     list-style: none;

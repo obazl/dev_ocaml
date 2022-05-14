@@ -8,7 +8,7 @@
 // :toc-title:
 // :toc: true
 
-link:https://docs.bazel.build/versions/master/guide.html#bazelrc-the-bazel-configuration-file[.bazelrc, the Bazel configuration file]
+link:https://bazel.build/docs/bazelrc[Write bazelrc configuration files,window="_blank"]
 
 OBazl convention:
 
@@ -59,8 +59,8 @@ system, say in `$HOME/bazel/rules_ocaml`, and then add an override to
 `user.bazelrc`, using an absolute path:
 
 ```
-common --override_repository=obazl_rules_ocaml=/home/<UID>/bazel/rules_ocaml
+common --override_repository=rules_ocaml=/home/<UID>/bazel/rules_ocaml
 ```
 
-This tells Bazel to resolve all references to the `@obazl_rules_ocaml`
+This tells Bazel to resolve all references to the `@rules_ocaml`
 namespace to your local copy.

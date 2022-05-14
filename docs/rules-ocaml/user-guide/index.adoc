@@ -15,6 +15,7 @@
 
 == Topics
 
+* link:accessibility[Accessibility]
 * link:aggregators[Aggregators]
 ** link:aggregators#_archives[Archives]
 ** link:aggregators#_libraries[Libraries]
@@ -43,6 +44,7 @@
 * link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.
 * link:file-generation[File Generation]
 * link:interop[Interop]
+* link:https://bazel.build/concepts/labels[Labels,window="_blank"]
 * link:maintenance[Maintenance Tasks]
 * Modules
 ** link:module-binding[Module Binding]
@@ -63,9 +65,7 @@
 ** link:build_rules[Build Rules]
 ** link:configrules[Configuration Rules]
 * link:stamping[Stamping]
-* Target labels
-** link:https://docs.bazel.build/versions/master/guide.html#specifying-targets-to-build[Specifying targets to build]
-** link:https://docs.bazel.build/versions/master/build-ref.html#labels[Labels]
+* link:https://bazel.build/concepts/build-ref#targets[Targets,window="_label"]
 ** `$ bazel help target-syntax`
 * link:testing[Testing]
 * link:thread-lib[Thread Library]
@@ -74,8 +74,8 @@
 ** link:toolchains#ocamlc[ocamlc/ocamlopt]
 * link:tools[Tools]
 * link:troubleshooting[Troubleshooting]
-* link:user_bazelrc[user.bazelrc]
-* [Visibility]()
+* link:user-bazelrc[user.bazelrc]
+* link:visibility[Visibility]
 * link:workspaces[Workspaces]
 
 == Additional Topics
