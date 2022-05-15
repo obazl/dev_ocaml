@@ -78,17 +78,36 @@ Special considerations: `-no-alias-deps`, `-opaque`, and `-linkall`.
 OBazl namespacing is built on two key mechanisms: renaming and
 aliasing. Renaming is an OBazl feature; aliasing is an OCaml feature.
 
-"Namespace module" is the term OBazl uses to refer to modules containing
+"Resolver module" is the term OBazl uses to refer to modules containing
 link:https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html[type-level module
 aliases],
 i.e. statements of the form `module N = P`.
 
-NOTE: Dune uses variations on the term "wrapped library" where OBazl uses namespacing terminology.
+=== Top-down
+
+TODO
+
+=== Bottom-up
+
+todo ...
+
+=== (outdated doc)
+
+CAUTION: Dune uses variations on the term "wrapped library" where OBazl uses namespacing terminology.
 
 OBazl rules implementing namespacing:
 
 * ocaml_ns_archive
 * ocaml_ns_library
+* ocaml_ns_resolver
+* ocaml_module
+* ocaml_signature
+
+== Namespaced Aggregators
+
+* ocaml_ns_archive
+* ocaml_ns_library
+
 
 Each of these rules has a `submodules` attribute which contains a list
 of the labels of modules to be included in the namespace.
@@ -216,7 +235,9 @@ To make this work in OBazl use the following technique:
     opts = ["-open", "Demos_Obazl_Stdune__00_ns_env"]
 ```
 
->        Currently this must be done manually, but it will soon be automated.
+NOTE: Version 2 supports an `open` attribute for rules `ocaml_module` and `ocaml_signature`.
+
+>        Currently this must be done manually, but will eventually be automated.
 
 ==== Case B
 
@@ -270,7 +291,9 @@ Only way around this is to change the main ns name?
 
 == Troubleshooting
 
-* Count your underscores!  It's easy to write 'Foo_Bar_Baz' when you should write 'Foo_Bar__Baz', in which case you may get an 'Unbound module' warning.
+* Count your underscores! It's easy to write `+Foo_Bar_Baz+` when you
+  should write `+Foo__Bar_Baz+`, in which case you may get an 'Unbound
+  module' warning.
 
 * If you use a main module, you probably need to exclude it from the ns_env. Otherwise it will be aliased.
  e.g. from dune_glob:
@@ -305,13 +328,9 @@ Example
 Example:
 link:https://github.com/obazl/dev_obazl/tree/main/demos/namespaces[demos/namespaces]
 
-> **WARNING** If your module has both a source file (`foo.ml`) and an
-> interface file (`foo.mli`), you must put both of them into the
-> namespace. More specifically: both the `ocaml_module` and the
-> `ocaml_interface` rules for these files must include the `ns`
-> attribute that registers them in the namespace. But the `ocaml_ns`
-> rule only needs to list the source files in its `submodules`
-> attribute. (A future version will make this less cumbersome.)
+WARNING: If your module has both a structfile (`foo.ml`) and a
+sigfile (`foo.mli`), you must put both of them into the
+namespace.
 
 Type-Level Module Aliases
 -------------------------
@@ -327,51 +346,27 @@ File names including double underscores, such as `foo__bar.ml`, receive
 special treatment. The compiler will treat the double underscore as a
 dot, in this case yielding `Foo.bar`.
 
-> \[T\]he compiler uses the following heuristic when printing paths:
-> given a path Lib\_\_fooBar, if Lib.FooBar exists and is an alias for
-> Lib\_\_fooBar, then the compiler will always display Lib.FooBar
-> instead of Lib\_\_fooBar. This way the long Mylib\_\_ names stay
-> hidden and all the user sees is the nicer dot names. This is how the
-> OCaml standard library is compiled.\" (source:
-> https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html)
+"[T]he compiler uses the following heuristic when printing paths:
+given a path `+Lib__fooBar+`, if `Lib.FooBar` exists and is an alias for
+`+Lib__fooBar+`, then the compiler will always display `Lib.FooBar`
+instead of `+Lib__fooBar+`. This way the long `+Mylib__+` names stay
+hidden and all the user sees is the nicer dot names. This is how the
+OCaml standard library is compiled."
+-- link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[8 Top-level module aliases,window="_blank"]
 
-Translated into English, this bit of indecipherability seems to mean
-that, for example. if `lib.ml` contains `module FooBar = Lib__fooBar`,
-then `Lib.FooBar` corresponds to `Lib__fooBar`. The documentation does
-not explicitly say that references to `Foo.Bar` are translated to
-`foo__Bar.ml`, but that is the implication.
 
-WARNING: The information about double underscores seems to be outdated.
-Experimentation shows that any string can be used; see
-link:https://github.com/obazl/dev_obazl/tree/main/demos/namespaces/minimal/ns_sep[demos/namespaces/minimal/ns\_sep]
-for examples.
+Translated into English, this seems to mean
+that, for example. if `lib.ml` contains `+module FooBar = Lib__fooBar+`,
+then `+Lib.FooBar+` corresponds to `+Lib__fooBar+`.
+
+NOTE: This use of double underscores is a convention, not a rule.
+Aliasing may use any legal module name. In particular `module A = A`
+is legal.
 
 References
 ----------
 
--   link:https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html[8.8 Type-level module
-    aliases]
--   link:https://blog.janestreet.com/better-namespaces-through-module-aliases[Better namespaces through module
-    aliases]
+-   link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[10.8 Type-level module aliases,window="_blank"]
+-   link:https://blog.janestreet.com/better-namespaces-through-module-aliases[Better namespaces through module aliases,window="_blank"]
     (blogpost, 2014)
-
-== obsolete stuff
-
-=== rule: ocaml_ns_env
-
-Purpose: determines a namespace prefix for renaming files, and writes
-a resolver file mapping raw module names to prefixed module names.
-Modules (ocaml_module rules) depend on this to decide how to rename
-source files.
-
-==== macro: ns_env
-
-This macro instantiates rule `ocaml_ns_env`, which initializes a
-_namespace evaluation environment_ or `ns env`. An `ns env` consists
-of a pseudo-namespace prefix string and optionally an ns resolver
-module.
-
-=== attribute: ns_env
-
-Used by `ocaml_module` and `ocaml_signature` to join a namespace.
 
