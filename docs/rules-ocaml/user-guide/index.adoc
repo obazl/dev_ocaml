@@ -1,7 +1,6 @@
 = User Guide: rules_ocaml
-// :url-asciidoctor: http://asciidoctor.org
-// layout: page_ocaml_ug
 :page-permalink: /:path/index.html
+:page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug
 :page-sidebar: false
@@ -25,7 +24,8 @@
 * link:profiles[Build Profiles and Contexts]
 * link:caching[Caching]
 * Compilation Mode - bytecode v. native
-* link:conditional[Conditional Compilation/Building]
+* link:compilers[Compilers]
+* link:conditional[Conditional Builds]
 * link:configuration[Configuration]
 ** link:configuration#bazel[Bazel Configurations]
 ** link:configuration#opamconfig[OPAM Rules Configuration]

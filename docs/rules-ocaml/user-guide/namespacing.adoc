@@ -179,11 +179,13 @@ resolving references to the module in question.
 Fortunately OBazl makes it relatively easy to avoid name clashes even
 if you use the same module name in multiple places.
 
-== Troubleshooting case studies
+== Troubleshooting
 
-=== Multiple submodules with same name
+=== Case studies
 
-==== Case A
+==== Multiple submodules with same name
+
+===== Case A
 
 This situation arose during OBazl development. To develop a tool we
 wanted to borrow some code from Dune for parsing Dune files. The Dune
@@ -239,7 +241,7 @@ NOTE: Version 2 supports an `open` attribute for rules `ocaml_module` and `ocaml
 
 >        Currently this must be done manually, but will eventually be automated.
 
-==== Case B
+===== Case B
 
 Same problem involving module `Glob`, found in `src/dune_engine` and `other_libs/dune_glob`.
 
@@ -289,7 +291,7 @@ Only way around this is to change the main ns name?
 
 '''
 
-== Troubleshooting
+=== Tips
 
 * Count your underscores! It's easy to write `+Foo_Bar_Baz+` when you
   should write `+Foo__Bar_Baz+`, in which case you may get an 'Unbound

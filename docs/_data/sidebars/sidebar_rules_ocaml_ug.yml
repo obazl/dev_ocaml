@@ -32,6 +32,10 @@ entries:
       url: caching.html
       output: web
 
+    - title: Compilers
+      url: compilers.html
+      output: web
+
     - title: Conditional Builds
       url: conditional.html
       output: web
