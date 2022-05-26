@@ -1,4 +1,4 @@
-= OCaml: Toolchains
+= OCaml: Toolchains & Ecosystem
 :page-permalink: /:path/toolchains
 :page-layout: page_rules_ocaml
 :page-pkg: ocaml
@@ -9,6 +9,7 @@
 :toc-title:
 :toc: true
 
+WARNING: Status: very rough as of 5/25/22.
 
 Standard OCaml distributions contain no fewer than four toolchains.  ...
 
@@ -77,7 +78,7 @@ need a linker or other C tools (unless the source code uses interop to
 use libraries produced by another language system (C, Rust, etc.) ?)
 
 
-== Other tools
+== Other tools in the distribution
 
 The OCaml toolchain includes a variety of tools, most of which come in
 `\*.byte` and `*.opt` variants. Some but not all come with a `man` page.
@@ -96,6 +97,9 @@ The OCaml toolchain includes a variety of tools, most of which come in
 * `ocamlrund` - debug version of `ocamlrun`
 * `ocamlruni` - instrumented variant of `ocamlrun` (see link:https://v2.ocaml.org/manual/instrumented-runtime.html[Runtime tracing with the instrumented runtime,window="_blank"])
 * link:https://v2.ocaml.org/manual/lexyacc.html#s%3Aocamlyacc-overview[ocamlyacc,window="_blank"] - parser generator
+
+
+== OPAM
 
 
 == Third-party Tools

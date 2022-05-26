@@ -9,6 +9,11 @@
 :toc-title:
 :toc: true
 
+WARNING: Very rough as of 5/25/22. The goal is to provide a very
+concise overview of the language, in particular those parts/features
+of the language that affect the build discipline, such as modules,
+separate compilation, top-level module aliases and namespacing,
+PPXs, etc.
 
 Why OCaml? Aside from practical considerations, OCaml is
 directly based on the Mother of All (Higher-order,Strictly
@@ -28,9 +33,7 @@ link:https://www.nuprl.org/book/[Implementing Mathematics with The Nuprl Proof D
 
 link:https://www.nuprl.org/book/Metalanguage.html[NuPrl - The Metalanguage,window="_blank"]
 
-== Summary
-
-=== The Module Type System
+== The Module Type System
 
 What is a module?  Simple question with a surprisingly complicated answer.
 
@@ -43,6 +46,79 @@ subsumed under the general concept (type) Int.
 
 CAUTION: `module` is a keyword in the OCaml language, but it is not a
 type constant; there is no module type in OCaml.
+
+"Module" is not a first-class object. That is, modules are not values
+of a Module type; there is no type Module. In fact a "module" is
+neither a value nor a type. It's a pragmatic term used to refer to a
+pairing of a struct and a sig. Or rather, its a generic term used to
+refer to a whole class of module types, just as "list" is often used
+to refer to Int List, String List, etc.
+
+=== Signatures and Structures
+
+Module as family of types. Type ctor is `sig...end`; token ctor is
+`struct ...end`.
+
+
+Structs do not have intrinsic types, so there is no "natural" type
+that goes with a struct; the type of a struct must be _assigned_ by
+binding it to a signature. Modules are thus always in a sense ad-hoc.
+
+However, every struct does have a _principal signature_...
+
+"x is an Int" means x is a value whose type is Int.
+
+"xs is an Int List" means x is a value whose type is Int List.
+
+"A is a module" does _not_ mean that A is a value whose type is Module.
+
+What does it mean? That A names a value whose type was
+constructed by `sig ... end`.  Its type may or may not be named.
+
+Compare: lambda expression as definite description of a function. The
+function and its type remain unnamed.
+
+==== Principal Signature
+
+=== Module Bindings
+
+
+=== Module Types as Dependent Types
+
+Example:
+
+----
+module M : sig val x : int end = struct let x = 42 end
+----
+
+This means that `M` is a token constructed by `struct let x = 42 end`,
+whose type is constructed by `sig val x : int end`.
+
+A type constructed in this manner is a kind of dependent type. Under
+standard usage, "dependent type" means a type parameterized by a value
+of some (first-order) type such as `Int`; for example, the type of
+lists of strings of length four. The type constructor for such a type
+would be parameterized by the type constant `String` and the integer
+value `4`.
+
+The type constructor `sig ... end` is parameterized by a set of
+"fields", which are type declarations like `val x:int`. (TODO: list
+the allowable fields).
+
+NOTE: the type constructed by `sig ... end` should not be treated as a
+signature or signature type.  "signature" is the type constructor, not the type.
+
+The types constructed by `sig...end` may be named by using `module type`; for example:
+
+----
+module type MSig = sig ... end
+----
+
+This declares that `MSig` names the type constructed by `sig...end`.
+Compare: `let f = λx.x+1`, which declares that `f` names the function
+described by the lambda expression `λx.x+1`.
+
+== misc
 
 [source,ocaml]
 ----
@@ -118,6 +194,13 @@ constructed by `sig ... end`.  Its type remains unnamed.
 
 Compare: lambda expression as definite description of a function. The
 function and its type remain unnamed.
+
+== Namespacing
+
+=== Module aliasing
+
+== Compiler Extension Hooks (PPX system)
+
 
 == Programming languages and proof assistants based on OCaml
 

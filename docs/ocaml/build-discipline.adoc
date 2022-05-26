@@ -9,6 +9,7 @@
 :toc-title:
 :toc: true
 
+WARNING: Status: very rough as of 5/25/22.
 
 The OCaml compilers and tools are very flexible. In particular,
 bytecode builds can be customized in a variety of ways.
@@ -127,28 +128,8 @@ directive.
 
 == Modules and the File System
 
-"Module" is not a first-class object. That is, modules are not values
-of a Module type; there is no type Module. In fact a "module" is
-neither a value nor a type. It's a pragmatic term used to refer to a
-pairing of a struct and a sig.
+TBD
 
-Module as family of types. Type ctor is `sig...end`; token ctor is
-`struct ...end`.
-
-Structs do not have intrinsic types, so there is no "natural" sig that
-goes with a module.  Modules are always in a sense ad-hoc.
-
-"x is an Int" means x is a value whose type is Int.
-
-"xs is an Int List" means x is a value whose type is Int List.
-
-"A is a module" does _not_ mean that A is a value whose type is Module.
-
-What does it mean? That A names a value whose type was
-constructed by `sig ... end`.  Its type remains unnamed.
-
-Compare: lambda expression as definite description of a function. The
-function and its type remain unnamed.
 
 === Dyadic Modules
 
