@@ -8,7 +8,6 @@ RULES_PPX_DEPS = [
     "@bazel_skylib//lib:types",
     "@rules_ocaml//doc:stardoc",
     # "@rules_ocaml//opam:stardoc",
-    # "@obazl_tools_obazl//tools/functions",
 ]
 
 stardoc(
@@ -74,6 +73,26 @@ stardoc(
 
         # "ocaml_genrule",
         # # "ocaml_ns_env",
+    ]
+)
+
+################################################################
+stardoc(
+    name = "tools_obazl",
+    input = "@tools_obazl//stardoc:rules.bzl",
+    out = "tools_obazl.adoc",
+    header_template = "//stardoc/templates/asciidoc:header_tools_obazl.vm",
+    rule_template = "//stardoc/templates/asciidoc:rule.vm",
+    # deps must contain bzl_library targets containing files loaded by input
+    deps  = [
+        "@bazel_skylib//lib:dicts",
+        "@bazel_skylib//lib:new_sets",
+        "@tools_obazl//stardoc",
+        "@rules_ocaml//ppx:stardoc",
+    ],
+    symbol_names = [
+        "extract",
+        "inspect"
     ]
 )
 

@@ -9,9 +9,6 @@
 :page-last_updated: July 3, 2016
 :page-toc: false
 
-== link:working-with-bazel[Working with Bazel]
-
-
 == Topics
 
 * link:accessibility[Accessibility]

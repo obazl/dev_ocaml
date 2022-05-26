@@ -1,0 +1,11 @@
+= Developer Guide: tools_opam
+:page-permalink: /:path/index.html
+:page-layout: page_tools_opam
+:page-pkg: tools_opam
+:page-doc: dg
+:page-otags: [opam,tools]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+asfdas asfdfsf

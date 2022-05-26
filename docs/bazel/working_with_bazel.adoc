@@ -86,13 +86,14 @@ OBazl deviates from standard Bazel conventions in a few minor ways:
 * Rules that build executable binaries are named `*_executable`, not
   `*_binary`: `ocaml_executable`, `ppx_executable`
 
-* Library rules (`ocaml_library` and `ppx_library`) do not build
-  "separately compiled modules". Instead they provide a simple
-  aggregation mechanism, so that you can depend on a collection of
-  resources under a single name. In other words, OBazl takes the term
-  "library" to mean "collection of resources"; the resources will
-  almost always be OCaml compiled modules, but may include e.g.
-  runtime data dependencies.
+* The library rules `ocaml_library` does not build a "separately
+  compiled module". Instead it provides a simple aggregation
+  mechanism, so that you can depend on a collection of resources under
+  a single name. In other words, OBazl takes the term "library" to
+  mean "collection of resources"; the resources will almost always be
+  OCaml compiled modules, but may include e.g. runtime data
+  dependencies. The "library" produced by `ocaml_library` is a
+  Starlark structure, which has no OCaml counterpart.
 
 === Prerequisites
 

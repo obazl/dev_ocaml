@@ -1,0 +1,21 @@
+entries:
+- title: tools_opam
+  part: Dev Guide
+  product: tools_opam
+  url:  /docs_obazl/tools-opam/user-guide
+  version: 2.0
+  levels: one
+  folders:
+
+  - title: Topics
+    open: true
+    output: web
+    folderitems:
+
+    - title: Dependencies
+      url: dependencies
+      output: web
+
+    - title: Configuration
+      url: opam-configuration.html
+      output: web

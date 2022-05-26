@@ -11,7 +11,7 @@
 TODO: how OBazl manages transitive deps.
 
 
-include::rules-ocaml/user-guide/dependencies_ocaml.adoc[]
+include::dependencies_ocaml.adoc[]
 
 
-include::rules-ocaml/user-guide/dependencies_cc.adoc[]
+include::dependencies_cc.adoc[]

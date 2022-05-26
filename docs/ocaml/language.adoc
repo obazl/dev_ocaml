@@ -1,0 +1,158 @@
+= OCaml: Language
+:page-permalink: /:path/language
+:page-layout: page_ocaml
+:page-pkg: ocaml
+:page-doc: ocaml
+:page-tags: [ocaml,toolchain]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 16, 2022
+:toc-title:
+:toc: true
+
+
+Why OCaml? Aside from practical considerations, OCaml is
+directly based on the Mother of All (Higher-order,Strictly
+typed,Functional,Algebraic) Programming Languages: ML. It wasn't the
+first language to include most of these features, but it was the first
+language to include type inference. (source: link:https://www.hillelwayne.com/post/influential-dead-languages/[10 MOST(LY DEAD) INFLUENTIAL PROGRAMMING LANGUAGES,window="_blank"])
+
+
+== History
+
+ML began as the Meta Language of link:https://link.springer.com/book/10.1007/3-540-09724-4[Edinburgh LCF,window="_blank"].
+
+Ch. 2.5: Goal-directed programming (tactics)
+
+Also used by NuPrl:
+link:https://www.nuprl.org/book/[Implementing Mathematics with The Nuprl Proof Development System,window="_blank"]
+
+link:https://www.nuprl.org/book/Metalanguage.html[NuPrl - The Metalanguage,window="_blank"]
+
+== Summary
+
+=== The Module Type System
+
+What is a module?  Simple question with a surprisingly complicated answer.
+
+Compare: what is an integer? Easy answer: an integer is a token
+("value") of type Int. Why "token" instead of "value"? The latter
+suggests evaluation, which is a computation notion that does not apply
+to types and tokens. A type is a universal; a token is a particular,
+end of story. "x is an Int" just means that x is a particular (token)
+subsumed under the general concept (type) Int.
+
+CAUTION: `module` is a keyword in the OCaml language, but it is not a
+type constant; there is no module type in OCaml.
+
+[source,ocaml]
+----
+module MyModule : sig val x: int end
+
+module MyModule = struct let x = 1 end
+
+module type MSig = sig ... end
+
+module M : MSig = struct ... end
+----
+
+
+"In OCaml the namespaces for modules and module types are distinct, so
+it’s perfectly valid to have a module named ListStack and and module
+type named ListStack. "
+
+Alternative syntaxs:
+
+[source,ocaml]
+----
+module ListStackAlias : LIST_STACK = ListStack
+(* equivalently *)
+module ListStackAlias = (ListStack : LIST_STACK)
+
+module M : sig val x : int end = struct let x = 42 end
+(* equivalently *)
+module M = (struct let x = 42 end : sig val x : int end)
+----
+
+
+from link:https://cs3110.github.io/textbook/chapters/modules/modules.html[Cornell book]
+
+It uses "type annotation" where we use "type assignment".
+
+[source,ocaml]
+----
+module MyModule = struct <1>
+  let inc x = x + 1
+  type primary_color = Red | Green | Blue
+  exception Oops
+  end
+
+module MyModule :  <2>
+  sig
+    val inc : int -> int
+    type primary_color = Red | Green | Blue
+    exception Oops
+  end
+----
+<1> defines
+<2> declares
+
+"Module" is not a first-class object. That is, modules are not values
+of a Module type; there is no type Module. In fact a "module" is
+neither a value nor a type. It's a pragmatic term used to refer to a
+pairing of a struct and a sig.
+
+Module as family of types. Type ctor is `sig...end`; token ctor is
+`struct ...end`.
+
+Structs do not have intrinsic types, so there is no "natural" sig that
+goes with a module.  Modules are always in a sense ad-hoc.
+
+"x is an Int" means x is a value whose type is Int.
+
+"xs is an Int List" means x is a value whose type is Int List.
+
+"A is a module" does _not_ mean that A is a value whose type is Module.
+
+What does it mean? That A names a value whose type was
+constructed by `sig ... end`.  Its type remains unnamed.
+
+Compare: lambda expression as definite description of a function. The
+function and its type remain unnamed.
+
+== Programming languages and proof assistants based on OCaml
+
+OCaml is popular among researchers and programming language designers
+as an implementation language. Here are some products that leverage
+the OCaml toolchain:
+
+
+* link:https://coq.inria.fr/[The Coq Proof Assistant, window="_blank"]
+
+* link:https://www.fstar-lang.org/["F*",window="_blank"] (pronounced F star) is ""a general-purpose functional programming language with effects aimed at program verification. It puts together the automation of an SMT-backed deductive verification tool with the expressive power of a proof assistant based on dependent types."  F* is written entirely in F*, and bootstraps via OCaml.
+
+* link:https://www.lix.polytechnique.fr/~dale/lProlog/[λProlog,window="_blank"] "is a logic programming language based on higher-order intuitionistic logic in the style of Church's Simple Theory of Types."
+
+** link:https://github.com/LPCIC/elpi/[ELPI,window="_blank"] - Embeddable λProlog Interpreter "designed to be embedded into larger applications written in OCaml as an extension language."
+
+*** link:https://github.com/LPCIC/coq-elpi[Coq-elpi,window="_blank"]
+
+** link:https://astampoulis.github.io/makam/[Makam,window="_blank"] "is a metalanguage: a language for implementing languages. It supports concise declarative definitions, aimed at allowing rapid prototyping and experimentation with new programming language research ideas. The design of Makam is based on higher-order logic programming and is a refinement of the λProlog language. Makam is implemented from scratch in OCaml."
+
+** link:https://github.com/teyjus/teyjus[Teyjus,window="_blank"] "is an efficient implementation of the higher-order logic programming language Lambda Prolog. " (moribund?)
+
+** link:https://abella-prover.org/[Abella,window="_blank"], an interactive theorem prover for λProlog programs
+
+* link:https://github.com/jrh13/hol-light/[HOL Light,window="_blank"] - interactive theorem prover
+
+*  link:https://hacklang.org/[Hack] - "an object-oriented programming language for building reliable websites at epic scale"
+
+* link:https://haxe.org/[Haxe] - a "high-level strictly-typed programming language with a fast optimizing cross-compiler."
+
+
+* link:https://github.com/WebAssembly/spec/tree/main/interpreter[WebAssembly Reference Interpreter,window="_blank"]
+
+* link:https://www.eff-lang.org/[Eff] - a functional programming language based on algebraic effect handlers.
+
+* link:https://github.com/links-lang/links[Links] - "Allows web programs to be written in a single programming language..."
+
+* link:https://ocamlverse.github.io/content/compilers.html["Compilers, Typecheckers, and Parsers",window="_blank"] - OCamlverse

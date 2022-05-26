@@ -1362,3 +1362,16 @@ i.conum:after{
 div#main{
     position:relative;
     top: 80px;
+}
+
+span.underline{
+    text-decoration: underline;
+}
+
+.halign-center {
+    text-align: center
+}
+
+.valign-middle {
+    vertical-align: middle
+}

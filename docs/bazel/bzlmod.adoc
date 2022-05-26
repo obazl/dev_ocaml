@@ -1,0 +1,87 @@
+= Bazel Modules
+:page-permalink: /:path/bazel-modules
+:page-layout: page_rules_ocaml
+:page-pkg: ocaml
+:page-doc: ug
+:page-tags: [bazel,modules]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 20, 2022
+// :toc-title:
+// :toc: true
+
+Problems:
+
+* "Repository name". We have repo names, module names, name and
+  repo_name attributes, module aliases (mappings), version strings,
+  "the directory name the repository lives in", etc. It's all very
+  confusing.
+
+* Repository mapping v. (bzlmod) indexing
+
+"Repository mapping" is a legacy featurebug. It is expressed via
+attribute "repo_mapping", which is defined for native repo rules
+"local_repository" and "new_local_repository", and is implicitly
+defined for user-defined repo rules.
+
+Semantically, a repo mapping is an unconstrained alias. It allows the
+user to map a repo label to any valid repo label. Recommendation:
+rename "repo_mapping" to "repo_alias".
+
+Bzlmod introduces a "bazel_dep" rule, which indirectly serves a
+simliar purpose. It constructs a "canonical repository name" from the
+bazel_dep attributes. But the documentation is not clear. It gives a
+template "module_name.version"; but where does the module_name come
+from? "bazel_dep" has a "name" attribute, but it also has a
+"repo_name" attribute - which one is used? Or does this refer to the
+"name" and "version" attributes of the "module" rule? Either way, why
+call this "canonical repository name" instead of "canonical module
+name"?
+
+More generally: if we're switching from WORKSPACE.bazel and repos to
+MODULE.bazel and modules, then the documentation should be consistent:
+modules not repositories.
+
+From https://bazel.build/docs/bzlmod#repository-names:
+
+"Canonical repository name: The globally unique repository name for
+each repository. This will be the directory name the repository lives
+in." I don't know what this means. Maybe it's just a mistake; don't
+repository (module?) names come from attributes?
+
+"Local repository name: The repository name to be used in the BUILD
+and .bzl files within a repo. The same dependency could have different
+local names for different repos." Don't know what that last sentence
+means. Does it mean "different repos can use different names for the
+same dependency"?
+
+
+"For Bazel module repos: module_name by default, or the name specified
+by the repo_name attribute in bazel_dep." Which is it? And
+again, where does module_name come from?
+
+An attempt to articulate the problem(s) a little more clearly:
+
+* Modules not repositories. At the very least we need clear, simple,
+  unambiguous etc. definitions of both terms.
+* "Name" should mean name, not name plus version
+* "Module" can be thought of as "family of modules indexed by
+  version string". A member of that family (version of the module) is
+  identified by an "Indexed Module Name" or IMN, which is
+  name plus version string. So @foo names a family of modules whose
+  members are @foo.1, @foo.2, etc.
+* Indexing a family of modules is expressed via the "bazel_dep" rule with name and version attributes.
+* In general this indexing is an implementation detail that need not (and
+  should not IMO) be exposed to starlark code.
+* Module aliases are supported via the 'repo_mapping' rule; such
+  aliases are scoped to the module in which they are declared.
+* The "bazel_dep" rule also supports aliasing via the "repo_name" attribute. (?)
+* Indexing and aliasing are mutually orthogonal.
+* Aliasing is scoped; it follows that module names are scoped. A Fully
+  Qualified Module Name would include the context module name.
+  Possible syntax: "@ctx@mod//pkg:tgt". (This is a label containing an FQMN)
+* An "Indexed FQMN" would include the version string but as noted
+  above this should never be needed in user code.
+* Scopes (contexts) nest so we could have e.g. @a@b@c//pkg:tgt
+* In principle the FQMN should be sufficient to unambiguously identify
+  a unique indexed FQMN. So generated BUILD files could use FQMNs.
+

@@ -123,6 +123,8 @@ plugins:
 
 asciidoc: {}
 asciidoctor:
+  base_dir: :docdir
+  safe: unsafe
   attributes:
   - idprefix=_
   - source-highlighter=pygments

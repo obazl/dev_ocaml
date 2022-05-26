@@ -18,11 +18,11 @@ automatically handle indirect dependencies.
 == PPX Dependencies
 
 
-=== Adjunct Dependencies
+=== PPX Codependencies
 
 Sometimes PPX processing injects dependencies that are needed to
 compile the result of a PPX transformation. These are often called
-"runtime" dependencies, but OBazl calls them _adjunct dependencies_,
+"runtime" dependencies, but OBazl calls them _ppx_codependencies_,
 since they are not in fact runtime dependencies. Runtime dependencies
 of a module or executable are needed when that module or executable is
 executed. These dependencies do not fit that description.
@@ -37,10 +37,9 @@ they are always build targets, not package-manager entities.
 
 I.e. with dune one says "this build depends on that package", which
 really means that it depends on compiled entities contained in the
-package.  With bazel one says "this build depends on that built
-entity".  That does not always imply something compiled by bazel; in
-fact, with OBazl, the targets in the `@opam//pkg` package produce
-command line parameters for using OPAM packages.
+package. With bazel one says "this target depends on that target".
+That does not always imply something compiled by bazel; targets may
+deliver strings, for example.
 
 But in the case of local or immediate deps, there is an ambiguity.
 

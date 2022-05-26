@@ -5,7 +5,6 @@
   <li class="sidebarTitle">
     <a href="{{sidebar[0].url}}">
       {% if {{page.doc}} == "ug" %}Guide:{% endif %}
-      {% if {{page.doc}} == "dg" %}Dev Guide:{% endif %}
       {% if {{page.doc}} == "refman" %}Reference:{% endif %}
       {{page.pkg}}
     </a>
@@ -13,26 +12,27 @@
   {% for entry in sidebar %}
   {% for folder in entry.folders %}
   {% if folder.output contains "web" %}
-  <li>
+  <li class="active">
     <a class="folder"
        title="{{folder.title}}" href="#">{{folder.title}}</a>
       <ul class="navlist">
           {% for folderitem in folder.folderitems %}
           {% if folderitem.output contains "web" %}
           {% if folderitem.external_url %}
-          <li><a title="{{folderitem.title}}" href="{{folderitem.external_url}}" target="_blank" rel="noopener">{{folderitem.title}}</a></li>
+          <li class="x"><a title="{{folderitem.title}}" href="{{folderitem.external_url}}" target="_blank" rel="noopener">{{folderitem.title}}</a></li>
           {% elsif page.url == folderitem.url %}
           <li class="active"><a title="{{folderitem.title}}" href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
           {% elsif folderitem.type == "empty" %}
-          <li><a title="{{folderitem.title}}" href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
+          <li class="y"><a title="{{folderitem.title}}" href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
 
           {% else %}
           <li class="sb-navitem"><a title="{{folderitem.title}}" href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
           {% endif %}
           {% for subfolders in folderitem.subfolders %}
           {% if subfolders.output contains "web" %}
-          <li class="subfolders active">
-              <a title="{{subfolders.title}}" href="#">{{ subfolders.title }}</a>
+          <li class="subfolders">
+            <a class="folder"
+               title="{{subfolders.title}}" href="#">{{ subfolders.title }}</a>
               <ul>
                   {% for subfolderitem in subfolders.subfolderitems %}
                   {% if subfolderitem.output contains "web" %}

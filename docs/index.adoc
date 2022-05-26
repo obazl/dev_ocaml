@@ -25,6 +25,14 @@ WARNING: This documentation is currently undergoing major revisions,
 which should be completed before the end of the month (May 2022).
 Until then things will be a little messy and incomplete.
 
+== OCaml
+
+* link:ocaml/language[Language]
+* link:ocaml/toolchains[Toolchains]
+* link:ocaml/build-discipline[Build Discipline]
+
+== link:bazel/index[Bazel: Overview for OCaml Developers]
+
 == rules_ocaml:
 
 * link:rules-ocaml/user-guide[User Guide]
@@ -35,12 +43,14 @@ Until then things will be a little messy and incomplete.
 == tools_opam:
 
 * link:tools-opam/user-guide[User Guide]
+* link:tools-opam/dev-guide[Developer Guide]
 * link:tools-opam/reference[Reference Manual]
 * link:https://github.com/obazl/tools_opam[https://github.com/obazl/tools_opam,window=_blank]
 
 
 == tools_obazl:
 
+* link:tools-obazl/reference[Reference Manual]
 * link:https://github.com/obazl/tools_obazl[https://github.com/obazl/tools_obazl,window=_blank]
 
 
