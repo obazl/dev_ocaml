@@ -43,7 +43,9 @@ tools can use to emulate hierarchical filesystem-based namespacing.
 
 Special considerations: `-no-alias-deps`, `-opaque`, and `-linkall`.
 
-==== Type-Level Module Aliases
+== Building Blocks
+
+=== Type-Level Module Aliases
 
 OCaml has a sophisticated module system that is partially tied to the
 file system.
@@ -51,6 +53,12 @@ file system.
 Each OCaml "compilation unit" determines a module, whose name is the
 file name, capitalized and truncated to remove the extension. Thus
 `foo.ml` determines module `Foo`.
+
+The OBazl Demos repo contains some
+link:https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/makefiles/aliasing[basic
+examples,window="_blank"], using simple makefiles, demonstrating the
+interplay of module aliasing equations, namespaces, and the file
+system.
 
 File names including double underscores, such as `foo__bar.ml`, receive
 special treatment. The compiler will treat the double underscore as a
@@ -73,12 +81,17 @@ NOTE: This use of double underscores is a convention, not a rule.
 Aliasing may use any legal module name. In particular `module A = A`
 is legal.
 
+WARNING: Module names are opaque!  OCaml will _not_ interpet a module name like `A__B` as the name of a module `B` in a namespace `A`.
+
 ===== References
 
 -   link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[10.8 Type-level module aliases,window="_blank"]
 -   link:https://blog.janestreet.com/better-namespaces-through-module-aliases[Better namespaces through module aliases,window="_blank"]
     (blogpost, 2014)
 
+=== Resolver Modules
+
+=== Automatic Renaming
 
 
 == Namespace Models
