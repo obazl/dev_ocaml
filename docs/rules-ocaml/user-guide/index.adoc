@@ -6,7 +6,7 @@
 :page-sidebar: false
 :page-tags: [formatting]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: July 3, 2016
+:page-last_updated: June 1, 2022
 :page-toc: false
 
 == Topics
