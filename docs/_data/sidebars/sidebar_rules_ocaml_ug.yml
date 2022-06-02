@@ -74,6 +74,10 @@ entries:
       url: diagnostics.html
       output: web
 
+    - title: Executables
+      url: executables.html
+      output: web
+
     - title: File Generation
       url: file-generation.html
       output: web
@@ -136,6 +140,14 @@ entries:
 
     - title: Refactoring
       url: refactoring.html
+      output: web
+
+    - title: Separate Compilation
+      url: separate-compilation.html
+      output: web
+
+    - title: Split Dependencies
+      url: split-dependencies.html
       output: web
 
     - title: Signatures

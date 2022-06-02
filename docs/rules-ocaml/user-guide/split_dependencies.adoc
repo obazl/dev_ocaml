@@ -1,0 +1,79 @@
+= Split Dependencies
+:page-permalink: /:path/split-dependencies
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [split dependencies]
+:page-last_updated: June 2, 2022
+// :toc_title:
+// :toc: true
+
+In OBazl terminology, an _orphan_ module is one whose signature is
+inferred from its structure. For example, a module explicitly defined
+within a file `module M = struct ...end` counts as an orphan module.
+Similarly, a structfile without a matching sigfile is termed an
+_orphaned_ structfile, from which an orphan module may be compiled.
+
+A module built from a paired structure and an explicit signature is
+called a _dyadic_ module. For example, definitions of the following
+form define a dyadic module: `module M : sig ... end = struct ...
+end`. A structfile and a sigfile with the same principal name
+(filename excluding extension, normalized as a module name) together
+determine a dyadic file-system module.
+
+OCaml file-system modules are built from two kinds of file:
+a _structfile_ (usually with a `.ml` extension) and optionally a _sigfile_
+(extension `.mli`). OBazl defines a build rule for each: for
+structfiles, `ocaml_module`; for sigfiles, `ocaml_signature`.
+
+Dyadic file-system modules may be built using an `ocaml_module` rule
+alone, or using both an `ocaml_module` and an `ocaml_signature` rule.
+In the former case, the name of the sigfile is passed using the `sig`
+attribute; in the latter case, the `sig` attribute will be passed the
+name of the `ocaml_signature` target.
+
+This affords fine-grained control over all build paramters. If a
+dyadic module is built using just an `ocaml_module` rule, then the
+same build options will be used to compile both files. If an
+`ocaml_signature` rule is also used, then the structfile and sigfile
+may be compiled with different options.
+
+Use of `ocaml_signature` also affords _split dependency graphs_.
+Structures and signatures may have their own dependency graphs, so it
+is possible to optimize them; for example in some cases sigfiles will
+only depend on other sigfiles, and this can be easily expressed with
+OBazl. Standard Bazel query facilities can then show the separate
+dependency graphs. Optimizing dependency graphs in this way can have
+performance implications for builds. Implementations depend on
+interfaces, but (pure) interfaces need not depend on implementations.
+If interface dependencies are expressed as module dependencies (that
+is, dependencies on both a signature and a structure), then changes to
+the structfile will trigger recompilation of all modules that
+depend on the struct (and hence all modules that depend on those
+interfaces), even if they really only depend on its interface. If
+interfaces only depend on interfaces, then changes to a
+structfile will not trigger a rebuild of interfaces.
+
+The downside of one-rule-per-source-file is that you need one rule per
+source file. Many (most?) OCaml build systems support some form of
+"dynamic" dependency resolution, so that the user need not bother with
+a complete listing of inputs. Genuine dynamic dependency discovery is
+disallowed by Bazel, since it is incompatible with Bazel's primary
+goal of ensuring replicable ("hermetic") builds. On the other hand,
+Bazel does support _configurable_ dependencies - dependencies that are
+resolved during the initial analysis phase of a build - but only if
+they resolve to resources that were already registered as build
+inputs. The classic case is selection of a platform-dependent source
+file at build time. The selected file will not be known before
+building, but the set of files from which the selection must be made
+_will_ be known before the build commences.
+
+Writing one rule per source file is an obvious candidate for
+automation. Version 1 of OBazl did not include any tools to handle
+this, but version 2 includes one tool to generate `BUILD.bazel` files
+from a tree of source files, and another to convert `dune` files to
+`BUILD.bazel` files. To assist with ongoing maintenance, it also
+includes a batch editing tool that allows developers to script the
+editing of `BUILD.bazel` files.
+
+See also link:separate-compilation[Separate Compilation]

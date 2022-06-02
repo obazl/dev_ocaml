@@ -39,6 +39,7 @@
 * link:deployment[Deployment]
 ** link:stamping[Stamping binaries]
 * link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.
+* link:executables[Executables]
 * link:file-generation[File Generation]
 * link:interop[Interop]
 * link:https://bazel.build/concepts/labels[Labels,window="_blank"]
@@ -61,6 +62,8 @@
 ** link:bootstrap#rules[Bootstrapping]
 ** link:build_rules[Build Rules]
 ** link:configrules[Configuration Rules]
+* link:separate-compilation[Separate Compilation]
+* link:split-dependencies[Split Dependencies]
 * link:stamping[Stamping]
 * link:https://bazel.build/concepts/build-ref#targets[Targets,window="_label"]
 ** `$ bazel help target-syntax`

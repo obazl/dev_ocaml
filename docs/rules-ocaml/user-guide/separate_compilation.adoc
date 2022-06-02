@@ -1,0 +1,18 @@
+= Separate Compilation
+:page-permalink: /:path/separate-compilation
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [compilation]
+:page-last_updated: June 2, 2022
+// :toc_title:
+// :toc: true
+
+One of the distinguishing features of OCaml is its support for
+separate compilation of interfaces and implementations. But there is
+more to it than just separate compilation. Dependencies can also be
+expressed independently - _if_ the build tool supports it.
+
+Separate compilation of structfiles and sigfiles is always _possible_ but  it is not _required_.
+
+See also link:split-dependencies[Split Dependencies]
