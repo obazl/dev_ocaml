@@ -22,27 +22,19 @@ the same module file name in different file system locations within a
 project you will get a name clash. Every module source file must be
 uniquely named.
 
-=== The Solutions
+=== The Solution
 
-==== anchor:renaming[]Renaming
+There is only one way to address the problem: give your source files
+names that are likely to be unique. The easy way to do this is to
+decide on a prefix string likely to be unique. That might start with
+your project name, or it might replicate the filesystem path locating
+your source file, by replacing filesystem separator (usually '/') with
+'_' or some other character.
 
-One way to do it: give your source files names that are unlikely to
-clash with source filenames from other projects. The easy way to do
-this is to decide on a prefix string likely to be unique. That might
-start with your project name, or it might replicate the filesystem
-path locating your source file, by replacing filesystem separator
-(usually '/') with '_' or some other character.
+The downside of this solution is that it creates another problem. Now
+instead of having e.g. `a/b.ml`, we need `a/a__b.ml` or the like.
 
-Another form of renaming supported by OBazl: renaming of the module
-names under which implementations are accessible. The module name of a
-renamed module file need not be derived from the original file name.
-
-==== Aliasing
-The other way to do it is to use OCaml's aliasing mechanism.
-
-==== Namespacing
-
-The third way is to adopt a hybrid strategy that uses both filename
+A better solution is to adopt a hybrid strategy that uses both filename
 prefixing and OCaml aliasing to implement a form of namespacing. That
 is the strategy pursued by both Dune and OBazl.
 
@@ -51,62 +43,110 @@ tools can use to emulate hierarchical filesystem-based namespacing.
 
 Special considerations: `-no-alias-deps`, `-opaque`, and `-linkall`.
 
-== Terminology
+==== Type-Level Module Aliases
 
-* namespace
-* topdown v. bottomup
-* namespace composition
-** conjunction: combining of namespaces
-** fusion: selective merging of components
-* alias/aliasing equation
-* ns module
-  * main ns module
-  * ns resolver module a/k/a resolver
-* submodule
-** selection (topdown)
-** election (bottomup)
-* endogenous v. exogenous
-* pseudo-namespace prefix
-* pseudo-recursion
-* dependencies
-  * intramural
-  * endogenous
-  * exogenous
+OCaml has a sophisticated module system that is partially tied to the
+file system.
 
-== OBazl namespacing
+Each OCaml "compilation unit" determines a module, whose name is the
+file name, capitalized and truncated to remove the extension. Thus
+`foo.ml` determines module `Foo`.
 
-OBazl namespacing is built on two key mechanisms: renaming and
-aliasing. Renaming is an OBazl feature; aliasing is an OCaml feature.
+File names including double underscores, such as `foo__bar.ml`, receive
+special treatment. The compiler will treat the double underscore as a
+dot, in this case yielding `Foo.bar`.
 
-"Resolver module" is the term OBazl uses to refer to modules containing
-link:https://caml.inria.fr/pub/docs/manual-ocaml/modulealias.html[type-level module
-aliases],
-i.e. statements of the form `module N = P`.
+"[T]he compiler uses the following heuristic when printing paths:
+given a path `+Lib__fooBar+`, if `Lib.FooBar` exists and is an alias for
+`+Lib__fooBar+`, then the compiler will always display `Lib.FooBar`
+instead of `+Lib__fooBar+`. This way the long `+Mylib__+` names stay
+hidden and all the user sees is the nicer dot names. This is how the
+OCaml standard library is compiled."
+-- link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[8 Top-level module aliases,window="_blank"]
 
-=== Top-down
 
-TODO
+Translated into English, this seems to mean
+that, for example. if `lib.ml` contains `+module FooBar = Lib__fooBar+`,
+then `+Lib.FooBar+` corresponds to `+Lib__fooBar+`.
 
-=== Bottom-up
+NOTE: This use of double underscores is a convention, not a rule.
+Aliasing may use any legal module name. In particular `module A = A`
+is legal.
 
-todo ...
+===== References
 
-=== (outdated doc)
+-   link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[10.8 Type-level module aliases,window="_blank"]
+-   link:https://blog.janestreet.com/better-namespaces-through-module-aliases[Better namespaces through module aliases,window="_blank"]
+    (blogpost, 2014)
+
+
+
+== Namespace Models
+
+OBazl uses the term _namespace_ to refer to a collection of modules
+and/or interfaces named with a namespace prefix (such as `Stdlib\__`),
+together with _resolver_ module containing an aliasing equation for
+each submodule (e.g. `module List = Stdlib__List`). The name of the
+resolver module serves as the name of the namespace; the "entry point"
+to the namespace, as it were.
+
+Dune calls them "wrapped" libraries. They are very commonly used, if
+only because the Dune `library` stanza builds them by default. OBazl
+provides support for two distinct namespace models, top-down and
+bottom-up.
 
 CAUTION: Dune uses variations on the term "wrapped library" where OBazl uses namespacing terminology.
 
-OBazl rules implementing namespacing:
 
-* ocaml_ns_archive
-* ocaml_ns_library
-* ocaml_ns_resolver
-* ocaml_module
-* ocaml_signature
+NOTE: What OBazl calls a "namespace resolver module" (or just
+"resolver") is sometimes called a "mapper" or "wrapper".
 
-== Namespaced Aggregators
+A namespace may be packaged as an OCaml archive, but this is not a
+requirement; under OBazl, bottom-up namespaces may be aggregated using
+`ocaml_archive` or `ocaml_library`, or may not be aggregated at all.
 
-* ocaml_ns_archive
-* ocaml_ns_library
+WARNING: 'Namespace' as used by OBazl is not a first-class concept in
+the OCaml language. There is no Namespace type or keyword.
+
+=== NS Resolver Modules
+
+Both the top-down and the bottom-up models depend essentially on a
+module containing the module aliasing equations that determine
+submodules; OBazl calls such modules _ns resolver modules_ or
+_resolvers_ for short. They are express using rule
+link:../reference/ocaml-rules#_ocaml_ns_resolver[ocaml-ns-resolver].
+
+=== Top-down
+
+Top-down namespaces are defined at the aggregate level. This is the
+strategy pursued by Dune: membership in a namespace is expressed by
+the list of modules in a `library` stanza. Dune automatically renames
+the modules, adding the namespace prefix (e.g. `Foo__`) to the module
+names, and generates a resolver ("wrapper") module containing the
+required module aliasing equations ; then everything is packaged up in
+an archive file.
+
+To support top-down namespaces, OBazl provides rules
+`ocaml_ns_archive` and `ocaml_ns_library`; members of the namespace
+are listed in the `submodules` attribute. OBazl does the same thing
+Dune does: generates the resolver and renames the submodules. Both
+Dune and OBazl support user-defined resolver modules for top-down
+namespaces. Dune always packages namespaces in archives, but in OBazl
+they may also be organized as OBazl libraries, or they may not be
+aggregated at all. (See link:aggregators[Aggregators] for more on the
+distinction OBazl draws between libraries and archives.)
+
+Top-down namespaces are easy to define, but they are limited. Targets
+that use a namespaced module must depend on the namespace aggregate
+(`ocaml_ns_library` or `ocaml_ns_archive`) containing the module; they
+cannot depend directly on submodules. If changes are made to a
+submodule, all targets that depend on its namespace aggregate will be
+rebuilt, whether or not they depend on the module that was changed.
+
+==== Namespace Aggregators
+
+* link:../reference/ocaml-rules#_ocaml_ns_archive[ocaml-ns-archive]
+* link:../reference/ocaml-rules#_ocaml_ns_library[ocaml_ns_library]
 
 
 Each of these rules has a `submodules` attribute which contains a list
@@ -114,47 +154,74 @@ of the labels of modules to be included in the namespace.
 
 For example, if the name of an `ocaml_ns_library` rule is `foo`, and
 it contains submodule `:bar`, then the ns module will be `Foo.cmx`,
-and the bar submodule will be renamed to `Foo__Bar.cmx`. To produce
+and the bar submodule will be renamed to `Foo\__Bar.cmx`. To produce
 `Foo.cmx`, OBazl will generate `Foo.ml`, containing aliasing equations
 like `module Bar = Foo__Bar`.
 
+===== How it works
+
 This approach involves a circularity: in order to generate and compile
 `Foo.cmx`, the `ocaml_ns_library` rule must depend on the submodules;
-but the submodules must depend on the ns module (`Foo.cmx` in this
-case). OBazl can get around this, though, since in fact the ns module
-(which we call the "resolver" module, since it is used to resolve
-references to submodules) only depends on the module names, not the
+but the submodules in turn must depend on the ns resolver module
+(`Foo.cmx` in this case). OBazl can get around this, though, since in
+fact the ns resolver module only depends on the module names, not the
 compiled modules. This is achieved using the `-no-alias-deps` option.
 
-**WARNING** the following is not very clear; until I find time to
-write something better, consult the `*_ns_*` rules in
-`@obazl_rules_ocaml//_rules`, the `options_ns_resolver` function in
-`@obazl_rules_ocaml//_rules/options.bzl` and the template file
-`@obazl_rules_ocaml//_templates/BUILD.ocaml.ns`
-
 That solves half of the problem; the other problem to be resolved is
-that each submodule must depend on the resolver module. We solve this
-using Bazel _**transition functions**_. The `ocaml_module` rule (and
-other rules that may be involved in namespaces, like `ocaml_signature)
-have a hidden dependency on a single `ocaml_ns_resolver` rule and a
-`submodules` string list flag. The `ocaml_ns_resolver` target, in
-turn, depends on some other label attributes. The transition functions
-set these attributes at build time; in effect, they allow us to give
-this resolver target "reverse dependencies": the attributes that
-control its build are set by targets that depend on it. Submodules
-depend on these two deps, but since the parameters controlling them
-are set dynamically, at build time, the object depended on will be
-customized for the submodule that depends on it.
+that each submodule must depend on the resolver module. A submodule
+cannot depend on the ns aggregator rule that contains it, on pain of
+circularity; yet it must depend on the resolver, and the aggregator
+rule contains the information needed to generate the resolver module
+source code.
 
-[more specifically: rule `ocaml_module` (for example) has an
-`_ns_resolver` attribute whose default value is `@ocaml//ns` (i.e.
-`@ocaml//ns:ns`). The latter is a 'label_setting' whose value is [the
-label of] an `ocaml_ns_resolver` rule (actually, the sole such rule).
-so this institutes a dependency on a resolver whose build params will
-be set dynamically using transition functions. the `_ns_submodules`
-attribute is a label attr whose default value is
-`@ocaml//ns:submodules`, which also gets set dynamically.]
+We get around this circularity by subterfuge. We use a combination of
+hidden
+link:https://bazel.build/rules/config#label-typed-build-settings[label-typed
+build settings,window="_blank"] attributes and
+link:https://bazel.build/rules/config#user-defined-transitions[user-defined
+transitions,window="_blank"] to pass configuration information down
+the dependency chain, so that the bottom node in the chain depends on
+the top node - but only for configuration data. In other words, we
+split the circular dependency into a module dependency tree going from
+aggregator to submodule to resolver, and a configuration dependency
+going the other way around.
 
+Rules involved in top-down namespacing (`ocaml_ns_library`,
+`ocaml_ns_archive`, `ocaml_module` and `ocaml_signature`) have a
+hidden attribute, `_ns_resolver`, that expresses a dependency on a
+single `ocaml_ns_resolver` target. They also have a hidden
+`_ns_submodules` attribute. Both of these are
+link:https://bazel.build/rules/config#label-typed-build-settings[label-typed
+build settings,window="_blank"].
+
+The `ocaml_ns_resolver` target, in turn,
+depends on some other label attributes. The transition functions set
+these attributes at build time; in effect, they allow us to give this
+resolver target "reverse dependencies": the attributes that control
+its build are set by targets that depend on it. Submodules depend on
+these two deps, but since the parameters controlling them are set
+dynamically, at build time, the object depended on will be customized
+for the submodule that depends on it.
+
+More specifically: for all rules the hidden `_ns_resolver` attribute
+has default value `@rules_ocaml//cfg/ns`. That target is a
+'label_setting' whose value is [the label of] an `ocaml_ns_resolver`
+target. This makes each rule (target) depend on the same ns resolver
+module. The build parameters for that module are set dynamically using
+transition functions. In particular, the hidden `_ns_submodules`
+attribute has default value `@ocaml//ns:submodules`, which is a
+`string_list_flag`; it too is set by transition functions at build time.
+
+The result is that building an `ocaml_ns_library` or
+`ocaml_ns_archive` target causes transition functions to propagate the
+list of submodule names (as strings) to both the submodule dependency
+targets and the hidden ns resolver target. The `ocaml_module` (and
+`ocaml_signature`) implementations check this list to see if they are
+included as submodules; if so, they rename the source file, prefixing
+the namespace name, before compiling. The `ocaml_ns_resolver` target
+uses the list to generate a structfile with the namespace name,
+containing the module aliasing equations that define the namespace
+membership.
 
 For example, when we build an `ocaml_ns_library` target, the
 transition functions will set the value of `_ns_resolver` to the
@@ -168,16 +235,76 @@ information needed to make it work to compile the submodule.
 
 [TODO: concrete example]
 
-== Resolving name clashes
 
-Alias-based namespacing is not foolproof. Different namespaces can
-contain the same module name, in which case you will have different
-aliasing equations for the same module name. If you open two such
-namespaces at the same time, you will likely run into trouble
-resolving references to the module in question.
+=== Bottom-up
 
-Fortunately OBazl makes it relatively easy to avoid name clashes even
-if you use the same module name in multiple places.
+Top-down namespaces have one major shortcoming, as noted above:
+clients can only depend on the aggregates; they may not depend
+directly on submodules. Bottom-up namespaces eliminate this
+shortcoming. Targets may depend directly on namespaced modules;
+furthermore, bottom-up namespaces need not be organized as `library`
+or `archive` aggregates at all. They are determined by explicitly
+defining an `ocaml_ns_resolver` specifying the namespace prefix and
+listing its submodules. The submodules (which may include interfaces)
+indicate their membership in a namespace directly, by passing an
+`ocaml_ns_resolver` target label via the `ns` attribute of
+`ocaml_module` and `ocaml_signature`.
+
+A less serious shortcoming of top-down namespaces is the use of
+transition functions with hidden label-typed attributes, which adds
+overhead (and considerable complexity, if you ever need to debug
+them). Bottom-up namespaces use neither hidden attributes nor
+transition functions.
+
+Top-down namespaces _select_ their submodules; the submodules in a
+bottom-up namespace _elect_ membership.
+
+Bottom-up namespaces are much more powerful and flexible than top-down
+namespaces. Targets can depend directly on namespaced submodules; this
+can be used to optimize builds. When a bottom-up submodule is changed
+only targets that depend on it are rebuilt. And since aggregation and
+namespacing are orthogonal, namespaced submodules can be aggregated
+_ad libitum_. For example, if a set of targets depends on a subset of
+three submodules in a namespace that contains ten submodules, this
+subset can be aggregated as a library or archive. Multiple aggregates
+can contain submodules from the same namespace. Aggregates can even
+contain submodules from multiple namespaces. The OBazl rules will
+ensure that the _resolver_ module is always included in the dependency
+graphs of submodules, and OBazl's dependency manager will always
+normalize the graphs to remove duplicates while retaining dependency
+order.
+
+Another way to look at it: in most languages that explicitly support
+some form of namespacing, namespaces are _closed_, in the sense that
+the only way to access an element in the namespace is by going through
+the namespace, so to speak. OBazl's bottom-up namespaces are _open_:
+we can access the submodules in a bottom-up namespace without
+reference to the namespace name.
+
+Which is to say that such "namespaces", being based on OCaml's module
+aliasing mechanism, are only _pseudo_-namespaces. The OCaml language
+does not know anything about such namespaces; it only knows how to
+resolve module aliases. For example, a reference `A.B` might be
+aliased to `A\__B` (i.e. `a__b.ml`, automatically renamed from
+`b.ml`), but module names are opaque; OCaml will not interpret `A\__B`
+as "submodule `B` in namespace `A` ". So we can access that
+(sub)module directly, without "going through" module A. In fact we can
+include it in any namespace we like; for example, we can put it in
+namespace `Foo` by putting the following aliasing equation in the
+resolver module `foo.ml`: `module B = A__B`. We can also expose it
+under a different name: `module Bar = A__B` would expose it as
+`Foo.Bar`.
+
+As an example: just about everything in the OCaml compiler sources
+depends on the standard library, which is packaged as an archive
+`stdlib.cma` built by target `//stdlib`. If those dependencies are
+expressed as dependencies on `//stdlib`, then a change in any stdlib
+submodule will trigger a rebuild of almost everything. But if they are
+expressed as direct submodule dependencies, e.g.
+`//stdlib:Stdlib.List`, then the rebuild triggered by a change to one
+submodule will include only those targets that genuinely depend on it,
+directly or indirectly. (Example: link:https://github.com/obazl-repository/ocaml/blob/a09bf0a52e12696b19723d31b1da9b4f2abe95a9/parsing/BUILD.bazel#L105[parsing/BUILD.bazel,window="_blank"])
+
 
 == Troubleshooting
 
@@ -312,63 +439,3 @@ Error: Files namespaces/obazl/set300/case370/foo-bar/test.cmo
        and bazel-out/darwin-fastbuild/bin/namespaces/obazl/set300/case370/foo-bar/_obazl_/Demos_Namespaces_Obazl_Set300_Case370_Foo_bar__Red.cmo
        make inconsistent assumptions over interface Demos_Namespaces_Obazl_Set300_Case370_Foo_bar__Red
 ```
-
-== OBSOLETE docs
-
-Example
--------
-
-
-**NOTES**
-
--   Our example used the same substring for the name and the ns
-    attribute, "foo", but this is not required. The name need not
-    correspond to the ns in any way; it just functions as a build target
-    identifier. In other words, the `name` attribute names the rule, not
-    the namespace.
-
-Example:
-link:https://github.com/obazl/dev_obazl/tree/main/demos/namespaces[demos/namespaces]
-
-WARNING: If your module has both a structfile (`foo.ml`) and a
-sigfile (`foo.mli`), you must put both of them into the
-namespace.
-
-Type-Level Module Aliases
--------------------------
-
-OCaml has a sophisticated module system that is partially tied to the
-file system.
-
-Each OCaml "compilation unit" determines a module, whose name is the
-file name, capitalized and truncated to remove the extension. Thus
-`foo.ml` determines module `Foo`.
-
-File names including double underscores, such as `foo__bar.ml`, receive
-special treatment. The compiler will treat the double underscore as a
-dot, in this case yielding `Foo.bar`.
-
-"[T]he compiler uses the following heuristic when printing paths:
-given a path `+Lib__fooBar+`, if `Lib.FooBar` exists and is an alias for
-`+Lib__fooBar+`, then the compiler will always display `Lib.FooBar`
-instead of `+Lib__fooBar+`. This way the long `+Mylib__+` names stay
-hidden and all the user sees is the nicer dot names. This is how the
-OCaml standard library is compiled."
--- link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[8 Top-level module aliases,window="_blank"]
-
-
-Translated into English, this seems to mean
-that, for example. if `lib.ml` contains `+module FooBar = Lib__fooBar+`,
-then `+Lib.FooBar+` corresponds to `+Lib__fooBar+`.
-
-NOTE: This use of double underscores is a convention, not a rule.
-Aliasing may use any legal module name. In particular `module A = A`
-is legal.
-
-References
-----------
-
--   link:https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html[10.8 Type-level module aliases,window="_blank"]
--   link:https://blog.janestreet.com/better-namespaces-through-module-aliases[Better namespaces through module aliases,window="_blank"]
-    (blogpost, 2014)
-

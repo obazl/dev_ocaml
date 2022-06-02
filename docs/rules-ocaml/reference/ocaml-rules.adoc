@@ -6,7 +6,7 @@
 :page-doc: refman
 :page-tags: [configation,defaults]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: June 1, 2022
+:page-last_updated: June 2, 2022
 :page-toc: false
 
 **WARNING** Beta version - subject to change
@@ -579,7 +579,9 @@ Overrides default build mode setting, `native` or `bytecode`. The default is set
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_module-ns_resolver"></a>+++ns_resolver
-|  Resolver for bottom-up namespacing | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+NS resolver module for bottom-up namespacing. Modules may use this attribute to elect membership in a bottom-up namespace.
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_module-open"></a>+++open
@@ -776,8 +778,6 @@ ocaml_ns_resolver(<a href="#ocaml_ns_resolver-name">name</a>, <a href="#ocaml_ns
 OBSOLETE DOCSTRING!  under revision...
 
 This rule initializes a 'namespace evaluation environment' consisting of a pseudo-namespace prefix string and optionally an ns resolver module.  A pseudo-namespace prefix string is a string that is used to form (by prefixation) a (presumably) globally unique name for a module. An ns resolver module is a module that contains nothing but alias equations mapping module names to pseudo-namespaced module names.
-
-You may use the [ppx_ns](macros.md#ppx_ns) macro instead of instantiating this rule directly.
 
 This rule is designed to work in conjujnction with rules
 [ocaml_module](rules_ocaml.md#ocaml_module) and
