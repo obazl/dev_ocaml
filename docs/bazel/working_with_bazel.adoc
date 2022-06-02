@@ -203,6 +203,15 @@ contains the external repositories your project has configured. You
 can browse the `BUILD.bazel` files of an external repo, for example,
 to verify that you are using the correct target labels.
 
+=== targets
+
+Bazel can print a source text representation of each target :
+
+`$ bazel query '@ppx_tools//:*' --output build`
+
+This shows what the target looks like to Bazel after it has been
+processed (e.g. variables expanded, etc.).
+
 === actions
 
 A single build target may generate multiple build _actions_. For
@@ -227,13 +236,26 @@ $ bazel aquery //foo/bar:baz
 
 See link:transparency.md[Transparency] for more information.
 
+=== packages
+
+To list all the files in the directory containing associated with a package:
+
+`$ bazel query 'kind("source file", @<repo>//<pkg>:*)' --output label_kind`
+
+To include all subpackages (subdirectories containing BUILD.bazel
+file), use `@<repo>//<pkg>/\...:*` instead of  `@<repo>//<pkg>:*`.
+
+E.g.
+
+`$ bazel query 'kind("source file", @ppx_tools//:*)' --output label_kind`
+
+`$ bazel query 'kind("source file", @ppx_tools//metaquot:*)' --output label_kind`
+
+
+
 ==== Compile/link commands
 
-**WARNING**: The current version of OBazl uses
-link:http://projects.camlcity.org/projects/dl/findlib-1.8.1/doc/ref-html/r17.html#OCAMLFIND.OCAMLOPT[ocamlfind]
-to drive the OCaml toolchain.  **The compile/link options for `ocamlfind` are different than those for the compilers `ocamlc` and `ocamlopt`.**
-
-TODO: flesh this out a bit more.
+todo...
 
 == Useful tips
 
@@ -253,10 +275,11 @@ TODO: flesh this out a bit more.
   project of any size you'll be glad you did.
 
 * To experiment with build rules etc. you can avoid cluttering the
-  source tree by creating `dev/BUILD.bazel` and put the rules there.
-  Since dependencies are expressed as target labels, you can reach
-  into the tree anywhere you like, although you may need to adjust the
-  `visibility` attribute of targets.
+  source tree by creating a `BUILD.bazel` in a work directory like
+  `dev` and putting the rules there. Since dependencies are expressed
+  as target labels, you can reach into the tree anywhere you like,
+  although you may need to adjust the `visibility` attribute of
+  targets.
 
 * Use link:https://github.com/bazelbuild/bazelisk[Bazelisk] to make sure
   you're always using the latest version of Bazel. You can pin the

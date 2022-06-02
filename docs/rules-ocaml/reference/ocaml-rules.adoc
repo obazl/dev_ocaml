@@ -420,12 +420,21 @@ Packages](../ug/collections.md).
 
 [.prototype]
 pass:[
-ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args0file">args0file</a>, <a href="#ocaml_module-argsfile">argsfile</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-forcename">forcename</a>, <a href="#ocaml_module-mode">mode</a>,
+ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args0file">args0file</a>, <a href="#ocaml_module-argsfile">argsfile</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-mode">mode</a>, <a href="#ocaml_module-module">module</a>,
              <a href="#ocaml_module-ns_resolver">ns_resolver</a>, <a href="#ocaml_module-open">open</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_module-sig">sig</a>, <a href="#ocaml_module-struct">struct</a>)
 ]
 
 
-Compiles an OCaml module.
+
+Compiles an OCaml module. The **module name** is determined by rule,
+based on the `struct`, `sig`, `name`, and `module` attributes:
+
+* If the `sig` attribute is the label of an `ocaml_signature` target,
+  then the module name is derived from the name of the compiled sigfile. The structfile will be renamed if it does not match the sigfile name.
+* If the `sig` attribute is a filename, then:
+** if its principal name is equal to the principal name of the file named in the `struct` attribute, then the module name is derived from it.
+** if the principal names of the sigfile and structfile do not match, then the module name is derived from from the `name` attribute.  Both the sigfile and the structfile will be renamed accordingly.
+* If the `sig` attribute is a filename, the `module` attribute may be used to force the module name. Both the sigfile and the structfile will be renamed accordingly.
 
 **CONFIGURABLE DEFAULTS** for rule `ocaml_module`
 
@@ -449,7 +458,7 @@ In addition to the <<Configurable defaults>> that apply to all
 
 |===
 
-^1^ See [CC Dependencies](../ug/cc_deps.md) for more information on CC deps.
+^1^ See link:../user-guide/dependencies-cc[CC Dependencies] for more information on CC deps.
 
 **Boolean Flags**
 
@@ -460,9 +469,9 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 |===
 | Label | Default | `opts` attrib
 
-| @rules_ocaml//cfg/module:linkall | True | `-linkall`, `-no-linkall`
+| @rules_ocaml//cfg/module/linkall | False | `-linkall`, `-no-linkall`
 
-| @rules_ocaml//cfg/module:verbose | True | `-verbose`, `-no-verbose`
+| @rules_ocaml//cfg/module:verbose | False | `-verbose`, `-no-verbose`
 
 |===
 
@@ -504,12 +513,12 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 |  Runtime module dependencies, e.g. .cmxs plugins. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
 | optional
 | []
-| +++<a class="rule-attr" id="ocaml_module-forcename"></a>+++forcename
-|  Derive module name from target name. May differ            from what would be derived from sig/struct filenames. | +++Boolean+++
-| optional
-| False
 | +++<a class="rule-attr" id="ocaml_module-mode"></a>+++mode
 |  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_module-module"></a>+++module
+|  Use this string as module name, instead of deriving it from sig or struct | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_module-ns_resolver"></a>+++ns_resolver
@@ -823,8 +832,8 @@ The normalized submodule names must match the names of the modules electing memb
 
 [.prototype]
 pass:[
-ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args0file">args0file</a>, <a href="#ocaml_signature-argsfile">argsfile</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-forcename">forcename</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>,
-                <a href="#ocaml_signature-pack">pack</a>, <a href="#ocaml_signature-ppx">ppx</a>, <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
+ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args0file">args0file</a>, <a href="#ocaml_signature-argsfile">argsfile</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-module">module</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>, <a href="#ocaml_signature-pack">pack</a>,
+                <a href="#ocaml_signature-ppx">ppx</a>, <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
 ]
 
 
@@ -883,12 +892,12 @@ the difference between '/' and ':' in such labels):
 |  List of OCaml dependencies. Use this for compiling a .mli source file with deps. See [Dependencies](#deps) for details. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
 | optional
 | []
-| +++<a class="rule-attr" id="ocaml_signature-forcename"></a>+++forcename
-|  Derive module name from target name. May differ            from what would be derived from sig/struct filenames. | +++Boolean+++
-| optional
-| False
 | +++<a class="rule-attr" id="ocaml_signature-mode"></a>+++mode
 |  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="ocaml_signature-module"></a>+++module
+|  Set module (sig) name to this string | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_signature-ns"></a>+++ns

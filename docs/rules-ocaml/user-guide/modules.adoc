@@ -34,6 +34,10 @@ ocaml_module(name = "Hello", struct = "hello.ml", sig = ":Hello_cmi")
 
 === sec 3
 
+== Module types
+
+link:https://cs3110.github.io/textbook/chapters/modules/modules.html#module-type-definitions[Module Type Definitions,window="_blank"] (Cornell book)
+
 == Bazel Modules
 
 Expected for version 3

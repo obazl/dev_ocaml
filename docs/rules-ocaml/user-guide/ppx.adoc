@@ -5,32 +5,32 @@
 :page-doc: ug
 :page-tags: [maintenance]
 :page-last_updated: May 5, 2022
-// :toc-title:
-// :toc: true
+:toc-title:
+:toc: true
 
-== new
+== Changes
 
-* `ppx_executable` rule removed
+* all `ppx_*` rules _execpt_ `ppx_executable` rule removed
 * ppx executables compiled in bytecode mode always statically linked (using `-custom`).
 
-== OBSOLETE
+// == OBSOLETE
 
-* [Overview](#overview)
-* [Building PPX resources](#building)
-* [Preprocessing v. build dependencies](#ppx_deps)
-* [Adjunct dependencies](#adjunct_deps)
-* [Runtime dependencies](#runtime_deps)
-* [Ppx executables](#executables)
-  * [Main module](#main_module)
-    * [Ppxlib driver](#ppxlib_driver)
-* [PPX attributes](#ppx_attribs)
-* [PPX Testing](#testing)
+// * [Overview](#overview)
+// * [Building PPX resources](#building)
+// * [Preprocessing v. build dependencies](#ppx_deps)
+// * [Adjunct dependencies](#adjunct_deps)
+// * [Runtime dependencies](#runtime_deps)
+// * [Ppx executables](#executables)
+//   * [Main module](#main_module)
+//     * [Ppxlib driver](#ppxlib_driver)
+// * [PPX attributes](#ppx_attribs)
+// * [PPX Testing](#testing)
 
 == Overview
 
 PPX = PreProcessor eXtension.
 
-Demos: [demos/ppx](https://github.com/obazl/dev_obazl/tree/main/demos/ppx)
+link:https://github.com/obazl/demos_obazl/tree/main/demos/ppxlib[Demos,window="_blank"]
 
 == Building PPX resources
 
@@ -316,3 +316,10 @@ Rules
 
 * [ocaml_test](../refman/rules_ocaml.md#ocaml_test)
 * [ppx_test](../refman/rules_ppx.md#ppx_test)
+
+
+== resources
+
+* link:https://discuss.ocaml.org/t/am-i-missing-some-comprehensive-ppxlib-resource-somewhere/9277[Am I missing some comprehensive Ppxlib resource somewhere?,window="_blank"] forum msg, Feb 2022
+
+

@@ -1,11 +1,12 @@
-== CC dependencies
+= CC dependencies
 :page-permalink: /:path/dependencies-cc
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug
-:page-tags: [dependencies,cc,interop]
-:page-last_updated: May 4, 2022
-:page-toc: false
+:page-tags: [dependencies,cc]
+:page-last_updated: June 1, 2022
+// :toc:
+
 
 WARNING: Support for C/C++ deps is still under development. What's
   there works but the interface will likely change since there are

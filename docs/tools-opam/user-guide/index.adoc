@@ -8,8 +8,9 @@
 :page-last_updated: May 2, 2022
 :page-toc: false
 
-* link:opam-overview[OPAM Overview]
+// * link:opam-overview[OPAM Overview]
 * link:opam-configuration[OPAM configuration]
+* link:local-switches[OPAM Local Switches]
 * link:opam-interrogation[Interrogating OPAM configurations]
 * link:coswitches[OBazl Coswitches]: seamless OPAM integration
 

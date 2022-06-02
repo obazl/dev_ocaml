@@ -33,7 +33,7 @@ link:https://www.nuprl.org/book/[Implementing Mathematics with The Nuprl Proof D
 
 link:https://www.nuprl.org/book/Metalanguage.html[NuPrl - The Metalanguage,window="_blank"]
 
-== The Module Type System
+== The Module System
 
 What is a module?  Simple question with a surprisingly complicated answer.
 
@@ -56,27 +56,102 @@ to refer to Int List, String List, etc.
 
 === Signatures and Structures
 
-Module as family of types. Type ctor is `sig...end`; token ctor is
-`struct ...end`.
+Compatible sigfile - sigfile satisfied by structfile, irrespective of location and principle name.
 
+Matching sigfile - a compatible sigfile with same principle name, in same directory
 
-Structs do not have intrinsic types, so there is no "natural" type
-that goes with a struct; the type of a struct must be _assigned_ by
-binding it to a signature. Modules are thus always in a sense ad-hoc.
+I.e. compatibility is structural, matching is nominal and structural.
 
-However, every struct does have a _principal signature_...
+Compatible structfile - a structfile satisfying the sig, irrespective of location and principle name.
 
-"x is an Int" means x is a value whose type is Int.
+Matching structfile - compatible structfile with same principle name in same dir as sigfile.
 
-"xs is an Int List" means x is a value whose type is Int List.
+From an algebraic perspective, the type constructed by `sig...end`
+expresses an algebraic signature. So it makes sense to call it a
+"signature type" or just "signature" with the caveat that "signature"
+never means "token of type signature". The tokens of such a type are
+structs, not signatures.
 
-"A is a module" does _not_ mean that A is a value whose type is Module.
+From the perspective of OCaml's module system, the type constructed by
+`sig...end` expresses a module type, whose tokens are structs.
 
-What does it mean? That A names a value whose type was
-constructed by `sig ... end`.  Its type may or may not be named.
+A module is thus the binding of a module (signature) type and a
+struct.
 
-Compare: lambda expression as definite description of a function. The
-function and its type remain unnamed.
+WARNING: In the literature "module" is often used to refer to the
+struct component of a module.
+
+TODO: explicate "struct satisfies signature"
+
+A signature can be bound to any struct that satisfies it. In OCaml
+such type assignments are static, fixed at compile time.
+
+Developers may want to select a struct for binding to a signature,
+based on configuration constraints. A common case is selection of
+platform-dependent code, where we have one struct for linux and one
+for macos. Static typing means that this selection and type assignment
+must occur at compile time.
+
+----
+module type B = sig val msg : string end
+
+module  Blinux : B = struct let msg = "linux msg" end
+module  Bmacos : B = struct let msg = "macos msg" end
+----
+
+The problem with this is that clients would have to use the
+platform-specific name. The modules here are named Blinux and Bmacos,
+not B.
+
+NOTE: Recall that the module names are independent of sig and struct
+names. We could have a sig named ASig, a struct named AStruct, and
+bind them to produce a module named A: `module A : ASig = AStruct`
+
+NOTE: OCaml uses different namespaces for module (signature) type
+names and module names, so the same name, e.g. A, can be used for both
+a sig and a module, e.g. `module A : A = struct...end`: the first A
+names a module and the second names a module (signature) type.
+
+To get a module named B, binding signature B to a struct selected
+based on platform, we need something like the following:
+
+----
+module B : B = if platform == "linux" then Blinux else Bmacos
+----
+
+Unfortunately that's syntactically malformed so it won't compile. The
+syntax on the right-hand side of the equality sign `=` in a module
+definition cannot be an if-then expression.
+
+This  won't work either:
+
+----
+if platform == "linux" then module B : B = Blinux else module B : B = Bmacos
+----
+
+But this _does_ work:
+
+----
+if platform == "linux"
+then let module B : B = Blinux in
+     begin print_endline B.msg end
+else let module B : B = Bmacos in
+     begin print_endline B.msg end
+----
+
+The problem with this is that the selected module B is only accessible
+within the local `begin...end`, so we might as well just write:
+
+----
+if platform == "linux"
+then print_endline Blinux.msg
+else print_endline Bmacos.msg
+----
+
+Summary: this kind of selection cannot be expressed within the
+language. But it can be expressed using filesystem modules; see XXX
+for details.
+
 
 ==== Principal Signature
 
@@ -117,6 +192,44 @@ module type MSig = sig ... end
 This declares that `MSig` names the type constructed by `sig...end`.
 Compare: `let f = λx.x+1`, which declares that `f` names the function
 described by the lambda expression `λx.x+1`.
+
+Module as family of types. Type ctor is `sig...end`; token ctor is
+`struct ...end`.
+
+Structs do not have intrinsic types, so there is no "natural" type
+that goes with a struct; the type of a struct must be _assigned_ by
+binding it to a signature. Modules are thus always in a sense ad-hoc.
+
+However, every struct does have a _principal signature_...
+
+"x is an Int" means x is a value whose type is Int.
+
+"xs is an Int List" means x is a value whose type is Int List.
+
+"A is a module" does _not_ mean that A is a value whose type is Module.
+
+What does it mean? That A names a value whose type was
+constructed by `sig ... end`.  Its type may or may not be named.
+
+Compare: lambda expression as definite description of a function. The
+function and its type remain unnamed.
+
+== syntactic quirks
+
+=== semicolons
+
+"For compatibility with toplevel phrases (chapter 12), optional `;;`
+are allowed after and before each definition in a structure. These `;;`
+have no semantic meanings. Similarly, an expr preceded by `;;` is
+allowed as a component of a structure. It is equivalent to `let _ =
+expr`, i.e. expr is evaluated for its side-effects but is not bound to
+any identifier. If expr is the first component of a structure, the
+preceding `;;` can be omitted." --
+link:https://v2.ocaml.org/manual/modules.html#ss:mexpr-structures[11.2
+Structures]
+
+
+
 
 == misc
 

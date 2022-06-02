@@ -29,13 +29,13 @@
 ** link:configuration#ocamlconfig[OCaml Rules Configuration]
 ** link:configrules[Configuration Rules]
 ** link:configprofiles[Config Profiles]
-* link:conventions[Conventions]
+* link:obazl-conventions[Conventions]
 * link:dependencies[Dependencies]
-** link:dependencies_ocaml[OCaml Dependencies]
+** link:dependencies-ocaml[OCaml Dependencies]
 ** [Runtime Dependencies]()
 ** link:opam#dependencies[OPAM Dependencies]
 ** [PPX Adjunct Dependencies]()
-** link:dependencies_cc[CC Dependencies]
+** link:dependencies-cc[CC Dependencies]
 * link:deployment[Deployment]
 ** link:stamping[Stamping binaries]
 * link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.

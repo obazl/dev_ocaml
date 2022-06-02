@@ -866,7 +866,7 @@ pre, table code {
 }
 
 pre {
-    margin: 25px 0px;
+    margin: 10px 0px;
 }
 
 pre.nowrap code {
@@ -1374,4 +1374,8 @@ span.underline{
 
 .valign-middle {
     vertical-align: middle
+}
+
+.colist {
+    margin-left: 2rem;
 }

@@ -6,12 +6,30 @@
 :page-tags: [opam,configuration]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 14, 2022
-// :toc-title:
-// :toc: true
+:toc-title:
+:toc: true
 
-== Local directory switches
+OBazl supports three kinds of OPAM switch configuration:
 
-A "local directory switch" is an OPAM switch whose name is a directory
+* System switch - installed by default in `$(HOME)/.opam`
+** Switches are named, user can specify the name
+* Local switch - installed in `_opam`, a subdirectory of a specified directory, usually `$(PWD)`
+** The installation directory containing `_opam` is treated as the name of the switch
+** Local switches use information in the system OPAM root `~/.opam`, e.g. `~/.opam/repo`
+* Here switch -  installed in `<projroot>/.opam`
+** TODO: make it `<projroot>/.obazl.d/_opam`
+** Here switch initialization also creates an OPAM root, so they are
+   independent of the system OPAM root
+
+All three may be used as the basis of a project's OBazl coswitch.
+
+== System Switches
+
+== Local Switches
+
+link:https://opam.ocaml.org/blog/opam-local-switches/[OPAM Local Switches]
+
+A "local switch" is an OPAM switch whose name is a directory
 path; usually this will be the working directory `./` (which OPAM will
 expand to an absolute path). The switch itself is located in the
 `./_opam` subdirectory. OPAM commands detect the presence of `./_opam`

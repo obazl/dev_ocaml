@@ -1,12 +1,12 @@
 = OBazl Conventions
-:page-permalink: rules-ocaml/user-guide/obazl-conventions
+:page-permalink: /:path/obazl-conventions
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug
 :page-tags: [conventions]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022
-:page-toc: false
+// :toc: false
 
 * `.bazelrc` - always put this file in the project root directory; at
   a minimum, it should contain `+try-import .private/user.bazelrc+`.

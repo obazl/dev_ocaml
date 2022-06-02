@@ -1,5 +1,5 @@
 = Configurable Defaults
-:page-permalink: rules-ocaml/user-guide/configurable-defaults
+:page-permalink: /:path/configurable-defaults
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
 :page-doc: ug

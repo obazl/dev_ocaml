@@ -270,3 +270,15 @@ i.fa {
     width: 100%;
     word-wrap: anywhere;
 }
+
+.imageblock{
+    padding: 1rem 0 1rem 0;
+}
+
+.imageblock > .title {
+    padding-top: 1rem;
+}
+
+.imageblock.left { float:left; }
+.imageblock.right { float:right; }
+.paragraph.clear { clear:both; }
