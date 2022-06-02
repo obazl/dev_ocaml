@@ -13,39 +13,46 @@
 
 == Configurable defaults
 
-=== Options
-These options apply to all `ocaml_*` rules. They can be overridden on
-the command line; for example, to enable verbosity (`-verbose`) for
-all `ocaml_*` build targets, pass `--@ocaml//verbose`. See
-link:../user-guide/configurable-defaults[Configurable Defaults] for more
-information.
+These options and flags apply to all `ocaml_*` rules. They can be
+overridden on the command line; for example, to enable verbosity
+(`-verbose`) for all `ocaml_*` build targets, pass
+`--@ocaml//verbose`. See
+link:../user-guide/configurable-defaults[Configurable Defaults] for
+more information.
 
-**Options** May be enums, strings, labels, etc.
+In addition to the options and flags listed here, which apply to all
+`ocaml_*` rule instances, each rule may have its own set of
+configurable defaults.
+
+=== Options
+
+May be enums, strings, labels, etc.
 
 [.rule_attrs]
 [cols="1,1,1"]
 |===
 | Label | Default | x
 
-| @rules_ocaml//build/mode | @ocaml//build/mode:bytecode | Enum: :bytecode, :native
+| @rules_ocaml//build/mode | @ocaml//build/mode:native | Enum: :bytecode, :native
 
 | @rules_ocaml//build/cc/mode | @ocaml//build/cc/mode:fastbuild | Enum: :dbg, :fastbuild, :opt
 
 | @rules_ocaml//build/profile | @ocaml//build/profile:fastbuild | Enum: :dbg, :fastbuild, :opt
 |===
 
+NOTE: CC build mode is set by passing `--compilation_mode`
+(equivalently `-c`) on the command line, e.g. `-c opt`. This sets the
+value of `@rules_ocaml//build/cc/mode`.
+
 === Flags
 
-**Boolean Flags** Each boolean flag `foo` may be enabled by
-`--@ocaml//foo` or `--@ocaml//foo:enable`, and disabled with
-`--no@ocaml//foo` or `--@ocaml//foo:disable`. Each flag has a
-corresponding OCaml option and an OBazl (not an OCaml) negation; see
-[Configurable_Defaults:
-Disabling](../ug/configurable_defaults.md#disabling) for information
-on how to use negated options to override defaults.
-
-In addition to these, which apply to all `ocaml_*` rules, each rule
-may have its own set of configurable defaults.
+Each boolean flag `foo` may be enabled by `--@ocaml//foo` or
+`--@ocaml//foo:enable`, and disabled with `--no@ocaml//foo` or
+`--@ocaml//foo:disable`. Each flag has a corresponding OCaml option
+and an OBazl (not an OCaml) negation; see
+xref:../user-guide/configurable-defaults#_disabling[Configurable_Defaults:
+Disabling] for information on how to use negated options to override
+defaults.
 
 [.rule_attrs]
 [cols="1,1,1"]
@@ -60,7 +67,7 @@ may have its own set of configurable defaults.
 
 | @rules_ocaml//cfg/noassert | enabled | `-noassert`, `-no-noassert`
 
-| @rules_ocaml//cfg/opaque | enabled | `-opaque`, `-no-opaque`
+| @rules_ocaml//cfg/opaque | disabled | `-opaque`, `-no-opaque`
 
 | @rules_ocaml//cfg/short-paths | enabled | `-short-paths`, `-no-short-paths`
 

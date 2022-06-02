@@ -13,39 +13,46 @@
 
 == Configurable defaults
 
-=== Options
-These options apply to all `ocaml_*` rules. They can be overridden on
-the command line; for example, to enable verbosity (`-verbose`) for
-all `ocaml_*` build targets, pass `--@ocaml//verbose`. See
-link:../user-guide/configurable-defaults[Configurable Defaults] for more
-information.
+These options and flags apply to all `ocaml_*` rules. They can be
+overridden on the command line; for example, to enable verbosity
+(`-verbose`) for all `ocaml_*` build targets, pass
+`--@ocaml//verbose`. See
+link:../user-guide/configurable-defaults[Configurable Defaults] for
+more information.
 
-**Options** May be enums, strings, labels, etc.
+In addition to the options and flags listed here, which apply to all
+`ocaml_*` rule instances, each rule may have its own set of
+configurable defaults.
+
+=== Options
+
+May be enums, strings, labels, etc.
 
 [.rule_attrs]
 [cols="1,1,1"]
 |===
 | Label | Default | x
 
-| @rules_ocaml//build/mode | @ocaml//build/mode:bytecode | Enum: :bytecode, :native
+| @rules_ocaml//build/mode | @ocaml//build/mode:native | Enum: :bytecode, :native
 
 | @rules_ocaml//build/cc/mode | @ocaml//build/cc/mode:fastbuild | Enum: :dbg, :fastbuild, :opt
 
 | @rules_ocaml//build/profile | @ocaml//build/profile:fastbuild | Enum: :dbg, :fastbuild, :opt
 |===
 
+NOTE: CC build mode is set by passing `--compilation_mode`
+(equivalently `-c`) on the command line, e.g. `-c opt`. This sets the
+value of `@rules_ocaml//build/cc/mode`.
+
 === Flags
 
-**Boolean Flags** Each boolean flag `foo` may be enabled by
-`--@ocaml//foo` or `--@ocaml//foo:enable`, and disabled with
-`--no@ocaml//foo` or `--@ocaml//foo:disable`. Each flag has a
-corresponding OCaml option and an OBazl (not an OCaml) negation; see
-[Configurable_Defaults:
-Disabling](../ug/configurable_defaults.md#disabling) for information
-on how to use negated options to override defaults.
-
-In addition to these, which apply to all `ocaml_*` rules, each rule
-may have its own set of configurable defaults.
+Each boolean flag `foo` may be enabled by `--@ocaml//foo` or
+`--@ocaml//foo:enable`, and disabled with `--no@ocaml//foo` or
+`--@ocaml//foo:disable`. Each flag has a corresponding OCaml option
+and an OBazl (not an OCaml) negation; see
+xref:../user-guide/configurable-defaults#_disabling[Configurable_Defaults:
+Disabling] for information on how to use negated options to override
+defaults.
 
 [.rule_attrs]
 [cols="1,1,1"]
@@ -60,7 +67,7 @@ may have its own set of configurable defaults.
 
 | @rules_ocaml//cfg/noassert | enabled | `-noassert`, `-no-noassert`
 
-| @rules_ocaml//cfg/opaque | enabled | `-opaque`, `-no-opaque`
+| @rules_ocaml//cfg/opaque | disabled | `-opaque`, `-no-opaque`
 
 | @rules_ocaml//cfg/short-paths | enabled | `-short-paths`, `-no-short-paths`
 
@@ -85,7 +92,7 @@ ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-ar
 
 Generates an OCaml archive file.
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_archive**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -101,11 +108,17 @@ Generates an OCaml archive file.
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_archive-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_archive-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_archive-cc_deps"></a>+++cc_deps
@@ -122,7 +135,9 @@ Generates an OCaml archive file.
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_archive-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_archive-opts"></a>+++opts
@@ -177,7 +192,7 @@ the difference between '/' and ':' in such labels):
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_executable**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -189,11 +204,17 @@ the difference between '/' and ':' in such labels):
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_executable-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_executable-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_executable-cc_deps"></a>+++cc_deps
@@ -255,7 +276,7 @@ Imports pre-compiled OCaml files. [User Guide](../ug/ocaml_import.md).
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_import**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -326,7 +347,7 @@ ocaml_lex(<a href="#ocaml_lex-name">name</a>, <a href="#ocaml_lex-opts">opts</a>
 Generates an OCaml source file from an ocamllex source file.
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_lex**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -380,7 +401,7 @@ more information see [Collections: Libraries, Archives and
 Packages](../ug/collections.md).
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_library**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -392,11 +413,17 @@ Packages](../ug/collections.md).
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_library-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_library-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_library-manifest"></a>+++manifest
@@ -404,7 +431,9 @@ Packages](../ug/collections.md).
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_library-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_library-opts"></a>+++opts
@@ -430,13 +459,29 @@ Compiles an OCaml module. The **module name** is determined by rule,
 based on the `struct`, `sig`, `name`, and `module` attributes:
 
 * If the `sig` attribute is the label of an `ocaml_signature` target,
-  then the module name is derived from the name of the compiled sigfile. The structfile will be renamed if it does not match the sigfile name.
-* If the `sig` attribute is a filename, then:
-** if its principal name is equal to the principal name of the file named in the `struct` attribute, then the module name is derived from it.
-** if the principal names of the sigfile and structfile do not match, then the module name is derived from from the `name` attribute.  Both the sigfile and the structfile will be renamed accordingly.
-* If the `sig` attribute is a filename, the `module` attribute may be used to force the module name. Both the sigfile and the structfile will be renamed accordingly.
+  then the module name is derived from the name of the compiled
+  sigfile, since compiled interface files cannot be renamed. The
+  structfile will be renamed if it does not match the sigfile name.
 
-**CONFIGURABLE DEFAULTS** for rule `ocaml_module`
+* If the `sig` attribute is a filename, then:
+
+** if its principal name is equal to the principal name of the file
+   named in the `struct` attribute, then the module name is derived
+   from it.
+
+** if the principal names of the sigfile and structfile do not match,
+   then the module name is derived from from the `name` attribute.
+   Both the sigfile and the structfile will be renamed accordingly.
+
+** The `module` attribute may be used to force the module name. Both
+   the sigfile and the structfile will be renamed accordingly.
+
+* If the `sig` attribute is not specified (i.e. the structfile is
+  "orphaned"), then the module name will be derived from the
+  structfile name, unless the `module` attribute is specified, in
+  which case it overrides.
+
+**CONFIGURABLE DEFAULTS** for rule `ocaml_module`:
 
 In addition to the <<Configurable defaults>> that apply to all
 `ocaml_*` rules, the following apply to this rule:
@@ -446,7 +491,7 @@ In addition to the <<Configurable defaults>> that apply to all
 [.rule_attrs]
 [cols="1,1,1"]
 |===
-| Label | Default | `opts` attrib
+| Label | Default | Comments
 
 | @rules_ocaml//cfg/module:deps | `@rules_ocaml//cfg:null` | list of OCaml deps to add to all `ocaml_module` instances
 
@@ -467,7 +512,7 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 [.rule_attrs]
 [cols="1,1,1"]
 |===
-| Label | Default | `opts` attrib
+| Label | Default | `opts` attrib equivalent
 
 | @rules_ocaml//cfg/module/linkall | False | `-linkall`, `-no-linkall`
 
@@ -477,7 +522,7 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_module**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -489,20 +534,28 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_module-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_module-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_module-cc_deps"></a>+++cc_deps
-|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).
+|  Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see link:../user-guide/dependencies-cc#_cc-linkmode[CC Dependencies: Linkmode].
              | +++<a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a>+++
 | optional
 | {}
 | +++<a class="rule-attr" id="ocaml_module-data"></a>+++data
-|  Runtime data dependencies: list of labels of data files needed by this module at runtime. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+|  
+Runtime data dependencies: list of labels of data files needed by this module at runtime. This is a standard Bazel attribute; see link:https://bazel.build/reference/be/common-definitions#typical-attributes[Typical attributes,window="_blank"].
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_module-deps"></a>+++deps
@@ -510,11 +563,15 @@ NOTE: These do not support `:enable`, `:disable` syntax.
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_module-deps_runtime"></a>+++deps_runtime
-|  Runtime module dependencies, e.g. .cmxs plugins. | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
+|  
+Runtime module dependencies, e.g. .cmxs plugins. Use the `data` attribute for runtime data dependencies.
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a>+++
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_module-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_module-module"></a>+++module
@@ -584,7 +641,7 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_ns_archive**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -596,15 +653,23 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_ns_archive-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_archive-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_archive-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_ns_archive-ns"></a>+++ns
@@ -644,7 +709,7 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_ns_library**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -656,11 +721,17 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_ns_library-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_library-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_library-deps"></a>+++deps
@@ -668,7 +739,9 @@ See [Namespacing](../ug/namespacing.md) for more information on namespaces.
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_ns_library-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_ns_library-ns"></a>+++ns
@@ -757,7 +830,7 @@ ns(ns = "foobar", srcs = glob(["*.ml"]))
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_ns_resolver**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -769,11 +842,17 @@ ns(ns = "foobar", srcs = glob(["*.ml"]))
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_ns_resolver-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_resolver-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_ns_resolver-embed"></a>+++embed
@@ -802,7 +881,9 @@ Includes all submodules of an exogenous namespace.
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_ns_resolver-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_ns_resolver-ns"></a>+++ns
@@ -861,7 +942,7 @@ the difference between '/' and ':' in such labels):
 
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_signature**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -873,11 +954,17 @@ the difference between '/' and ':' in such labels):
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_signature-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_signature-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_signature-as_cmi"></a>+++as_cmi
@@ -893,7 +980,9 @@ the difference between '/' and ':' in such labels):
 | optional
 | []
 | +++<a class="rule-attr" id="ocaml_signature-mode"></a>+++mode
-|  Overrides default build mode setting, 'native' or 'bytecode'. | +++String+++
+|  
+Overrides default build mode setting, `native` or `bytecode`. The default is set by `@rules_ocaml//build/mode`, which defaults to `native`.
+             | +++String+++
 | optional
 | ""
 | +++<a class="rule-attr" id="ocaml_signature-module"></a>+++module
@@ -974,7 +1063,7 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
  See [Configurable Defaults](../ug/configdefs_doc.md) for more information.
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_test**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]
@@ -986,11 +1075,17 @@ In addition to the [OCaml configurable defaults](#configdefs) that apply to all
 | required
 | 
 | +++<a class="rule-attr" id="ocaml_test-args0file"></a>+++args0file
-|  Name of file containing null-terminated arg lines, to be passed with -args0 | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing null-terminated arg lines, to be passed with `-args0`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_test-argsfile"></a>+++argsfile
-|  Name of file containing newline-terminated arg lines, to be passed with -args | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
+|  
+Name of file containing newline-terminated arg lines, to be passed with `-args`.
+            NOT YET SUPPORTED
+             | +++<a href="https://bazel.build/docs/build-ref.html#labels">Label</a>+++
 | optional
 | None
 | +++<a class="rule-attr" id="ocaml_test-cc_deps"></a>+++cc_deps
@@ -1050,7 +1145,7 @@ ocaml_yacc(<a href="#ocaml_yacc-name">name</a>, <a href="#ocaml_yacc-opts">opts<
 Generates an OCaml source file from an ocamlyacc source file.
     
 
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **ocaml_yacc**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]

@@ -9,7 +9,7 @@ ${util.ruleSummary($ruleName, $ruleInfo)}
 ${ruleInfo.docString}
 
 #if (!$ruleInfo.getAttributeList().isEmpty())
-**ATTRIBUTES:**
+**ATTRIBUTES** for rule **$ruleName**:
 
 [.rule_attrs]
 [cols="1,1,1,1,1"]

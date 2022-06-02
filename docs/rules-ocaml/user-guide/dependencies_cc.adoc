@@ -5,7 +5,9 @@
 :page-doc: ug
 :page-tags: [dependencies,cc]
 :page-last_updated: June 1, 2022
-// :toc:
+:toc-title:
+:toc: true
+:revdate: 2022-06-01
 
 
 WARNING: Support for C/C++ deps is still under development. What's
@@ -21,12 +23,7 @@ historically is closely associated with C. Many other languages
 OBazl uses 'CC' terminology (e.g. `CC library`, `cc_deps`) to refer to
 such files no matter what language was used to produce them.
 
-* link:#cclibs[CC Libraries]
-* link:#linkmode[CC Linkmode]
-* link:#plugins[Dynamic Loading (Plugins)]
-* link:#cycles[Dependency Cycles]
-* link:#macos[MacOS]
-
+== CC Libraries
 
 A library is a collection of code units. CC libraries come in
 several flavors:
@@ -43,17 +40,17 @@ several flavors:
   as synonyms. On Linux, these are `.so` files; on MacOS, they are
   `.dylib` files (but MacOS also supports `.so` files).
 
-=== CC Linkmode
+== CC Linkmode
 
-Rules producing CC libs commonly produce both a static archive ('.a'
-file) and one or more shared libraries ('.so' or '.dylib' files). In
+Rules producing CC libs commonly produce both a static archive (`.a`
+files) and one or more shared libraries (`.so` or `.dylib` files). In
 Obazl rules, _link mode_ determines which type of library is used for
 linking. Possible values:
 
-* 'static': statically link to `.a` file.
-* 'dynamic': depending on the OS, link to '.dylib' file (MacOS) or '.so' file (Linux or MacOS).
-* 'shared': synonym for 'dynamic'
-* 'default': by default, equivalent to 'static' on Linux, 'dynamic' on MacOS.
+* `static`: statically link to `.a` file.
+* `dynamic`: depending on the OS, link to `.dylib` file (MacOS) or `.so` file (Linux or MacOS).
+* `shared`: synonym for 'dynamic'
+* `default`: 'static' on Linux, 'dynamic' on MacOS.
 
 **NOTE** The 'default' linkmode is configurable. The default value
   for linkmode 'default' is as noted above. To override the default
@@ -61,12 +58,12 @@ linking. Possible values:
   example, to set default value for linkmode 'default' to 'dynamic'
   pass `--@ocaml//linkmode:dynamic`.
 
-=== Dynamic Loading ('Plugins')
+== Dynamic Loading ('Plugins')
 
 [TODO: document dynamic loading of CC deps; compare OCaml *.cmxs
 files. Distinction between linking and loading.]
 
-=== Static Binaries
+== Static Binaries
 
 Executable binaries can be linked in several ways:
 
@@ -74,12 +71,11 @@ Executable binaries can be linked in several ways:
 * Partially static - non-system libs may be statically linked, but system libs are dynamically linked
 * Fully static -- all dependencies, including system libraries, are statically linked, resulting in a complete standalone executabe.
 
-**WARNING** MacOS does not support statically linked executables. See link:https://developer.apple.com/library/archive/qa/qa1118/_index.html[Statically linked binaries on Mac OS
-  X]
+**WARNING** MacOS does not support statically linked executables. See link:https://developer.apple.com/library/archive/qa/qa1118/_index.html[Statically linked binaries on Mac OS X,window="_blank"]
 
 [TODO: flesh this out]
 
-=== Dependency Cycles
+== Dependency Cycles
 
 Legacy packages may include circular or mutual dependencies. Bazel
 disallows such dependencies.
@@ -98,7 +94,7 @@ compilation work, at the cost of removing at least one of the
 dependencies, so a change in one will not force a recompile of the
 other.  [Why does this work?]
 
-=== MacOS
+== MacOS
 
 Linking dynamic libs to an executable on MacOS is an open issue. The
 workaround for now is to link to static libs.
