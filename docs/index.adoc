@@ -53,6 +53,24 @@ a little messy and incomplete.
 * link:tools-obazl/reference[Reference Manual]
 * link:https://github.com/obazl/tools_obazl[https://github.com/obazl/tools_obazl,window=_blank]
 
+== mibl:
+
+Scheme APIs for working with Dune files (and in the future, OPAM files).
+
+* link:https://github.com/obazl/mibl[https://github.com/obazl/mibl,window=_blank]
+
+== sunlark:
+
+Scheme API for working with BUILD.bazel files.
+
+* link:https://github.com/obazl/sunlark[https://github.com/obazl/sunlark,window=_blank]
+
+== sealark:
+
+Starlark parser written in C11.
+
+* link:https://github.com/obazl/sealark[https://github.com/obazl/sealark,window=_blank]
+
 
 
 == Demos
