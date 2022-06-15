@@ -4,7 +4,107 @@
 :page-pkg: rules_ocaml
 :page-doc: ug
 :page-tags: [maintenance]
-:page-last_updated: May 4, 2022
+:page-last_updated: June 14, 2022
+
+== Cross-module Optimization
+
+The native compiler enables cross-module optimization by default. The
+`-opaque` flag (link:https://v2.ocaml.org/manual/native.html[Chapter
+14 Native-code compilation (ocamlopt),window="_blank"] disables it.
+
+The meaning of `-opaque` is different for sigfiles and structfiles:
+
+* "When compiling [an] `.mli` interface, using `-opaque` marks the
+  compiled `.cmi` interface so that subsequent compilations of modules
+  that depend on it will not rely on the corresponding `.cmx` file, nor
+  warn if it is absent."
+* "When the native compiler compiles a .ml implementation, using
+  `-opaque` generates a `.cmx` that does not contain any cross-module
+  optimization information."
+
+In other words, using `-opaque` to compile a `.mli` file makes it act
+ like a standalone signature: the compiler will ignore any
+ corresponding `.cmx` file, which means the build system should not
+ force a rebuild of modules that depend on the `.cmi` file even if the
+ corresponding `.ml` file changes.
+
+Similarly, if an `.ml` file is compiled with `-opaque` (and the `.mli`
+file is compile without it), it won't be ignored but it might as well
+be with respect to optimization, because its `.cmx` file will not have
+any optimization info.
+
+In short, in case the `.ml` changes but the `.mli` does not, and the
+latter is compiled with `-opaque`, the `.ml` file should be
+recompiled, but this should not force a rebuild of anything that
+depends on the module. Remember that "depend on a module" means depend
+first on the `.cmi` file of the module, and then on the `.cmx` file.
+
+An example
+(link:https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/deps/opaque[deps/opaque,window="blank"]).
+We have the following dependency structure:
+
+`test (exe) > Test > Greeting > Hello`
+
+Now suppose we build `hello.mli` with `-opaque`.
+
+If you change `hello.ml` and then build target
+`//deps/opaque:Greeting`, nothing will happen - in particular,
+`hello.ml` will **_not_** be recompiled. That's because Bazel will only
+compile what is needed, and `Greeting` does not _need_ `hello.cmx` -
+it does need `hello.cmi`, but that did not change, and because it was
+compiled with `-opaque`, it tells the compiler not to bother with
+`hello.cmx`.
+
+TIP: Remember that you can build any target at the command line, no
+matter what its `visibility` attribute says. That attribute only
+governs visibility of dependencies.
+
+However, if we build target `//deps/opaque:test` - the executable - then
+`hello.ml` _will_ be compiled, and then the test executable will be
+built. But neither `Greeting` nor `Test` will be recompiled.
+
+Something similar but slightly different happens when we compile an
+`.ml` file with `-opaque`. In this demo, `Greeting` is an "orphan"
+module - it only has `greeting.ml`, without a `greeting.mli`. That
+means `greeting.cmi` is dependent on `greeting.ml`, so it will be
+regenerated and recompiled whenever `greeting.ml` changes. In this
+situation there is no way to tell OCaml to compile _just_ the `.cmi`
+file with `-opaque`. So we compile `greeting.ml` with `-opaque`. Then
+we can change `greeting.ml` without triggering a recompile of `Test`.
+However, building `//deps/opaque:Test` at the command line _will_
+recompile `greeting.ml`, even though `Test` does not need it. That's
+because `Test` _does_ need `greeting.cmi`, and since `greeting.ml`
+changed, it must be recompiled in order to produce `greeting.cmi`. And
+again if we build `//deps/opaque:test`, then `greeting.ml` will be
+recompiled and `test` will be relinked, but `Test` will not be
+recompiled.
+
+TIP: If you run the demo, pass `--subcommands=pretty_print` to see what actually gets done.
+
+Bazel can handle this with relative ease because it makes a
+distinction between target dependencies and action dependencies. When
+you write your BUILD.bazel file you decide what to list as target
+dependencies, but the rule implementation gets to decide what goes
+into the action dependency graph. And its the action dependency graph
+that determines what gets rebuilt.
+
+When we build without `-opaque`, the `ocaml_module` rule puts all
+target dependencies in the (compile) action dependency graph, so
+changes will always trigger rebuilds all the way up the dependency
+chain. But when `-opaque` is involved, the OBazl ruies can figure out
+that the `.cmx` file should _not_ go in the action depencency graph.
+Well, not the _compile_ dependency graph. We also have a _link_
+dependency graph, and we always include everything in that, but it
+only gets added to the graph of executable targets. The OBazl rules
+always propagate these graphs up the dependency chain. This is
+necessary, because all inputs and outputs for an action must always be
+explicitly enumerated. This is a major difference between Bazel and
+(many) other build systems that just keep track of directories. That
+makes sense insofar as compilers generally accept directories and
+search them. But directories are not enough for Bazel.
+
+== Flambda
+
 
 == Libraries v. Archives
 
