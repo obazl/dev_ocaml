@@ -37,6 +37,7 @@ a little messy and incomplete.
 
 * link:rules-ocaml/user-guide[User Guide]
 * link:rules-ocaml/reference[Reference Manual]
+* link:rules-ocaml/dev-guide[Developer Guide]
 * https://github.com/obazl/rules_ocaml[https://github.com/obazl/rules_ocaml,window=_blank]
 
 
@@ -50,6 +51,7 @@ a little messy and incomplete.
 
 == tools_obazl:
 
+* link:tools-obazl/user-guide[User Guide]
 * link:tools-obazl/reference[Reference Manual]
 * link:https://github.com/obazl/tools_obazl[https://github.com/obazl/tools_obazl,window=_blank]
 
