@@ -1,0 +1,155 @@
+= toolchains
+:page-permalink: /:path/toolchains
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: dg
+:page-sidebar: false
+:page-tags: [formatting]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 30, 2022
+:toc: true
+
+Hosts:
+
+* bazelhost - where Bazel runs.  Bazel vernacular: "host"
+* buildhost - where the build tools run. Bazel vernacular: "exec"
+* targethost - platform targeted by build tools.  Bazel vernacular: "target"
+
+== toolchain modeling
+
+* binding constraints: a set of constraints that, when satisfied, bind
+  a toolchain adapter to `ctx.toolchains[<toolchain type>]`. Toolchain
+  binding contraints are expressed using the built-in `toolchain`
+  rule, by listing `constraint_values` defined by platform constraints.
+
+* toolchain adapter: a rule (defined by the ruleset author) that
+  models the OCaml toolchain expected by `rules_ocaml`. The attributes
+  of the rule represent the elements of the toolchain (e.g. compiler).
+  Developers use the toolchain adapter rule to "adapt" their
+  particular toolchain to the OCaml toolchain model. E.g. by setting
+  the `compiler` attribute to point to a compiler.
+
+* platform constraints: a set of `constraint_setting` and
+  `constraint_value` targets used by binding constraints and platform
+  definitions.
+
+* platform definition - collection of `constraint_values` that are set
+  to `True` when the platform definition is passed on the command line
+  using `--host_platform` or `--platforms`.
+
+Only the toolchain adapter rule (that is, the OCaml toolchain model)
+is defined by `rules_ocaml`. It's up to the devloper to provide:
+
+* toolchain adapter targets that bind toolchain files to the toolchain model;
+* platform constraints and definitions
+* targets using the `toolchain` rule to express binding constraints
+
+The OBazl toolsuite provides a tool that automatically generates all
+of this for OPAM toolchains. The generated code has the following
+structure:
+
+----
+ocaml
+├── WORKSPACE.bazel
+...
+├── toolchain
+│   ├── adapters
+│   │   ├── linux
+│   │   │   └── BUILD.bazel
+│   │   └── macos
+│   │       └── BUILD.bazel
+│   ├── binding_constraints
+│   │   ├── linux
+│   │   │   └── BUILD.bazel
+│   │   └── macos
+│   │       └── BUILD.bazel
+│   └── platform_constraints
+│       ├── bazel
+│       │   └── BUILD.bazel
+│       ├── build
+│       │   └── BUILD.bazel
+│       └── target
+│           └── BUILD.bazel
+----
+
+For example:
+
+* `@ocaml//toolchain/platform_constraints/target:target` is a
+  `constraint_setting` with two `constraint_value` s:
+  ** `@ocaml//toolchain/platform_constraints/target:local`
+  ** `@ocaml//toolchain/platform_constraints/target:vm`
+
+* `@ocaml//toolchain/binding_constraints/macos:macos_x86_64` is a
+  `toolchain` rule target:
+
+.caml/toolchain/binding_constraints/macos/BUILD.bazel
+[source, python]
+----
+toolchain(
+    name           = "macos_x86_64",  <1>
+    toolchain      = "@ocaml//toolchain/adapters/macos:x86_64",  <2>
+    toolchain_type = "@rules_ocaml//toolchain:type",
+    exec_compatible_with = [  <3>
+        "@platforms//os:macos",
+        "@platforms//cpu:x86_64",
+    ],
+    target_compatible_with = [  <4>
+        "@platforms//os:macos",
+        "@platforms//cpu:x86_64",
+    ],
+    visibility             = ["//visibility:public"],
+)
+----
+
+<1> In this case buildhost == targethost, so we need not list both in
+the name
+<2> This toolchain adapter will be selected if all the
+constraints are satisfied.
+<3> meaning, "the toolchain adapter listed in the toolchain attribute
+may be selected to run on the buildhost ("exec") if these two
+`@platforms` constraints are satisfied for the buildhost".
+<4> meaning, "the toolchain adapter listed in the toolchain attribute
+may be selected (to run on the buildhost) if these two
+`@platforms` constraints are satisfied for the target host".
+
+NOTE: Constraints in the `@platforms` workspace are predefined by Bazel.
+
+A cross-platform toolchain binding might look like this (toy example):
+
+.caml/toolchain/binding_constraints/macos/BUILD.bazel
+[source, python]
+----
+toolchain(
+    name           = "macos_x86_64__macos_arm",  <1>
+    toolchain      = "@ocaml//toolchain/adapters/macos:x86_64__arm",
+    toolchain_type = "@rules_ocaml//toolchain:type",
+    exec_compatible_with = [            <2>
+        "@platforms//os:macos",
+        "@platforms//cpu:x86_64",
+    ],
+    target_compatible_with = [            <3>
+        "@platforms//os:linux",
+        "@platforms//cpu:arm",
+    ],
+    visibility             = ["//visibility:public"],
+)
+----
+<1> Naming convention:  `<buildhost>__<targethost>`
+<2> Buildhost where tools run is macos on x86_64
+<3> Target host is linux on arm
+
+
+The platform definitions are in `@opam//tc/host/build` and
+`@opam//tc/host/target`.
+
+For example, `@opam//tc/host/target:macos_x86_64` is this:
+
+----
+platform(name = "macos_x86_64",
+         constraint_values = [
+             "@platforms//os:macos",
+             "@platforms//cpu:x86_64"
+         ])
+----
+
+== platforms

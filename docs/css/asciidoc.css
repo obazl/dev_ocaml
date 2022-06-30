@@ -282,3 +282,7 @@ i.fa {
 .imageblock.left { float:left; }
 .imageblock.right { float:right; }
 .paragraph.clear { clear:both; }
+
+.listingblock .title{
+    font-style:italic;
+}

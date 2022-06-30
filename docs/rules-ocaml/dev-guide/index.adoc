@@ -2,13 +2,14 @@
 :page-permalink: /:path/index.html
 :page-layout: page_rules_ocaml
 :page-pkg: rules_ocaml
-:page-doc: ug
+:page-doc: dg
 :page-sidebar: false
 :page-tags: [formatting]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: June 29, 2022
+:page-last_updated: June 30, 2022
 :toc: true
 
 == Topics
 
 * link:ppx[PPX]
+* link:toolchains[Toolchains]
