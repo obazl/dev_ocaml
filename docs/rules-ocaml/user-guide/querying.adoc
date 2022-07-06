@@ -95,7 +95,8 @@ an `ocaml_ns_library` target named `color` lists three submodules,
 each of which is PPX-transformed. That means the example above is a
 little misleading, since it builds `ns/topdown/ppx:Blue` independent
 of the namespace. When you build `ns/topdown/ppx:color`, each
-submodule will be not only preprocessing with a PPX, but also renamed.  The following `aquery` will show this:
+submodule will not only be preprocessed by a PPX, but also renamed.
+The following `aquery` will show this:
 
 ----
 ...azl/demos_obazl/rules_ocaml]$ bazel aquery 'mnemonic("OCamlPpxTransform", deps(ns/topdown/ppx:color))'
@@ -111,11 +112,11 @@ action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Red'
   ActionKey: 0198e3f7633f19b056cb5a8fecd8886a8bc7f3911d670626a35e288bfa051a98
   Inputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Red_ppx.sh, bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/ppx.exe, bazel-out/darwin-fastbuild-ST-2386c8310427/internal/_middlemen/ns_Stopdown_Sppx_Sppx.exe-runfiles, ns/topdown/ppx/red.ml]
   Outputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Red.ml]
-  Command Line: (exec bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Red_ppx.sh \
+  Command Line: (exec bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Red_ppx.sh \ <1>
     -o \
-    ../bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Red.ml \
+    ../bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Red.ml \  <3>
     -impl \
-    ns/topdown/ppx/red.ml)
+    ns/topdown/ppx/red.ml)             <2>
 # Configuration: 31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f
 # Execution platform: @local_config_platform//:host
 
@@ -151,6 +152,9 @@ action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Blue'
 # Configuration: 31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f
 # Execution platform: @local_config_platform//:host
 ----
+<1> The shell script (written by a previous `FileWrite` action)  runs the ppx executable.
+<2> Input is the original file.
+<3> Output is transformed and renamed.
 
 This shows that PPX processing and renaming are accomplished by the same `OCamlPpxTransform` action.
 
