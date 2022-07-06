@@ -1,0 +1,45 @@
+= Preprocessing
+:page-permalink: /:path/preprocessing
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [deployment]
+:page-last_updated: June 2, 2022
+// :toc: false
+
+Most preprocessing tasks can be handled by Bazel's standard `genrule`,
+which is designed to run shell scripts. OBazl version 2 adds some new
+rules to support standard code generation tools, such as `ocaml_lex`
+and `ocaml_yacc`.
+
+== genrule
+
+== ocamllex
+
+== ocamlyacc
+
+== ppx
+
+PPX processing is a little more complicated, and requires some
+specialized support. OBazl provides one specialized rule,
+`ppx_executable`, and a collection of ppx-specific attributes on
+`ocaml_module` and `ocaml_signature` rules, including:
+
+* `ppx` takes the label of a `ppx_executable` target; the executable will be used to preprocess the source file;
+* `ppx_args` is used to pass command args to the `ppx_executable`
+* `ppx_data` passes data files needed at `ppx_executable` runtime
+* `ppx_print` controls the form of PPX processing output, either `binary` or `text`
+
+Some PPX transformers inject dependencies into the sources they
+transform. Dune calls these "runtime" dependencies, but this is
+inaccurate; they become _compile-time_ dependencies of the files
+output by the PPX transformation. OBazl version 1 called these _adjunt
+dependencies_, for lack of a better term; version 2 calls them _ppx
+co-dependencies_. They are passed to the `ppx_executable` through a
+`ppx_codeps` attribute.
+
+== Other tools
+
+=== cinaps
+
+=== cppo

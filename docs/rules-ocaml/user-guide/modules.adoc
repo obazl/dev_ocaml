@@ -19,6 +19,26 @@ An OCaml module is a composite formed by pairing a
 and a
 [structure](#structures).
 
+=== Orphans and Dyads
+
+In OBazl terminology, an _orphan_ module is one whose signature is
+inferred from its structure. For example, a module explicitly defined
+within a file `module M = struct ...end` counts as an orphan module.
+Similarly, a structfile without a matching sigfile is termed an
+_orphaned_ structfile, from which an orphan module may be compiled.
+
+A module built from a paired structure and an explicit signature is
+called a _dyadic_ module. For example, definitions of the following
+form define a dyadic module: `module M : sig ... end = struct ...
+end`. A structfile and a sigfile with the same principal name
+(filename excluding extension, normalized as a module name) together
+determine a dyadic file-system module.
+
+NOTE: There is no substantive difference between an orphan module and
+a dyadic module. The terms are intended for convenience, solely to
+capture the the two ways that module code can be organized.
+
+== Compilation
 
 IMPORTANT: Compilation of module files _always_ involves separate
 compilation of interface and implementation; but as a convenience, the
@@ -116,3 +136,7 @@ link:https://cs3110.github.io/textbook/chapters/modules/modules.html#module-type
 == Bazel Modules
 
 Expected for version 3
+
+== test images
+
+image:fsmodule.svg[Static,100%]

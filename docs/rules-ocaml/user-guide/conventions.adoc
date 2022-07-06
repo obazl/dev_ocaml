@@ -9,24 +9,27 @@
 // :toc: false
 
 * `.bazelrc` - always put this file in the project root directory; at
-  a minimum, it should contain `+try-import .private/user.bazelrc+`.
+  a minimum, it should contain `+try-import .private/bazelrc+`.
 +
 See link:https://bazel.build/docs/bazelrc[Write bazelrc configuration files,window="_blank"] for more information.
-
-* Use `.private/user.bazelrc` to pass arguments to Bazel. Do not put
-  it under version control. Add it to `.gitignore`.
-
-** Use `:name` suffixes to control sets of configuration settings ("profiles") at the command line
-    using link:https://bazel.build/docs/bazelrc#config[--config,window="_blank"]
-
 
 * Put the following in `.gitignore`:
 
 ** `.private/` - developers can use this subdirectory for shell scripts,
     data files, etc. that should not be under version control
+*** Put the following in `.private/.gitignore` and put it under version
+   control. This will put `.private` under version control (so all users can use it) but nothing it contains (except `.gitignore`) will be under version control.
+
+  `*`
+
 ** `logs/`
 ** `tmp/`
-** `user.bazelrc`
+
+* Use `.private/bazelrc` to pass arguments to Bazel. Do not put
+  it under version control.
+
+** Use `:name` suffixes to control sets of configuration settings ("profiles") at the command line
+    using link:https://bazel.build/docs/bazelrc#config[--config,window="_blank"]
 
 * Use `.bazelignore` to exclude irrelevant subdirectories from Bazel
   processing. For example, if you are adding Bazel support to a
@@ -44,7 +47,7 @@ See link:https://bazel.build/docs/bazelrc[Write bazelrc configuration files,wind
 
 * `BUILD.bazel`, not `BUILD`
 
-* Use `BUILD.bzl` for extension code needed by `BUILD.bazel`
+* Use `BUILD.bzl` for package-local extension code.
 
 * Importing external repositories
 

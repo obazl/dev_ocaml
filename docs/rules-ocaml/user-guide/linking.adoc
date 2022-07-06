@@ -1,0 +1,38 @@
+= Linking
+:page-permalink: /:path/linking
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [linking]
+:page-last_updated: June 2, 2022
+:page-toc: false
+
+
+
+* [Generating static and portable executables with OCaml](https://www.ocamlpro.com/2021/09/02/generating-static-and-portable-executables-with-ocaml/)
+
+
+## link optimization
+
+-no-alias-deps:  cut elim, eliminates dep on resolver module needed for compiltion
+
+Example: using metaquot (demos_obazl/rules_ocaml/ppx/metaquot)
+
+# Error: No implementations provided for the following modules:
+#          Ppxlib_ast__Ast_helper_lite referenced from bazel-out/darwin-fastbuild/bin/ppx/metaquot/__obazl/Simple.cmx
+
+This is a mysterious error message, because the text
+`Ppxlib_ast__Ast_helper_lite` does *not* appear from Simple.ml (after
+ppx processing). Nor does `Ast_helper_lite`.
+
+What has happened is that the text does refer to `Ppxlib.Ast_helper`, and
+that gets resolved at compile time through a series of module aliases.
+In the end, `Ppxlib.Ast_helper` resolves to
+`Ppxlib_ast__Ast_helper_lite`, which is found at
+`ppxlib/ast/ppxlib_ast__Ast_helper_lite.cmx` etc. So that's what gets
+recorded in the compiled module, so that linking can skip the
+intermediating resolver files and go directly to the dependency.
+
+So this is a case where link optimization inevitably results in a
+puzzling error message.
+

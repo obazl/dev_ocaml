@@ -142,8 +142,10 @@ toolchain(
 The platform definitions are in `@opam//tc/host/build` and
 `@opam//tc/host/target`.
 
-For example, `@opam//tc/host/target:macos_x86_64` is this:
+For example:
 
+.@opam//tc/host/target:BUILD.bazel
+[source, python]
 ----
 platform(name = "macos_x86_64",
          constraint_values = [

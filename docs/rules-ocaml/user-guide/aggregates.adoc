@@ -1,0 +1,60 @@
+= Aggregates: libraries and archives.
+:page-permalink: /:path/aggregates
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: ug
+:page-tags: [aggregation]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+OBazl makes a clear and firm distinction between the concepts
+`library` and `archive`.
+
+A _library_ is just an aggregate - a collection of compiled modules,
+interfaces, and possibly other resources, such as data files.
+Libraries are expressed in OBazl using the `ocaml_library` rule. A
+target using this rule lists its contents in a `manifest` attribute;
+the content elements, being expressed as Bazel labels, can be located
+anywhere in the project.  An `ocaml_library` may contain
+other libraries.
+
+An `ocaml_library` does not execute an action. It does not build
+anything; rather, it just collects the dependencies listed in its
+`manifest` attribute and delivers them to its clients. Its power lies
+in its ability to aggregate any collection of targets from anywhere in
+the project workspace. For example, this makes it easy to organize
+source code along conceptual lines. Instead of stuffing a lot of files
+into a single directory, you can create a hierarchy of directories
+where each corresponds to some concept. Each such directory can have
+its own `ocaml_library`, which will depend on the `ocaml_library`
+targets of whatever other directories it depends on,
+
+
+
+An _archive_ is a library packaged as an OCaml archive (`.cma/.cmxa`)
+file. Like an `ocaml_library`, an `ocaml_archive` target lists its
+contents in a `manifest` attribute, but unlike `ocaml_library` it
+executes a build action that constructs an OCaml archive. An
+`ocaml_archive` may contain `ocaml_library` targets, but may not contain
+other `ocaml_archive` targets.
+
+'''
+
+In contrast to other build systems, and the OCaml community in
+general, OBazl makes a distinction between the concepts `library` and
+`archive`.
+
+An OBazl _library_ is just an aggregate - a collection of
+compiled modules, signatures. An `ocaml_library` target lists its
+contents in a `manifest` attribute: it constructs nothing and delivers
+its contents as a list in dependency order.
+
+An _archive_ is a library packaged as an OCaml archive (`.cma/.cmxa`)
+file. Like an `ocaml_library`, an `ocaml_archive` target lists its
+contents in a `manifest` attribute, but unlike `ocaml_library` it
+executes a build action that constructs an OCaml archive. An
+`ocaml_archive` may contain `ocaml_library` deps, but may not contain
+other `ocaml_archive` deps (since the OCaml compiler will not accept
+archives as input to an archive build command).
+

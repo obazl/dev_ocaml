@@ -318,6 +318,52 @@ expressed as direct submodule dependencies, e.g.
 submodule will include only those targets that genuinely depend on it,
 directly or indirectly. (Example: link:https://github.com/obazl-repository/ocaml/blob/a09bf0a52e12696b19723d31b1da9b4f2abe95a9/parsing/BUILD.bazel#L105[parsing/BUILD.bazel,window="_blank"])
 
+'''
+
+* bottom-up ns does not automatically entail an aggregate. Aggregates
+  containing namespaced modules must be explicitly defined, and they
+  may contain a subset of the submodules in an ns, or submodules from
+  multiple namespaces. IOW, aggregation and namespacing are orthogonal.
+
+* clients cannot depend on a namespace; they can only depend on
+  aggregates or singletons (modules, sigs).
+
+* a change to a submodule in a ns will cause a recompile of any
+  aggregate that contains it, and of anything that depends on the
+  aggregate. but targets that depend on a submod directly will not be
+  affected by changes to other submods in the ns. Whereas with a
+  top-down ns, targets can only depend on the ns-aggregates, so any
+  change in any submodule will force a recompile of all cllients.
+
+* changing one submodule does not entail a rebuild of any sibling submodules.
+
+* the user may provide a custom resolver module, which can be any
+  module that contains the module aliasing equations needed to support
+  the ns. submodules then just list this module's label in their `ns`
+  attribute. This is what happens with the Stdlib modules of the
+  compiler.
+
+* supports direct dependency on individual submodules in the
+  namespace. We cannot depend on a dotted module path, but we can
+  depend on a module in a namespace, and we can use a naming
+  convention to me it look like a dotted path. For example, the
+  bazelized version of the OCaml compiler uses dotted names for the
+  Stdlib; so the target name to compile the `buffer.ml` module of the
+  stdlib is `Stdlib.Buffer`; to build it: `bazel build
+  //stdlib/Stdlib.Buffer`. NB this is just a convention.
+
+* normalized/optimized build files can be queried to show optimized
+  dep graphs i.e. no spurious dependencies. I.e. if you depend on a a top-down
+  `ocaml_ns_library`, the dep graph will show a dependency on all
+  submodules in the ns lib. With bottom-up namespacing and optimized
+  build files no spurious deps will be shown.
+* OTOH, if you depend on the `ns_resolver` of a bottom-up namespace,
+  the dep graph will not include the submodules, since the submodules
+  depend on the resolver, not the other way around. So there are trade-offs.
+  ** FIXME: is there a way to write a query that will show the
+     submodules too? probably. can this be done by an aspect?
+
+
 
 == Troubleshooting
 

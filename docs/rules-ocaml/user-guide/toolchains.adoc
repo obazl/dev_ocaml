@@ -8,12 +8,43 @@
 // :toc-title:
 // :toc: true
 
+The OBazl ruleset defines a toolchain _model_ but it does not provide
+any toolchain _definitions_. To use the ruleset, the user must define
+one or more toolchains.
+
+The OBazl toolsuite makes this easy. Given an OPAM switch, it will
+configure an appropriate toolchain. Normally this will "just work" and
+the user will never need to even be aware of the toolchain mechanism.
+
+Users can easily define custom toolchain definitions if they wish to
+use some other OCaml toolsuite, such as a customized version of the
+compiler and tools.
+
 TODO: ocamlc v. ocamlc.opt v. ocamlopt v. ocamlopt.opt, etc.
 
 TODO: other tools: profiler, flambda, etc.
 
+OBazl version 1 depended on the `ocamlfind` program. It expected to
+find the program in a local OPAM installation, and it generated build
+commands that used `ocamlfind` to drive the compiler.
 
-## Bazel toolchains
+Version 2 eliminates this dependency. The OBazl toolchain depends only
+on an OCaml toolchain; it does not essentially depend on OPAM. It
+generates build commands that directly use the compiler commands
+(`ocamlc`, `ocamlopt`, etc.).
+
+The OCaml toolchain used by the OBazl toolchain must be configured.
+Since OPAM-built toolchains are very widely used, version 2 only has
+built-in support for such toolchains. Configuration of support for the
+OBazl toolchain is handled by the OPAM bootstrapping tool that also
+configures OPAM packages for OBazl use; see below for more information
+on this.
+
+A future version of OBazl will support configuration of arbitrary
+OCaml toolchains.
+
+
+== Bazel toolchains
 
 Toolchains involve:
 

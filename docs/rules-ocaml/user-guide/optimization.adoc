@@ -29,7 +29,7 @@ In other words, using `-opaque` to compile a `.mli` file makes it act
  corresponding `.ml` file changes.
 
 Similarly, if an `.ml` file is compiled with `-opaque` (and the `.mli`
-file is compile without it), it won't be ignored but it might as well
+file is compiled without it), it won't be ignored but it might as well
 be with respect to optimization, because its `.cmx` file will not have
 any optimization info.
 

@@ -8,29 +8,17 @@
 // :toc_title:
 // :toc: true
 
-In OBazl terminology, an _orphan_ module is one whose signature is
-inferred from its structure. For example, a module explicitly defined
-within a file `module M = struct ...end` counts as an orphan module.
-Similarly, a structfile without a matching sigfile is termed an
-_orphaned_ structfile, from which an orphan module may be compiled.
-
-A module built from a paired structure and an explicit signature is
-called a _dyadic_ module. For example, definitions of the following
-form define a dyadic module: `module M : sig ... end = struct ...
-end`. A structfile and a sigfile with the same principal name
-(filename excluding extension, normalized as a module name) together
-determine a dyadic file-system module.
-
 OCaml file-system modules are built from two kinds of file:
 a _structfile_ (usually with a `.ml` extension) and optionally a _sigfile_
 (extension `.mli`). OBazl defines a build rule for each: for
 structfiles, `ocaml_module`; for sigfiles, `ocaml_signature`.
 
-Dyadic file-system modules may be built using an `ocaml_module` rule
-alone, or using both an `ocaml_module` and an `ocaml_signature` rule.
-In the former case, the name of the sigfile is passed using the `sig`
-attribute; in the latter case, the `sig` attribute will be passed the
-name of the `ocaml_signature` target.
+link:modules#_orphans-and-dyads[Dyadic] file-system modules may be
+built using an `ocaml_module` rule alone, or using both an
+`ocaml_module` and an `ocaml_signature` rule. In the former case, the
+name of the sigfile is passed using the `sig` attribute; in the latter
+case, the `sig` attribute will be passed the name of the
+`ocaml_signature` target.
 
 This affords fine-grained control over all build paramters. If a
 dyadic module is built using just an `ocaml_module` rule, then the
@@ -76,4 +64,25 @@ from a tree of source files, and another to convert `dune` files to
 includes a batch editing tool that allows developers to script the
 editing of `BUILD.bazel` files.
 
-See also link:separate-compilation[Separate Compilation]
+'''
+
+=== Split dependencies
+
+OCaml interface and implementation files for a given module may have very different dependency graphs.
+
+Since OBazl supports separate builds of .ml and .mli files, users can
+optimize by listing (as appropriate) only `cmi` deps for an `mli`
+file. Note that dep analysis tools like `ocamldeps` and `codept` will
+tell you which _modules_ an interface file depends on, but will not
+indicate whether the dependency is in fact only on the `.cmi` file; so
+this kind of optimization must generally be done by hand.
+
+Since modules depend on sigs, but not the other way around, this means
+that signature dep graphs can be built without causing the build of
+any modules, and queries can show just the signature dependency graph
+of a target.
+
+'''
+
+See also link:modules[Modules], link:separate-compilation[Separate Compilation]
+

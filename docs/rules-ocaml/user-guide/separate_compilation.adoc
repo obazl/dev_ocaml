@@ -15,4 +15,4 @@ expressed independently - _if_ the build tool supports it.
 
 Separate compilation of structfiles and sigfiles is always _possible_ but  it is not _required_.
 
-See also link:split-dependencies[Split Dependencies]
+See also link:modules[Modules], link:split-dependencies[Split Dependencies]

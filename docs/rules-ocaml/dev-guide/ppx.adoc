@@ -1,4 +1,13 @@
 = ppx
+:page-permalink: /:path/ppx
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: dg
+:page-sidebar: false
+:page-tags: [formatting]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 30, 2022
+:toc: true
 :fn-ppxmodule: pass:c,q[footnote:ppxmodule[The `ppx_module` rule is the same as a standard `ocaml_module` rule, except that it has a `ppx_codeps` attribute, which `ocaml_module` does not support, and it delivers a `PpxModuleMarker` provider. Ppx modules may depend on standard modules, but standard modules cannot depend on ppx modules.]]
 
 With proper toolchain support, PPX management becomes a little more complicated.

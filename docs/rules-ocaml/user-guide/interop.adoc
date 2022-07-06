@@ -8,17 +8,91 @@
 :page-toc: false
 
 
-This section provides guidance for manual maintenance of OBazl build
-programs. Tools to automate these tasks are under development.
+== Polyglot Programming
 
-== C/C++
+Bazel has excellent, even unparalled support for projects that involve
+multiple programming languages. Bazel LSPs are available for most of
+the languages typically used in such projects. For example, it is not
+uncommon to have tools written in one language - say, shell scripts,
+python, javascript, etc. - that generate or proprocess code for
+another language. Bazel handles such situations with aplomb - all you
+need to do is import the ruleset for the language and write the
+targets for your code.
 
-adsfas
+Another common polyglot situation arises when you want to use a
+library written in a "foreign" language. A typical case for OCaml is
+the need to use some functionality already available as C/C++ library,
+and it's more economical to use that than to implement the same thing
+in OCaml - for example, compression libraries like `libz`. Another
+common case is when a more performant and/or secure implementation is
+available in a foreign language. For complex cryptographic code, for
+example, the choice is often a library written in Rust.
 
-== Rust, Go, etc.
+OBazl makes it relatively easy to integrate such resources into your
+OCaml project. Of course, you must build the foreign code first.
+Again, you would use the appropriate ruleset to do this. In many,
+probably most cases, the foreign library will not already have Bazel
+support, in which case you will need to write or generate the code to
+Bazelize it. For the most common cases - C/C++, Rust, and Go - tools
+are available to automate this. It may take a little work, but the
+result usually works quite well.
 
-asdfsdaf
+Once you can produce the library you want to link to - under the
+caveat that OCaml can only link to it if it is linkable under standard
+C linking rules - integrating it into your OCaml build is as simple as
+adding it as a dependency to one of your OCaml build targets. If you
+don't need to pass any special link arguments, you can just add it to
+the `deps` attribute. OBazl is smart enough to distinguish between
+such dependencies and OCaml dependencies and will omit the appropriate
+compile commands. If you do need to pass link args, you must use the
+`cc_deps` attribute, which takes a dictionary whose keys are target
+labels (of the libraries to link) and whose values are strings where
+you can put the link args.
 
-== javascript
+OCaml's linking mechanism only takes effect on archives and
+executables, so writing a compile command to link a CC library (for
+example) to a module will do you no good. But you can do it with
+OBazl. You don't have to attach such libraries to `ocaml_archive` or
+`ocaml_executable` targets (although you can); you can instead attach
+them directly to the modules that use them, and OBazl will propagate
+them so that any archive or executable targets that depend on such
+modules will automatically insert the appropriate link commands.
+OBazl's dependency normalization will ensure that each library gets
+linked at most once, no matter how many modules you attach it to. So
+for example if you split the OCaml interface to a monster C library
+across multiple OCaml modules, you can attach the library to each
+module.
 
-asdf
+=== C/C++
+
+=== Go
+
+=== Rust
+
+Suppose you have an OCaml project that uses a Rust lib. This could be
+an opam package whose "build" instructions call rust to compile, for
+example. To have Bazel build it, we need to generate a repo rule to
+download it and BUILD.bazel files to build it. The `cargo raze` tool
+does this.
+
+The basic idea is to create a `Cargo.toml` file that references the
+rust dependency (e.g. a git url), and contains a
+`[package.metadata.raze]` section with directives for generating build
+files for dependencies.
+
+1. add a repo rule for rules_rust to WORKSPACE.bazel
+
+2. install cargo raze.  do `rustup update`, then `cargo install cargo-raze`
+
+2. use cargo raze to generate build files for rust repos
+
+    a.  create `cargo/Cargo.toml`
+       i.  deps:
+```
+[dependencies]
+tezos-rust-libs = { git = "https://gitlab.com/tezos/tezos-rust-libs", tag = "1.1"}
+```
+
+       ii. for the rest, follow the example at [](https://github.com/google/cargo-raze`)
+
+    b. run `cargo raze` from the cargo/ subdir you just created

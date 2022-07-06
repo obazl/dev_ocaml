@@ -16,28 +16,28 @@ entries:
       url: visibility
       output: web
 
-    - title: Aggregators
-      url: aggregators
+    - title: Aggregates
+      url: aggregates
       output: web
 
     - title: Aspects
-      url: aspects.html
+      url: aspects
       output: web
 
     - title: Bootstrapping
-      url: bootstrapping.html
+      url: bootstrapping
       output: web
 
     - title: Caching
-      url: caching.html
+      url: caching
       output: web
 
     - title: Compilers
-      url: compilers.html
+      url: compilers
       output: web
 
     - title: Conditional Builds
-      url: conditional.html
+      url: conditional
       output: web
 
     # - title: Configurationx
@@ -46,44 +46,44 @@ entries:
       subfolders:
 
     - title: Configuration
-      url: configuration.html
+      url: configuration
       output: web
       # subfolderitems:
 
     - title: Configurable Defaults
-      url: configurable-defaults.html
+      url: configurable-defaults
       output: web
 
     - title: Configuration Profiles
-      url: profiles.html
+      url: profiles
       output: web
 
     - title: Conventions
-      url: obazl-conventions.html
+      url: obazl-conventions
       output: web
 
     - title: Dependencies
-      url: dependencies.html
+      url: dependencies
       output: web
 
     - title: Deployment
-      url: deployment.html
+      url: deployment
       output: web
 
     - title: Diagnostics
-      url: diagnostics.html
+      url: diagnostics
       output: web
 
     - title: Executables
-      url: executables.html
+      url: executables
       output: web
 
     - title: File Generation
-      url: file-generation.html
+      url: file-generation
       output: web
 
     - title: Interop
-      url: interop.html
+      url: interop
       output: web
 
     - title: Labels
@@ -91,75 +91,79 @@ entries:
       output: web
 
     - title: Maintenance
-      url: maintenance.html
+      url: maintenance
       output: web
 
     - title: Modules
-      url: modules.html
+      url: modules
       output: web
 
     - title: Namespacing
-      url: namespacing.html
+      url: namespacing
       output: web
 
     - title: Offline development
-      url: offline.html
+      url: offline
       output: web
 
     - title: OPAM
-      url: opam.html
+      url: opam
       output: web
 
     - title: Optimization
-      url: optimization.html
+      url: optimization
       output: web
 
     - title: Packages
       external_url: https://bazel.build/concepts/build-ref#packages
       output: web
 
+    - title: Preprocessing
+      url: preprocessing
+      output: web
+
     - title: Profiles
-      url: profiles.html
+      url: profiles
       output: web
 
     - title: Providers
-      url: providers.html
+      url: providers
       output: web
 
     - title: PPX Support
-      url: ppx.html
+      url: ppx
       output: web
 
     - title: Querying
-      url: querying.html
+      url: querying
       output: web
 
     - title: Repositories
-      url: repositories.html
+      url: repositories
       output: web
 
     - title: Refactoring
-      url: refactoring.html
+      url: refactoring
       output: web
 
     - title: Separate Compilation
-      url: separate-compilation.html
+      url: separate-compilation
       output: web
 
     - title: Split Dependencies
-      url: split-dependencies.html
+      url: split-dependencies
       output: web
 
     - title: Signatures
-      url: signatures.html
+      url: signatures
       output: web
 
     - title: Stamping
-      url: stamping.html
+      url: stamping
       output: web
 
     - title: Structures
-      url: structures.html
+      url: structures
       output: web
 
     - title: Targets
@@ -167,35 +171,35 @@ entries:
       output: web
 
     - title: Testing
-      url: testing.html
+      url: testing
       output: web
 
     - title: Threading
-      url: threading.html
+      url: threading
       output: web
 
     - title: Toolchains
-      url: toolchains.html
+      url: toolchains
       output: web
 
     - title: Tools
-      url: tools.html
+      url: tools
       output: web
 
     - title: Troubleshooting
-      url: troubleshooting.html
+      url: troubleshooting
       output: web
 
     - title: user.bazelrc
-      url: user-bazelrc.html
+      url: user-bazelrc
       output: web
 
     - title: Visibility
-      url: visibility.html
+      url: visibility
       output: web
 
     - title: Workspaces
-      url: workspaces.html
+      url: workspaces
       output: web
 
 

@@ -1,0 +1,81 @@
+= cc deps
+:page-permalink: /:path/cc_deps
+:page-layout: page_rules_ocaml
+:page-pkg: rules_ocaml
+:page-doc: dg
+:page-sidebar: false
+:page-tags: [formatting]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 30, 2022
+:toc: true
+
+== CcInfo Provider
+
+link:https://bazel.build/rules/lib/CcInfo#CcInfo[CcInfo] contains only two fields:
+
+* `compilation_context`
+* `linking_context`
+
+but both are complex and effectively undocumented.
+
+WARNING: Based on experimentation it looks like a cc_binary used to
+produce a shared lib will *not* put its output into the
+linking_context of a CcInfo provider. It does provide it in the
+DefaultInfo.  Also in runfiles?
+
+
+=== compilation_context
+
+link:https://bazel.build/rules/lib/CompilationContext[CompilationContext]
+
+CompilationContext contains the headers and "local defines" used to
+compile whatever is in the linking_context.
+
+=== linking_context
+
+ linking_ctx type: `CcLinkingContext`
+
+Fields: ["go_link_c_archive", "linker_inputs", "linkstamps"]
+
+`linker_inputs` is a list of `CcLinkingContext$LinkerInput`, evidently link:https://bazel.build/rules/lib/LinkerInput[LinkerInput].
+
+`CcLinkingContext$LinkerInput` Fields:   ["additional_inputs", "libraries", "linkstamps", "owner", "user_link_flags"]
+
+We're interested in the `libraries` field, a list of `AutoValue_LibraryToLink_AutoLibraryToLink`.  Apparently this is a link:https://bazel.build/rules/lib/LibraryToLink[LibraryToLink].
+
+Fields of library-to-link:  ["alwayslink", "dynamic_library", "interface_library", "lto_bitcode_files", "must_keep_debug", "objects", "pic_lto_bitcode_files", "pic_objects", "pic_shared_non_lto_backends", "pic_static_library", "resolved_symlink_dynamic_library", "resolved_symlink_interface_library", "shared_non_lto_backends", "static_library"]
+
+
+An example of what a library-to-link looks like. This was delivered by a `cc_library` target hat depends on the OCaml C SDK (`@ocaml//c`):
+
+----
+  lib[0][0].alwayslink == None
+  lib[0][0].dynamic_library == None
+  lib[0][0].interface_library == None
+  lib[0][0].lto_bitcode_files == None
+  lib[0][0].must_keep_debug: <built-in method must_keep_debug of LibraryToLink value>
+  lib[0][0].objects: [<generated file interop/ffi/case110/cclibs/_objs/libalpha/alpha_adapter.o>, <generated file interop/ffi/case110/cclibs/_objs/libalpha/alpha.o>]
+  lib[0][0].pic_lto_bitcode_files == None
+  lib[0][0].pic_objects == None
+  lib[0][0].pic_shared_non_lto_backends: <built-in method pic_shared_non_lto_backends of LibraryToLink value>
+  lib[0][0].pic_static_library == None
+  lib[0][0].resolved_symlink_dynamic_library == None
+  lib[0][0].resolved_symlink_interface_library == None
+  lib[0][0].shared_non_lto_backends: <built-in method shared_non_lto_backends of LibraryToLink value>
+  lib[0][0].static_library: <generated file interop/ffi/case110/cclibs/liblibalpha.a>
+----
+
+This is the first lib in the first linkerinput.
+
+This has both a `static_library` and a list of `objects`, which tells
+us that the library was produced by rule (rather than a precompiled
+imported library).
+
+In this case, it is the first LinkerInput in linker_inputs; the second
+LinkerInput contains (in this case) 13 libraries; they are the
+libraries in the OCaml C SDK dependency of the rule.
+
+In managing CC deps, we only want to retain direct dependencies. In
+this case, that is the first LinkerInput. The other LinkerInputs were
+only needed to produce the first. We do not need to retain them for
+OCaml linking.

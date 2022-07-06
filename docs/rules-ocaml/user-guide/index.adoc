@@ -7,12 +7,147 @@
 :page-tags: [formatting]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: June 1, 2022
-:page-toc: false
+:toc: true
+
+== The OBazl Ruleset(s)
+
+Core collection of primitives (build rules) that can be composed to accomplish any build task.
+
+The most basic build tasks are compilation of interface and
+implementation files, linking of archive files, and linking of
+executables. OBazl includes one rule for each of these tasks, named
+accordingly: `ocaml_signature`, `ocaml_module`, `ocaml_archive`, and
+`ocaml_executable`.
+
+Most real-world projects involve some additional tasks:
+
+* preprocessing of source files, including but not limited to PPX transformations;
+* renaming of source files to add a namespace prefix;
+* generation of a `resolver` module (sometimes called a "map" file)
+  containing the module aliasing equations required to make
+  namespacing ("wrapped" libraries in Dune) work.
+
+None of these tasks involve the OCaml toolchain, so (following the
+Principle of Parsimony), OBazl does not include rules for them. They
+can all accomplished using the standard `genrule` ("general rule")
+provided by Bazel.
+
+Here is an example of a simple build pipeline using only OBazl
+primitives, to compile a namespaced module with a PPX transformation:
+
+```
+source file -> genrule to rename src -> genrule to execute ppx transform -> ocaml_module
+```
+
+In this example, the first step would use a shell command (`cp` or
+`ln`), and the second step, running a PPX transform, would depend on
+the output of another pipeline ending in an `ocaml_executable` that
+produces the PPX executable. Both `genrule` steps would involve a
+shell command that must be written by the programmer.
+
+In this case Bazel would function more or less as a glorified Make; it
+would analyze dependencies and invoke the build actions required by a
+change in sources, but would delegate actual build responsibility to
+the shell scripts written in the genrules (except for the final
+`ocaml_*` rule). So this is not something one would do in practice.
+Nonetheless, in principle such composable pipelines could be used to
+build any OCaml project. But build files written at such a low level
+of detail would be tedious to write, error-prone (since they involve
+shell scripting), verbose, and hard to maintain. So in order to meet
+its design goals (Ease of Use, etc.), OBazl extends some of its rules
+to automate the most common build patterns in a more convenient and
+expressive manner, and to take advantage of the Bazel's specialized
+build API. For example, instead of passing the PPX executable to a
+genrule (which runs a shell command that the developer must write)
+that runs it as a separate task, we can pass it directly to the
+`ocaml_module` rule via its `ppx` attribute, which has the effect of
+directing the rule to run the transform and compiles output. The
+transform will still be executed as a separate build _action_, but it
+will be managed by the `ocaml_module` rule, so the developer doesn't
+have to bother directly with the details of a shell command. The OBazl
+rules have also been extended to automate namespacing, so that the
+developer is responsible only for annotating the rules with attributes
+indicating namespace membership, and OBazl takes care of the rest.
+
+NB: compositionality:  rules v. build actions
+
+OBazl includes two rulesets:
+
+* a `bootstrap` ruleset (rule names prefixed by `bootstrap_`)
+* the standard ruleset (rule names prefixed by `ocaml_` or `ppx_`)
+
+=== rules_bootstrap
+
+The `bootstrap` ruleset is a special case. It is designed expressly
+and solely to support building the OCaml compiler. Building the
+compiler requires bootstrapping: the build rules cannot rely on an
+OCaml compiler to build the OCaml compiler. Instead they must first
+compile the bootstrapping compiler, which is written in C, and then
+use it to compile the OCaml sources and produce an OCaml compiler
+proper. The standard OBazl ruleset cannot be used to build the
+compiler, since it depends on an already-built compiler.
+
+The `bootstrap` ruleset uses a stripped-down version of the standard
+ruleset, and replaces the standard toolchain with a toolchain that
+uses the bootstrapping tools. The compiler code does not use PPX
+preprocessing, and uses only a single hand-coded namespace (the
+Stdlib), so it does not need support for general namespacing. So the
+bootstrap rules use the same code as the standard ruleset, except that
+everything not necessary to build the compiler is stripped out.
+Consequently the bootstrap rules are much simpler than the standard
+rules, and users interested in knowing how OBazl works should start by
+studying the bootstrap rules.
+
+Because the `bootstrap` ruleset is designed only to be used in
+building the compiler, it is not distributed with the OBazl package,
+nor is it independently downloadable. Instead it is included directly
+in the link:https://github.com/obazl-repository/ocaml[OBazl fork of the compiler].
+
+=== rules_ocaml
+
+The standard `obazl_rules_ocaml` ruleset can be thought of as a layer
+that sits on top of and extends the bootstrap ruleset. All the added
+functionality could be implemented using generic Bazel facilities
+(genrules, macros, custom rules), but OBazl provides built-in support
+for the most commonly needed to ensure ease-of-use etc.
+
+NOTE: The point being that Bazel (Starlark) is the build language,
+OBazl just uses it to define rules that make life easier, and the
+programmer always has access to the full power Bazel. I.e. you're not
+limited in to the functionality OBazl supports out-of-the-box. Contrast
+Dune, which does not build on a lower-level build DSL in this way.
+
+
+It adds support for:
+
+* PPX processing, including automated management of so-called "runtime dependencies"
+
+* Generalized namespacing (automatic generation of "ns resolver"
+  modules) to compliment the automatic module renaming supported by
+  the bootstrap rules.
+
+* Contingent dependencies - selection of dependencies based on configuration state
+  ** corresponds to Dune's "alternative dependencies" using `(select ... from ...)`
+  ** no special syntax or functionality is involved; dependencies may
+     be selected using Bazel's standard, generic `select` function
+  ** NB: this is just a matter of using Bazel's `select` function for deps, so it is available in the bootstrap ruleset.
+
+* Full control over module bindings
+  ** A module rule can select any implementation file for binding to
+     any particular signature (.cmi) file, based on configuration
+     settings; for example, binding `clock.cmi` to a platform-specific
+     implementation e.g. `clock_linux.ml` is expressible using a
+     simple `select` statement on a single `ocaml_module` target.
+  ** Eliminates need for
+     link:https://dune.readthedocs.io/en/stable/variants.html?highlight=virtual%20modules#virtual-library["virtual
+     libraries"]. Module bindings like this need not be delayed to
+     link-time.
+
 
 == Topics
 
 * link:accessibility[Accessibility]
-* link:aggregators[Aggregators]
+* link:aggregates[Aggregates]
 ** link:aggregators#_archives[Archives]
 ** link:aggregators#_libraries[Libraries]
 ** link:aggregators#_namespace-libraries[Namespace Libraries]
@@ -50,6 +185,7 @@
 ** link:structures[Structures]
 * link:namespacing[Namespacing]
 * link:offline[Offline development]
+* link:preprocessing[Preprocessing]
 * link:profiles[Profiles]
 * link:/tools_opam/ug[OPAM]
 * link:optimization[Optimization]
