@@ -29,6 +29,7 @@ a little messy and incomplete.
 
 * link:ocaml/language[Language]
 * link:ocaml/toolchains[Toolchains]
+* link:ocaml/dependency-models[Dependency Models]
 * link:ocaml/build-discipline[Build Discipline]
 
 == link:bazel/index[Bazel: Overview for OCaml Developers]

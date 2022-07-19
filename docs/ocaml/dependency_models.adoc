@@ -1,0 +1,157 @@
+= Depencency Models
+:page-permalink: /:path/dependency-models
+:page-layout: page_ocaml
+:page-pkg: ocaml
+:page-doc: ocaml
+:page-tags: [ocaml,build]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: July 16, 2022
+:toc-title:
+:toc: true
+
+WARNING: Status: initial draft
+
+Dependency managment for OCaml builds is rather complex. OCaml builds
+involve multiple dependency graphs that, while related, must be
+managed separately.
+
+== Concepts and Terminology
+
+* API v. SPI
+* provider v. consumer
+* direct v. indirect deps
+* compile-time v. link-time deps
+* sig deps v. struct deps
+* build actions: compile, archive, link
+
+API: an OCaml signature, composed of fields
+
+API provider: an OCaml struct
+
+SPI: a library composed of (compiled) signatures
+
+SPI provider: a collection of (compiled) modules and sigs?
+
+NB: SPI provider is a build concept. The OCaml language does not
+define either "library" or "archive"; it has no first-class concept
+corresponding to "SP provider".
+
+* An API provider (i.e. an OCaml struct) must provide _at least_ the fields listed in the API;
+* An API consumer (i.e. an OCaml struct?) may reference _at most_ the fields listed in the API;
+* An SPI provider (i.e. a library) must provide _at least_ the modules listed in the SPI;
+* An SPI consumer (i.e. an OCaml struct?) may reference _at most_ the modules listed in the SPI.
+
+== Build Action Dependencies
+
+=== Compilation
+
+=== Signatures
+
+=== Structures
+
+=== Modules
+
+
+== Module Dependencies
+
+IMPORTANT: Remember that OCaml has two type systems, one for modules
+and one for everything else. When referring to modules, _type_ means
+_module type_.
+
+A module is a _binding_: a pairing of a signature and a structure,
+where the latter _satisfies_ the former. It follows that modules have
+two dependency graphs.
+
+The meaning of "module A depends on module B" is surprisingly complicated.
+
+Compiler perspective:: The structure component of
+module A directly depends on the signature of module B.
+
+Linker perspective:: The compiled _structure_ component of module A
+depends on the compiled _structure_ component of module B.
+
+Build system perspective:: Different build systems may handle module
+ dependencies in different ways. The OCaml compiler requires that
+ signatures be compiled before structures, which makes structures
+ dependent on signatures _for compilation_. For _dependency
+ resolution_ this is reversed: the depending (structure component of
+ the) module depends on the signature component of its dependency, and
+ in fact does not even depend on the structure component (that
+ dependency only takes effect for the link action). So a build system
+ has various ways to interpret "A depends on B". It could record a
+ compile-dependency of struct A on sig B and a separate
+ link-dependency of struct A on struct B, for example.
+
+This is where another distinction between dependency graph types is in
+order. Build languages allow the expression of dependencies; in OBazl
+we call those "target dependencies". But the build program must
+distinguish between such target dependencies and the dependencies of
+build actions, which are not necessarily the same thing.
+
+For example, given "A depends on B", the target depgraph (for A) will
+contain both struct B and sig B (with the former dependent on the
+latter). But the depgraph of the _compile action_ for A will include
+sig B but not struct B, and the depgraph of any _link action_ that
+includes A will include struct B but not sig B.
+
+NOTE: "Module A depends on module B" does _not_ mean that the
+signature of module A depends on the signature of module B. That may
+be the case, but it is not entailed by the module dependency.
+
+IMPORTANT: Dependency of target A on target B does _not_ imply dependency
+of A actions on B actions!
+
+
+=== Principal API
+
+Every structure has a _principal API_, which is expressed by its
+_principal (module) type_ (a/k/a principal signature).
+
+Every module has a public API, expressed by its signature component.
+The public API of a module is a subset of the principal API of its
+structure component.
+
+The principal API of a structfile may be extracted from its source
+code using the `-i` switch of the compiler.  [TODO: cross-ref]
+
+
+=== Principal SPI
+
+Every structure (implementation component of a module) has a _Service
+Programming Interface (SPI)_. The SPI is composed of all the modules
+directly referenced by the code of the structure. It represents the
+collection of services that must be provided (by the environment, in
+practice the build system) in order for the structure (module) to
+compile and function.
+
+SPIs are conceptual; unlike APIs, which are encoded as `.mli/.cmi`
+files, SPIs have no formal representation in either the language or
+any build systems that I know of. But they are expressed in build
+languages as dependency lists.
+
+minimal SPI:: the least set of dependencies sufficient for compilation
+
+principal SPI:: one dep for each explicit ref in the source, without duplicates
+
+Building a module involves (symmettrically) _satisfying_ both the API and the SPI.
+
+To build a module, we bind its signature to a structure that _satisfies_ the signature.
+
+To compile a structure, we need to "bind its SPI" (so to speak) to a
+"structure" of modules (dependencies). In practice what this means is
+we need to make available to the compiler whatever modules it needs to
+resolve symbols in the structfile. But structurally it's just like
+binding a structure to a signature, where the structure makes
+available whatever is needed to define the symbols in the signature.
+
+So by analogy we will call a collection of modules satisfying a structure's SPI a "depstruct" (???)
+
+
+== Cross-module Optimization
+
+
+
+
+== References
+
+* link:https://github.com/ocaml/RFCs/pull/31[Add -Ihidden in addition to -I for avoiding transitive dependencies in the initial scope #31]
