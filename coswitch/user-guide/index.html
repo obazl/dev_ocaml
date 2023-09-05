@@ -284,7 +284,11 @@
 <ul class="sectlevel1">
 <li><a href="#_installation">Installation</a></li>
 <li><a href="#_usage">Usage</a></li>
-<li><a href="#_the-coswitch-registry">The coswitch registry</a></li>
+<li><a href="#_the-coswitch-registry">The coswitch registry</a>
+<ul class="sectlevel2">
+<li><a href="#_the-registry-directive">The <code>--registry</code> directive</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="preamble">
@@ -430,6 +434,17 @@ version, the registry record for yojson package would be at</p>
 <div class="literalblock">
 <div class="content">
 <pre>&lt;root&gt;/.config/obazl/registry/modules/yojson</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the-registry-directive">The <code>--registry</code> directive</h3>
+<div class="paragraph">
+<p>Once the registry has been generated, you must direct Bazel to use it for module lookups.  The OBazl convention is to write the registry directive to <code>&lt;root&gt;/.config/coswitch_registry.bazelrc</code>, and to add <code>try-import .config/coswitch_registry.bazelrc</code> to the root <code>.bazelrc</code> file.  The <code>@coswitch//new</code> command will overwrite <code>.config/coswitch_registry.bazelrc</code> with the path to the generated registry.  An example is:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>common --registry=file:///&lt;home&gt;/&lt;uid&gt;/.local/share/obazl/registry/5.0.0</pre>
+</div>
 </div>
 </div>
 </div>
