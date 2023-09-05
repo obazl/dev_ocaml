@@ -8,9 +8,12 @@
 
 == Cross-module Optimization
 
-The native compiler enables cross-module optimization by default. The
+The native compiler (with or without Flambda)  enables cross-module optimization by default. The
 `-opaque` flag (link:https://v2.ocaml.org/manual/native.html[Chapter
 14 Native-code compilation (ocamlopt),window="_blank"] disables it.
+
+NOTE: "Cross-module" optimization means compile-time optimization, not
+whole-program link-time optimization.  For example inlining.
 
 The meaning of `-opaque` is different for sigfiles and structfiles:
 

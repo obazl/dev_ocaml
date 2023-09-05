@@ -34,21 +34,17 @@ a little messy and incomplete.
 
 == link:bazel/index[Bazel: Overview for OCaml Developers]
 
-== rules_ocaml:
+== https://github.com/obazl/rules_ocaml[@rules_ocaml]
 
 * link:rules-ocaml/user-guide[User Guide]
 * link:rules-ocaml/reference[Reference Manual]
 * link:rules-ocaml/dev-guide[Developer Guide]
-* https://github.com/obazl/rules_ocaml[https://github.com/obazl/rules_ocaml,window=_blank]
 
 
-== tools_opam:
+== link:https://github.com/obazl/coswitch[@coswitch]:  opam integration
 
-* link:tools-opam/user-guide[User Guide]
-* link:tools-opam/dev-guide[Developer Guide]
+* link:coswitch/user-guide[User Guide]
 * link:tools-opam/reference[Reference Manual]
-* link:https://github.com/obazl/tools_opam[https://github.com/obazl/tools_opam,window=_blank]
-
 
 == tools_obazl:
 

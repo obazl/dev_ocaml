@@ -20,6 +20,10 @@ entries:
       url: toolchains
       output: web
 
+    - title: Dependency Models
+      url: dependency-models
+      output: web
+
     - title: Build Discipline
       url: build-discipline
       output: web

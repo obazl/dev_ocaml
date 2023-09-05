@@ -38,6 +38,10 @@ dependencies_, for lack of a better term; version 2 calls them _ppx
 co-dependencies_. They are passed to the `ppx_executable` through a
 `ppx_codeps` attribute.
 
+=== ppx_inline_test
+
+See comments in link:https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/testing/ppx_inline_test[demos - ppx_inine_test]
+
 == Other tools
 
 === cinaps

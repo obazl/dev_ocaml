@@ -9,16 +9,17 @@
 :page-toc: false
 
 // * link:opam-overview[OPAM Overview]
+* link:coswitches[OPAM Switches & OBazl Coswitches]: seamless OPAM integration
+
 * link:opam-configuration[OPAM configuration]
 * link:local-switches[OPAM Local Switches]
 * link:opam-interrogation[Interrogating OPAM configurations]
-* link:coswitches[OBazl Coswitches]: seamless OPAM integration
 
 
 WARNING: if you move a project directory that has a here switch, you
 must run `bazel run @opam//here:refresh` after the move.
 
-OBazl provides:
+The `tools_opam` package provides:
 
 * OPAM bootstrapper tools that generate Bazel files containing
   repository and build targets for everything in the current OPAM

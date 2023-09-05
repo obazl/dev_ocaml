@@ -5,7 +5,7 @@
 :page-doc: ocaml
 :page-tags: [ocaml,build]
 :page-keywords: notes, tips, cautions, warnings, admonitions
-:page-last_updated: May 16, 2022
+:page-last_updated: July 16, 2022
 :toc-title:
 :toc: true
 
@@ -135,9 +135,9 @@ image::sigcompile.svg[300]
 
 A _dyadic_ module is a filesystem module composed of a structfile and a sigfile.
 
-=== Orphaned structfiles
+=== Singleton structfiles
 
-An _orphaned_ structfile is a structfile with no corresponding
+An _singleton_ structfile is a structfile with no corresponding
 sigfile; that is, no sigfile with matching principal name _in the same
 directory_. It is possible to have one or more matching sigfiles in
 other directories, but only a sigfile in the same directory may count
@@ -146,11 +146,11 @@ as a "matching" sigfile.
 NOTE: principal name = file name with extension removed. E.g. the
 principal name of `foo.ml` is `foo`.
 
-An _orphan module_ is a filesystem module derived from an orphaned
-structfile. Orphan modules are still composed of two compilation
+A _singleton module_ is a filesystem module derived from a singleton
+structfile. Singleton modules are still composed of two compilation
 units, one for the signature and one for the structure, but the
-signature is the principal signature inferred from the orphaned
-structfile. For example, from orphaned structfile `A.ml` the
+signature is the principal signature inferred from the singleton
+structfile. For example, from singleton structfile `A.ml` the
 compiler with infer and then compile `A.mli`. The compiler will emit
 `A.cmi` but not `A.mli`.
 
