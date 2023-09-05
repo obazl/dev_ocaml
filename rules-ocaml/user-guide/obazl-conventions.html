@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="conventions,  notes, tips, cautions, warnings, admonitions">
+<title>OBazl Conventions | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="OBazl Conventions">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>OBazl Conventions
+          <span id="timestamp">Last updated May 2, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>.bazelrc</code> - always put this file in the project root directory; at
+a minimum, it should contain <code>try-import .private/bazelrc</code>.</p>
+<div class="paragraph">
+<p>See <a href="https://bazel.build/docs/bazelrc" target="_blank" rel="noopener">Write bazelrc configuration files</a> for more information.</p>
+</div>
+</li>
+<li>
+<p>Put the following in <code>.gitignore</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.private/</code> - developers can use this subdirectory for shell scripts,
+data files, etc. that should not be under version control</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Put the following in <code>.private/.gitignore</code> and put it under version
+control. This will put <code>.private</code> under version control (so all users can use it) but nothing it contains (except <code>.gitignore</code>) will be under version control.</p>
+<div class="literalblock">
+<div class="content">
+<pre>`*`</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>logs/</code></p>
+</li>
+<li>
+<p><code>tmp/</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use <code>.private/bazelrc</code> to pass arguments to Bazel. Do not put
+it under version control.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>:name</code> suffixes to control sets of configuration settings ("profiles") at the command line
+using <a href="https://bazel.build/docs/bazelrc#config" target="_blank" rel="noopener">--config</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use <code>.bazelignore</code> to exclude irrelevant subdirectories from Bazel
+processing. For example, if you are adding Bazel support to a
+project that uses Dune, put <code>_build</code> in <code>.bazelignore</code>.</p>
+</li>
+<li>
+<p><code>WORKSPACE.bazel</code>, not <code>WORKSPACE</code></p>
+</li>
+<li>
+<p>Explicitly name your workspace - make <code>workspace(name="foo")</code> the
+first line of <code>WORKSPACE.bazel</code> (replacing <code>foo</code> with your
+workspace name). This will make log messages more decipherable,
+among other things.</p>
+</li>
+<li>
+<p>Use <code>WORKSPACE.bzl</code> for extension code needed by <code>WORKSPACE.bazel</code>,
+such as <code>fetch()</code> functions that <a href="bootstrapping.html#fetching-rules-repositories">fetch language rules and external repositories</a>.</p>
+</li>
+<li>
+<p><code>BUILD.bazel</code>, not <code>BUILD</code></p>
+</li>
+<li>
+<p>Use <code>BUILD.bzl</code> for package-local extension code.</p>
+</li>
+<li>
+<p>Importing external repositories</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you import only a small number of repositories, and you do not
+expect others to import your repository, put the importing rules
+(<code>http_repository</code>, <code>git_repository</code>) in <code>WORKSPACE.bazel</code></p>
+</li>
+<li>
+<p>Otherwise, define one or more bootstrapping functions in
+<code>WORKSPACE.bzl</code> (note the extension, <code>.bzl</code>, not <code>.bazel</code>)
+responsible for fetching the repositories. See
+<a href="bootstrapping">Bootstrapping</a> for an example. Name them
+<code>&lt;lang&gt;_fetch_rules</code> (for fetching language support packages) and
+<code>&lt;lang&gt;_fetch_repos</code> for library repositories.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Mixed projects - using Bazel and another build tool (e.g. Dune) in
+parallel</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you want to keep Bazel files segregated, create a top-level
+<code>bzl</code> directory and keep Bazel extension files etc. there.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use a <code>tools</code> subdirectory to store shell scripts and any other tools you want under version control.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a shell alias to enable easy access
+to the command log. Put the following (or something similar) in
+<code>tools/aliases</code>, and then source the file: <code>$ source
+tools/aliases</code>. Then <code>$ bl</code> will browse the log using <code>less</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>    alias &quot;bl=less `bazel info command_log`&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_naming-conventions">Naming Conventions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Repository fetching functions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;lang&gt;_fetch_rules</code> - for fetching rules packages</p>
+</li>
+<li>
+<p><code>&lt;lang&gt;_fetch_repo</code>, <code>&lt;lang&gt;_fetch_repos</code> - for fetching library repositories</p>
+</li>
+<li>
+<p>alternative: <code>&lt;lang&gt;_fetch_lib</code>, <code>&lt;lang&gt;_fetch_libs</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>primary target names should match package name. E.g. <code>//foo/bar:bar</code></p>
+</li>
+<li>
+<p><code>ocaml_module</code> and <code>ppx_module</code> targets should capitalize the
+initial character (i.e. should match the OCaml module name). For
+example, <code>ocaml_module(name="Foo", src="foo.ml"&#8230;&#8203;)</code>.</p>
+</li>
+<li>
+<p><code>ocaml_signature</code> targets should follow the same convention as for
+modules, suffixed by <code>_cmi</code>. For example:
+<code>ocaml_interface(name="Foo_cmi", src="foo.mli"&#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>ocaml_ns_resolver</code> target names should be suffixed by <code>_ns</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

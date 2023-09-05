@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="opamhereset,  ">
+<title>@opam//here:set | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: true, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="@opam//here:set">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/tools-opam/reference">
+      
+      
+      Reference:
+      tools_opam
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a class="folder"
+       title="Here coswitch" href="#">Here coswitch</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here" href="here">@opam//here</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:clean" href="here-clean">@opam//here:clean</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:clone" href="here-clone">@opam//here:clone</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:create" href="here-create">@opam//here:create</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:export" href="here-export">@opam//here:export</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:expunge" href="here-expunge.html">@opam//here:expunge</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:import" href="here-import">@opam//here:import</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:list" href="here-list">@opam//here:list</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:refresh" href="here-refresh">@opam//here:refresh</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:reinit" href="here-reinit">@opam//here:reinit</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here:set" href="here-set">@opam//here:set</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+    <a class="folder"
+       title="Primitive here-switch ops" href="#">Primitive here-switch ops</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here/opam" href="here-opam">@opam//here/opam</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here/opam:expunge" href="here-opam-expunge">@opam//here/opam:expunge</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here/opam:init" href="here-opam-init">@opam//here/opam:init</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here/opam:install" href="here-opam-install">@opam//here/opam:install</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//here/opam:remove" href="here-opam-remove">@opam//here/opam:remove</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+    <a class="folder"
+       title="Shared coswitch ops" href="#">Shared coswitch ops</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch" href="coswitch">@opam//coswitch</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch:list" href="coswitch-list">@opam//coswitch:list</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch:refresh" href="coswitch-refresh">@opam//coswitch:refresh</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch:remove" href="coswitch-remove">@opam//coswitch:remove</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch:set" href="coswitch-set">@opam//coswitch:set</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="@opam//coswitch:show" href="coswitch-show">@opam//coswitch:show</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>@opam//here:set</h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div class="paragraph">
+<p>Make the <code>here</code> coswitch the effective coswitch for builds in this project.</p>
+</div>
+<div class="paragraph">
+<p>Writes <code>&lt;projroot&gt;/COSWITCH.bzl</code>.</p>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

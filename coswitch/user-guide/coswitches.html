@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="coswitch,  notes, tips, cautions, warnings, admonitions">
+<title>Coswitches | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: true, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Coswitches">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/tools-opam/user-guide">
+      Guide:
+      
+      
+      tools_opam
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Coswitches" href="coswitches">Coswitches</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="opam-configuration.html">Configuration</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Coswitches</h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div class="sect1">
+<h2 id="_switches-coswitches">Switches &amp; Coswitches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An OPAM <strong><em>switch</em></strong> is a version of the OCaml toolchain together with a
+collection of OPAM packages compiled with that toolchain.</p>
+</div>
+<div class="paragraph">
+<p>An OBazl <strong><em>coswitch</em></strong> is a collection of symlinks and Bazel files that
+serve to integrate an OPAM switch into the Bazel ecosystem.</p>
+</div>
+<div class="paragraph">
+<p>OPAM switches are located in an OPAM <em>installation</em>; the default
+location is <code>$HOME/.opam</code>, but users can initialize an OPAM
+installation in any directory. Coswitches are located in their own
+directories, outside of any OPAM installation. They have the following
+structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_shared-coswitches">Shared coswitches</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the-here-coswitch">The <em>here</em> coswitch</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<code>here</code> switches are no longer supported.  Use a local switch instead.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_troubleshooting">Troubleshooting</h3>
+<div class="paragraph">
+<p>here-switches are not copyable - if you copy a project to a different
+name, you must delete <code>.opam</code> and <code>.obazl.d</code> and recreate. This is
+because the location of the toolchain is hardcoded into the toolchain
+when it is built. For example, browse <code>lib/ocaml/camlheader</code> of any
+toolhchain installation.</p>
+</div>
+<div class="paragraph">
+<p>If you create a <code>here</code> coswitch using an OPAM "sys" switch you may run
+into trouble. An OPAM sys switch is a switch you&#8217;ve installed in your
+system, e.g. in <code>/usr/local/bin</code> and <code>/usr/local/lib</code>. In that case,
+if you have the same compiler version installed in OPAM, you&#8217;ll get
+something like the following when youu run <code>opam switch
+list-available</code>.  The fix is</p>
+</div>
+<div class="paragraph">
+<p><code>bazel run @ocaml//here:install -- ocaml-base-compiler</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ opam switch list-available
+# Listing available compilers from repositories: default
+# Name                                 # Version             # Synopsis
+ocaml-option-32bit                     1                     Set OCaml to be compiled in 32-bit mode for 64-bit Linux and OS X hosts
+...
+ocaml-base-compiler                    4.12.0~rc1            First release candidate of OCaml 4.12.0
+ocaml-variants                         4.12.0~rc1+options    First release candidate of OCaml 4.12.0
+ocaml-base-compiler  &lt;1&gt;               4.12.0                Official release 4.12.0
+ocaml-system         &lt;2&gt;               4.12.0                The OCaml compiler (system version, from outside of opam)
+ocaml-variants                         4.12.0+domains        OCaml 4.12.0, with support for multicore domains
+...</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>version 4.12.0 is available</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>it is also installed in the local system</td>
+</tr>
+</table>
+</div>
+<details>
+<summary class="title">Action: @opam//here/install&#8201;&#8212;&#8201;-h</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @opam//here/init -- -h
+...
+Usage: bazel run @opam//here/init -- [args]
+	args:
+		-c	compiler version
+		-s	switch name
+		-x	dry-run
+		-d	debug
+		-v	verbose
+	Default: uses compiler version listed in .obazl.d/here.compiler
+        if found; otherwise prompts user.</pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="_case-1">case 1:</h3>
+<details>
+<summary class="title">Initial conditions: <code>@opam//here/init</code> has been run</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @opam//here/status
+...</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Action: install</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @opam//here/install -- -p ounit2
+...
+Begining OPAM processor output:
+The following actions will be performed:
+  ∗ install seq          base  [required by ounit2]
+  ∗ install ocamlfind    1.9.3 [required by base-bytes]
+  ∗ install dune         3.0.3 [required by ounit2]
+  ∗ install base-bytes   base  [required by ounit2]
+  ∗ install stdlib-shims 0.3.0 [required by ounit2]
+  ∗ install ounit2       2.2.6
+===== ∗ 6 =====
+
+&lt;&gt;&lt;&gt; Processing actions &lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;  🐫
+⬇ retrieved ounit2.2.2.6  (https://opam.ocaml.org/cache)
+∗ installed seq.base
+⬇ retrieved ocamlfind.1.9.3  (https://opam.ocaml.org/cache)
+⬇ retrieved stdlib-shims.0.3.0  (https://opam.ocaml.org/cache)
+⬇ retrieved dune.3.0.3  (https://opam.ocaml.org/cache)
+∗ installed ocamlfind.1.9.3
+∗ installed base-bytes.base
+∗ installed dune.3.0.3
+∗ installed stdlib-shims.0.3.0
+∗ installed ounit2.2.2.6
+Done.</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Post-install status</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>&lt;projroot&gt;$ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   &lt;projroot&gt;/.opam/here
+lib      &lt;projroot&gt;/.opam/here/lib
+bin      &lt;projroot&gt;/.opam/here/bin
+sbin     &lt;projroot&gt;/.opam/here/sbin
+share    &lt;projroot&gt;/.opam/here/share
+doc      &lt;projroot&gt;/.opam/here/doc
+etc      &lt;projroot&gt;/.opam/here/etc
+man      &lt;projroot&gt;/.opam/here/man
+toplevel &lt;projroot&gt;/.opam/here/lib/toplevel
+stublibs &lt;projroot&gt;/.opam/here/lib/stublibs
+user     &lt;user id&gt;
+group    &lt;grp name&gt;
+Begining OPAM processor output:
+# Packages matching: installed
+# Name                # Version
+base-bigarray         base
+base-bytes            base
+base-threads          base
+base-unix             base
+dune                  3.0.3
+ocaml                 4.13.0
+ocaml-base-compiler   4.13.0
+ocaml-config          2
+ocaml-options-vanilla 1
+ocamlfind             1.9.3
+ounit2                2.2.6
+seq                   base
+stdlib-shims          0.3.0
+WORKSPACEs:
+toolchain: .obazl.d/opam/here/ocaml
+	stublibs
+	bin
+	WORKSPACE.bazel
+	bigarray
+	compiler-libs
+	unix
+	threads
+	str
+	c_api
+	toolchains
+	dynlink</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Action: config</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @opam//here/config
+...
+Begining OPAM processor output:
+The following actions will be performed:
+  ∗ install seq          base  [required by ounit2]
+  ∗ install ocamlfind    1.9.3 [required by base-bytes]
+  ∗ install dune         3.0.3 [required by ounit2]
+  ∗ install base-bytes   base  [required by ounit2]
+  ∗ install stdlib-shims 0.3.0 [required by ounit2]
+  ∗ install ounit2       2.2.6
+===== ∗ 6 =====
+
+&lt;&gt;&lt;&gt; Processing actions &lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;  🐫
+⬇ retrieved ounit2.2.2.6  (https://opam.ocaml.org/cache)
+∗ installed seq.base
+⬇ retrieved ocamlfind.1.9.3  (https://opam.ocaml.org/cache)
+⬇ retrieved stdlib-shims.0.3.0  (https://opam.ocaml.org/cache)
+⬇ retrieved dune.3.0.3  (https://opam.ocaml.org/cache)
+∗ installed ocamlfind.1.9.3
+∗ installed base-bytes.base
+∗ installed dune.3.0.3
+∗ installed stdlib-shims.0.3.0
+∗ installed ounit2.2.2.6
+Done.</pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="_case-4-prior-installation">case 4: prior installation</h3>
+<details>
+<summary class="title">Initial conditions</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>&lt;projroot&gt; $ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   &lt;projroot&gt;/.opam/here
+lib      &lt;projroot&gt;/.opam/here/lib
+bin      &lt;projroot&gt;/.opam/here/bin
+sbin     &lt;projroot&gt;/.opam/here/sbin
+share    &lt;projroot&gt;/.opam/here/share
+doc      &lt;projroot&gt;/.opam/here/doc
+etc      &lt;projroot&gt;/.opam/here/etc
+man      &lt;projroot&gt;/.opam/here/man
+toplevel &lt;projroot&gt;/.opam/here/lib/toplevel
+stublibs &lt;projroot&gt;/.opam/here/lib/stublibs
+user     &lt;user id&gt;
+group    &lt;grp name&gt;
+Begining OPAM processor output:
+# Packages matching: installed
+# Name                # Version
+base-bigarray         base
+base-threads          base
+base-unix             base
+ocaml                 4.13.0
+ocaml-base-compiler   4.13.0
+...</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Action: <code>$ bazel run @opam//here/init</code></summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>&lt;projroot&gt; $ bazel run @opam//here/init
+OPAM here-switch already configured at root ./.opam, switch 'here', compiler: '4.13.0'.
+Replace? [yN] N
+cancelling here-switch init
+
+&lt;projroot&gt; $ bazel run @opam//here/init
+OPAM here-switch already configured at root ./.opam, switch 'here', compiler: '4.13.0'.
+Replace? [yN] y
+removing ./.opam
+Your here switch is configured to use compiler version: 4.13.0 (specified in .obazl.d/opam/here.compiler)
+Reconfigure using with same version? (if no, you will be prompted for a different version)
+[Yn] n
+Current OPAM switch name is '4.13.0', configured with compiler version 4.13.0
+Configure here-switch with compiler version 4.13.0? [Yn] n
+Which compiler version do you want to install? (&lt;enter&gt; to cancel) 4.11.0
+Begining OPAM processor output:
+No configuration file found, using built-in defaults.
+
+&lt;&gt;&lt;&gt; Fetching repository information &gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+[default] Initialised
+Begining OPAM processor output:
+
+&lt;&gt;&lt;&gt; Installing new switch packages &lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;  🐫
+Switch invariant: ["ocaml-base-compiler" {= "4.11.0"} | "ocaml-system" {= "4.11.0"}]
+
+&lt;&gt;&lt;&gt; Processing actions &lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;  🐫
+∗ installed base-bigarray.base
+∗ installed base-threads.base
+∗ installed base-unix.base
+⬇ retrieved ocaml-base-compiler.4.11.0  (https://opam.ocaml.org/cache)
+∗ installed ocaml-base-compiler.4.11.0
+∗ installed ocaml-config.1
+∗ installed ocaml.4.11.0
+Done.</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Postcondition status</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @opam//here/status
+...
+@opam//here/status
+	root:   .opam
+	switch: here
+Begining OPAM processor output:
+prefix   &lt;projroot&gt;/.opam/here
+lib      &lt;projroot&gt;/.opam/here/lib
+bin      &lt;projroot&gt;/.opam/here/bin
+sbin     &lt;projroot&gt;/.opam/here/sbin
+share    &lt;projroot&gt;/.opam/here/share
+doc      &lt;projroot&gt;/.opam/here/doc
+etc      &lt;projroot&gt;/.opam/here/etc
+man      &lt;projroot&gt;/.opam/here/man
+toplevel &lt;projroot&gt;/.opam/here/lib/toplevel
+stublibs &lt;projroot&gt;/.opam/here/lib/stublibs
+user     &lt;user id&gt;
+group    &lt;grp name&gt;
+Begining OPAM processor output:
+# Packages matching: installed
+# Name              # Version
+base-bigarray       base
+base-threads        base
+base-unix           base
+ocaml               4.11.0
+ocaml-base-compiler 4.11.0
+ocaml-config        1</pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

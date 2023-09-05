@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="providers,  notes, tips, cautions, warnings, admonitions">
+<title>Providers | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Providers">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="">
+      
+      Reference:
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Configurable Defaults" href="#">Configurable Defaults</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Options" href="ocaml-rules.html#_options">Options</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Flags" href="ocaml-rules.html#_flags">Flags</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li class="active">
+    <a class="folder"
+       title="Rules" href="#">Rules</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_archive" href="ocaml-rules.html#_ocaml_archive">ocaml_archive</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_executable" href="ocaml-rules.html#_ocaml_executable">ocaml_executable</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_import" href="ocaml-rules.html#_ocaml_import">ocaml_import</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_lex" href="ocaml-rules.html#_ocaml_lex">ocaml_lex</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_library" href="ocaml-rules.html#_ocaml_library">ocaml_library</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_module" href="ocaml-rules.html#_ocaml_module">ocaml_module</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_archive" href="ocaml-rules.html#_ocaml_ns_archive">ocaml_ns_archive</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_library" href="ocaml-rules.html#_ocaml_ns_library">ocaml_ns_library</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_resolver" href="ocaml-rules.html#_ocaml_ns_resolver">ocaml_ns_resolver</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_signature" href="ocaml-rules.html#_ocaml_signature">ocaml_signature</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_test" href="ocaml-rules.html#_ocaml_test">ocaml_test</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_yacc" href="ocaml-rules.html#_ocaml_yacc">ocaml_yacc</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Providers
+          <span id="timestamp">Last updated May 2, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div class="paragraph">
+<p><strong>WARNING</strong> Beta version - subject to change</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[CcDepsProvider](#ccdepsprovider)</p>
+</li>
+<li>
+<p>[OcamlArchiveProvider](#ocamlarchiveprovider)</p>
+</li>
+<li>
+<p>[OcamlImportMarker](#ocamlimportprovider)</p>
+</li>
+<li>
+<p>[OcamlLibraryMarker](#ocamllibraryprovider)</p>
+</li>
+<li>
+<p>[OcamlModuleMarker](#ocamlmoduleprovider)</p>
+</li>
+<li>
+<p>[OcamlNsMarker](#ocamlnsarchiveprovider)</p>
+</li>
+<li>
+<p>[OcamlNsEnvProvider](#ocamlnsenvprovider)</p>
+</li>
+<li>
+<p>[OcamlNsLibraryProvider](#ocamlnslibraryprovider)</p>
+</li>
+<li>
+<p>[OcamlProvider](#ocamlprovider)</p>
+</li>
+<li>
+<p>[OcamlSignatureProvider](#ocamlsignatureprovider)</p>
+</li>
+<li>
+<p>[OpamDepsProvider](#opamdepsprovider)</p>
+</li>
+<li>
+<p>[PpxCodepsProvider](#adjunctdepsprovider)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>== OcamlArchiveMarker
+
+OCaml Archive Marker provider.
+
+**FIELDS**
+
+
+
+== OcamlExecutableMarker
+
+
+**FIELDS**
+
+
+
+== OcamlImportMarker
+
+&lt;pre&gt;
+OcamlImportMarker()
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml Import Marker provider.
+
+**FIELDS**
+
+
+
+&lt;a id="#OcamlLibraryMarker"&gt;&lt;/a&gt;
+
+## OcamlLibraryMarker
+
+&lt;pre&gt;
+OcamlLibraryMarker()
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml Library Marker provider.
+
+**FIELDS**
+
+
+
+&lt;a id="#OcamlModuleMarker"&gt;&lt;/a&gt;
+
+## OcamlModuleMarker
+
+&lt;pre&gt;
+OcamlModuleMarker()
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml Module Marker provider.
+
+**FIELDS**
+
+
+
+&lt;a id="#OcamlNsMarker"&gt;&lt;/a&gt;
+
+## OcamlNsMarker
+
+&lt;pre&gt;
+OcamlNsMarker()
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml Namespace Marker provider.
+
+**FIELDS**
+
+
+
+&lt;a id="#OcamlProvider"&gt;&lt;/a&gt;
+
+## OcamlProvider
+
+&lt;pre&gt;
+OcamlProvider(&lt;a href="#OcamlProvider-fileset"&gt;fileset&lt;/a&gt;, &lt;a href="#OcamlProvider-cmi"&gt;cmi&lt;/a&gt;, &lt;a href="#OcamlProvider-closure"&gt;closure&lt;/a&gt;, &lt;a href="#OcamlProvider-inputs"&gt;inputs&lt;/a&gt;, &lt;a href="#OcamlProvider-linkargs"&gt;linkargs&lt;/a&gt;, &lt;a href="#OcamlProvider-paths"&gt;paths&lt;/a&gt;, &lt;a href="#OcamlProvider-files"&gt;files&lt;/a&gt;, &lt;a href="#OcamlProvider-archives"&gt;archives&lt;/a&gt;, &lt;a href="#OcamlProvider-archive_deps"&gt;archive_deps&lt;/a&gt;,
+              &lt;a href="#OcamlProvider-ppx_codeps"&gt;ppx_codeps&lt;/a&gt;, &lt;a href="#OcamlProvider-ppx_codep_paths"&gt;ppx_codep_paths&lt;/a&gt;, &lt;a href="#OcamlProvider-cc_deps"&gt;cc_deps&lt;/a&gt;, &lt;a href="#OcamlProvider-ns_resolver"&gt;ns_resolver&lt;/a&gt;)
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml build provider; content depends on target rule type.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| &lt;a id="OcamlProvider-fileset"&gt;&lt;/a&gt;fileset |  depset of files emitted by the Ocaml compiler. For modules: .cmx, .cmi, .o; for sigs, just .cmi; for libs and archives, filesets for submodules, plus resolver fileset if namespaced.    |
+| &lt;a id="OcamlProvider-cmi"&gt;&lt;/a&gt;cmi |  Cmi files provided    |
+| &lt;a id="OcamlProvider-closure"&gt;&lt;/a&gt;closure |  File depset of transitive closure of deps    |
+| &lt;a id="OcamlProvider-inputs"&gt;&lt;/a&gt;inputs |  file depset    |
+| &lt;a id="OcamlProvider-linkargs"&gt;&lt;/a&gt;linkargs |  file depset    |
+| &lt;a id="OcamlProvider-paths"&gt;&lt;/a&gt;paths |  string depset    |
+| &lt;a id="OcamlProvider-files"&gt;&lt;/a&gt;files |  DEPRECATED    |
+| &lt;a id="OcamlProvider-archives"&gt;&lt;/a&gt;archives |  file depset    |
+| &lt;a id="OcamlProvider-archive_deps"&gt;&lt;/a&gt;archive_deps |  file depset of archive deps    |
+| &lt;a id="OcamlProvider-ppx_codeps"&gt;&lt;/a&gt;ppx_codeps |  file depset    |
+| &lt;a id="OcamlProvider-ppx_codep_paths"&gt;&lt;/a&gt;ppx_codep_paths |  string depset    |
+| &lt;a id="OcamlProvider-cc_deps"&gt;&lt;/a&gt;cc_deps |  dictionary depset    |
+| &lt;a id="OcamlProvider-ns_resolver"&gt;&lt;/a&gt;ns_resolver |  single target    |
+
+
+&lt;a id="#OcamlSignatureProvider"&gt;&lt;/a&gt;
+
+## OcamlSignatureProvider
+
+&lt;pre&gt;
+OcamlSignatureProvider(&lt;a href="#OcamlSignatureProvider-mli"&gt;mli&lt;/a&gt;, &lt;a href="#OcamlSignatureProvider-cmi"&gt;cmi&lt;/a&gt;)
+&lt;/pre&gt;
+&lt;style&gt;
+td {vertical-align: top;}
+&lt;/style&gt;
+
+OCaml interface provider.
+
+**FIELDS**
+
+
+| Name  | Description |
+| ------------- | ------------- |
+| &lt;a id="OcamlSignatureProvider-mli"&gt;&lt;/a&gt;mli |  .mli input file    |
+| &lt;a id="OcamlSignatureProvider-cmi"&gt;&lt;/a&gt;cmi |  .cmi output file    |</pre>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

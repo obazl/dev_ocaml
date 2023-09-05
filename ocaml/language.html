@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="ocamltoolchain,  notes, tips, cautions, warnings, admonitions">
+<title>OCaml: Language | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="OCaml: Language">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/ocaml">
+      OCaml
+      
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Language" href="language">Language</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependency Models" href="dependency-models">Dependency Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Build Discipline" href="build-discipline">Build Discipline</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>OCaml: Language</h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_history">History</a></li>
+<li><a href="#_the-module-system">The Module System</a>
+<ul class="sectlevel2">
+<li><a href="#_signatures-and-structures">Signatures and Structures</a></li>
+<li><a href="#_module-bindings">Module Bindings</a></li>
+<li><a href="#_module-types-as-dependent-types">Module Types as Dependent Types</a></li>
+</ul>
+</li>
+<li><a href="#_syntactic-quirks">syntactic quirks</a>
+<ul class="sectlevel2">
+<li><a href="#_semicolons">semicolons</a></li>
+</ul>
+</li>
+<li><a href="#_misc">misc</a></li>
+<li><a href="#_namespacing">Namespacing</a>
+<ul class="sectlevel2">
+<li><a href="#_module-aliasing">Module aliasing</a></li>
+</ul>
+</li>
+<li><a href="#_compiler-extension-hooks-ppx-system">Compiler Extension Hooks (PPX system)</a></li>
+<li><a href="#_programming-languages-and-proof-assistants-based-on-ocaml">Programming languages and proof assistants based on OCaml</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Very rough as of 5/25/22. The goal is to provide a very
+concise overview of the language, in particular those parts/features
+of the language that affect the build discipline, such as modules,
+separate compilation, top-level module aliases and namespacing,
+PPXs, etc.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Why OCaml? Aside from practical considerations, OCaml is
+directly based on the Mother of All (Higher-order,Strictly
+typed,Functional,Algebraic) Programming Languages: ML. It wasn&#8217;t the
+first language to include most of these features, but it was the first
+language to include type inference. (source: <a href="https://www.hillelwayne.com/post/influential-dead-languages/" target="_blank" rel="noopener">10 MOST(LY DEAD) INFLUENTIAL PROGRAMMING LANGUAGES</a>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_history">History</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ML began as the Meta Language of <a href="https://link.springer.com/book/10.1007/3-540-09724-4" target="_blank" rel="noopener">Edinburgh LCF</a>.</p>
+</div>
+<div class="paragraph">
+<p>Ch. 2.5: Goal-directed programming (tactics)</p>
+</div>
+<div class="paragraph">
+<p>Also used by NuPrl:
+<a href="https://www.nuprl.org/book/" target="_blank" rel="noopener">Implementing Mathematics with The Nuprl Proof Development System</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.nuprl.org/book/Metalanguage.html" target="_blank" rel="noopener">NuPrl - The Metalanguage</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the-module-system">The Module System</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What is a module?  Simple question with a surprisingly complicated answer.</p>
+</div>
+<div class="paragraph">
+<p>Compare: what is an integer? Easy answer: an integer is a token
+("value") of type Int. Why "token" instead of "value"? The latter
+suggests evaluation, which is a computation notion that does not apply
+to types and tokens. A type is a universal; a token is a particular,
+end of story. "x is an Int" just means that x is a particular (token)
+subsumed under the general concept (type) Int.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<code>module</code> is a keyword in the OCaml language, but it is not a
+type constant; there is no module type in OCaml.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>"Module" is not a first-class object. That is, modules are not values
+of a Module type; there is no type Module. In fact a "module" is
+neither a value nor a type. It&#8217;s a pragmatic term used to refer to a
+pairing of a struct and a sig. Or rather, its a generic term used to
+refer to a whole class of module types, just as "list" is often used
+to refer to Int List, String List, etc.</p>
+</div>
+<div class="sect2">
+<h3 id="_signatures-and-structures">Signatures and Structures</h3>
+<div class="paragraph">
+<p>Compatible sigfile - sigfile satisfied by structfile, irrespective of location and principle name.</p>
+</div>
+<div class="paragraph">
+<p>Matching sigfile - a compatible sigfile with same principle name, in same directory</p>
+</div>
+<div class="paragraph">
+<p>I.e. compatibility is structural, matching is nominal and structural.</p>
+</div>
+<div class="paragraph">
+<p>Compatible structfile - a structfile satisfying the sig, irrespective of location and principle name.</p>
+</div>
+<div class="paragraph">
+<p>Matching structfile - compatible structfile with same principle name in same dir as sigfile.</p>
+</div>
+<div class="paragraph">
+<p>From an algebraic perspective, the type constructed by <code>sig&#8230;&#8203;end</code>
+expresses an algebraic signature. So it makes sense to call it a
+"signature type" or just "signature" with the caveat that "signature"
+never means "token of type signature". The tokens of such a type are
+structs, not signatures.</p>
+</div>
+<div class="paragraph">
+<p>From the perspective of OCaml&#8217;s module system, the type constructed by
+<code>sig&#8230;&#8203;end</code> expresses a module type, whose tokens are structs.</p>
+</div>
+<div class="paragraph">
+<p>A module is thus the binding of a module (signature) type and a
+struct.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In the literature "module" is often used to refer to the
+struct component of a module.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>TODO: explicate "struct satisfies signature"</p>
+</div>
+<div class="paragraph">
+<p>A signature can be bound to any struct that satisfies it. In OCaml
+such type assignments are static, fixed at compile time.</p>
+</div>
+<div class="paragraph">
+<p>Developers may want to select a struct for binding to a signature,
+based on configuration constraints. A common case is selection of
+platform-dependent code, where we have one struct for linux and one
+for macos. Static typing means that this selection and type assignment
+must occur at compile time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module type B = sig val msg : string end
+
+module  Blinux : B = struct let msg = "linux msg" end
+module  Bmacos : B = struct let msg = "macos msg" end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The problem with this is that clients would have to use the
+platform-specific name. The modules here are named Blinux and Bmacos,
+not B.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Recall that the module names are independent of sig and struct
+names. We could have a sig named ASig, a struct named AStruct, and
+bind them to produce a module named A: <code>module A : ASig = AStruct</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+OCaml uses different namespaces for module (signature) type
+names and module names, so the same name, e.g. A, can be used for both
+a sig and a module, e.g. <code>module A : A = struct&#8230;&#8203;end</code>: the first A
+names a module and the second names a module (signature) type.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To get a module named B, binding signature B to a struct selected
+based on platform, we need something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module B : B = if platform == "linux" then Blinux else Bmacos</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unfortunately that&#8217;s syntactically malformed so it won&#8217;t compile. The
+syntax on the right-hand side of the equality sign <code>=</code> in a module
+definition cannot be an if-then expression.</p>
+</div>
+<div class="paragraph">
+<p>This  won&#8217;t work either:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>if platform == "linux" then module B : B = Blinux else module B : B = Bmacos</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But this <em>does</em> work:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>if platform == "linux"
+then let module B : B = Blinux in
+     begin print_endline B.msg end
+else let module B : B = Bmacos in
+     begin print_endline B.msg end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The problem with this is that the selected module B is only accessible
+within the local <code>begin&#8230;&#8203;end</code>, so we might as well just write:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>if platform == "linux"
+then print_endline Blinux.msg
+else print_endline Bmacos.msg</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Summary: this kind of selection cannot be expressed within the
+language. But it can be expressed using filesystem modules; see XXX
+for details.</p>
+</div>
+<div class="sect3">
+<h4 id="_principal-signature">Principal Signature</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_module-bindings">Module Bindings</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_module-types-as-dependent-types">Module Types as Dependent Types</h3>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module M : sig val x : int end = struct let x = 42 end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This means that <code>M</code> is a token constructed by <code>struct let x = 42 end</code>,
+whose type is constructed by <code>sig val x : int end</code>.</p>
+</div>
+<div class="paragraph">
+<p>A type constructed in this manner is a kind of dependent type. Under
+standard usage, "dependent type" means a type parameterized by a value
+of some (first-order) type such as <code>Int</code>; for example, the type of
+lists of strings of length four. The type constructor for such a type
+would be parameterized by the type constant <code>String</code> and the integer
+value <code>4</code>.</p>
+</div>
+<div class="paragraph">
+<p>The type constructor <code>sig &#8230;&#8203; end</code> is parameterized by a set of
+"fields", which are type declarations like <code>val x:int</code>. (TODO: list
+the allowable fields).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the type constructed by <code>sig &#8230;&#8203; end</code> should not be treated as a
+signature or signature type.  "signature" is the type constructor, not the type.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The types constructed by <code>sig&#8230;&#8203;end</code> may be named by using <code>module type</code>; for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module type MSig = sig ... end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This declares that <code>MSig</code> names the type constructed by <code>sig&#8230;&#8203;end</code>.
+Compare: <code>let f = λx.x+1</code>, which declares that <code>f</code> names the function
+described by the lambda expression <code>λx.x+1</code>.</p>
+</div>
+<div class="paragraph">
+<p>Module as family of types. Type ctor is <code>sig&#8230;&#8203;end</code>; token ctor is
+<code>struct &#8230;&#8203;end</code>.</p>
+</div>
+<div class="paragraph">
+<p>Structs do not have intrinsic types, so there is no "natural" type
+that goes with a struct; the type of a struct must be <em>assigned</em> by
+binding it to a signature. Modules are thus always in a sense ad-hoc.</p>
+</div>
+<div class="paragraph">
+<p>However, every struct does have a <em>principal signature</em>&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>"x is an Int" means x is a value whose type is Int.</p>
+</div>
+<div class="paragraph">
+<p>"xs is an Int List" means x is a value whose type is Int List.</p>
+</div>
+<div class="paragraph">
+<p>"A is a module" does <em>not</em> mean that A is a value whose type is Module.</p>
+</div>
+<div class="paragraph">
+<p>What does it mean? That A names a value whose type was
+constructed by <code>sig &#8230;&#8203; end</code>.  Its type may or may not be named.</p>
+</div>
+<div class="paragraph">
+<p>Compare: lambda expression as definite description of a function. The
+function and its type remain unnamed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_syntactic-quirks">syntactic quirks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_semicolons">semicolons</h3>
+<div class="paragraph">
+<p>"For compatibility with toplevel phrases (chapter 12), optional <code>;;</code>
+are allowed after and before each definition in a structure. These <code>;;</code>
+have no semantic meanings. Similarly, an expr preceded by <code>;;</code> is
+allowed as a component of a structure. It is equivalent to <code>let _ =
+expr</code>, i.e. expr is evaluated for its side-effects but is not bound to
+any identifier. If expr is the first component of a structure, the
+preceding <code>;;</code> can be omitted."&#8201;&#8212;&#8201;<a href="https://v2.ocaml.org/manual/modules.html#ss:mexpr-structures">11.2
+Structures</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_misc">misc</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span></span><span class="tok-k">module</span> <span class="tok-nc">MyModule</span> <span class="tok-o">:</span> <span class="tok-k">sig</span> <span class="tok-k">val</span> <span class="tok-n">x</span><span class="tok-o">:</span> <span class="tok-kt">int</span> <span class="tok-k">end</span>
+
+<span class="tok-k">module</span> <span class="tok-nc">MyModule</span> <span class="tok-o">=</span> <span class="tok-k">struct</span> <span class="tok-k">let</span> <span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-mi">1</span> <span class="tok-k">end</span>
+
+<span class="tok-k">module</span> <span class="tok-k">type</span> <span class="tok-nc">MSig</span> <span class="tok-o">=</span> <span class="tok-k">sig</span> <span class="tok-o">...</span> <span class="tok-k">end</span>
+
+<span class="tok-k">module</span> <span class="tok-nc">M</span> <span class="tok-o">:</span> <span class="tok-nc">MSig</span> <span class="tok-o">=</span> <span class="tok-k">struct</span> <span class="tok-o">...</span> <span class="tok-k">end</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>"In OCaml the namespaces for modules and module types are distinct, so
+it’s perfectly valid to have a module named ListStack and and module
+type named ListStack. "</p>
+</div>
+<div class="paragraph">
+<p>Alternative syntaxs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span></span><span class="tok-k">module</span> <span class="tok-nc">ListStackAlias</span> <span class="tok-o">:</span> <span class="tok-nc">LIST_STACK</span> <span class="tok-o">=</span> <span class="tok-nc">ListStack</span>
+<span class="tok-c">(* equivalently *)</span>
+<span class="tok-k">module</span> <span class="tok-nc">ListStackAlias</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-nc">ListStack</span> <span class="tok-o">:</span> <span class="tok-nc">LIST_STACK</span><span class="tok-o">)</span>
+
+<span class="tok-k">module</span> <span class="tok-nc">M</span> <span class="tok-o">:</span> <span class="tok-k">sig</span> <span class="tok-k">val</span> <span class="tok-n">x</span> <span class="tok-o">:</span> <span class="tok-kt">int</span> <span class="tok-k">end</span> <span class="tok-o">=</span> <span class="tok-k">struct</span> <span class="tok-k">let</span> <span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-mi">42</span> <span class="tok-k">end</span>
+<span class="tok-c">(* equivalently *)</span>
+<span class="tok-k">module</span> <span class="tok-nc">M</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-k">struct</span> <span class="tok-k">let</span> <span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-mi">42</span> <span class="tok-k">end</span> <span class="tok-o">:</span> <span class="tok-k">sig</span> <span class="tok-k">val</span> <span class="tok-n">x</span> <span class="tok-o">:</span> <span class="tok-kt">int</span> <span class="tok-k">end</span><span class="tok-o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>from <a href="https://cs3110.github.io/textbook/chapters/modules/modules.html">Cornell book</a></p>
+</div>
+<div class="paragraph">
+<p>It uses "type annotation" where we use "type assignment".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ocaml"><span></span><span class="tok-k">module</span> <span class="tok-nc">MyModule</span> <span class="tok-o">=</span> <span class="tok-k">struct</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="tok-k">let</span> <span class="tok-n">inc</span> <span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-n">x</span> <span class="tok-o">+</span> <span class="tok-mi">1</span>
+  <span class="tok-k">type</span> <span class="tok-n">primary_color</span> <span class="tok-o">=</span> <span class="tok-nc">Red</span> <span class="tok-o">|</span> <span class="tok-nc">Green</span> <span class="tok-o">|</span> <span class="tok-nc">Blue</span>
+  <span class="tok-k">exception</span> <span class="tok-nc">Oops</span>
+  <span class="tok-k">end</span>
+
+<span class="tok-k">module</span> <span class="tok-nc">MyModule</span> <span class="tok-o">:</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="tok-k">sig</span>
+    <span class="tok-k">val</span> <span class="tok-n">inc</span> <span class="tok-o">:</span> <span class="tok-kt">int</span> <span class="tok-o">-&gt;</span> <span class="tok-kt">int</span>
+    <span class="tok-k">type</span> <span class="tok-n">primary_color</span> <span class="tok-o">=</span> <span class="tok-nc">Red</span> <span class="tok-o">|</span> <span class="tok-nc">Green</span> <span class="tok-o">|</span> <span class="tok-nc">Blue</span>
+    <span class="tok-k">exception</span> <span class="tok-nc">Oops</span>
+  <span class="tok-k">end</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>defines</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>declares</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>"Module" is not a first-class object. That is, modules are not values
+of a Module type; there is no type Module. In fact a "module" is
+neither a value nor a type. It&#8217;s a pragmatic term used to refer to a
+pairing of a struct and a sig.</p>
+</div>
+<div class="paragraph">
+<p>Module as family of types. Type ctor is <code>sig&#8230;&#8203;end</code>; token ctor is
+<code>struct &#8230;&#8203;end</code>.</p>
+</div>
+<div class="paragraph">
+<p>Structs do not have intrinsic types, so there is no "natural" sig that
+goes with a module.  Modules are always in a sense ad-hoc.</p>
+</div>
+<div class="paragraph">
+<p>"x is an Int" means x is a value whose type is Int.</p>
+</div>
+<div class="paragraph">
+<p>"xs is an Int List" means x is a value whose type is Int List.</p>
+</div>
+<div class="paragraph">
+<p>"A is a module" does <em>not</em> mean that A is a value whose type is Module.</p>
+</div>
+<div class="paragraph">
+<p>What does it mean? That A names a value whose type was
+constructed by <code>sig &#8230;&#8203; end</code>.  Its type remains unnamed.</p>
+</div>
+<div class="paragraph">
+<p>Compare: lambda expression as definite description of a function. The
+function and its type remain unnamed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespacing">Namespacing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_module-aliasing">Module aliasing</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compiler-extension-hooks-ppx-system">Compiler Extension Hooks (PPX system)</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programming-languages-and-proof-assistants-based-on-ocaml">Programming languages and proof assistants based on OCaml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OCaml is popular among researchers and programming language designers
+as an implementation language. Here are some products that leverage
+the OCaml toolchain:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://coq.inria.fr/" target="_blank" rel="noopener">The Coq Proof Assistant</a></p>
+</li>
+<li>
+<p><a href="https://www.fstar-lang.org/" target="_blank" rel="noopener">F*</a> (pronounced F star) is ""a general-purpose functional programming language with effects aimed at program verification. It puts together the automation of an SMT-backed deductive verification tool with the expressive power of a proof assistant based on dependent types."  F* is written entirely in F*, and bootstraps via OCaml.</p>
+</li>
+<li>
+<p><a href="https://www.lix.polytechnique.fr/~dale/lProlog/" target="_blank" rel="noopener">λProlog</a> "is a logic programming language based on higher-order intuitionistic logic in the style of Church&#8217;s Simple Theory of Types."</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/LPCIC/elpi/" target="_blank" rel="noopener">ELPI</a> - Embeddable λProlog Interpreter "designed to be embedded into larger applications written in OCaml as an extension language."</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/LPCIC/coq-elpi" target="_blank" rel="noopener">Coq-elpi</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://astampoulis.github.io/makam/" target="_blank" rel="noopener">Makam</a> "is a metalanguage: a language for implementing languages. It supports concise declarative definitions, aimed at allowing rapid prototyping and experimentation with new programming language research ideas. The design of Makam is based on higher-order logic programming and is a refinement of the λProlog language. Makam is implemented from scratch in OCaml."</p>
+</li>
+<li>
+<p><a href="https://github.com/teyjus/teyjus" target="_blank" rel="noopener">Teyjus</a> "is an efficient implementation of the higher-order logic programming language Lambda Prolog. " (moribund?)</p>
+</li>
+<li>
+<p><a href="https://abella-prover.org/" target="_blank" rel="noopener">Abella</a>, an interactive theorem prover for λProlog programs</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/jrh13/hol-light/" target="_blank" rel="noopener">HOL Light</a> - interactive theorem prover</p>
+</li>
+<li>
+<p><a href="https://hacklang.org/">Hack</a> - "an object-oriented programming language for building reliable websites at epic scale"</p>
+</li>
+<li>
+<p><a href="https://haxe.org/">Haxe</a> - a "high-level strictly-typed programming language with a fast optimizing cross-compiler."</p>
+</li>
+<li>
+<p><a href="https://github.com/WebAssembly/spec/tree/main/interpreter" target="_blank" rel="noopener">WebAssembly Reference Interpreter</a></p>
+</li>
+<li>
+<p><a href="https://www.eff-lang.org/">Eff</a> - a functional programming language based on algebraic effect handlers.</p>
+</li>
+<li>
+<p><a href="https://github.com/links-lang/links">Links</a> - "Allows web programs to be written in a single programming language&#8230;&#8203;"</p>
+</li>
+<li>
+<p><a href="https://ocamlverse.github.io/content/compilers.html" target="_blank" rel="noopener">Compilers, Typecheckers, and Parsers</a> - OCamlverse</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

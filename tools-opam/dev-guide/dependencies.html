@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="opamtoolsdependencies,  notes, tips, cautions, warnings, admonitions">
+<title>Dependencies | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: true, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Dependencies">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/tools-opam/user-guide">
+      
+      Dev Guide:
+      
+      tools_opam
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="opam-configuration.html">Configuration</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Dependencies</h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_the-build-environment">The Build Environment</a></li>
+<li><a href="#_automating-dependency-expressions">Automating dependency expressions</a>
+<ul class="sectlevel3">
+<li><a href="#_constructing-the-deps-environment">Constructing the deps environment</a></li>
+<li><a href="#_lower-levels">Lower levels</a></li>
+<li><a href="#_dune-packages">Dune packages</a></li>
+<li><a href="#_opam-workspaces">opam workspaces</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_the-build-environment">The Build Environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <em>build environment</em> is analogous to the evaluation environment
+used by compilers. The evaluation environment is usually implemented
+as a symbol table of some kind (or more likely, a stack of such tables
+representing nested environments) that maps symbols to values.</p>
+</div>
+<div class="paragraph">
+<p>Compilers usually need some assistance to manage such environments.
+When compiling a particular compilation unit (i.e. source file), they
+may need to resolve symbols that are defined in separately compiled
+modules. Most compilers maintain a list of file system paths that they
+will search for the resources (modules) they need to resolve symbols.
+The initial list is minimal, containing only the directories
+containing the language kernel modules and perhaps a standard library.
+This is the initial build environment. Compilers also support some
+mechanism that allows the (meta-)programmer to designate a list of
+directories to add to the list - for OCaml, this is the <code>-I</code> compile
+option.</p>
+</div>
+<div class="paragraph">
+<p>To compile a source file, the initial environment (search list) must
+be elaborated to expose the resources needed to resolve all symbols in
+the source file. This requires a kind of meta-programming. At a
+minimum, the programmer might write a Make file or even just a shell
+script that explicitly lists, for each build target, the directories
+containing the modules it depends on. More commonly, developers use a
+build tool like Dune or OBazl that makes it easier to express
+dependencies and automatically generates a compile command including
+the appropriate <code>-I</code> arguments.</p>
+</div>
+<div class="paragraph">
+<p>A goal of OBazl is to minimize the amount of work required to get the
+dependencies right. Ideally, this could be entirely automated: a
+single command would generate the correct dependency expression for
+each build target.</p>
+</div>
+<div class="paragraph">
+<p>In practice, unassisted generation of dependency expressions is not
+possible for OCaml. Source files alone do not contain sufficient
+information to resolve all dependencies. This is mainly due to lack of
+a standard mapping from OCaml namespaces to the file system, and the
+simple fact that the build environment depends on the compiler
+command. For example, it is not unusual for a source file to refer to
+symbols that are defined in a module that must be added to the build
+environment by passing an <code>-open</code> argument to the compiler. In such
+cases nothing in the source file indicates how such symbols must be
+resolved; that information must be provided by meta-programming - i.e.
+constructing the correct compile command.</p>
+</div>
+<div class="paragraph">
+<p>Another common case involves the use of what Dune calls "wrapped"
+libraries. The build environment for such libraries includes a module
+generated by the build tool, which cannot be determined from the
+information in the source files alone.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automating-dependency-expressions">Automating dependency expressions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Each source file has an implicit build environment: a mapping from
+module names (deps) to files.</p>
+</li>
+<li>
+<p>A complete build environment is sufficient for generation of build command lines.</p>
+</li>
+<li>
+<p>Given the build environment, generate OBazl dependency expressions (of form <code>deps = ["A", "B", &#8230;&#8203;]</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>From a build perspective, there are two kinds of modules, static and
+dynamic. Statically determined modules are composed of source files;
+that is, their sources are not generated during the build process.
+Dynamically configured modules are modules whose source files are
+generated.</p>
+</div>
+<div class="paragraph">
+<p>Examples of dynamically configured modules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ns_resolver</code> modules generated for automatically managed namespaces ("wrapped libraries")</p>
+</li>
+<li>
+<p>modules whose sources are generated by standard tools like <code>ocamllex</code>, <code>ocamlyacc</code>, <code>menhir</code>, etc.</p>
+</li>
+<li>
+<p>source files generated by shell scripts based on data from a configuration file</p>
+</li>
+<li>
+<p>sources generated by a template engine from template and data files</p>
+</li>
+<li>
+<p>etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A third kind: external/opam modules? Dune makes no (syntactic)
+distinction between "internal" and "external" deps - you cannot tell
+by reading the <code>libraries</code> field which deps are provided by OPAM
+packages, for example. Why does it matter? The build env we construct
+based solely on our project sources (including dune files) will be
+insufficient for resolving e.g. opam deps. I.e. we&#8217;ll have a list of
+the modules in the project itself, but some project modules will
+depend on externally-defined modules. So to resolve those, we need to
+further elaborate the build env. And to do that we need help - the dev
+must provide us one way or another with a list of external deps. This
+can be extracted from dune and opam files; for other cases we will
+need to come up with a method.</p>
+</div>
+<div class="paragraph">
+<p>Tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>find the (module) deps for for each source file - tools like <code>codept</code> and <code>ocamldeps</code> can do this</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_constructing-the-deps-environment">Constructing the deps environment</h4>
+<div class="paragraph">
+<p>The OBazl depsenv is layered:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modules - struct and sig files</p>
+</li>
+<li>
+<p>Aggregates - namespaced or not; in dune, always archived</p>
+<div class="ulist">
+<ul>
+<li>
+<p>deps:  list of local modules and workspaces (external modules)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bazel Packages - corresponding to dune file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>manifest: list of modules (these are not deps; packages do not have deps)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bazel Workspaces - list, including externals</p>
+<div class="ulist">
+<ul>
+<li>
+<p>deps: list of workspaces, corresponds to "depends:" field of opam file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Initial - kernel/runtime, stdlib, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dep resolution: target&#8217;s deps are expressed as modules. Search order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Local package, looking for sibling</p>
+</li>
+<li>
+<p>Aggregate deps, if target is member of an aggregate. For dune
+library stanzas, all submod deps should be resolvable by now,
+including externals, since the <code>libraries</code> field of the library
+stanza includes opam (workspace) deps.</p>
+</li>
+<li>
+<p>Remaining packages in workspace</p>
+</li>
+<li>
+<p>Workspace deps</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For each source file we have a list of module dependencies (that is,
+module name symbols), generated by <code>codept</code> or the like. The task is
+to <em>resolve</em> such module names - map them to the build targets that
+generate the named modules, so that OBazl can construct the correct
+build environment (i.e. command string) for compilation.</p>
+</div>
+<div class="paragraph">
+<p>To do this we need to construct a build environment (for short, a <code>benv</code>) mapping module
+names to build targets. It must include all module names listed as
+source file depenencies.</p>
+</div>
+<div class="paragraph">
+<p>Step one is to initialize the <code>benv</code> with all the
+statically-determined modules in the project. This is easily done by
+crawling the source tree to find source files, normalizing their
+module names, and pairing <code>.ml</code> and <code>.mli</code> files.  Entries in the
+initial benv have something like the following form:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Module
+  name: Amod
+  type: static
+  sigfile:  path/to/amod.mli       # paths relative to workspace root
+  structfile: path/to/amod.ml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The more difficult task is to add the dynamically-configured modules.
+This can be broken down into several conceptually distinct tasks
+corresponding to the various kinds of dynamic module.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ns_resolver</code> modules. These are the "mapping" modules, containing
+aliasing equations like <code>module B = Foo_b</code>, that are generated as
+part of the build process. Most commonly Dune is used for this, but
+it is not required. For example, the makefile-based build system for
+the OCaml toolchain uses <code>awk</code> to transform <code>stdlib.ml[i]</code>,
+rewriting lines like <code>module Seq = Seq</code> to <code>module Seq =
+Stdlib__seq</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If Dune is used, we can analyze the <code>dune</code> file to extract the
+information we need to elaborate the build environment. Entries for
+ns_resolver modules will have the following form:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Module
+  name: Mylib
+  type: resolver
+  submodules:  list of modules</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this will allow us to determine, for any given module, which
+namespace it belongs to, if any.</p>
+</div>
+<div class="paragraph">
+<p>Modules generated by ocamllex etc.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Module
+  name:  Mylex
+  type: dynamic
+  ## usually one of these, but both possible
+  sigfile:  mylex.mli       ## no path for generated files, bazel figures it out
+  structfile: mylex.ml
+  dep:  mylex.mll</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The sigfile/structfile info should be derivable from the dune file; if not, the tool will try to infer.</p>
+</div>
+<div class="paragraph">
+<p>Other:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Module
+  name:  Mygenmod
+  type: dynamic
+  structfile:  mygenmod.ml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case dune tells us that this is a generated file; the code
+that generates it is handled separately (see below). All that&#8217;s needed
+for the depsenv is resolution of a module name to a build target (the
+tool will generated a target that compiles the generated file.)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lower-levels">Lower levels</h4>
+<div class="paragraph">
+<p>An "aggregate" corresponds to a Dune "library" stanza.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Aggregate:
+  name:  Mylib
+  type: archive  # dune &#39;library&#39; always means archive
+  ns: myns    # False for &quot;unwrapped&quot; libs
+  opts:  list of flags etc. from dune file, applicable to all submodules
+  submodules: list of modules, including dynamic ones</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Package
+  path:  path/to/pkg  ## relative to workspace root
+  manifest: list of aggregates and modules in package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Workspaces: each opam file corresponds to a workspace. Dune has a
+concept of "package" that may (or may not, undecided) correspond to workspace.</p>
+</div>
+<div class="paragraph">
+<p>The tricky bit is that opam files are often not located in the root of
+the workspace they determine. An OPAM distribution unit may contain
+multiple opam packages (opam files); the recommendation is that they
+all be placed at the root directory, named &lt;pkg&gt;.opam. But the sources
+for a given package may be anywhere in the source tree, making it
+tricky to determine which subdirectories correspond to which opam
+package, and where to locate the WORKSPACE file.</p>
+</div>
+<div class="paragraph">
+<p>For example: the <code>angstrom</code> distribution contains four opam packages.
+Here&#8217;s an abbreviated view of its structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>angstrom.0.15.0
+...
+├── angstrom-async.opam
+├── angstrom-lwt-unix.opam
+├── angstrom-unix.opam
+├── angstrom.opam
+├── async
+│   ├── angstrom_async.ml
+│   ├── angstrom_async.mli
+│   └── dune
+├── benchmarks
+│   ├── async_benchmark.ml
+  ...
+│   ├── dune
+    ...
+│   └── pure_benchmark.ml
+├── dune-project
+├── examples
+│   ├── dune
+│   ├── rFC2616.ml
+│   └── rFC7159.ml
+├── lib
+│   ├── angstrom.ml
+    ...
+│   ├── dune
+    ...
+│   └── parser.ml
+├── lib_test
+│   ├── dune
+    ...
+│   └── test_let_syntax_ppx.ml
+├── lwt
+│   ├── angstrom_lwt_unix.ml
+│   ├── angstrom_lwt_unix.mli
+│   └── dune
+└── unix
+    ├── angstrom_unix.ml
+    ├── angstrom_unix.mli
+    └── dune</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The opam package names (&lt;pkg&gt;.opam) do <em>not</em> necessarily
+correspond to source subdirectories! As you can see in this example:
+<code>angstrom-lwt-unix.opam</code> is the opam file for the sources in <code>lwt</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To make the connection between opam package name and sources, you must
+read the dune file. In this case, <code>lwt/dune</code> has this to say:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>(library
+ (name angstrom_lwt_unix)
+ (public_name angstrom-lwt-unix)
+ ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The dune <code>public_name</code> matches the opam package name. So to find the
+directory for an opam package, we need to inspect all the dune files,
+looking for a matching <code>public_name</code>. This includes the "main" opam
+package, in this case <code>angstrom</code>, whose matching dune <code>library</code> is
+defined in <code>lib/dune</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In this case, the opam package name matches a <code>library</code>
+stanza. I don&#8217;t know if that is always the case, but it suggests that
+"opam package" always means "ocaml archive", as opposed to "collection
+of modules and/or archives." In principle, at least, an opam package
+could contain lots of stuff. A build target could depend on such a
+package, while the sources-to-build might depend on only a module
+contained in the package.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This example also demonstrates a related difficulty, which is the
+relation between Dune&#8217;s <code>public_name</code> and <code>name</code> fields. The
+<code>public_name</code> is the name of the <em>package</em>, and can be used in a build
+program. But source code cannot not use it, since it is neither a
+module nor an archive name. So source code will refer to the <code>name</code>
+name, which does name an OCaml artifact - an archive file in this
+case.</p>
+</div>
+<div class="paragraph">
+<p>So we end up in a situation where our dependency analysis shows a
+dependency on a module name like <code>angstrom_lwt_unix</code>, and to resolve
+it we have to crawl around dune and opam files looking at the various
+names. (In most cases, the same name is used for opam package and dune
+<code>name</code> and <code>public_name</code>.)</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Dune can generate &lt;pkg&gt;.opam files from <code>dune-project</code> files. So
+presumably the latter come first in that case. But it isn&#8217;t always the
+case; for example the angstrom pkg does not generate opam files from
+<code>dune-project</code>. So it would not suffice to depend on dune-project
+files for info.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Getting the opam/dune/workspace stuff right is critical, because in
+addition to defining search spaces, they define scopes for resolution.
+Each opam package lists its dependencies (which are <em>ipso facto</em> opam
+packages) and this list determines the search constraints when a dep
+cannot be resolved internally, by one of the modules in its own package.</p>
+</div>
+<div class="paragraph">
+<p>So: first read opam files, then read dune files, then reconcile.</p>
+</div>
+<div class="paragraph">
+<p>Note there is overlap between Dune&#8217;s <code>libraries</code> field, which lists
+the deps of a <code>library</code> (that is, of all submodules in the library),
+and opam&#8217;s <code>depends</code> field, which lists all of the external deps
+needed by anything in the (opam) package. In particular, the external
+deps listed in a Dune <code>library</code> clause should always be a subset of
+the opam <code>depends</code> list.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>Workspace
+  name:  myworkspace
+  deps:  list of workspaces</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dune-packages">Dune packages</h4>
+<div class="paragraph">
+<p>To complicate things, we have <code>dune-project</code>,  <code>dune-package</code>, a dune <code>package</code> attribute, etc.</p>
+</div>
+<div class="paragraph">
+<p>We also have dune "installation". The <code>public_name</code> of a library:</p>
+</div>
+<div class="paragraph">
+<p>"(public_name &lt;name&gt;) this is the name under which the library can be
+referred to as a dependency when it is not part of the current
+workspace, i.e. when it is installed. Without a (public_name &#8230;&#8203;)
+field, the library will not be installed by dune." <a href="https://dune.readthedocs.io/en/stable/dune-files.html#library" class="bare">https://dune.readthedocs.io/en/stable/dune-files.html#library</a></p>
+</div>
+<div class="paragraph">
+<p>The <code>package</code> field of the library stanza:</p>
+</div>
+<div class="paragraph">
+<p>"(package &lt;package&gt;) Install private library under the specified
+package. Such a library is now usable by public libraries defined in
+the same project. The findlib name for this library will be
+&lt;package&gt;.<em>private</em>.&lt;name&gt;, however the library’s interface will be
+hidden from consumers outside the project." <a href="https://dune.readthedocs.io/en/stable/dune-files.html#library" class="bare">https://dune.readthedocs.io/en/stable/dune-files.html#library</a></p>
+</div>
+<div class="paragraph">
+<p>And <code>dune-project</code>: "used to mark the root of projects as well as
+define project-wide parameters." Can contain multiple packages,
+declared with a <code>package</code> stanza. The <code>generate_opam_files</code> field does
+just that, for all the packages in the project.</p>
+</div>
+<div class="paragraph">
+<p>So: projects do not get installed, but packages do. Packages are
+registered with a <code>package</code> stanza in the <code>dune-project</code> file.
+Libraries to be published/installed in the package are registered by
+using the <code>public_name</code> field of the <code>library</code> stanza of a <code>dune</code>
+file; the name must match then name of the <code>package</code>, or its first
+segment must match. Evidently a <code>package</code> stanza without any
+corresponding library stanzas would not publish/install anything. But
+what about a library with a <code>public_name</code> and no <code>package</code> stanza or
+<code>dune-project</code> file?</p>
+</div>
+<div class="paragraph">
+<p>If follows that one does not depend on a project but on packages, or
+rather libraries in packages. That is, <em>source code</em> does not depend
+on projects; but the project containing the source does depend on
+projects, to obtain their packages. So its a meta-dependency. If your
+project depends on, say, angstrom, then you must install the angstrom
+package in opam, and that opam package corresponds to dune-project.
+That is, it&#8217;s an opam package, but the opam file&#8217;s build recipe
+uses dune, which &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>But how does opam know which opam package to use? In the case of
+angstrom, there are four opam files to choose from. And there are four
+corresponding opam "packages" in the opam repository; each uses a copy
+of the dune project. (e.g. <code>angstrom.0.15.0</code>, <code>angstrom-async.0.15.0</code>,
+etc.). So evidently opam uses the file system location of the opam
+files to decide which one to choose. The dune project contains all the
+sources and the four opam files; but the opam files are installed in
+opam-repository not as &lt;pkg&gt;.opam, but as &lt;pkg&gt;/opam. And that &lt;pkg&gt;
+directory contains only the opam file (<code>&lt;pkg&gt;.opam</code> renamed <code>opam</code>).
+All four opam files reference the same source tarball. So when opam is
+asked to install one of them, it downloads and unpacks the tarball,
+then uses the directory name to decide which of the opam files in the
+sources to use to control the build: the directory name &lt;pkg&gt; must
+match the prefix of an opam file &lt;pkg&gt;.opam, and it must also match
+the <code>public_name</code> of a dune library somewhere in the source tree.
+That&#8217;s what dune will look for when the opam build recipe is executed:
+the build instruction is <code>build -p &lt;name&gt;</code>, and opam is responsible
+for expanding &lt;name&gt;, and it will use the directory name &lt;pkg&gt; for
+this, telling dune to build the package with name &lt;pkg&gt;.</p>
+</div>
+<div class="paragraph">
+<p>Egad. Could they not have made it a little more complex?</p>
+</div>
+<div class="paragraph">
+<p>So then the question is, how can we translate this into the language
+of OBazl?</p>
+</div>
+<div class="paragraph">
+<p>To start, <code>public_name</code> corresponds cleanly to Bazel target name.</p>
+</div>
+<div class="paragraph">
+<p>The tricky bit is dealing with workspaces. Each opam package should
+treated as a Bazel workspace, getting its own WORKSPACE.bazel file.</p>
+</div>
+<div class="paragraph">
+<p>Putting such opam workspaces into the deps env is simple; each
+<code>public_name</code> library determines one workspace. Except that dune
+projects may contain numerous such libraries that really make more
+sense as packages within a single project-level workspace.</p>
+</div>
+<div class="paragraph">
+<p>OTOH, anything listed in the <code>depends</code> field of an opam file must be
+treated as a workspace, so that much is easy.</p>
+</div>
+<div class="paragraph">
+<p>So for starters the rule is to make OPAM pkgs/deps distinct
+workspaces; dune libraries with <code>public_name</code> do not become workspaces
+unless they correspond to opam packages.</p>
+</div>
+<div class="paragraph">
+<p>Method: maintain a workspaces env (a cache, table). To process an item
+from an opam <code>depends</code> list, first check the cache. If not found, then
+search the list of subdirs in the switch&#8217;s .opam-switch/sources dir.
+If not found, then it must not be installed, so run
+<code>@opam//here/install&#8201;&#8212;&#8201;-p &lt;pkg&gt;</code> to install it, then repeat. If
+found, then create a new entry for the workspaces layer of the deps env.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://dune.readthedocs.io/en/stable/concepts.html#package-specification" target="_blank" rel="noopener">Dune Package specification</a>&#8201;&#8212;&#8201;"A package being a collection of executables, libraries and other files."</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. dune-project</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>(package
+ (name mypackage)
+ (synopsis "My first Dune package!")
+ (description "\| This is my first attempt at creating
+              "\| a project with Dune.
+))</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Once you have done this, Dune will know about the package named mypackage and you will be able to attach various elements to it. The package stanza accepts more fields, such as dependencies.</p>
+</div>
+<div class="paragraph">
+<p>Note that package names are in a global namespace so the name you
+choose must be universally unique&#8230;&#8203;.</p>
+</div>
+<div class="paragraph">
+<p>In older projects using Dune, packages were defined by manually writing a file called &lt;package-name&gt;.opam at the root of the project. However, it is not recommended to use this method in new projects as we expect to deprecate it in the future. The right way to define a package is with a package stanza in the dune-project file."</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; <a href="https://dune.readthedocs.io/en/stable/concepts.html#declaring-a-package-1" target="_blank" rel="noopener">Declaring a Package</a>
+</div>
+</div>
+<div class="paragraph">
+<p>"Attaching" stuff to a package:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In order to attach a library to a package all you need to do is add a public_name field to your library. This is the name that external users of your libraries must use in order to refer to it. Dune requires that the public name of a library is either the name of the package it is part of or start with the package name followed by a dot character.</p>
+</div>
+<div class="paragraph">
+<p>For instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lisp"><span></span><span class="tok-p">(</span><span class="tok-nv">library</span>
+ <span class="tok-p">(</span><span class="tok-nv">name</span> <span class="tok-nv">mylib</span><span class="tok-p">)</span>
+ <span class="tok-p">(</span><span class="tok-nv">public_name</span> <span class="tok-nv">mypackage.mylib</span><span class="tok-p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After you have added a public name to a library, Dune will know to install it as part of the package it is attached to. Dune installs the library files in a directory</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;prefix&gt;/lib/&lt;package-name&gt; <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; <a href="https://dune.readthedocs.io/en/stable/concepts.html#libraries" target="_blank" rel="noopener">Libraries</a>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Here <code>&lt;prefix&gt;</code> will (usually) be the OPAM prefix (printed by <code>$ opam var prefix</code>), which defaults to <code>$HOME/.opam/&lt;switch&gt;</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_opam-workspaces">opam workspaces</h4>
+<div class="paragraph">
+<p>Workspaces for an opam package are determined by the opam pkg name and
+the dunefile that defines the corresponding library. ?</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>angstrom.opam</code> is in the root dir of <code>angstrom.0.15.0</code>,
+and the library with <code>public_name</code> <code>angstrom</code> is defined in
+<code>lib/dune</code>. So the angstrom workspace needs to be defined by
+<code>lib/WORKSPACE.bazel</code>, not <code>./WORKSPACE.bazel</code>. If we did the latter,
+we would have to use label <code>@angstrom//lib:angstrom</code> instead of
+<code>@angstrom//:angstrom</code>.</p>
+</div>
+<div class="paragraph">
+<p>This corresponds to how it gets installed in SWITCH/lib/angstrom.
+Evidently when opam runs the dune build command, it includes
+installation of th the <em>package</em>, and <code>public_name</code> determines the
+name of the (library) package.</p>
+</div>
+<div class="paragraph">
+<p>But does this mean that we need one workspace per dune library <code>public_name</code>?</p>
+</div>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

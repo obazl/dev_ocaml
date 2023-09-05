@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="maintenance,  ">
+<title>PPX Support | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="PPX Support">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>PPX Support
+          <span id="timestamp">Last updated May 5, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_changes">Changes</a></li>
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_building-ppx-resources">Building PPX resources</a></li>
+<li><a href="#_building-ppx-modules">Building PPX modules</a>
+<ul class="sectlevel2">
+<li><a href="#_building-ppx-libraries">Building PPX libraries</a></li>
+<li><a href="#_building-ppx-archives">Building PPX archives</a></li>
+<li><a href="#_building-ppx-executables">Building PPX executables</a></li>
+</ul>
+</li>
+<li><a href="#_preprocessing-v-build-dependencies">Preprocessing v. build dependencies</a></li>
+<li><a href="#_adjunct-aka-runtime-dependencies">Adjunct (a/k/a "runtime") dependencies</a></li>
+<li><a href="#_runtime-dependencies">Runtime dependencies</a></li>
+<li><a href="#_ppx-executables">PPX executables</a>
+<ul class="sectlevel2">
+<li><a href="#_main-module">Main Module</a></li>
+</ul>
+</li>
+<li><a href="#_ppx-attributes">PPX attributes</a>
+<ul class="sectlevel2">
+<li><a href="#_ppx">ppx</a></li>
+<li><a href="#_ppx_codeps">ppx_codeps</a></li>
+<li><a href="#_ppx_args">ppx_args</a></li>
+<li><a href="#_ppx_data">ppx_data</a></li>
+<li><a href="#_ppx_print">ppx_print</a></li>
+</ul>
+</li>
+<li><a href="#_ppx-testing">PPX Testing</a></li>
+<li><a href="#_resources">resources</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_changes">Changes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>all <code>ppx_*</code> rules <em>execpt</em> <code>ppx_executable</code> rule removed</p>
+</li>
+<li>
+<p>ppx executables compiled in bytecode mode always statically linked (using <code>-custom</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PPX = PreProcessor eXtension.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/obazl/demos_obazl/tree/main/demos/ppxlib" target="_blank" rel="noopener">Demos</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building-ppx-resources">Building PPX resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See also [PPX Optimizations](optimization.md#ppx).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[modules](#modules)</p>
+</li>
+<li>
+<p>[libraries](#libraries)</p>
+</li>
+<li>
+<p>[archives](#archives)</p>
+</li>
+<li>
+<p>[executables](#executables)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building-ppx-modules">Building PPX modules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rule: [ppx_module](../refman/rules_ppx.md#ppx_module)</p>
+</div>
+<div class="paragraph">
+<p>Building:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>load(&quot;@obazl_rules_ocaml//ocaml:rules.bzl&quot;, &quot;ppx_module&quot;)
+...
+ppx_module(
+    name      = &quot;ppx_greeting&quot;,
+    struct    = &quot;:ppx_greeting.ml&quot;,
+    deps_opam = [&quot;ppxlib&quot;]
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Demo: [demos/ppx/rewriter/greeting](<a href="https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting" class="bare">https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting</a>)</p>
+</div>
+<div class="sect2">
+<h3 id="_building-ppx-libraries">Building PPX libraries</h3>
+<div class="paragraph">
+<p>Rule: [ppx_library](../refman/rules_ppx.md#ppx_library)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building-ppx-archives">Building PPX archives</h3>
+<div class="paragraph">
+<p>Rule: [ppx_archive](../refman/rules_ppx.md#ppx_archive)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building-ppx-executables">Building PPX executables</h3>
+<div class="paragraph">
+<p>Rule: [ppx_executable](../refman/rules_ppx.md#ppx_executable)</p>
+</div>
+<div class="paragraph">
+<p>[<strong>WARNING</strong> This documentation assumes you are using</p>
+</div>
+<div class="paragraph">
+<p>A PPX (ppxlib) executable requires a <em>driver</em>, which can easily be
+created using a Bazel [genrule](<a href="https://docs.bazel.build/versions/master/be/general.html#genrule" class="bare">https://docs.bazel.build/versions/master/be/general.html#genrule</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>load(&quot;@obazl_rules_ocaml//ocaml:rules.bzl&quot;, &quot;ppx_module&quot;)
+...
+ppx_module(
+    name = &quot;Driver&quot;,
+    struct = &quot;:ppxlib_driver.ml&quot;,
+    deps_opam = [&quot;ppxlib&quot;]
+)
+genrule(
+    name = &quot;gendriver&quot;,
+    outs = [&quot;ppxlib_driver.ml&quot;],
+    # In the cmd string, &#39;$@&#39; == outs file, here ppxlib_driver.ml
+    cmd = &quot;\n&quot;.join([
+        &quot;echo \&quot;(* GENERATED FILE - DO NOT EDIT *)\&quot; &gt; \&quot;$@\&quot;&quot;,
+        &quot;echo \&quot;let () = Ppxlib.Driver.standalone ()\&quot; &gt;&gt; \&quot;$@\&quot;&quot;,
+    ]),
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The PPX executable will depend on any PPX modules it needs, and the
+driver must be placed last in the dependency list. OBazl provides an
+optional convenience attribute to support this: pass the driver via
+the <code>main</code> attribute of <code>ppx_executable</code>, and OBazl will arrange for
+it to come last in the dep list:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>load(&quot;@obazl_rules_ocaml//ocaml:rules.bzl&quot;, &quot;ppx_executable&quot;)
+...
+ppx_executable(
+    name = &quot;ppx.exe&quot;,
+    main = &quot;:Driver&quot;,
+    deps = [&quot;:ppx_greeting&quot;] # ppx_module containing handler for [%greeting ...] extension points
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>equivalently:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>ppx_executable(
+    name = &quot;ppx.exe&quot;,
+    deps = [&quot;:ppx_greeting&quot;, &quot;:Driver&quot;]
+)</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="literalblock">
+<div class="content">
+<pre> **IMPORTANT** Remember that compilation of an executable can succeed
+even if you omit critical dependencies, since OCaml does not define
+a required 'main' routine. The purpose of the `main` attribute is to
+minimize the probability of putting the `deps` in the wrong order or
+inadvertently omitting a driver.</pre>
+</div>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Demo: [demos/ppx/rewriter/greeting](<a href="https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting" class="bare">https://github.com/obazl/dev_obazl/tree/main/demos/ppx/rewriter/greeting</a>)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preprocessing-v-build-dependencies">Preprocessing v. build dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every OCaml module (archive, executable) has its own <em>build</em>
+dependency graph, which is a tree containing the modules upon which it
+directly and indirectly depends.</p>
+</div>
+<div class="paragraph">
+<p>OCaml extension points introduce a second dependency graph we call a
+<em>preprocessing</em> dependency graph. A source file that contains an
+extension point, such as <code>[%greeting "Hello"]</code>, must be preprocessed
+by code that is capable of handling the extension point. This
+<em>preprocessing</em> dependency is orthogonal to any <em>build</em> dependencies
+the source file may have; normally it is a single PPX executable
+containing PPX modules that implement handle extension point handlers.</p>
+</div>
+<div class="paragraph">
+<p>Thus any module that contains OCaml extension points has two distinct
+dependency graphs, one for build dependencies and one for
+preprocessing dependencies. In OBazl rules, ordinary build
+dependencies are usually expressed using a <code>deps</code> attribute, and
+preprocessing dependencies are expressed using the <code>ppx</code> attribute and
+a few additional <code>ppx_*</code> attributes to parameterize the PPX executable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adjunct-aka-runtime-dependencies">Adjunct (a/k/a "runtime") dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes PPX processing injects code that induces compile-time
+dependencies; such dependencies must be listed as <code>deps</code> in the
+<code>ocaml_module</code> or <code>ppx_module</code> rule that compiles the transformed
+source file. These are often erroneously called "runtime"
+dependencies, but [runtime dependency](#runtime-deps) is a different
+concept. Runtime dependencies of a module or executable are needed
+when that module or executable is executed. These dependencies do not
+fit that description, so OBazl calls them <em>adjunct dependencies</em>.</p>
+</div>
+<div class="paragraph">
+<p>In other words, adjunct dependencies are build dependencies that are
+attached to a preprocessing dependency graph and passed on to
+preprocessing outputs.</p>
+</div>
+<div class="paragraph">
+<p>One way to support adjunct dependencies is to list them in the <code>deps</code>
+attribute of the <code>ocaml_module</code> or <code>ppx_module</code> rule instances that
+use the PPX executable, as noted above. However this requires
+maintenance of the <code>deps</code> attribute for each rule instance using the
+PPX executable in question. Since PPX executables may be shared by
+many targets, this is cumbersome and error-prone.</p>
+</div>
+<div class="paragraph">
+<p>attribute: <strong><code>adjunct_deps</code></strong></p>
+</div>
+<div class="paragraph">
+<p>As a convenience, OBazl supports an attribute, <code>adjunct_deps</code>, on
+<code>ppx_module</code> and <code>ppx_executable</code> rules. Dependencies listed in this
+attribute will be automatically propagated through the preprocessing
+dependency graph to the build rule of the transformed source. For
+example, if an <code>ocaml_module</code> rule instance lists a <code>ppx</code> dependency,
+then any adjunct dependencies listed in the dependency graph of that
+ppx will be added as build dependencies of the module being compiled
+by the rule.</p>
+</div>
+<div class="paragraph">
+<p>See
+[demos/ppx/adjunct_deps](<a href="https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps" class="bare">https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps</a>)
+for an example.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime-dependencies">Runtime dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Runtime dependencies are files that are required by modules and/or
+executables at runtime. For example, a common pattern is to have a
+module read a file of configuration data at runtime; such a data file
+constitutes a runtime dependency of the module.</p>
+</div>
+<div class="paragraph">
+<p>For non-PPX modules and executables, such
+files must be passed using the <code>data</code> attribute; for PPX modules and
+executables, they must be passed using the <code>ppx_data</code> attribute, as
+[described below](#ppx_data).
+The rules will arrange for the files to be included in the generated
+command line with the appropriate option flags.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ppx-executables">PPX executables</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_main-module">Main Module</h3>
+<div class="paragraph">
+<p>Unlike many compiled languages, OCaml does not define a <code>main</code> entry
+point for executables. The modules used to construct an executable are
+organized in the executable binary in the order in which they were
+passed as arguments to the compiler. When control is passed to an
+OCaml executable, the (top-level) code of the component modules is
+executed in order.</p>
+</div>
+<div class="paragraph">
+<p>This means it is possible to successfully compile and run an OCaml
+executable that lacks critical modules. Since there is no <code>main</code> entry
+point, the compiler has no way of knowing that something is missing.</p>
+</div>
+<div class="paragraph">
+<p>The <code>main</code> attribute of the <code>ppx_executable</code> rule is an optional convenience
+attribute, intended to reduce the likelihood of inadvertently omitting
+the critical piece of code that drives PPX processing. A module passed
+as <code>main</code> will automatically be added as the last module in the
+dependency list, thereby ensuring that it will receive control after
+all other modules.</p>
+</div>
+<div class="paragraph">
+<p>Demo code:  [demos/ppx/hello](<a href="https://github.com/obazl/dev_obazl/blob/aed0ce898b480c109ccd9b42fddc6f6c1640277c/demos/ppx/hello/BUILD.bazel#L53" class="bare">https://github.com/obazl/dev_obazl/blob/aed0ce898b480c109ccd9b42fddc6f6c1640277c/demos/ppx/hello/BUILD.bazel#L53</a>)</p>
+</div>
+<div class="sect3">
+<h4 id="_the-ppxlib-driver-module">The Ppxlib Driver module</h4>
+<div class="paragraph">
+<p>Here is one way to implement a driver for a <code>ppx_executable</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>ppx_executable( name = &quot;_ppx.exe&quot;, main = &quot;:_Driver&quot;, ...etc... )
+ppx_module(
+    name = &quot;_Driver&quot;,
+    src = &quot;:ppxlib_driver.ml&quot;,
+    deps = [&quot;@opam//pkg:ppxlib&quot;],
+)
+genrule(
+    name = &quot;gendriver&quot;,
+    outs = [&quot;ppxlib_driver.ml&quot;],
+    cmd = &quot;\n&quot;.join([
+        &quot;echo \&quot;(* GENERATED FILE - DO NOT EDIT *)\&quot; &gt; \&quot;$@\&quot;&quot;,
+        &quot;echo \&quot;let () = Ppxlib.Driver.standalone ()\&quot; &gt;&gt; \&quot;$@\&quot;&quot;,
+    ]),
+)</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ppx-attributes">PPX attributes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These attributes apply to rules [ocaml_module](../refman/rules_ocaml.md#ocaml_module), [ocaml_interface](../refman/ocaml_rules.md#ocaml_interface), [ppx_module](../refman/rules_ppx.md#ppx_module).</p>
+</div>
+<div class="paragraph">
+<p>Attributes applicable to <code>ppx_*</code> rules are documented in the [Reference Manual](../refman/rules_ppx.md)</p>
+</div>
+<div class="sect2">
+<h3 id="_ppx">ppx</h3>
+<div class="paragraph">
+<p>The <code>ppx</code> attribute takes a <code>ppx_executable</code> target. The rule will
+generate several actions - see [Action Queries](transparency.md#action_queries)
+to see how to inspect the actions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ppx_codeps">ppx_codeps</h3>
+<div class="paragraph">
+<p>See above.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ppx_args">ppx_args</h3>
+<div class="paragraph">
+<p>Use <code>ppx_args</code> to pass options to the <code>ppx_executable</code> that is passed via the <code>ppx</code> attribute.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ppx_data">ppx_data</h3>
+<div class="paragraph">
+<p>Bazel uses a <code>data</code> attribute for runtime file dependencies; OBazl
+follows this convention. For rules <code>ocaml_executable</code>, <code>ocaml_module</code>,
+<code>ocaml_interface</code>, <code>ppx_executable</code>, and <code>ppx_module</code>, the <code>data</code>
+attribute is for files that will be needed at runtime.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ppx_data</code> attribute is for files that are needed by the <code>ppx</code>
+executable when it transforms source files. For example,
+[ppx_optcomp]() supports an extension, <code>import</code>, that acts like
+the <code>#include</code> directive of the C preprocessor language: it allows you
+to include the content of one file in another. This induces a runtime
+dependency: if <code>foo.ml</code> contains e.g. <code>[%import "config.mlh"]</code>, then
+the file <code>config.mlh</code> must be available to <code>ppx_optcomp</code> when it runs
+(as part of the <code>ppx_executable</code> tasked with transforming <code>foo.ml</code>).
+So this is a genuine runtime dependency, and it must be listed in the
+<code>ppx_data</code> attribute of the <code>ppx_executable</code> rule instance that lists
+<code>ppx_optcomp</code> as a dependency.</p>
+</div>
+<div class="paragraph">
+<p>See [ppx/ppx_optcomp](<a href="https://github.com/obazl/dev_obazl/blob/c0f01d6ae66ecdebbbfac687120ef734886542d4/demos/ppx/ppx_optcomp/BUILD.bazel#L27" class="bare">https://github.com/obazl/dev_obazl/blob/c0f01d6ae66ecdebbbfac687120ef734886542d4/demos/ppx/ppx_optcomp/BUILD.bazel#L27</a>) for an example.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ppx_print">ppx_print</h3>
+<div class="paragraph">
+<p>PPX executables can emit the AST they produce in binary or text form.</p>
+</div>
+<div class="paragraph">
+<p>Rules that support PPX processing
+([ocaml_interface](../refman/rules_ocaml.md#ocaml_interface),
+[ocaml_module](../refman/rules_ocaml.md#ocaml_module),
+[ppx_module](../refman/rules_ppx.md#ppx_module)) also support the
+<code>ppx_print</code> attribute, which controls output format.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ppx_print</code> attribute takes a label, which must be either
+<code>@ppx//print:binary</code> or <code>@ppx//print:text</code>. The former tells OBazl to
+add <code>-dump-ast</code> as a command line option when running the
+<code>ppx_executable</code> that is passed by the <code>ppx</code> attribute; the latter
+just omits the argument.</p>
+</div>
+<div class="paragraph">
+<p>The default print output format is determined by the
+[config rules](configrules.md) target
+<code>@ppx//print</code>, which in turn defaults to binary. You can change the
+global default to print by passing <code>--@ppx//print:text</code> on the command
+line. Use the <code>ppx_print</code> attribute to override this global default.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ppx-testing">PPX Testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rules</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[ocaml_test](../refman/rules_ocaml.md#ocaml_test)</p>
+</li>
+<li>
+<p>[ppx_test](../refman/rules_ppx.md#ppx_test)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources">resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://discuss.ocaml.org/t/am-i-missing-some-comprehensive-ppxlib-resource-somewhere/9277" target="_blank" rel="noopener">Am I missing some comprehensive Ppxlib resource somewhere?</a> forum msg, Feb 2022</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

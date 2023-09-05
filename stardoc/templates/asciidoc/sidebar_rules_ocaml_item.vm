@@ -1,3 +1,0 @@
-    - title: ${ruleName}
-      url: ocaml-rules.html#_${ruleName}
-      output: web

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="aggregation,  notes, tips, cautions, warnings, admonitions">
+<title>Working with Bazel | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Working with Bazel">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Working with Bazel
+          <span id="timestamp">Last updated May 14, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_bazel">Bazel</a></li>
+<li><a href="#_obazl">OBazl</a>
+<ul class="sectlevel2">
+<li><a href="#_prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li><a href="#_setup">Setup</a></li>
+<li><a href="#_inspecting-the-bazel-environment-logs-build-actions-etc">Inspecting the Bazel environment, logs, build actions, etc.</a>
+<ul class="sectlevel2">
+<li><a href="#_bazel-info">bazel info</a></li>
+<li><a href="#_command_log">command_log</a></li>
+<li><a href="#_output_base">output_base</a></li>
+<li><a href="#_targets">targets</a></li>
+<li><a href="#_actions">actions</a></li>
+<li><a href="#_packages">packages</a></li>
+</ul>
+</li>
+<li><a href="#_useful-tips">Useful tips</a></li>
+<li><a href="#_working-with-external-repositories">Working with external repositories</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quickstart: the quickest way to get started is to clone and run some of the
+<a href="https://github.com/obazl/demos_obazl" target="_blank" rel="noopener">demos</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Developing software with Bazel is pretty much like developing software
+with any other build system: lather, rinse, repeat. You edit your
+sources, execute a build command of some kind, run a test driver or
+executable to verify results, and repeat.</p>
+</div>
+<div class="paragraph">
+<p>The major differences are of course related to the build program and
+the build engine. Bazel build programs are written in the Starlark
+language, and Bazel is also the name of the build engine (of which
+there is only one.)</p>
+</div>
+<div class="paragraph">
+<p>Bazel provides a great deal of information about your build program,
+and it provides fine-grained control over build actions. You can build
+any target in your project, and only it and its dependencies will be
+built. You can parameterize your builds at any level of granularity.
+If you include appropriate test targets, you can modularize your
+development even if your source code is not organized in a modular
+manner.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, Bazel includes powerful query facilities that make it
+possible to explore the dependency structures of your code. You can
+easily list the dependency chain between two targets, or list the
+targets that have a certain parameter, etc. You can generate SVG
+graphs showing dependency graphs of your code.</p>
+</div>
+<div class="paragraph">
+<p>Bazel also makes it easy to develop multiple, mutually-dependent
+projects simultaneously. If your main project depends on an external
+repository, you can easily configure your build to use a local copy of
+the dependency <em>without altering your build code</em>. One benefit of this
+is that it makes it easy to eliminate embedded git submodules.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bazel">Bazel</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+OBazl recommends using <a href="https://github.com/bazelbuild/bazelisk" target="_blank" rel="noopener">Bazelisk</a> (<a href="https://bazel.build/install/bazelisk" target="_blank" rel="noopener">Installing Bazel using Bazelisk</a>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="https://bazel.build/docs" target="_blank" rel="noopener">Using Bazel</a></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A great deal of Bazel documentation is available, but it
+  is not always easy to find what you need. If you do find it, you probably want to
+  bookmark it.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you use Bazelisk, you can pin the Bazel version by putting file
+<code>.bazelversion</code> in the root directory of your project, containing the
+required version string, e.g. <code>latest</code> or <code>5.1.1</code>.</p>
+</div>
+<div class="paragraph">
+<p>To work effectively with OBazl you must master the following material at minimum:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://bazel.build/concepts/build-ref" target="_blank" rel="noopener">Workspaces, packages, and targets</a></p>
+</li>
+<li>
+<p><a href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a> (See also: <code>$ bazel help target-syntax</code>)</p>
+</li>
+<li>
+<p><a href="https://bazel.build/docs/bazelrc" target="_blank" rel="noopener">Write bazelrc configuration files</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you are just getting started with Bazel, you should work through one of the <a href="https://bazel.build/start/bazel-intro#getting-started-tutorials" target="_blank" rel="noopener">Tutorials</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_obazl">OBazl</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OBazl deviates from standard Bazel conventions in a few minor ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rules that build executable binaries are named <code>*_executable</code>, not
+<code>*_binary</code>: <code>ocaml_executable</code>, <code>ppx_executable</code></p>
+</li>
+<li>
+<p>The library rules <code>ocaml_library</code> does not build a "separately
+compiled module". Instead it provides a simple aggregation
+mechanism, so that you can depend on a collection of resources under
+a single name. In other words, OBazl takes the term "library" to
+mean "collection of resources"; the resources will almost always be
+OCaml compiled modules, but may include e.g. runtime data
+dependencies. The "library" produced by <code>ocaml_library</code> is a
+Starlark structure, which has no OCaml counterpart.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites">Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Platform: Linux or MacOS. Both Bazel and OCaml support windows, so
+OBazl may work, but it has not been tested and there are no plans to
+do so. However, it should not be terribly difficult to port it to
+Windows. If you have the time and energy to work on this please
+reach out on the <a href="https://discord.gg/PHSAW5DUva" target="_blank" rel="noopener">OBazl Discord server</a> and I will be happy to help.</p>
+</li>
+<li>
+<p>Build tools. The OCaml toolchain depends on a C/C++ compiler and
+tools.</p>
+</li>
+<li>
+<p><a href="https://opam.ocaml.org/" target="_blank" rel="noopener">OPAM</a> installation. The rules have been used
+with version 2.0.7. Earlier versions may work; if not, please <a href="https://github.com/obazl/rules_opam/issues" target="_blank" rel="noopener">file an issue</a>.</p>
+</li>
+<li>
+<p>An OPAM <a href="https://opam.ocaml.org/doc/Usage.html#opam-switch" target="_blank" rel="noopener">switch</a>
+containing the OCaml compiler and OPAM packages your project needs.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Currently the OBazl rules only support an OPAM toolchain installed on
+the local host outside of Bazel&#8217;s control; they do not support
+fully hermetic builds, where all build inputs including toolchains
+are exclusively controlled by Bazel. A future version of the OBazl
+rules will automatically download and install the entire OCaml
+toolchain and required packages into a private, Bazel-controlled
+cache.</p>
+</li>
+<li>
+<p>Instruction for configuring an OPAM switch is beyond the scope of
+this guide, but here are some common useful commands:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$ opam switch show</code> - prints the name of the <em>current</em> switch</p>
+</li>
+<li>
+<p><code>$ opam switch</code> - shows all installed switches</p>
+</li>
+<li>
+<p><code>$ opam list</code> - shows all packages installed in the current switch</p>
+</li>
+<li>
+<p><code>$ opam pin list</code> - shows all "pinned" packages</p>
+</li>
+<li>
+<p><code>$ opam config list</code> - lists all general configuration settings</p>
+</li>
+<li>
+<p><code>$ opam config list ounit2</code> - lists all configuration settings for package <code>ounit2</code></p>
+</li>
+<li>
+<p><code>$ opam var</code> - same as <code>opam config list</code></p>
+</li>
+<li>
+<p><code>$ opam var bin</code> - print the value of the <code>bin</code> var of the current switch</p>
+</li>
+<li>
+<p><code>$ opam var --package &lt;pkg&gt;</code> - prints all variables for package <code>&lt;pkg&gt;</code> as <code>&lt;pkg&gt;:&lt;var&gt;</code></p>
+</li>
+<li>
+<p><code>$ opam var &lt;pkg&gt;:&lt;var&gt;</code> - prints value of variable for package, e.g.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$ opam var ounit2:version</code> - prints version string of package <code>ounit2</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+"opam var --package &#8230;&#8203;" may be very, very slow.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OPAM switch names commonly match the version string of the
+installed compiler, but this is not required; you can name your
+switches however you wish. In that case, here are some useful
+commands, using <code>--switch &lt;s&gt;</code> to pick out a switch:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$ opam list --switch myswitch</code> - list packages installed for switch <code>myswitch</code></p>
+</li>
+<li>
+<p><code>$ opam config list --switch myswitch</code> - prints variables for switch <code>myswitch</code>.</p>
+</li>
+<li>
+<p><code>$ opam var --package ocaml --switch myswitch</code> - prints variables for the <code>ocaml</code> package of switch <code>myswitch</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$ opam var ocaml:version --switch myswitch</code> - prints  <code>version</code> variable of the <code>ocaml</code> package of switch <code>myswitch</code></p>
+</li>
+<li>
+<p><code>$ opam var ocaml:depends --switch myswitch</code> - prints <code>depends</code> variable (i.e. compiler build options)  of the <code>ocaml</code> package of switch <code>myswitch</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>$ opam var --package ocaml-base-compiler --switch myswitch</code> - prints variables for the <code>ocaml-base-compiler</code> package of switch <code>myswitch</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Compiler versions are treated as (pseudo) packages. When you run
+<code>$ opam switch</code> you will see that the "compiler" column lists strings of
+form <code>&lt;pkgname&gt;.&lt;varname&gt;</code>; for example, <code>ocaml-base-compiler.4.12.0</code>.
+If you have installed a compiler with <code>+options</code> the string will look
+like <code>ocaml-variants.4.14.0+options</code>. Use the <code>&lt;pkgname&gt;</code> part to obtain information about the compiler, e.g. <code>$ opam var --package ocaml-base-compiler:version --switch myswitch</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The <code>ocaml-base-compiler</code> variable is unreliable! Don&#8217;t use it unless it is listed in the output of <code>$ opam config list --switch myswitch</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you use <code>emacs</code>, you probably want to install <code>merlin</code>.</p>
+</li>
+<li>
+<p><a href="tools.md">Tools</a></p>
+</li>
+<li>
+<p>Locally installed (system) libraries. Some OPAM packages depend on locally
+installed resources. For example, package <code>bignum</code> depends on
+package <code>zarith</code>, which depends on a local installation of <code>libgmp</code> (usually in <code>/usr/local</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup">Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get the most out of OBazl and Bazel, you need to decide on some
+conventions and do a little configuration. See <a href="obazl-conventions">OBazl
+Conventions</a> for a list.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspecting-the-bazel-environment-logs-build-actions-etc">Inspecting the Bazel environment, logs, build actions, etc.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_bazel-info">bazel info</h3>
+<div class="paragraph">
+<p>The <code>bazel info</code> command will print a dictionary listing the
+parameters, file locations, etc. that Bazel uses internally. It
+supports a large number of options; run <code>$ bazel help info</code> to see them
+all; to see just the keys for the dictionary, run <code>$ bazel help info-keys</code>.</p>
+</div>
+<div class="paragraph">
+<p>Most of entries in the dictionary, most of the time, can be safely
+ignored; but if you run into trouble, two of them can be helpful with
+debugging: <code>command_log</code> and <code>output_base</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_command_log">command_log</h3>
+<div class="paragraph">
+<p>Bazel writes logs to a <code>command_log</code> file each time it executes a
+command; it overwrites the file. You can discover the location of the
+file by running <code>$ bazel info command_log</code>. Since the output of this
+command will overwrite the log file, you must use an alias or shell
+script to enable easy browsing.  See the <a href="conventions.md#aliases">aliases</a>
+recommendation in <a href="conventions.md">OBazl Conventions</a> for an example.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_output_base">output_base</h3>
+<div class="paragraph">
+<p>The <code>output_base</code> directory contains a subdirectory, <code>external</code>, that
+contains the external repositories your project has configured. You
+can browse the <code>BUILD.bazel</code> files of an external repo, for example,
+to verify that you are using the correct target labels.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_targets">targets</h3>
+<div class="paragraph">
+<p>Bazel can print a source text representation of each target :</p>
+</div>
+<div class="paragraph">
+<p><code>$ bazel query '@ppx_tools//:*' --output build</code></p>
+</div>
+<div class="paragraph">
+<p>This shows what the target looks like to Bazel after it has been
+processed (e.g. variables expanded, etc.).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_actions">actions</h3>
+<div class="paragraph">
+<p>A single build target may generate multiple build <em>actions</em>. For
+example, if an <code>ocaml_module</code> rule is parameterized with a <code>ppx</code>
+argument, it will generate two actions: one to transform the source
+file with the PPX, and one to compile the result. Each action will
+have a command line string.</p>
+</div>
+<div class="paragraph">
+<p>Normally there is no need to pay these actions any mind, but if
+something goes wrong with your build it may be useful to see exactly
+what a build rule is doing - what the actions are, what commands and
+arguments are used to run the actions, and what the inputs and outputs
+are. Fortunately this is easy to do. You can use the [action query]()
+facility to print all the actions generated by a rule without actually
+running the rule (so it does not trigger any compilation). For
+example, the following will print all the actions (and much additional
+information) generated by the <code>//foo/bar:baz</code> target:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ bazel aquery //foo/bar:baz</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="transparency.md">Transparency</a> for more information.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_packages">packages</h3>
+<div class="paragraph">
+<p>To list all the files in the directory containing associated with a package:</p>
+</div>
+<div class="paragraph">
+<p><code>$ bazel query 'kind("source file", @&lt;repo&gt;//&lt;pkg&gt;:*)' --output label_kind</code></p>
+</div>
+<div class="paragraph">
+<p>To include all subpackages (subdirectories containing BUILD.bazel
+file), use <code>@&lt;repo&gt;//&lt;pkg&gt;/...:*</code> instead of  <code>@&lt;repo&gt;//&lt;pkg&gt;:*</code>.</p>
+</div>
+<div class="paragraph">
+<p>E.g.</p>
+</div>
+<div class="paragraph">
+<p><code>$ bazel query 'kind("source file", @ppx_tools//:*)' --output label_kind</code></p>
+</div>
+<div class="paragraph">
+<p><code>$ bazel query 'kind("source file", @ppx_tools//metaquot:*)' --output label_kind</code></p>
+</div>
+<div class="sect3">
+<h4 id="_compilelink-commands">Compile/link commands</h4>
+<div class="paragraph">
+<p>todo&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_useful-tips">Useful tips</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>clean</code> command "[r]emoves bazel-created output, including all
+object files, and bazel metadata." It will not refresh repository
+dependencies. Adding the <code>--expunge</code> option will delete everything;
+it will also stop the server, so that then next build command will
+start from scratch. You almost never need to do this.</p>
+</li>
+<li>
+<p>You should rarely need to run <code>$ bazel clean</code>. Bazel caches a
+complete description of the build, so it always knows what needs to
+be rebuilt. However, if you change the build structure - especially
+if you remove build targets - you may need this command to rebuild
+the cache.</p>
+</li>
+<li>
+<p>Do spend some time learning to use the query facilities. On a
+project of any size you&#8217;ll be glad you did.</p>
+</li>
+<li>
+<p>To experiment with build rules etc. you can avoid cluttering the
+source tree by creating a <code>BUILD.bazel</code> in a work directory like
+<code>dev</code> and putting the rules there. Since dependencies are expressed
+as target labels, you can reach into the tree anywhere you like,
+although you may need to adjust the <code>visibility</code> attribute of
+targets.</p>
+</li>
+<li>
+<p>Use <a href="https://github.com/bazelbuild/bazelisk">Bazelisk</a> to make sure
+you&#8217;re always using the latest version of Bazel. You can pin the
+version you want by using a <code>.bazelversion</code> file.</p>
+</li>
+<li>
+<p>You can enable <a href="https://docs.bazel.build/versions/master/completion.html">command-line completion</a> (also known as tab-completion) in Bash and Zsh. This lets you tab-complete command names, flags names and flag values, and target names.  Caveat: tab-completion may be an issue for Bazelisk; see <a href="https://github.com/bazelbuild/bazelisk/issues/29">Support bash autocomplete #29</a>.)</p>
+</li>
+<li>
+<p>If you need to make some kind of global change, e.g. renaming a
+target or adding a dependencie to multiple rules, do not
+search-and-replace. Use
+<a href="https://github.com/bazelbuild/buildtools/tree/master/buildozer">buildozer</a>
+instead.  (See <a href="maintenance.md#batch">Batch Editing</a> for more information.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_working-with-external-repositories">Working with external repositories</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.bazel.build/versions/master/external.html">Working with External Dependencies</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note in particular: <a href="https://docs.bazel.build/versions/master/external.html#transitive-dependencies">Transitive dependencies</a></p>
+</div>
+<div class="paragraph">
+<p>To coordinate development of a main directory and external
+dependencies, you can override the declared repositories. See <a href="https://docs.bazel.build/versions/master/external.html#overriding-repositories-from-the-command-line">Overriding repositories from the command line</a>.</p>
+</div>
+<div class="paragraph">
+<p>Put your <code>--override</code> directives in your <code>user.bazelrc</code> file (by convention, <code>dev/user.bazelrc</code>), and load it from <code>.bazelrc</code> with the following line:  <code>try-import dev/user.bazelrc</code></p>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

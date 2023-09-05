@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="ocamlbuild,  notes, tips, cautions, warnings, admonitions">
+<title>OCaml: Build Discipline(s) | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="OCaml: Build Discipline(s)">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/ocaml">
+      OCaml
+      
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Language" href="language">Language</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependency Models" href="dependency-models">Dependency Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Build Discipline" href="build-discipline">Build Discipline</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>OCaml: Build Discipline(s)</h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_compilation-units">Compilation Units</a></li>
+<li><a href="#_file-types">File Types</a></li>
+<li><a href="#_modules-and-the-file-system">Modules and the File System</a>
+<ul class="sectlevel2">
+<li><a href="#_signature-compilation">Signature compilation</a></li>
+<li><a href="#_dyadic-modules">Dyadic Modules</a></li>
+<li><a href="#_singleton-structfiles">Singleton structfiles</a></li>
+<li><a href="#_principal-signatures">Principal Signatures</a></li>
+<li><a href="#_cross-module-optimization">Cross-Module Optimization</a></li>
+</ul>
+</li>
+<li><a href="#_module-dependencies">Module Dependencies</a>
+<ul class="sectlevel2">
+<li><a href="#_the-open-and-include-directives">The <code>open</code> and <code>include</code> directives</a></li>
+</ul>
+</li>
+<li><a href="#_executables">Executables</a></li>
+<li><a href="#_misc-notes">misc notes</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Status: very rough as of 5/25/22.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compilation-units"><a href="https://v2.ocaml.org/manual/compunit.html#s:compilation-units">Compilation Units</a></h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+Compilation units bridge the module system and the separate
+compilation system. A compilation unit is composed of two parts: an
+interface and an implementation. The interface contains a sequence of
+specifications, just as the inside of a <code>sig … end</code> signature
+expression. The implementation contains a sequence of definitions and
+expressions, just as the inside of a <code>struct … end</code> module expression.
+A compilation unit also has a name <code>unit-name</code>, derived from the names
+of the files containing the interface and the implementation
+</blockquote>
+<div class="attribution">
+&#8212; <a href="https://v2.ocaml.org/manual/compunit.html#s:compilation-units" target="_blank" rel="noopener">Chapter 9.12 'Compilation Units'</a>
+</div>
+</div>
+<div class="paragraph">
+<p>"A compilation unit is composed of two parts: an interface and an
+implementation." No, it is composed of two <em>files</em>, both <em>compiled</em>,
+one for the interface and one for the implementation. It&#8217;s important
+not to gloss over the difference between file-system stuff and
+language stuff: "interface" and "implementation" are language-level
+concepts independent of file-system organization.</p>
+</div>
+<div class="paragraph">
+<p>"A compilation unit also has a name <code>unit-name</code>, derived from the
+names of the files containing the interface and the implementation".
+The problem with this is that there is no "compilation unit" in the
+file system, so there is nothing to name. The <em>module</em> composed of a
+sigfile and a structfile has a name, but a module is not a compilation unit.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>A compilation unit A comprises two files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the implementation file A.ml, which contains a sequence of definitions, analogous to the inside of a struct…end construct;</p>
+</li>
+<li>
+<p>the interface file A.mli, which contains a sequence of specifications, analogous to the inside of a sig…end construct.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These two files together define a structure [sic] named A as if the following definition was entered at top-level:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module A: sig (* contents of file A.mli *) end
+        = struct (* contents of file A.ml *) end;;"</pre>
+</div>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; <a href="https://v2.ocaml.org/manual/moduleexamples.html#s:separate-compilation">5. Modules and separate compilation</a>
+</div>
+</div>
+<div class="paragraph">
+<p>"These two files together define a structure" - no, they define a
+<em>module</em>. This kind of language can be very, <em>very</em> confusing to
+newcomers.</p>
+</div>
+<div class="paragraph">
+<p>OBazl eschews this terminology on grounds that a) it conflates the
+concepts "module" and "compilation unit", and b) a compilation <em>unit</em>
+should be non-decomposible.</p>
+</div>
+<div class="paragraph">
+<p>The "bridge" between the (language-defined) module system and the
+"separate compilation system" is the build discipline defined by the
+tools.</p>
+</div>
+<div class="paragraph">
+<p>In fact it is difficult to give a clear, concise, and simple
+definition of "unit of compilation" for OCaml. Why? UoC spans both the
+language and the tooling. On the one hand the UoC for the language is
+any minimal bit of syntax that can be compiled. But from the
+perspective of building, unit of compilation usually means "source
+file" or similar. That is, it is file-system oriented. Hence
+"file-system unit of compilation"? And since "module" is a concept of
+the language, not the build system (ie. not involving the FS), it
+cannot be a FS unit of compilation.</p>
+</div>
+<div class="paragraph">
+<p>FS UoC v. OCaml UoC</p>
+</div>
+<div class="paragraph">
+<p>The FS units of compilation are sigfiles and structfiles. But this
+does not mean that units of compilation can always be <em>independently</em>
+compiled. In practice the units of compilation are sigfiles and
+structfiles <em>together with</em> their dependencies.</p>
+</div>
+<div class="paragraph">
+<p>And to complicate things: a <em>compiled</em> module is itself a composite of
+two compiled units, the struct and the sig.</p>
+</div>
+<div class="paragraph">
+<p>The docs say "A compilation unit is composed of two parts: an
+interface and an implementation." OBazl says: a module is composed of
+two compilation units. Or more precisely, a module is composed of a
+signature and a structure; <em>filesystem</em> module is composed of two
+compilation units, a (compiled) sigfile and a (compiled) structfile.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Structfiles always depend on compiled sigfiles.</p>
+</li>
+<li>
+<p>Both may depend on other compiled modules, via OCaml&#8217;s <code>include</code>
+directive.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_file-types">File Types</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">action</th>
+<th class="tableblock halign-left valign-top">input</th>
+<th class="tableblock halign-left valign-top">output</th>
+<th class="tableblock halign-left valign-top">remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile sig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.mli</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmi</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmo, a.cmi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytecode compile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.ml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmx, a.o, a.cmi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">native compile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.ml, a.cmi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytecode compile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compile struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.ml, a.cmi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmx, a.o</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">native compile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cma</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytecode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmx, a.a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmxa, a.a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">native</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmo, a.cma</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bytecode executable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.cmx, a.o, a.cmxa, a.a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a.out</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">native executable</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Q: a.cmi input to archive action? iow can an archive contain a standalone sig?</p>
+</div>
+<div class="paragraph">
+<p>Q: what about dynamic linking, e.g. a.cmxs?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modules-and-the-file-system">Modules and the File System</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://v2.ocaml.org/manual/comp.html#s:modules-file-system" target="_blank" rel="noopener">Modules and the file system</a></p>
+</div>
+<div class="sect2">
+<h3 id="_signature-compilation">Signature compilation</h3>
+<div class="imageblock">
+<div class="content">
+<img src="sigcompile.svg" alt="300">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dyadic-modules">Dyadic Modules</h3>
+<div class="paragraph">
+<p>A <em>dyadic</em> module is a filesystem module composed of a structfile and a sigfile.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_singleton-structfiles">Singleton structfiles</h3>
+<div class="paragraph">
+<p>An <em>singleton</em> structfile is a structfile with no corresponding
+sigfile; that is, no sigfile with matching principal name <em>in the same
+directory</em>. It is possible to have one or more matching sigfiles in
+other directories, but only a sigfile in the same directory may count
+as a "matching" sigfile.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+principal name = file name with extension removed. E.g. the
+principal name of <code>foo.ml</code> is <code>foo</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A <em>singleton module</em> is a filesystem module derived from a singleton
+structfile. Singleton modules are still composed of two compilation
+units, one for the signature and one for the structure, but the
+signature is the principal signature inferred from the singleton
+structfile. For example, from singleton structfile <code>A.ml</code> the
+compiler with infer and then compile <code>A.mli</code>. The compiler will emit
+<code>A.cmi</code> but not <code>A.mli</code>.</p>
+</div>
+<div class="imageblock left text-center">
+<div class="content">
+<img src="compile_orphan_native.svg" alt="Static" width="300">
+</div>
+<div class="title">Figure 1. Native</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="compile_orphan_bc.svg" alt="Static" width="300">
+</div>
+<div class="title">Figure 2. Bytecode</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_principal-signatures">Principal Signatures</h3>
+<div class="paragraph">
+<p>The compiler can extract the principal signature from a module if you
+pass it the <code>-i</code> option. For this to work, though, all dependencies -
+structs and sigs - must be compiled first, so it is not as simple as
+passing the structfile source to the compiler with the <code>-i</code> flag.</p>
+</div>
+<div class="paragraph">
+<p>The OBazl rule <code>ocaml_module</code> does not support the <code>-i</code> option; adding
+it would complicate the rule implementation for little benefit, since
+another method is available.</p>
+</div>
+<div class="paragraph">
+<p>The alternative is to compile the module and then use a third-party
+utility named <code>cmitomli</code> to extract the (textual) sigfile from the
+compiled <code>.cmi</code> file. This is supported by tooling in <code>tools_obazl</code>.
+So if you want to extract the principal signature for a structfile,
+you can use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @tools_obazl//sig:extract --@tools_obazl//ocamlobj=//package:target</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This tool will <code>build</code> the target <code>//package:target</code> and then run
+<code>cmitomli</code> (which you must have installed in the OPAM switch you&#8217;re
+using; see X for more information on this) on the emitted <code>.cmx/.cmo</code> file.</p>
+</div>
+<div class="paragraph">
+<p>You can shorten this by defining a <code>flag_alias</code> in your <code>.bazelrc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>build --flag_alias=obj=@tools_obazl//ocamlobj</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you can run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run @tools_obazl//sig:extract --obj=//package:target</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can shorten it further by defining a local alias for
+<code>@tools_obazl//sig:extract</code>; e.g. in your root <code>BUILD.bazel</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>alias(name = "gensig", actual = "@tools_obazl//sig:extract")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you can run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ bazel run :gensig --obj=//package:target</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cross-module-optimization">Cross-Module Optimization</h3>
+<div class="quoteblock">
+<blockquote>
+When the native compiler compiles an implementation, by default it produces a .cmx file containing information for cross-module optimization. It also expects .cmx files to be present for the dependencies of the currently compiled source, and uses them for optimization. Since OCaml 4.03, the compiler will emit a warning if it is unable to locate the .cmx file of one of those dependencies.
+</blockquote>
+<div class="attribution">
+&#8212; Ch 14 Native-code compilation
+</div>
+</div>
+<div class="paragraph">
+<p>In other words, the <code>.cmx</code> files are only needed for cross-module
+optimization. The <code>.cmi</code> files, by contrast, are always needed for
+symbol resolution. Both are needed for linking to an executable.</p>
+</div>
+<div class="paragraph">
+<p>Which suggests that the code produced by compiling a module contains
+only references to its dependencies; it does not embed the referenced code.</p>
+</div>
+<div class="paragraph">
+<p>In other words, a compiled OCaml module is analogous (for build
+purposes) to a C library. To link it you must list it explicitly as a
+linkable resource so the linker knows about it, but to compile
+something that depends on it you only need the <code>.cmi</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Or: the .cmi files are analogous the C header files. You do not need
+the compiled dep in C to compile your client code to a <code>.o</code> file; you
+only need the headers with function prototypes, etc. It&#8217;s only when
+you go to link your <code>.o</code> files into a library or executable that you
+need the <code>.o</code> files it depends on; you don&#8217;t need them when you&#8217;re
+compiling.</p>
+</div>
+<div class="paragraph">
+<p>Same story for OCaml .cmi and .cmx files. You don&#8217;t need the .cmx file
+of a dep to compile your code (unless you want cross-module
+optimization), but you do need the .cmi file that exposes the
+interface of the .cmx file, and you need the .cmx file to link your
+(compiled) code.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-opaque</code></p>
+</li>
+<li>
+<p><code>-no-alias-deps</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a module A depends on module B:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>compilation of module A always depends on b.cmi, but may not depend on b.cmx.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>b.cmx is only needed for cross-module optimization, which may be disabled by <code>-opaque</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>linking module A into an executable always requires b.cmx (and b.cmi) to be linked first</p>
+</li>
+<li>
+<p>linking module A into an archive means &#8230;&#8203;?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In other words, "module dependency" has multiple meanings. We have
+compile-time dependencies and link-time dependencies, and they are not
+necessarily the same.</p>
+</div>
+<div class="paragraph">
+<p>In other other words, the OCaml compilers conflate compilation and linking.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_module-dependencies">Module Dependencies</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Always means "signature dep"</p>
+</li>
+<li>
+<p>Sigs then depend on structs</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_the-open-and-include-directives">The <code>open</code> and <code>include</code> directives</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The OCaml language definition does not use the term "directive" for these keywords.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Compare the C build discipline. A source file like <code>foo.c</code> is a unit
+of composition, but only <em>after</em> preprocessing. If <code>foo.c</code> contains
+<code>#include "foo.h"</code>, then the textual content of the latter will be
+embedded in the textual content of the former, forming the compilation
+unit.</p>
+</div>
+<div class="paragraph">
+<p>The OCaml <code>include</code> directive does not work textually like this. If
+the text of module <code>A</code> contains <code>include B</code>, this tells the compiler
+to embed module <code>B</code> <em>compiled</em> in module <code>A</code>.</p>
+</div>
+<div class="paragraph">
+<p>For sigs: <a href="https://v2.ocaml.org/manual/modtypes.html#sss:mty-include" target="_blank" rel="noopener">Including a signature</a></p>
+</div>
+<div class="paragraph">
+<p>FIXME: "The expression <code>include module-type</code> in a signature performs
+textual inclusion of the components of the signature denoted by
+<code>module-type</code>. ". Not clear what "textual inclusion" means. Does it
+mean the source text? I don&#8217;t think it can. <code>module-type</code> does
+not necessarily correspond to a source file.</p>
+</div>
+<div class="paragraph">
+<p>For structs: <a href="https://v2.ocaml.org/manual/modules.html#sss:mexpr-include" target="_blank" rel="noopener">Including the components of another structure</a></p>
+</div>
+<div class="paragraph">
+<p>"The expression include module-expr in a structure re-exports in the current structure all definitions of the structure denoted by module-expr. "</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_executables">Executables</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://v2.ocaml.org/manual/native.html#s:native:running-executable" target="_blank" rel="noopener">Running executables produced by ocamlopt</a> Executables generated by ocamlopt are native, stand-alone executable files that can be invoked directly. They do not depend on the ocamlrun bytecode runtime system nor on dynamically-loaded C/OCaml stub libraries.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_misc-notes">misc notes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OCaml compilers and tools are very flexible. In particular,
+bytecode builds can be customized in a variety of ways.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>meaning of "library"</p>
+</li>
+<li>
+<p>Build modes</p>
+</li>
+<li>
+<p>Multiple outputs</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Output file types:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.cmo/.cmx</code></p>
+</li>
+<li>
+<p><code>.cmi</code></p>
+</li>
+<li>
+<p><code>.o/.a</code>, <code>.obj/.lib</code></p>
+</li>
+<li>
+<p><code>.cma/.cmxa</code></p>
+</li>
+<li>
+<p><code>.cmxs</code></p>
+</li>
+<li>
+<p><code>.cmt/.cmti</code></p>
+</li>
+<li>
+<p><code>.cmir-linear</code></p>
+</li>
+<li>
+<p>etc.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>"compilation unit"</p>
+</li>
+<li>
+<p>"auxiliary" outputs, e.g. cmt/cmti, intermediate files (asm, etc.)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>custom runtime mode  (for bytecode output)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-custom</code> - linker produces an output file that contains both the runtime system and the bytecode for the program.</p>
+</li>
+<li>
+<p><code>-make-runtime</code> - Build a custom runtime system, to be used later to execute bytecode executables produced with the <code>ocamlc -use-runtime runtime-name</code> option.</p>
+</li>
+<li>
+<p><code>-use-runtime</code> - Generate a bytecode executable file that can be executed on the custom runtime system built earlier with <code>ocamlc -make-runtime</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>-pack</code> and <code>-for-pack</code></p>
+</li>
+<li>
+<p><code>-nostdlib</code> - use customized stdlib</p>
+</li>
+<li>
+<p><code>-i</code> -  emit interface file</p>
+</li>
+<li>
+<p><code>-output-obj</code> - Cause the linker to produce a C object file instead of a bytecode executable file. This is useful to wrap OCaml code as a C library, callable from any C program.</p>
+</li>
+<li>
+<p><code>-output-complete-exe</code> - Build a self-contained executable by linking a C object file containing the bytecode program, the OCaml runtime system and any other static C code given to ocamlc.</p>
+</li>
+<li>
+<p><code>-output-complete-obj</code> Same as -output-obj options except the object file produced includes the runtime and autolink libraries.</p>
+</li>
+<li>
+<p>Dependencies</p>
+</li>
+<li>
+<p>Namespacing</p>
+</li>
+<li>
+<p>Preprocessing</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-pp</code></p>
+</li>
+<li>
+<p><code>-ppx</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>-runtime-variant d</code> - use debug version of runtime</p>
+</li>
+<li>
+<p><code>-stop after &lt;pass&gt;</code> passes: parsing, typing</p>
+</li>
+<li>
+<p><code>-save-ir-after &lt;pass&gt;</code> - passes: scheduling. Experimental, native code only</p>
+</li>
+<li>
+<p><code>-S</code>  keep assembly code</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Special consideration:  <code>-open</code></p>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

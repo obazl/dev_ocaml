@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="maintenance,  ">
+<title>Maintenance | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Maintenance">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Maintenance
+          <span id="timestamp">Last updated May 4, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_dependency-maintenance">Dependency maintenance</a></li>
+<li><a href="#_module-maintenance">Module maintenance</a></li>
+<li><a href="#_namespace-maintenance">Namespace maintenance</a>
+<ul class="sectlevel2">
+<li><a href="#_task-add-a-module-to-a-namespace">Task: add a module to a namespace</a></li>
+</ul>
+</li>
+<li><a href="#_batch-editing">Batch Editing</a>
+<ul class="sectlevel2">
+<li><a href="#_patching">Patching</a></li>
+<li><a href="#_case-study-removing-an-attribute-from-rule-instances">Case study: removing an attribute from rule instances</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides guidance for manual maintenance of OBazl build
+programs. Tools to automate these tasks are under development.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependency-maintenance">Dependency maintenance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each target must list all of its direct dependencies. OBazl does not
+currently support file globbing for this purpose, so dependencies must
+be explicitly enumerated. If you make source code changes that
+introduce or eliminate dependencies you must edit the corresponding
+build rules accordingly.</p>
+</div>
+<div class="paragraph">
+<p>This presents a challenge if you are adding OBazl support to existing
+projects, since most legacy build systems do not explicitly list
+dependencies. For example, Dune analyzes source files to discover
+dependencies. The current version of OBazl deliberately eschews this
+strategy. [TODO: explain why]</p>
+</div>
+<div class="paragraph">
+<p>You can use the <code>ocamldep</code> (with the <code>-modules</code> flag) to list the
+(module) dependencies of source files. For example (from <a href="https://github.com/obazl/dev_obazl/tree/main/demos/rules/ocaml_archive">demos/rules/ocaml_archive</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>$ ocamldep -modules rules/ocaml_archive/main.ml
+rules/ocaml_archive/main.ml: Core Easy Simple</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The dependencies listed are modules; its up to you to map the modules
+to target labels. In this example, <code>Core</code> is an OPAM package whose
+label is <code>@core//:core</code>, and the other two dependencies are in the
+same package, so (by convention) their labels are ":Easy" and
+":Simple", respectively.</p>
+</div>
+<div class="paragraph">
+<p>If you are adding OBazl support to a Dune project, you can derive the
+dependecy labels from the <code>libraries</code> clause of dune stanzas. Use
+<code>opam list</code> and <code>ocamlfind list</code> to see which dependencies are in the
+<code>@opam//pkg:</code> namespace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Tooling to analyze source files and automatically generate dependency labels is under development.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Another (and more powerful) tool you can use to analyze dependencies
+is <a href="https://github.com/Octachron/codept">codept</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_module-maintenance">Module maintenance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Changes to source files do not affect build logic, <em>unless</em> they
+involve dependencies. If you add or remove a dependency, you should
+edit the <code>BUILD.bazel</code> file accordingly.</p>
+</div>
+<div class="paragraph">
+<p><strong>OCaml Dependencies</strong></p>
+</div>
+<div class="paragraph">
+<p>Dependencies expressed in the build file that are not in fact used by
+the source code do not break the build, but do make it inefficient.
+Two tools are available to check OCaml dependencies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://caml.inria.fr/pub/docs/manual-ocaml/depend.html">ocamldep</a> the legacy tool; and</p>
+</li>
+<li>
+<p><a href="https://opam.ocaml.org/packages/codept/">codept</a>, a more powerful dependency solver.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Runtime Dependencies</strong></p>
+</div>
+<div class="paragraph">
+<p>Source files that access the filesystem (e.g. by reading a data file)
+may have <em>runtime dependencies</em>. These should be listed in the <code>data</code>
+attribute.</p>
+</div>
+<div class="paragraph">
+<p><strong>PPX Dependencies</strong></p>
+</div>
+<div class="paragraph">
+<p>PPX extensions may involve file reads; for example,
+<a href="https://github.com/janestreet/ppx_optcomp">ppx_optcomp</a> supports an
+<code>[@@import</code> <em>filename</em>`]` extension.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace-maintenance">Namespace maintenance</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_task-add-a-module-to-a-namespace">Task: add a module to a namespace</h3>
+<div class="paragraph">
+<p>Steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy or create the source files - e.g. foo.ml and foo.mli if needed - in the package containing the namespace module.</p>
+</li>
+<li>
+<p>If you package the namespace in an aggregate (<code>ocaml_archive</code> or
+<code>ocaml_library</code>), add the module target to the <code>deps</code> attribute of the
+aggregate. E.g. <code>deps = [":_Foo", &#8230;&#8203;]</code>. Do not add the interface
+target.</p>
+</li>
+<li>
+<p>Add the module source file to the <code>submodules</code> attribute of the
+<code>ocaml_ns</code> rule. E.g. <code>submodules = ["foo.ml", &#8230;&#8203;]</code>. Do not add the
+.mli file.</p>
+</li>
+<li>
+<p>Add <code>ocaml_module</code> and <code>ocaml_interface</code> (if needed) rules. Pass
+the namespace module target label using the <code>ns</code> attribute.  E.g.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>ocaml_module(
+    name = &quot;_Foo&quot;,
+    src  = &quot;foo.ml&quot;,
+    intf = &quot;_Foo.cmi&quot;,
+    ns   = &quot;:_Mynamespace_ns&quot;,
+    deps = [ ... ]
+)
+ocaml_interface(
+    name = &quot;_Foo.cmi&quot;,
+    src  = &quot;foo.mli&quot;,
+    ns   = &quot;:_Mynamespace_ns&quot;,
+    deps = [ ... ]
+)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_batch-editing">Batch Editing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The
+<a href="https://github.com/bazelbuild/buildtools/blob/master/buildozer/README.md">buildozer</a>
+tool makes it easy to batch edit build files. You can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>add or delete rules</p>
+</li>
+<li>
+<p>add, remove, or rename attributes</p>
+</li>
+<li>
+<p>add, remove, or change attribute values</p>
+</li>
+<li>
+<p>edit <code>load</code> statements</p>
+</li>
+<li>
+<p>add or remove comments</p>
+</li>
+<li>
+<p>apply edits to a filtered selection of build packages/targets</p>
+</li>
+<li>
+<p>and much, much more!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Bazel&#8217;s query facilities
+(<a href="https://docs.bazel.build/versions/master/query.html">query</a>,
+<a href="https://docs.bazel.build/versions/master/cquery.html">cquery</a>,
+<a href="https://blog.bazel.build/2019/02/15/introducing-aquery.html">aquery</a>) make
+it easy to inspect the build structure of your project, so that you
+can decide how to structure your <code>buildozer</code> commands.</p>
+</div>
+<div class="paragraph">
+<p>To ensure that your <code>buildozer</code> commands are correct, you can first
+use its <code>print</code> subcommand to get an idea of how it analyzes your
+code. However, <code>buildozer</code> does not evaluate build files, it only
+works at the syntactic level. To get a better picture of the
+structure, you can use Bazel&#8217;s
+<a href="https://docs.bazel.build/versions/master/query.html">query</a> facility.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>buildozer</code> to print occurances of attribute <code>opts</code> for all <code>ocaml_ns</code> rules in all packages under <code>src/</code>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ buildozer <span class="tok-s1">&#39;print label opts&#39;</span> src/...:%ocaml_ns
+rule <span class="tok-s2">&quot;//mina/gitfork/src/...:Logproc_lib_ns&quot;</span> has no attribute <span class="tok-s2">&quot;opts&quot;</span>
+rule <span class="tok-s2">&quot;//mina/gitfork/src/...:Interpolator_lib_ns&quot;</span> has no attribute <span class="tok-s2">&quot;opts&quot;</span>
+...
+//mina/gitfork/src/...:Snark_work_lib_ns <span class="tok-o">[]</span>
+//mina/gitfork/src/...:Pokolog_ns <span class="tok-o">[]</span>
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that 1) the output shows the file system path (the command was
+run from <code>$HOME/mina/gitfork</code>), and 2) it does not show the full
+package label. To get a fuller picture, use the query facility:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ bazel query <span class="tok-s1">&#39;attr(opts, &quot;.*&quot;, kind(&quot;ocaml_ns&quot;, //src/...:all))&#39;</span>
+ocaml_ns rule //src/nonconsensus/unsigned_extended:Unsigned_extended_nonconsensus_ns
+ocaml_ns rule //src/nonconsensus/snark_bits:Snark_bits_nonconsensus_ns
+...</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove <code>opts</code> attribute from all <code>ocaml_ns</code> rules in package
+<code>//src/lib/transition_frontier</code>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ buildozer <span class="tok-s1">&#39;remove opts&#39;</span> src/lib/transition_frontier/...:*</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>To remove it from all packages</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ buildozer <span class="tok-s1">&#39;remove opts&#39;</span> src/...:%ocaml_ns</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patching">Patching</h3>
+<div class="paragraph">
+<p>Buildozer can read its commands from a file. Since commands can be
+fine-grained (e.g. applied to a single target in a single package),
+<code>buildozer</code> can be used to implement a kind of patching facility.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose you use a tool to automatically generate your
+build files. A typical case would be where you support both Dune and
+OBazl builds, and you generate Bazel build files from Dune files.</p>
+</div>
+<div class="paragraph">
+<p>There may be cases where the generated files need to be tuned in some
+manner, such as adding option values like "-w -24", or adding a
+dependency that your conversion tool cannot discover. In such cases
+you can write a <code>buildozer</code> edit command to automated the editing. You
+would run the <code>buildozer</code> commands every time you update your build
+files using the conversion tool.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+It turns out that buildozer cannot reliably add an ordered list of attribute values, like <code>"-w", "-24"</code>; it insists on sorting them, which puts them in the wrong order. A bug report has been filed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_case-study-removing-an-attribute-from-rule-instances">Case study: removing an attribute from rule instances</h3>
+<div class="paragraph">
+<p>The initial version of rule <code>ocaml_ns</code> included an <code>opts</code> attribute
+that is not needed. Removing it from the rule entailed editing
+existing projects to remove it from instances of the rule. The
+<a href="#buildozer">buildozer</a> tool makes this easy.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step one</strong>: verify that all occurances of <code>opts</code> on <code>ocaml_ns</code> rules are
+empty. This was not strictly necessary, since the rule did not use the
+attribute anyway, but we show it for demonstration purposes. The first
+query below will print all instances whose <code>opts</code> attribute is empty,
+or contains a null string, or a string of spaces; the second will
+print any instances whose <code>opts</code> attribute is not empty:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ bazel query <span class="tok-s1">&#39;attr(opts, &quot;\[ *]&quot;, kind(&quot;ocaml_ns&quot;, //src/...:all))&#39;</span> <span class="tok-p">|</span> sort
+$ bazel query <span class="tok-s1">&#39;attr(opts, &quot;\[.*[^ ].*\]&quot;, kind(&quot;ocaml_ns&quot;, //src/...:all))&#39;</span> <span class="tok-p">|</span> sort</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the second argument to the <code>attr</code> function is a regular
+expression used to match the content of the <code>opts</code> attribute; see
+<a href="https://docs.bazel.build/versions/master/query.html#attr">attr</a> for
+more information on querying attributes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step two</strong>: remove the attribute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ buildozer <span class="tok-s1">&#39;remove opts&#39;</span> src/...:%ocaml_ns
+fixed /Users/gar/mina/gitfork/src/lib/otp_lib/BUILD.bazel
+fixed /Users/gar/mina/gitfork/src/lib/pickles/limb_vector/BUILD.bazel
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step three</strong>: verify results. Using <code>buildozer</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ buildozer <span class="tok-s1">&#39;print label opts&#39;</span> src/...:%ocaml_ns <span class="tok-p">|</span> sort
+rule <span class="tok-s2">&quot;//mina/gitfork/src/...:Non_zero_curve_point_ns&quot;</span> has no attribute <span class="tok-s2">&quot;opts&quot;</span>
+rule <span class="tok-s2">&quot;//mina/gitfork/src/...:Tweedle_ns&quot;</span> has no attribute <span class="tok-s2">&quot;opts&quot;</span>
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using <code>query</code>: this is a little bit trickier, since the query facility
+looks at rule definitions as well as instances, unlike <code>buildozer</code>.
+The <code>attr</code> function we used above will treat every instance of
+<code>ocaml_ns</code> as containing an <code>opts</code> attribute even if it is not
+explicity expressed by the instance code, since it is defined for the
+rule and therefore has a default value. So if we run the query we ran
+previously after removal of the <code>opts</code> attribute from the
+<code>BUILD.bazel</code> files but before its removal from the rule definition,
+we get a list of all the <code>ocaml_ns</code> instances. But if we run it after
+the rule definition has been changed, then, assuming our remove
+command succeeded, it will produce the empty list, verifying our
+<code>buildozer</code> edit. On the other hand, if an <code>ocaml_ns</code> instance has an
+<code>opts</code> attribute, running the query will throw an exception
+complaining that the rule has no <code>opts</code> attribute.  So strictly
+speaking we do not need to run this query, we can just run a build.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ bazel query <span class="tok-s1">&#39;attr(opts, &quot;.*&quot;, kind(&quot;ocaml_ns&quot;, //src/...:all))&#39;</span> <span class="tok-p">|</span> sort</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> (Note: we changed the regex to match anything, since
+we just want to know if the attribute exists.)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

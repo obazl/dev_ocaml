@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="ocamltoolchain,  notes, tips, cautions, warnings, admonitions">
+<title>Repositories &amp; Workspaces | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Repositories &amp;amp; Workspaces">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="">
+      
+      ocaml
+      
+    </a>
+  </li>
+  
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Repositories &amp; Workspaces
+          <span id="timestamp">Last updated May 20, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_terminology">Terminology</a></li>
+<li><a href="#_external-repositories-and-their-workspaces">External Repositories and their Workspaces</a></li>
+<li><a href="#_modules">MODULES</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Official docs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://bazel.build/concepts/build-ref" target="_blank" rel="noopener">Workspaces, packages, and targets</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>OBazl deviates somewhat from the official documentation in order to
+fill in some of the holes and resolve some ambiguities. We think the
+official docs routinely conflate distinct concepts like "workspace"
+and "repository" and are often inconsistent and/or confusing.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://bazel.build/concepts/build-ref#workspace" target="_blank" rel="noopener">Workspace</a>:  the docs say "A workspace is a directory tree on your filesystem&#8230;&#8203;". OBazl reserves "repository" for this meaning and restricts the meaning of "workspace" to the namespace determined by a WORKSPACE file as described below.</p>
+</li>
+<li>
+<p><a href="https://bazel.build/concepts/build-ref#repositories" target="_blank" rel="noopener">Repositories</a>: "Code is organized in repositories. The directory containing the WORKSPACE file is the root of the main repository, also called @. Other, (external) repositories are defined in the WORKSPACE file using workspace rules."</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This language is unclear and inconsistent to us. For example, <code>@</code>
+names a workspace, not a repository; and it is critical to maintain
+the distinction between a repository (a filesystem object) and a
+workspace (a namespace that is <strong><em>not</em></strong> the same thing as the
+repository associated with it).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_terminology">Terminology</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>WORKSPACE (or just WS) file: file named WORKSPACE.bazel</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Bazel also accepts WORKSPACE but OBazl conventions recommend WORKSPACE.bazel.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Repository: a directory (tree) in a file system rooted at a directory containing a WS file (the "root WS file").</p>
+</li>
+<li>
+<p>Repository scope: the entire subtree?</p>
+</li>
+<li>
+<p>Workspace: a namespace, determined by a WS file; overlaid on repository tree</p>
+</li>
+<li>
+<p>Workspace repository: the repository determined by the WS file. I.e.
+the repository associated with the WS. The repository of a workspace
+is its "underlying filesystem tree".</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Every workspace is associated with the repository rooted at the WS
+directory; this is called the "workspace repository"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Workspace scope - see below</p>
+</li>
+<li>
+<p>worskpace directory: a directory containing a WS file</p>
+</li>
+<li>
+<p>BUILD file: a file named BUILD.bazel</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Bazel also accepts filename BUILD, but OBazl recommends BUILD.bazel</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>package directory: a directory (within the scope of a workspace) containing a BUILD file</p>
+</li>
+<li>
+<p>Module: see &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+It follows that "repository" is not synonymous with
+"workspace". A repository may contain file system objects that are not
+within the scope of its associated workspace: there is a difference
+between a file system object and the "space" determined by a WS file.
+A workspace is a namespace; it contains names, not directories, files,
+etc., and does not necessarily include every filesystem object in its
+repository. So "workspace" means the namespace determined by a WS
+file.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>IOW we have two conceptual spaces: one for the file system, and one
+for the "space" of Bazel entities such as packages and targets.</p>
+</div>
+<div class="paragraph">
+<p>Each WS file determines exactly one workspace.</p>
+</div>
+<div class="paragraph">
+<p>The <em>potential</em> scope of the workspace determined by a WORKSPACE file
+encompasses the directory that contains it and the entire
+tree of subdirectories rooted at that directory - i.e. its repository.</p>
+</div>
+<div class="paragraph">
+<p>A directory within the scope of a workspace that contains a BUILD file
+is a (Bazel) <em>package directory</em>.</p>
+</div>
+<div class="paragraph">
+<p>The <em>effective</em> scope of a workspace is limited to the subset of
+directories in its repository that</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>are NOT within the scope of a workspace repository rooted at a subdirectory in the repository</p>
+<div class="ulist">
+<ul>
+<li>
+<p>i.e. the effective scope excludes subtrees whose root directory contains a WS file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>DO contain a BUILD file (i.e. package directories)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Subdirectories within a WS repository that contain a WS file
+are <strong><em>not</em></strong> subworkspaces. Workspaces are not hierarchical; the
+workspace/namespace determined by the WS file does not contain any WS names.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the workspace is determined by the "workspace" function in
+the WORKSPACE file if it is used (e.g. <code>workspace(name="foo")</code>;
+otherwise it is the name of the directory containing the WORKSPACE
+file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_external-repositories-and-their-workspaces">External Repositories and their Workspaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A WORKSPACE file may contain Starlark code declaring and/or defining
+<em>external</em> workspaces, thereby "importing" their contents and making
+them accessible by targets defined within the scope of declaring
+workspace, i.e. packages and targets in the workspace may use the
+external workspaces.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+External workspace declarations and definitions need not be
+directly contained in the root WS file; they may also be
+declared/defined by functions in extension files, so long as they are
+loaded and called from the root WS file. A common pattern recommended
+by OBazl conventions is to define a function in file <code>WORKSPACE.bzl</code>
+(note the suffix: <code>.bzl</code>, not <code>.bazel</code>; this makes it an "extension"
+file) that is responsible for "calling" rules to create external
+workspaces, and then to load and call this function from the
+<code>WORKSPACE.bazel</code> file.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>An external workspace, relative to a "current" or "controlling"
+ workspace, is a workspace whose repository is outside of the scope of
+ the current workspace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This does not mean outside of the <em>repository</em> of the current
+workspace. If a repository contains subdirectories containing WS
+files, the trees rooted at those subdirectories are inside of the
+current repository but outside of the corrent workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>TODO: diagram</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This means that workspaces defined under a repository (within
+the scope of the declaring WS) <em>may</em> be declared as external
+workspaces (using rule <code>local_repository</code>), but they can also be
+ignored.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>External workspaces may be local or remote.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Local external workspaces are defined by repositories in the local
+filesystem, that are managed by the user. Recall that a repository
+by definition contains a WS file in its root directory.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Local workspaces are declared using native rules <code>local_repository</code>
+and <code>new_local_repository</code></p>
+</li>
+<li>
+<p>The workspace name of local external repositories is determined by
+the <code>name</code> attribute of the declaring rule.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Remote external workspaces are defined by repositories in the local
+filesystem that are managed by Bazel.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>They are declared by Starlark repository rules, usually
+<code>http_archive</code> or <code>git_repository</code>. Bazel downloads the source and
+unpacks it in the local filesystem to form the repository.</p>
+</li>
+<li>
+<p>Such remote repositories typically contain a WORKSPACE file, but
+Bazel does not evaluate it, so any external workspaces that <em>it</em>
+declares will not be automatically imported. The new <code>bzlmod</code>
+facility was designed to address this shortcoming but it will not
+be supported by OBazl until version 3.</p>
+</li>
+<li>
+<p>The name attribute of the repo rule determines the workspace name.
+Bazel will download and unpack the remote repo into a directory of
+that name.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>User-defined repository rules may create local repositories from
+either local or remote resources. That is, they may create local
+repositories by creating/copying/symlinking artifacts in the local
+filesystem or by downloading them.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+When building with remote caching and/or executation,
+locations may be on other machines. TODO: articulate this.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once a workspace is declared and defined, the location of its
+underlying repository in the file system is invisible to starlark code
+that references it.</p>
+</div>
+<div class="paragraph">
+<p>So repositories contain (in addition to the root WORKSPACE file)
+BUILD.bazel files, .bzl extension files, source files etc., but not
+(strictly speaking) packages or targets. Workspaces contain Bazel
+packages and targets (i.e. labels), the variables and functions
+defined in extension files (what else?), but not directories or files.
+Note that source file names do double duty: they are contained as
+filenames in the repository, and as target names in the namespace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modules">MODULES</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bazel module definition: "A module is essentially a Bazel project that
+can have multiple versions&#8230;&#8203;" This is useless since "Bazel project"
+is undefined.</p>
+</div>
+<div class="paragraph">
+<p>"The MODULE.bazel file should be located at the root of the workspace
+directory (next to the WORKSPACE file)."</p>
+</div>
+<div class="paragraph">
+<p>Regarding module dependencies: "In your workspace, each module then
+gets turned into a repo."</p>
+</div>
+<div class="paragraph">
+<p>The MODULE.bazel file specifies dependencies, but does not use
+repository rules to do so. I.e. it specifies module deps, not
+repository deps. The specified module (name plus version) is resolved
+by a Bazel registry, which contains the metadata Bazel needs to figure
+out hhow to obtain the repository. Note that this mechanism does not
+use repository rules.</p>
+</div>
+<div class="paragraph">
+<p>That is, each module is associated with repository, and thus a
+namespace (repositories must contain a WORKSPACE file). But the
+namespace is determined by the module(name=&#8230;&#8203;) function (contained in
+the MODULE.bazel file of the repository) rather than a repo rule or
+the WORKSPACE file.</p>
+</div>
+<div class="paragraph">
+<p>Q: what if the WORKSPACE file contains a workspace(name=&#8230;&#8203;) that does
+not match the module name?</p>
+</div>
+<div class="paragraph">
+<p>Q: what if the module name in a downloaded MODULE.bazel file does not
+match the name used in bazel_dep(name=&#8230;&#8203;)? (Presumably the registry
+would prevent this from happening?)</p>
+</div>
+<div class="paragraph">
+<p>Q: can we have both repo rules in WORKSPACE.bazel and bazel_dep rules
+in MODULE.bazel?</p>
+</div>
+<div class="paragraph">
+<p>So MODULE.bazel gives us the module name, and that serves as the
+namespace name.</p>
+</div>
+<div class="paragraph">
+<p>ALIASES</p>
+</div>
+<div class="paragraph">
+<p>The local_repository and new_local_repository rules support the
+repo_mapping attribute that defines aliasing.</p>
+</div>
+<div class="paragraph">
+<p>The 'bind' repo rule, although "not recommended", can also define aliases.</p>
+</div>
+<div class="paragraph">
+<p>Q: can aliasing affect module naming? The repository associated with a
+module could have local repos, no? But aliasing is scoped.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>"Repository Rules" <a href="https://bazel.build/rules/repository_rules" class="bare">https://bazel.build/rules/repository_rules</a></p>
+</div>
+<div class="paragraph">
+<p>This section covers user-defined repo rules.</p>
+</div>
+<div class="paragraph">
+<p>"An external repository is a rule &#8230;&#8203;".  Sigh.</p>
+</div>
+<div class="paragraph">
+<p>"Each external repository rule creates its own workspace, with its own BUILD files and artifacts&#8230;&#8203;"</p>
+</div>
+<div class="paragraph">
+<p>The implementation of a repo rule "describe[s] how to create the
+repository, its content and BUILD files."</p>
+</div>
+<div class="paragraph">
+<p>Bazel-defined repo rules are called "workspace rules".</p>
+</div>
+<div class="paragraph">
+<p>"Workspace Rules" <a href="https://bazel.build/reference/be/workspace" class="bare">https://bazel.build/reference/be/workspace</a></p>
+</div>
+<div class="paragraph">
+<p>"Native":</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>local_repository - "Allows targets from a local directory to be bound&#8230;&#8203;" This seems to mean "local directory configured as a repo" or something like that.</p>
+</li>
+<li>
+<p>new_local_repository - "Allows a local directory to be turned into a Bazel repository&#8230;&#8203;"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>"Starlark" repo rules:</p>
+</div>
+<div class="paragraph">
+<p>Git repository rules <a href="https://bazel.build/rules/lib/repo/git" class="bare">https://bazel.build/rules/lib/repo/git</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>git_repository - "Clone an external git repository&#8230;&#8203;"</p>
+</li>
+<li>
+<p>new_git_repository - "Clone an external git repository&#8230;&#8203;"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Http repository rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>http_archive - "Downloads a Bazel repository&#8230;&#8203;"</p>
+</li>
+<li>
+<p>http_file</p>
+</li>
+<li>
+<p>http_jar</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>What is a "repository"?</p>
+</div>
+<div class="paragraph">
+<p><a href="https://bazel.build/docs/bzlmod#modules" class="bare">https://bazel.build/docs/bzlmod#modules</a></p>
+</div>
+<div class="paragraph">
+<p>"In your workspace, each module then gets turned into a repo."</p>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

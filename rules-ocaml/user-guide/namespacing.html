@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="namespacing,  ">
+<title>Namespacing | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Namespacing">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Namespacing
+          <span id="timestamp">Last updated May 4, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a>
+<ul class="sectlevel2">
+<li><a href="#_the-problem">The Problem</a></li>
+<li><a href="#_the-solution">The Solution</a></li>
+</ul>
+</li>
+<li><a href="#_building-blocks">Building Blocks</a>
+<ul class="sectlevel2">
+<li><a href="#_type-level-module-aliases">Type-Level Module Aliases</a></li>
+<li><a href="#_resolver-modules">Resolver Modules</a></li>
+<li><a href="#_automatic-renaming">Automatic Renaming</a></li>
+</ul>
+</li>
+<li><a href="#_namespace-models">Namespace Models</a>
+<ul class="sectlevel2">
+<li><a href="#_ns-resolver-modules">NS Resolver Modules</a></li>
+<li><a href="#_top-down">Top-down</a></li>
+<li><a href="#_bottom-up">Bottom-up</a></li>
+</ul>
+</li>
+<li><a href="#_troubleshooting">Troubleshooting</a>
+<ul class="sectlevel2">
+<li><a href="#_case-studies">Case studies</a></li>
+<li><a href="#_tips">Tips</a></li>
+<li><a href="#_inconsistent-assumptions-over-interface">inconsistent assumptions over interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_the-problem">The Problem</h3>
+<div class="paragraph">
+<p>OCaml supports namespaces <em>within the language</em>. But unlike many other
+languages that support articulated names like <code>A.B.C</code>, it does not map
+such "module paths" to filesystem paths.</p>
+</div>
+<div class="paragraph">
+<p>OCaml uses a flat namespace for module source file names. If you use
+the same module file name in different file system locations within a
+project you will get a name clash. Every module source file must be
+uniquely named.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the-solution">The Solution</h3>
+<div class="paragraph">
+<p>There is only one way to address the problem: give your source files
+names that are likely to be unique. The easy way to do this is to
+decide on a prefix string likely to be unique. That might start with
+your project name, or it might replicate the filesystem path locating
+your source file, by replacing filesystem separator (usually '/') with
+'_' or some other character.</p>
+</div>
+<div class="paragraph">
+<p>The downside of this solution is that it creates another problem. Now
+instead of having e.g. <code>a/b.ml</code>, we need <code>a/a__b.ml</code> or the like.</p>
+</div>
+<div class="paragraph">
+<p>A better solution is to adopt a hybrid strategy that uses both filename
+prefixing and OCaml aliasing to implement a form of namespacing. That
+is the strategy pursued by both Dune and OBazl.</p>
+</div>
+<div class="paragraph">
+<p>The "top-level module aliases" facility provides a mechanism that
+tools can use to emulate hierarchical filesystem-based namespacing.</p>
+</div>
+<div class="paragraph">
+<p>Special considerations: <code>-no-alias-deps</code>, <code>-opaque</code>, and <code>-linkall</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building-blocks">Building Blocks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_type-level-module-aliases">Type-Level Module Aliases</h3>
+<div class="paragraph">
+<p>OCaml has a sophisticated module system that is partially tied to the
+file system.</p>
+</div>
+<div class="paragraph">
+<p>Each OCaml "compilation unit" determines a module, whose name is the
+file name, capitalized and truncated to remove the extension. Thus
+<code>foo.ml</code> determines module <code>Foo</code>.</p>
+</div>
+<div class="paragraph">
+<p>The OBazl Demos repo contains some
+<a href="https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/makefiles/aliasing" target="_blank" rel="noopener">basic examples</a>, using simple makefiles, demonstrating the
+interplay of module aliasing equations, namespaces, and the file
+system.</p>
+</div>
+<div class="paragraph">
+<p>File names including double underscores, such as <code>foo__bar.ml</code>, receive
+special treatment. The compiler will treat the double underscore as a
+dot, in this case yielding <code>Foo.bar</code>.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+[T]he compiler uses the following heuristic when printing paths:
+given a path <code>Lib__fooBar</code>, if <code>Lib.FooBar</code> exists and is an alias for
+<code>Lib__fooBar</code>, then the compiler will always display <code>Lib.FooBar</code>
+instead of <code>Lib__fooBar</code>. This way the long <code>Mylib__</code> names stay
+hidden and all the user sees is the nicer dot names. This is how the
+OCaml standard library is compiled.
+</blockquote>
+<div class="attribution">
+&#8212; <a href="https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html" target="_blank" rel="noopener">8 Top-level module aliases</a>
+</div>
+</div>
+<div class="paragraph">
+<p>Translated into English, this seems to mean
+that, for example. if <code>lib.ml</code> contains <code>module FooBar = Lib__fooBar</code>,
+then <code>Lib.FooBar</code> corresponds to <code>Lib__fooBar</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This use of double underscores is a convention, not a rule.
+Aliasing may use any legal module name. In particular <code>module A = A</code>
+is legal.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Module names are opaque!  OCaml will <em>not</em> interpet a module name like <code>A__B</code> as the name of a module <code>B</code> in a namespace <code>A</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_references">References</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://v2.ocaml.org/releases/4.14/htmlman/modulealias.html" target="_blank" rel="noopener">10.8 Type-level module aliases</a></p>
+</li>
+<li>
+<p><a href="https://blog.janestreet.com/better-namespaces-through-module-aliases" target="_blank" rel="noopener">Better namespaces through module aliases</a>
+(blogpost, 2014)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resolver-modules">Resolver Modules</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_automatic-renaming">Automatic Renaming</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace-models">Namespace Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OBazl uses the term <em>namespace</em> to refer to a collection of modules
+and/or interfaces named with a namespace prefix (such as <code>Stdlib__</code>),
+together with <em>resolver</em> module containing an aliasing equation for
+each submodule (e.g. <code>module List = Stdlib__List</code>). The name of the
+resolver module serves as the name of the namespace; the "entry point"
+to the namespace, as it were.</p>
+</div>
+<div class="paragraph">
+<p>Dune calls them "wrapped" libraries. They are very commonly used, if
+only because the Dune <code>library</code> stanza builds them by default. OBazl
+provides support for two distinct namespace models, top-down and
+bottom-up.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Dune uses variations on the term "wrapped library" where OBazl uses namespacing terminology.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+What OBazl calls a "namespace resolver module" (or just
+"resolver") is sometimes called a "mapper" or "wrapper".
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A namespace may be packaged as an OCaml archive, but this is not a
+requirement; under OBazl, bottom-up namespaces may be aggregated using
+<code>ocaml_archive</code> or <code>ocaml_library</code>, or may not be aggregated at all.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+'Namespace' as used by OBazl is not a first-class concept in
+the OCaml language. There is no Namespace type or keyword.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_ns-resolver-modules">NS Resolver Modules</h3>
+<div class="paragraph">
+<p>Both the top-down and the bottom-up models depend essentially on a
+module containing the module aliasing equations that determine
+submodules; OBazl calls such modules <em>ns resolver modules</em> or
+<em>resolvers</em> for short. They are express using rule
+<a href="../reference/ocaml-rules#_ocaml_ns_resolver">ocaml-ns-resolver</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_top-down">Top-down</h3>
+<div class="paragraph">
+<p>Top-down namespaces are defined at the aggregate level. This is the
+strategy pursued by Dune: membership in a namespace is expressed by
+the list of modules in a <code>library</code> stanza. Dune automatically renames
+the modules, adding the namespace prefix (e.g. <code>Foo__</code>) to the module
+names, and generates a resolver ("wrapper") module containing the
+required module aliasing equations ; then everything is packaged up in
+an archive file.</p>
+</div>
+<div class="paragraph">
+<p>To support top-down namespaces, OBazl provides rules
+<code>ocaml_ns_archive</code> and <code>ocaml_ns_library</code>; members of the namespace
+are listed in the <code>submodules</code> attribute. OBazl does the same thing
+Dune does: generates the resolver and renames the submodules. Both
+Dune and OBazl support user-defined resolver modules for top-down
+namespaces. Dune always packages namespaces in archives, but in OBazl
+they may also be organized as OBazl libraries, or they may not be
+aggregated at all. (See <a href="aggregators">Aggregators</a> for more on the
+distinction OBazl draws between libraries and archives.)</p>
+</div>
+<div class="paragraph">
+<p>Top-down namespaces are easy to define, but they are limited. Targets
+that use a namespaced module must depend on the namespace aggregate
+(<code>ocaml_ns_library</code> or <code>ocaml_ns_archive</code>) containing the module; they
+cannot depend directly on submodules. If changes are made to a
+submodule, all targets that depend on its namespace aggregate will be
+rebuilt, whether or not they depend on the module that was changed.</p>
+</div>
+<div class="sect3">
+<h4 id="_namespace-aggregators">Namespace Aggregators</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../reference/ocaml-rules#_ocaml_ns_archive">ocaml-ns-archive</a></p>
+</li>
+<li>
+<p><a href="../reference/ocaml-rules#_ocaml_ns_library">ocaml_ns_library</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of these rules has a <code>submodules</code> attribute which contains a list
+of the labels of modules to be included in the namespace.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the name of an <code>ocaml_ns_library</code> rule is <code>foo</code>, and
+it contains submodule <code>:bar</code>, then the ns module will be <code>Foo.cmx</code>,
+and the bar submodule will be renamed to <code>Foo__Bar.cmx</code>. To produce
+<code>Foo.cmx</code>, OBazl will generate <code>Foo.ml</code>, containing aliasing equations
+like <code>module Bar = Foo__Bar</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="_how-it-works">How it works</h5>
+<div class="paragraph">
+<p>This approach involves a circularity: in order to generate and compile
+<code>Foo.cmx</code>, the <code>ocaml_ns_library</code> rule must depend on the submodules;
+but the submodules in turn must depend on the ns resolver module
+(<code>Foo.cmx</code> in this case). OBazl can get around this, though, since in
+fact the ns resolver module only depends on the module names, not the
+compiled modules. This is achieved using the <code>-no-alias-deps</code> option.</p>
+</div>
+<div class="paragraph">
+<p>That solves half of the problem; the other problem to be resolved is
+that each submodule must depend on the resolver module. A submodule
+cannot depend on the ns aggregator rule that contains it, on pain of
+circularity; yet it must depend on the resolver, and the aggregator
+rule contains the information needed to generate the resolver module
+source code.</p>
+</div>
+<div class="paragraph">
+<p>We get around this circularity by subterfuge. We use a combination of
+hidden
+<a href="https://bazel.build/rules/config#label-typed-build-settings" target="_blank" rel="noopener">label-typed build settings</a> attributes and
+<a href="https://bazel.build/rules/config#user-defined-transitions" target="_blank" rel="noopener">user-defined transitions</a> to pass configuration information down
+the dependency chain, so that the bottom node in the chain depends on
+the top node - but only for configuration data. In other words, we
+split the circular dependency into a module dependency tree going from
+aggregator to submodule to resolver, and a configuration dependency
+going the other way around.</p>
+</div>
+<div class="paragraph">
+<p>Rules involved in top-down namespacing (<code>ocaml_ns_library</code>,
+<code>ocaml_ns_archive</code>, <code>ocaml_module</code> and <code>ocaml_signature</code>) have a
+hidden attribute, <code>_ns_resolver</code>, that expresses a dependency on a
+single <code>ocaml_ns_resolver</code> target. They also have a hidden
+<code>_ns_submodules</code> attribute. Both of these are
+<a href="https://bazel.build/rules/config#label-typed-build-settings" target="_blank" rel="noopener">label-typed build settings</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ocaml_ns_resolver</code> target, in turn,
+depends on some other label attributes. The transition functions set
+these attributes at build time; in effect, they allow us to give this
+resolver target "reverse dependencies": the attributes that control
+its build are set by targets that depend on it. Submodules depend on
+these two deps, but since the parameters controlling them are set
+dynamically, at build time, the object depended on will be customized
+for the submodule that depends on it.</p>
+</div>
+<div class="paragraph">
+<p>More specifically: for all rules the hidden <code>_ns_resolver</code> attribute
+has default value <code>@rules_ocaml//cfg/ns</code>. That target is a
+'label_setting' whose value is [the label of] an <code>ocaml_ns_resolver</code>
+target. This makes each rule (target) depend on the same ns resolver
+module. The build parameters for that module are set dynamically using
+transition functions. In particular, the hidden <code>_ns_submodules</code>
+attribute has default value <code>@ocaml//ns:submodules</code>, which is a
+<code>string_list_flag</code>; it too is set by transition functions at build time.</p>
+</div>
+<div class="paragraph">
+<p>The result is that building an <code>ocaml_ns_library</code> or
+<code>ocaml_ns_archive</code> target causes transition functions to propagate the
+list of submodule names (as strings) to both the submodule dependency
+targets and the hidden ns resolver target. The <code>ocaml_module</code> (and
+<code>ocaml_signature</code>) implementations check this list to see if they are
+included as submodules; if so, they rename the source file, prefixing
+the namespace name, before compiling. The <code>ocaml_ns_resolver</code> target
+uses the list to generate a structfile with the namespace name,
+containing the module aliasing equations that define the namespace
+membership.</p>
+</div>
+<div class="paragraph">
+<p>For example, when we build an <code>ocaml_ns_library</code> target, the
+transition functions will set the value of <code>_ns_resolver</code> to the
+desired namespace, and <code>_ns_submodules</code> to the list of submodules for
+the namespace. These settings will be set before bazel proceeds to
+build the submodules. When the time comes to build a submodule, Bazel
+will see that it depends on the ns resolver, so it will first build
+the latter. The build rule for it uses the values set by the
+transition functions, so the result is a resolver that depends on the
+information needed to make it work to compile the submodule.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bottom-up">Bottom-up</h3>
+<div class="paragraph">
+<p>Top-down namespaces have one major shortcoming, as noted above:
+clients can only depend on the aggregates; they may not depend
+directly on submodules. Bottom-up namespaces eliminate this
+shortcoming. Targets may depend directly on namespaced modules;
+furthermore, bottom-up namespaces need not be organized as <code>library</code>
+or <code>archive</code> aggregates at all. They are determined by explicitly
+defining an <code>ocaml_ns_resolver</code> specifying the namespace prefix and
+listing its submodules. The submodules (which may include interfaces)
+indicate their membership in a namespace directly, by passing an
+<code>ocaml_ns_resolver</code> target label via the <code>ns</code> attribute of
+<code>ocaml_module</code> and <code>ocaml_signature</code>.</p>
+</div>
+<div class="paragraph">
+<p>A less serious shortcoming of top-down namespaces is the use of
+transition functions with hidden label-typed attributes, which adds
+overhead (and considerable complexity, if you ever need to debug
+them). Bottom-up namespaces use neither hidden attributes nor
+transition functions.</p>
+</div>
+<div class="paragraph">
+<p>Top-down namespaces <em>select</em> their submodules; the submodules in a
+bottom-up namespace <em>elect</em> membership.</p>
+</div>
+<div class="paragraph">
+<p>Bottom-up namespaces are much more powerful and flexible than top-down
+namespaces. Targets can depend directly on namespaced submodules; this
+can be used to optimize builds. When a bottom-up submodule is changed
+only targets that depend on it are rebuilt. And since aggregation and
+namespacing are orthogonal, namespaced submodules can be aggregated
+<em>ad libitum</em>. For example, if a set of targets depends on a subset of
+three submodules in a namespace that contains ten submodules, this
+subset can be aggregated as a library or archive. Multiple aggregates
+can contain submodules from the same namespace. Aggregates can even
+contain submodules from multiple namespaces. The OBazl rules will
+ensure that the <em>resolver</em> module is always included in the dependency
+graphs of submodules, and OBazl&#8217;s dependency manager will always
+normalize the graphs to remove duplicates while retaining dependency
+order.</p>
+</div>
+<div class="paragraph">
+<p>Another way to look at it: in most languages that explicitly support
+some form of namespacing, namespaces are <em>closed</em>, in the sense that
+the only way to access an element in the namespace is by going through
+the namespace, so to speak. OBazl&#8217;s bottom-up namespaces are <em>open</em>:
+we can access the submodules in a bottom-up namespace without
+reference to the namespace name.</p>
+</div>
+<div class="paragraph">
+<p>Which is to say that such "namespaces", being based on OCaml&#8217;s module
+aliasing mechanism, are only <em>pseudo</em>-namespaces. The OCaml language
+does not know anything about such namespaces; it only knows how to
+resolve module aliases. For example, a reference <code>A.B</code> might be
+aliased to <code>A__B</code> (i.e. <code>a__b.ml</code>, automatically renamed from
+<code>b.ml</code>), but module names are opaque; OCaml will not interpret <code>A__B</code>
+as "submodule <code>B</code> in namespace <code>A</code> ". So we can access that
+(sub)module directly, without "going through" module A. In fact we can
+include it in any namespace we like; for example, we can put it in
+namespace <code>Foo</code> by putting the following aliasing equation in the
+resolver module <code>foo.ml</code>: <code>module B = A__B</code>. We can also expose it
+under a different name: <code>module Bar = A__B</code> would expose it as
+<code>Foo.Bar</code>.</p>
+</div>
+<div class="paragraph">
+<p>As an example: just about everything in the OCaml compiler sources
+depends on the standard library, which is packaged as an archive
+<code>stdlib.cma</code> built by target <code>//stdlib</code>. If those dependencies are
+expressed as dependencies on <code>//stdlib</code>, then a change in any stdlib
+submodule will trigger a rebuild of almost everything. But if they are
+expressed as direct submodule dependencies, e.g.
+<code>//stdlib:Stdlib.List</code>, then the rebuild triggered by a change to one
+submodule will include only those targets that genuinely depend on it,
+directly or indirectly. (Example: <a href="https://github.com/obazl-repository/ocaml/blob/a09bf0a52e12696b19723d31b1da9b4f2abe95a9/parsing/BUILD.bazel#L105" target="_blank" rel="noopener">parsing/BUILD.bazel</a>)</p>
+</div>
+<hr>
+<div class="ulist">
+<ul>
+<li>
+<p>bottom-up ns does not automatically entail an aggregate. Aggregates
+containing namespaced modules must be explicitly defined, and they
+may contain a subset of the submodules in an ns, or submodules from
+multiple namespaces. IOW, aggregation and namespacing are orthogonal.</p>
+</li>
+<li>
+<p>clients cannot depend on a namespace; they can only depend on
+aggregates or singletons (modules, sigs).</p>
+</li>
+<li>
+<p>a change to a submodule in a ns will cause a recompile of any
+aggregate that contains it, and of anything that depends on the
+aggregate. but targets that depend on a submod directly will not be
+affected by changes to other submods in the ns. Whereas with a
+top-down ns, targets can only depend on the ns-aggregates, so any
+change in any submodule will force a recompile of all cllients.</p>
+</li>
+<li>
+<p>changing one submodule does not entail a rebuild of any sibling submodules.</p>
+</li>
+<li>
+<p>the user may provide a custom resolver module, which can be any
+module that contains the module aliasing equations needed to support
+the ns. submodules then just list this module&#8217;s label in their <code>ns</code>
+attribute. This is what happens with the Stdlib modules of the
+compiler.</p>
+</li>
+<li>
+<p>supports direct dependency on individual submodules in the
+namespace. We cannot depend on a dotted module path, but we can
+depend on a module in a namespace, and we can use a naming
+convention to me it look like a dotted path. For example, the
+bazelized version of the OCaml compiler uses dotted names for the
+Stdlib; so the target name to compile the <code>buffer.ml</code> module of the
+stdlib is <code>Stdlib.Buffer</code>; to build it: <code>bazel build
+//stdlib/Stdlib.Buffer</code>. NB this is just a convention.</p>
+</li>
+<li>
+<p>normalized/optimized build files can be queried to show optimized
+dep graphs i.e. no spurious dependencies. I.e. if you depend on a a top-down
+<code>ocaml_ns_library</code>, the dep graph will show a dependency on all
+submodules in the ns lib. With bottom-up namespacing and optimized
+build files no spurious deps will be shown.</p>
+</li>
+<li>
+<p>OTOH, if you depend on the <code>ns_resolver</code> of a bottom-up namespace,
+the dep graph will not include the submodules, since the submodules
+depend on the resolver, not the other way around. So there are trade-offs.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>FIXME: is there a way to write a query that will show the
+submodules too? probably. can this be done by an aspect?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_case-studies">Case studies</h3>
+<div class="sect3">
+<h4 id="_multiple-submodules-with-same-name">Multiple submodules with same name</h4>
+<div class="sect4">
+<h5 id="_case-a">Case A</h5>
+<div class="paragraph">
+<p>This situation arose during OBazl development. To develop a tool we
+wanted to borrow some code from Dune for parsing Dune files. The Dune
+code contains <code>src/dune_lang/escape.ml</code> and <code>src/stdune/escape.ml</code>
+(and their interface files). If both were included in ns libraries
+then name clashes could emerge. This is because namespace aliasing
+always starts with the original module (file) name. So in this case we
+had two namespaces both of whose resolvers contained aliasing equations
+for 'Escape'.</p>
+</div>
+<div class="paragraph">
+<p>The compile for <code>dune_lang/template.ml</code>, which depends on <code>Escape</code>,
+was failing with <code>Unbound value</code> for <code>Escape.escape</code>. The problem was
+not that OCaml could not resolve the reference to <code>Escape</code>, but that
+it resolved it to <code>stdune/escape.ml</code> instead of the intended
+<code>dune_lang/escape.ml</code>, which does not define <code>escape</code>.</p>
+</div>
+<div class="paragraph">
+<p>The reason was that <code>template.ml</code> began with <code>open Stdune</code>, so the ns
+resolver for that namespace was used to look up <code>Escape</code>, yielding a
+reference to <code>stdune/escape.ml</code>.</p>
+</div>
+<div class="paragraph">
+<p>But if <code>template.ml</code> starts by opening <code>Stdune</code>, then how else could a
+reference to <code>Escape</code> be resolved? This turned out to by my error: I
+had included both <code>escape.ml</code> files in their respective package
+namespace libraries, without bothering to closely inspect the 'main'
+ns modules (<code>stdune/stdune.ml</code> and <code>dune_lang/dune_lang.ml</code>). These
+did <em>not</em> include aliasing equations for <code>Escape</code>. So the reference to
+it within <code>dune_lang/template.ml</code> would be resolved without using any
+namespace (i.e. aliasign) lookups.</p>
+</div>
+<div class="paragraph">
+<p>To make this work in OBazl use the following technique:</p>
+</div>
+<div class="paragraph">
+<p><strong>WARNING</strong> the following is obsolete (our namespacing strategy has changed)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exclude the non-namespaced files from the ns-env. One way to do this is to use the <code>exclude</code> parameter of the <code>glob</code> function; for example:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>    ns_env(aliases = glob([&quot;*.ml&quot;], exclude = [&quot;escape.ml&quot;]))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not list the non-namespaced module in the <code>submodules</code> dictionary of the <code>ocaml_ns_library</code> rule.</p>
+</li>
+<li>
+<p>Do not use a <code>prefix</code> attribute on the <code>ocaml_module</code> rule instances used to build the non-namespaced modules.</p>
+</li>
+<li>
+<p>If the non-namespaced module depends on a namespaced module, you
+must '-open' the namespace containing the latter. Use the prefix of
+your <code>ns_env()</code> as the module name. For example:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>    opts = [&quot;-open&quot;, &quot;Demos_Obazl_Stdune__00_ns_env&quot;]</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Version 2 supports an <code>open</code> attribute for rules <code>ocaml_module</code> and <code>ocaml_signature</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="literalblock">
+<div class="content">
+<pre>Currently this must be done manually, but will eventually be automated.</pre>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_case-b">Case B</h5>
+<div class="paragraph">
+<p>Same problem involving module <code>Glob</code>, found in <code>src/dune_engine</code> and <code>other_libs/dune_glob</code>.</p>
+</div>
+<div class="paragraph">
+<p>The error message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>File &quot;bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.ml&quot;, line 1:
+Error: The implementation bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.ml
+       does not match the interface bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.cmi:
+       ...
+       In module Glob:
+       Values do not match:
+         val of_glob :
+           Demos_Obazl_Dune_engine__Glob.t -&gt; (string -&gt; bool) t/2
+       is not included in
+         val of_glob : Demos_Obazl_Dune_glob__Glob.t -&gt; t/1
+       File &quot;bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.mli&quot;, line 49, characters 2-27:
+         Expected declaration
+       File &quot;bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.ml&quot;, line 133, characters 6-13:
+         Actual declaration
+       File &quot;bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.ml&quot;, line 116, characters 2-24:
+         Definition of type t/1
+       File &quot;bazel-out/darwin-fastbuild/bin/obazl/dune_engine/_obazl_/Demos_Obazl_Dune_engine__Predicate_lang.ml&quot;, lines 3-8, characters 0-22:
+         Definition of type t/2
+Target //obazl/dune_engine:_Predicate_lang failed to build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In short: the problem arose because of the way OBazl handles
+dependencies. It retains transitive deps and strictly preserves
+ordering. In this case, the way we listed dependencies resulted in the
+insertion of <code>dune_glob/glob.cmo</code> between <code>predicate_lang.mli</code> and
+<code>dune_engine/glob.cmo</code>, so it and <code>predicate_lang.ml</code> used different
+<code>Glob</code> modules.</p>
+</div>
+<div class="paragraph">
+<p>Long story short: sometimes this can happen if a structfile and its
+sigfile have different deps. Still not sure what causes this problem,
+but the workaround was to move the dep on //obazl/dune_glob from _Glob
+to _Glob.cmi.</p>
+</div>
+<div class="paragraph">
+<p><strong>B</strong> Same name for ns main module and ns submodule</p>
+</div>
+<div class="paragraph">
+<p>Demo set035/case03: ocaml_ns_module.name = color, contains submodule:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>"//namespaces/obazl/set030/case01:color": "Color",</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Only way around this is to change the main ns name?</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tips">Tips</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Count your underscores! It&#8217;s easy to write <code>Foo_Bar_Baz</code> when you
+should write <code>Foo__Bar_Baz</code>, in which case you may get an 'Unbound
+module' warning.</p>
+</li>
+<li>
+<p>If you use a main module, you probably need to exclude it from the ns_env. Otherwise it will be aliased.
+e.g. from dune_glob:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>ns_env(aliases = glob( [&quot;*.ml&quot;], exclude = [&quot;dune_glob.ml&quot;] ) + [&quot;lexer.mll&quot;])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inconsistent-assumptions-over-interface">inconsistent assumptions over interface</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>File &quot;namespaces/obazl/set300/case370/foo-bar/test.ml&quot;, line 1:
+Error: Files namespaces/obazl/set300/case370/foo-bar/test.cmo
+       and bazel-out/darwin-fastbuild/bin/namespaces/obazl/set300/case370/foo-bar/_obazl_/Demos_Namespaces_Obazl_Set300_Case370_Foo_bar__Red.cmo
+       make inconsistent assumptions over interface Demos_Namespaces_Obazl_Set300_Case370_Foo_bar__Red</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

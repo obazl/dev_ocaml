@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="configationdefaults,  notes, tips, cautions, warnings, admonitions">
+<title>OCaml Rules | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="OCaml Rules">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="">
+      
+      Reference:
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Configurable Defaults" href="#">Configurable Defaults</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Options" href="ocaml-rules.html#_options">Options</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Flags" href="ocaml-rules.html#_flags">Flags</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li class="active">
+    <a class="folder"
+       title="Rules" href="#">Rules</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_archive" href="ocaml-rules.html#_ocaml_archive">ocaml_archive</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_executable" href="ocaml-rules.html#_ocaml_executable">ocaml_executable</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_import" href="ocaml-rules.html#_ocaml_import">ocaml_import</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_lex" href="ocaml-rules.html#_ocaml_lex">ocaml_lex</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_library" href="ocaml-rules.html#_ocaml_library">ocaml_library</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_module" href="ocaml-rules.html#_ocaml_module">ocaml_module</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_archive" href="ocaml-rules.html#_ocaml_ns_archive">ocaml_ns_archive</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_library" href="ocaml-rules.html#_ocaml_ns_library">ocaml_ns_library</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_ns_resolver" href="ocaml-rules.html#_ocaml_ns_resolver">ocaml_ns_resolver</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_signature" href="ocaml-rules.html#_ocaml_signature">ocaml_signature</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_test" href="ocaml-rules.html#_ocaml_test">ocaml_test</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="ocaml_yacc" href="ocaml-rules.html#_ocaml_yacc">ocaml_yacc</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>OCaml Rules
+          <span id="timestamp">Last updated June 2, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>WARNING</strong> Beta version - subject to change</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configurable-defaults">Configurable defaults</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These options and flags apply to all <code>ocaml_*</code> rules. They can be
+overridden on the command line; for example, to enable verbosity
+(<code>-verbose</code>) for all <code>ocaml_*</code> build targets, pass
+<code>--@ocaml//verbose</code>. See
+<a href="../user-guide/configurable-defaults">Configurable Defaults</a> for
+more information.</p>
+</div>
+<div class="paragraph">
+<p>In addition to the options and flags listed here, which apply to all
+<code>ocaml_*</code> rule instances, each rule may have its own set of
+configurable defaults.</p>
+</div>
+<div class="sect2">
+<h3 id="_options">Options</h3>
+<div class="paragraph">
+<p>May be enums, strings, labels, etc.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//build/mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@ocaml//build/mode:native</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum: :bytecode, :native</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//build/cc/mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@ocaml//build/cc/mode:fastbuild</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum: :dbg, :fastbuild, :opt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//build/profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@ocaml//build/profile:fastbuild</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum: :dbg, :fastbuild, :opt</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+CC build mode is set by passing <code>--compilation_mode</code>
+(equivalently <code>-c</code>) on the command line, e.g. <code>-c opt</code>. This sets the
+value of <code>@rules_ocaml//build/cc/mode</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_flags">Flags</h3>
+<div class="paragraph">
+<p>Each boolean flag <code>foo</code> may be enabled by <code>--@ocaml//foo</code> or
+<code>--@ocaml//foo:enable</code>, and disabled with <code>--no@ocaml//foo</code> or
+<code>--@ocaml//foo:disable</code>. Each flag has a corresponding OCaml option
+and an OBazl (not an OCaml) negation; see
+<a href="../user-guide/configurable-defaults.html#_disabling">Configurable_Defaults:
+Disabling</a> for information on how to use negated options to override
+defaults.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top"><code>opts</code> attrib</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/debug</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-g</code>, <code>-no-g</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/cmt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-bin-annot</code>, <code>-no-bin-annot</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/keep-locs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-keep-locs</code>, <code>-no-keep-locs</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/noassert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-noassert</code>, <code>-no-noassert</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/opaque</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-opaque</code>, <code>-no-opaque</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/short-paths</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-short-paths</code>, <code>-no-short-paths</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/strict-formats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-strict-formats</code>, <code>-no-strict-formats</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/strict-sequence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-strict-sequence</code>, <code>-no-strict-sequence</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/verbose<sup>1</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-verbose</code>, <code>-no-verbose</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><sup>1</sup> Each <code>ocaml_*</code> rule also has it&#8217;s own <code>verbose</code> flag.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_archive">ocaml_archive</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_archive(<a href="#ocaml_archive-name">name</a>, <a href="#ocaml_archive-archive_name">archive_name</a>, <a href="#ocaml_archive-args0file">args0file</a>, <a href="#ocaml_archive-argsfile">argsfile</a>, <a href="#ocaml_archive-cc_deps">cc_deps</a>, <a href="#ocaml_archive-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_archive-manifest">manifest</a>, <a href="#ocaml_archive-mode">mode</a>, <a href="#ocaml_archive-opts">opts</a>,
+              <a href="#ocaml_archive-shared">shared</a>, <a href="#ocaml_archive-standalone">standalone</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generates an OCaml archive file.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_archive</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-archive_name"></a>archive_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of generated archive file, without extension. If not provided, name will be derived from target 'name' attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-cc_deps"></a>cc_deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-cc_linkopts"></a>cc_linkopts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of C/C link options, to be passed to compiler using `-ccopt`. For example, `["-lstd"]`.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-manifest"></a>manifest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of component modules.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-shared"></a>shared</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True: build a shared lib (.cmxs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_archive-standalone"></a>standalone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True: link total depgraph. False: link only direct deps.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_executable">ocaml_executable</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_executable(<a href="#ocaml_executable-name">name</a>, <a href="#ocaml_executable-args0file">args0file</a>, <a href="#ocaml_executable-argsfile">argsfile</a>, <a href="#ocaml_executable-cc_deps">cc_deps</a>, <a href="#ocaml_executable-cc_linkall">cc_linkall</a>, <a href="#ocaml_executable-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_executable-data">data</a>, <a href="#ocaml_executable-deps">deps</a>, <a href="#ocaml_executable-exe">exe</a>, <a href="#ocaml_executable-main">main</a>,
+                 <a href="#ocaml_executable-mode">mode</a>, <a href="#ocaml_executable-opts">opts</a>, <a href="#ocaml_executable-strip_data_prefixes">strip_data_prefixes</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generates an OCaml executable binary. Provides only standard DefaultInfo provider.</p>
+</div>
+<div class="paragraph">
+<p><strong>CONFIGURABLE DEFAULTS</strong> for rule <code>ocaml_executable</code></p>
+</div>
+<div class="paragraph">
+<p>In addition to the <a href="#_configurable-defaults">Configurable defaults</a> that
+apply to all <code>ocaml_*</code> rules, the following apply to this rule. (Note
+the difference between '/' and ':' in such labels):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top"><code>opts</code> attrib</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/executable/linkall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-linkall</code>, <code>-no-linkall</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/executable:warnings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@1..3@5..28@30..39@43@46..47@49..57@61..62-40</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-w</code> plus option value</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>NOTE</strong> These do not support <code>:enable</code>, <code>:disable</code> syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_executable</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-cc_deps"></a>cc_deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-cc_linkall"></a>cc_linkall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True: use <code>-whole-archive</code> (GCC toolchain) or <code>-force_load</code> (Clang toolchain). Deps in this attribute must also be listed in cc_deps.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-cc_linkopts"></a>cc_linkopts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of C/C link options. E.g. `["-lstd"]`.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-data"></a>data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime dependencies: list of labels of data files needed by this executable at runtime.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of OCaml dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-exe"></a>exe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, executable name is derived from 'name' attribute; use this to override.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-main"></a>main</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label of module containing entry point of executable. This module will be placed last in the list of dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//build/mode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_executable-strip_data_prefixes"></a>strip_data_prefixes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data &#8594; foo.data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_import">ocaml_import</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_import(<a href="#ocaml_import-name">name</a>, <a href="#ocaml_import-all">all</a>, <a href="#ocaml_import-archive">archive</a>, <a href="#ocaml_import-deps">deps</a>, <a href="#ocaml_import-doc">doc</a>, <a href="#ocaml_import-modules">modules</a>, <a href="#ocaml_import-plugin">plugin</a>, <a href="#ocaml_import-ppx">ppx</a>, <a href="#ocaml_import-ppx_codeps">ppx_codeps</a>, <a href="#ocaml_import-signature">signature</a>, <a href="#ocaml_import-srcs">srcs</a>,
+             <a href="#ocaml_import-version">version</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Imports pre-compiled OCaml files. [User Guide](../ug/ocaml_import.md).</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_import</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-all"></a>all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Glob all cm* files except for 'archive' or 'plugin' so theey can be added to action inputs (rather than cmd line). I.e. the (transitive) deps of an archive, which must be accessible to the compiler (via search path, not command line), and so must be added to the action inputs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-archive"></a>archive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-doc"></a>doc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-modules"></a>modules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-plugin"></a>plugin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-ppx"></a>ppx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">precompiled ppx executable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-ppx_codeps"></a>ppx_codeps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-signature"></a>signature</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-srcs"></a>srcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_import-version"></a>version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_lex">ocaml_lex</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_lex(<a href="#ocaml_lex-name">name</a>, <a href="#ocaml_lex-opts">opts</a>, <a href="#ocaml_lex-out">out</a>, <a href="#ocaml_lex-src">src</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generates an OCaml source file from an ocamllex source file.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_lex</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_lex-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_lex-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Options</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_lex-out"></a>out</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output filename.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_lex-src"></a>src</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A single .mll source file label</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_library">ocaml_library</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_library(<a href="#ocaml_library-name">name</a>, <a href="#ocaml_library-args0file">args0file</a>, <a href="#ocaml_library-argsfile">argsfile</a>, <a href="#ocaml_library-manifest">manifest</a>, <a href="#ocaml_library-mode">mode</a>, <a href="#ocaml_library-opts">opts</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Aggregates a collection of OCaml modules. [User Guide](../ug/ocaml_library.md). Provides: [OcamlLibraryMarker](providers_ocaml.md#ocamllibraryprovider).</p>
+</div>
+<div class="paragraph">
+<p><strong>WARNING</strong> Not yet fully supported - subject to change. Use with caution.</p>
+</div>
+<div class="paragraph">
+<p>An <code>ocaml_library</code> is a collection of modules packaged into an OBazl
+target; it is not a single binary file. It is a OBazl convenience rule
+that allows a target to depend on a collection of deps under a single
+label, rather than having to list each individually.</p>
+</div>
+<div class="paragraph">
+<p>Be careful not to confuse <code>ocaml_library</code> with <code>ocaml_archive</code>. The
+latter generates OCaml binaries (<code>.cma</code>, <code>.cmxa</code>, '.a' archive files);
+the former does not generate anything, it just passes on its
+dependencies under a single label, packaged in a
+[OcamlLibraryMarker](providers_ocaml.md#ocamllibraryprovider). For
+more information see [Collections: Libraries, Archives and
+Packages](../ug/collections.md).</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_library</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-manifest"></a>manifest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of component modules.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_library-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_module">ocaml_module</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_module(<a href="#ocaml_module-name">name</a>, <a href="#ocaml_module-args0file">args0file</a>, <a href="#ocaml_module-argsfile">argsfile</a>, <a href="#ocaml_module-cc_deps">cc_deps</a>, <a href="#ocaml_module-data">data</a>, <a href="#ocaml_module-deps">deps</a>, <a href="#ocaml_module-deps_runtime">deps_runtime</a>, <a href="#ocaml_module-mode">mode</a>, <a href="#ocaml_module-module">module</a>,
+             <a href="#ocaml_module-ns_resolver">ns_resolver</a>, <a href="#ocaml_module-open">open</a>, <a href="#ocaml_module-opts">opts</a>, <a href="#ocaml_module-ppx">ppx</a>, <a href="#ocaml_module-ppx_args">ppx_args</a>, <a href="#ocaml_module-ppx_data">ppx_data</a>, <a href="#ocaml_module-ppx_print">ppx_print</a>, <a href="#ocaml_module-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_module-sig">sig</a>, <a href="#ocaml_module-struct">struct</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Compiles an OCaml module. The <strong>module name</strong> is determined by rule,
+based on the <code>struct</code>, <code>sig</code>, <code>name</code>, and <code>module</code> attributes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the <code>sig</code> attribute is the label of an <code>ocaml_signature</code> target,
+then the module name is derived from the name of the compiled
+sigfile, since compiled interface files cannot be renamed. The
+structfile will be renamed if it does not match the sigfile name.</p>
+</li>
+<li>
+<p>If the <code>sig</code> attribute is a filename, then:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>if its principal name is equal to the principal name of the file
+named in the <code>struct</code> attribute, then the module name is derived
+from it.</p>
+</li>
+<li>
+<p>if the principal names of the sigfile and structfile do not match,
+then the module name is derived from from the <code>name</code> attribute.
+Both the sigfile and the structfile will be renamed accordingly.</p>
+</li>
+<li>
+<p>The <code>module</code> attribute may be used to force the module name. Both
+the sigfile and the structfile will be renamed accordingly.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the <code>sig</code> attribute is not specified (i.e. the structfile is
+"orphaned"), then the module name will be derived from the
+structfile name, unless the <code>module</code> attribute is specified, in
+which case it overrides.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>CONFIGURABLE DEFAULTS</strong> for rule <code>ocaml_module</code>:</p>
+</div>
+<div class="paragraph">
+<p>In addition to the <a href="#_configurable-defaults">Configurable defaults</a> that apply to all
+<code>ocaml_*</code> rules, the following apply to this rule:</p>
+</div>
+<div class="paragraph">
+<p><strong>Options</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module:deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@rules_ocaml//cfg:null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of OCaml deps to add to all <code>ocaml_module</code> instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module:cc_deps<sup>1</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@rules_ocaml//cfg:null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of cc_deps to add to all <code>ocaml_module</code> instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module:cc_linkstatic<sup>1</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@rules_ocaml//cfg:null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of cc_deps to link statically (DEPRECATED)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module:warnings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@1..3@5..28@30..39@43@46..47@49..57@61..62-40</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sets <code>-w</code> option for all <code>ocaml_module</code> instances</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><sup>1</sup> See <a href="../user-guide/dependencies-cc">CC Dependencies</a> for more information on CC deps.</p>
+</div>
+<div class="paragraph">
+<p><strong>Boolean Flags</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These do not support <code>:enable</code>, <code>:disable</code> syntax.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top"><code>opts</code> attrib equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module/linkall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-linkall</code>, <code>-no-linkall</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/module:verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-verbose</code>, <code>-no-verbose</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_module</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-cc_deps"></a>cc_deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see <a href="../user-guide/dependencies-cc#_cc-linkmode">CC Dependencies: Linkmode</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-data"></a>data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime data dependencies: list of labels of data files needed by this module at runtime. This is a standard Bazel attribute; see <a href="https://bazel.build/reference/be/common-definitions#typical-attributes" target="_blank" rel="noopener">Typical attributes</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-deps_runtime"></a>deps_runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime module dependencies, e.g. .cmxs plugins. Use the <code>data</code> attribute for runtime data dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-module"></a>module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use this string as module name, instead of deriving it from sig or struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ns_resolver"></a>ns_resolver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NS resolver module for bottom-up namespacing. Modules may use this attribute to elect membership in a bottom-up namespace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-open"></a>open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of OCaml dependencies to be passed with <code>-open</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ppx"></a>ppx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label of <code>ppx_executable</code> target to be used to transform source before compilation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ppx_args"></a>ppx_args</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Options to pass to PPX executable passed by the <code>ppx</code> attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ppx_data"></a>ppx_data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PPX runtime data dependencies. List of labels of files needed by the PPX executable passed via the <code>ppx</code> attribute when it is executed to transform the source file. For example, a source file using <a href="https://github.com/janestreet/ppx_optcomp">ppx_optcomp</a> may import a file using extension <code>[%%import ]</code>; this file should be listed in this attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ppx_print"></a>ppx_print</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format of output of PPX transform. Value must be one of <code>@rules_ocaml//ppx/print:binary</code>, <code>@rules_ocaml//ppx/print:text</code>.  See <a href="../ug/ppx.md#ppx_print">PPX Support</a> for more information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//ppx/print</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-ppx_verbose"></a>ppx_verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-sig"></a>sig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single label of a target producing <code>OcamlSignatureProvider</code> (i.e. rule <code>ocaml_signature</code>) OR a sig source file. Optional.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_module-struct"></a>struct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A single module (struct) source file label.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_ns_archive">ocaml_ns_archive</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_ns_archive(<a href="#ocaml_ns_archive-name">name</a>, <a href="#ocaml_ns_archive-args0file">args0file</a>, <a href="#ocaml_ns_archive-argsfile">argsfile</a>, <a href="#ocaml_ns_archive-mode">mode</a>, <a href="#ocaml_ns_archive-ns">ns</a>, <a href="#ocaml_ns_archive-opts">opts</a>, <a href="#ocaml_ns_archive-shared">shared</a>, <a href="#ocaml_ns_archive-submodules">submodules</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generate a 'namespace' module. [User Guide](../ug/ocaml_ns.md).  Provides: [OcamlNsMarker](providers_ocaml.md#ocamlnsmoduleprovider).</p>
+</div>
+<div class="paragraph">
+<p><strong>NOTE</strong> 'name' must be a legal OCaml module name string.  Leading underscore is illegal.</p>
+</div>
+<div class="paragraph">
+<p>See [Namespacing](../ug/namespacing.md) for more information on namespaces.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_ns_archive</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-ns"></a>ns</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace name is derived from 'name' attribute by default; use this to override.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-shared"></a>shared</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True: build a shared lib (.cmxs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_archive-submodules"></a>submodules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of *_module submodules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_ns_library">ocaml_ns_library</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_ns_library(<a href="#ocaml_ns_library-name">name</a>, <a href="#ocaml_ns_library-args0file">args0file</a>, <a href="#ocaml_ns_library-argsfile">argsfile</a>, <a href="#ocaml_ns_library-deps">deps</a>, <a href="#ocaml_ns_library-mode">mode</a>, <a href="#ocaml_ns_library-ns">ns</a>, <a href="#ocaml_ns_library-opts">opts</a>, <a href="#ocaml_ns_library-resolver">resolver</a>, <a href="#ocaml_ns_library-submodules">submodules</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generate a 'namespace' module. [User Guide](../ug/ocaml_ns.md).  Provides: [OcamlNsMarker](providers_ocaml.md#ocamlnsmoduleprovider).</p>
+</div>
+<div class="paragraph">
+<p><strong>NOTE</strong> 'name' must be a legal OCaml module name string.  Leading underscore is illegal.</p>
+</div>
+<div class="paragraph">
+<p>See [Namespacing](../ug/namespacing.md) for more information on namespaces.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_ns_library</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Non-namespaced deps of ns. Will not be renamed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-ns"></a>ns</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace name is derived from 'name' attribute by default; use this to override.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-resolver"></a>resolver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User-provided resolver module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_library-submodules"></a>submodules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of namespaced submodules; will be renamed by prefixing the namespace,</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_ns_resolver">ocaml_ns_resolver</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_ns_resolver(<a href="#ocaml_ns_resolver-name">name</a>, <a href="#ocaml_ns_resolver-args0file">args0file</a>, <a href="#ocaml_ns_resolver-argsfile">argsfile</a>, <a href="#ocaml_ns_resolver-embed">embed</a>, <a href="#ocaml_ns_resolver-include">include</a>, <a href="#ocaml_ns_resolver-merge">merge</a>, <a href="#ocaml_ns_resolver-mode">mode</a>, <a href="#ocaml_ns_resolver-ns">ns</a>, <a href="#ocaml_ns_resolver-opts">opts</a>, <a href="#ocaml_ns_resolver-submodules">submodules</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>OBSOLETE DOCSTRING!  under revision&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>This rule initializes a 'namespace evaluation environment' consisting of a pseudo-namespace prefix string and optionally an ns resolver module.  A pseudo-namespace prefix string is a string that is used to form (by prefixation) a (presumably) globally unique name for a module. An ns resolver module is a module that contains nothing but alias equations mapping module names to pseudo-namespaced module names.</p>
+</div>
+<div class="paragraph">
+<p>This rule is designed to work in conjujnction with rules
+[ocaml_module](rules_ocaml.md#ocaml_module) and
+[ocaml_ns_module](rules_ocaml.md#ocaml_ns_module). An <code>ocaml_module</code>
+instance can use the prefix string of an <code>ppx_ns</code> to rename its
+source file by using attribute <code>ns</code> to reference the label of an
+<code>ppx_ns</code> target. Instances of <code>ocaml_ns_module</code> can list such
+modules as <code>submodule</code> dependencies. They can also use an
+<code>ppx_ns</code> prefix string to name themselves, by using their <code>ns</code>
+attribute similarly. This allows ns modules to be (pseudo-)namespaced in the
+same way submodules are namespaced.</p>
+</div>
+<div class="paragraph">
+<p>The prefix string defaults to the (Bazel) package name string, with
+each segment capitalized and the path separator ('/') replaced by the
+<code>sep</code> string (default: <code>_</code>). If you pass a prefix string it must be a
+legal OCaml module path; each segment will be capitalized and the segment
+separator ('.') will be replaced by the <code>sep</code> string. The resulting
+prefix may be used by <code>ocaml_module</code> rules (via the <code>ns</code> attribute) to
+rename their source files, and, if <code>module = True</code>, by this rule to
+generate alias equations.</p>
+</div>
+<div class="paragraph">
+<p>For example, if package <code>//alpha/beta/gamma</code> contains`foo.ml`:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>ns_resolver() =&gt; Alpha_Beta_Gamma__foo.ml
+ns_resolver(sep=&quot;&quot;) =&gt; AlphaBetaGamma__foo.ml
+ns_resolver(sep=&quot;__&quot;) =&gt; Alpha__Beta__Gamma__foo.ml
+ns_resolver(prefix=&quot;foo.bar&quot;) =&gt; Foo_Bar__foo.ml (pkg path ignored)
+ns_resolver(prefix=&quot;foo.bar&quot;, sep=&quot;&quot;) =&gt; FooBar__foo.ml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The optional ns resolver module will be named <code>&lt;prefix&gt;__00.ml</code>; since
+<code>0</code> is not a legal initial character for an OCaml module name, this
+ensures it will never clash with a user-defined module.</p>
+</div>
+<div class="paragraph">
+<p>The ns resolver module will contain alias equations mapping module
+names derived from the <code>srcs</code> list to pseudo-namespaced module names
+(and thus indirectly filenames). For example, if <code>srcs</code> contains
+<code>foo.ml</code>, and the prefix is <code>a.b</code>, then the resolver module will
+contain <code>module Foo = A_b_foo</code>.</p>
+</div>
+<div class="paragraph">
+<p>Submodule file names will be formed by prefixing the pseudo-ns prefix to the (original, un-namespaced) module name, separated by 'sep' (default: '<em>'). For example, if the prefix is 'Foo_bar' and the module is 'baz.ml', the submodule file name will be 'Foo_bar</em>baz.ml'.</p>
+</div>
+<div class="paragraph">
+<p>The main namespace module will contain aliasing equations that map module names to these prefixed module names.</p>
+</div>
+<div class="paragraph">
+<p>By default, the ns prefix string is formed from the package name, with '/' replaced by '_'. You can use the 'ns' attribute to change this:</p>
+</div>
+<div class="paragraph">
+<p>ns(ns = "foobar", srcs = glob(["*.ml"]))</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_ns_resolver</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-embed"></a>embed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exogenous namespaces (resolver modules).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-include"></a>include</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exogenous (sub)modules, namespaced or non-namespaced.  Aliased names will not be prefixed with ns name of this ns_resolver.</p>
+<p class="tableblock">Keys: labels of modules;
+Values: alias name to be used in this resolver.</p>
+<p class="tableblock">e.g. '//mwe/rgb:R': 'Red' will generate</p>
+<p class="tableblock">module R = Red</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-merge"></a>merge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes all submodules of an exogenous namespace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-ns"></a>ns</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_ns_resolver-submodules"></a>submodules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings from which submodule names are to be derived for aliasing. Bazel labels may be used; the submodule name will be derived from the target part. For example, '//a/b:c' normalizes to C. But they are just strings, and will not be checked against any files.</p>
+<p class="tableblock">The normalized submodule names must match the names of the modules electing membership via the 'ns_resolver' attribute.</p>
+<p class="tableblock"> Module source code generated by ocamllex and ocamlyacc can be accomodated by using the module name for the source file and generating a .ml source file of the same name, e.g. lexer.mll &#8594; lexer.ml.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_signature">ocaml_signature</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_signature(<a href="#ocaml_signature-name">name</a>, <a href="#ocaml_signature-args0file">args0file</a>, <a href="#ocaml_signature-argsfile">argsfile</a>, <a href="#ocaml_signature-as_cmi">as_cmi</a>, <a href="#ocaml_signature-data">data</a>, <a href="#ocaml_signature-deps">deps</a>, <a href="#ocaml_signature-mode">mode</a>, <a href="#ocaml_signature-module">module</a>, <a href="#ocaml_signature-ns">ns</a>, <a href="#ocaml_signature-open">open</a>, <a href="#ocaml_signature-opts">opts</a>, <a href="#ocaml_signature-pack">pack</a>,
+                <a href="#ocaml_signature-ppx">ppx</a>, <a href="#ocaml_signature-ppx_args">ppx_args</a>, <a href="#ocaml_signature-ppx_data">ppx_data</a>, <a href="#ocaml_signature-ppx_print">ppx_print</a>, <a href="#ocaml_signature-ppx_verbose">ppx_verbose</a>, <a href="#ocaml_signature-src">src</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generates OCaml .cmi (inteface) file. [User Guide](../ug/ocaml_signature.md). Provides <code>OcamlSignatureProvider</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>CONFIGURABLE DEFAULTS</strong> for rule <code>ocaml_signature</code></p>
+</div>
+<div class="paragraph">
+<p>In addition to the <a href="#_configurable-defaults">Configurable defaults</a> that
+apply to all <code>ocaml_*</code> rules, the following apply to this rule. (Note
+the difference between '/' and ':' in such labels):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Label</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top"><code>opts</code> attrib</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/signature/linkall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-linkall</code>, <code>-no-linkall</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//cfg/signature:warnings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@1..3@5..28@30..39@43@46..47@49..57@61..62-40</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-w</code> plus option value</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_signature</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-as_cmi"></a>as_cmi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For use with ns_module only. Creates a symlink from the extracted cmi file.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-data"></a>data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of OCaml dependencies. Use this for compiling a .mli source file with deps. See [Dependencies](#deps) for details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overrides default build mode setting, <code>native</code> or <code>bytecode</code>. The default is set by <code>@rules_ocaml//build/mode</code>, which defaults to <code>native</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-module"></a>module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set module (sig) name to this string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ns"></a>ns</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bottom-up namespacing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-open"></a>open</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of OCaml dependencies to be passed with -open.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-pack"></a>pack</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Experimental</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ppx"></a>ppx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label of <code>ppx_executable</code> target to be used to transform source before compilation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ppx_args"></a>ppx_args</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Options to pass to PPX executable passed by the <code>ppx</code> attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ppx_data"></a>ppx_data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PPX runtime data dependencies. List of labels of files needed by the PPX executable passed via the <code>ppx</code> attribute when it is executed to transform the source file. For example, a source file using <a href="https://github.com/janestreet/ppx_optcomp">ppx_optcomp</a> may import a file using extension <code>[%%import ]</code>; this file should be listed in this attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ppx_print"></a>ppx_print</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format of output of PPX transform. Value must be one of <code>@rules_ocaml//ppx/print:binary</code>, <code>@rules_ocaml//ppx/print:text</code>.  See <a href="../ug/ppx.md#ppx_print">PPX Support</a> for more information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//ppx/print</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-ppx_verbose"></a>ppx_verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_signature-src"></a>src</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A single .mli source file label</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_test">ocaml_test</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_test(<a href="#ocaml_test-name">name</a>, <a href="#ocaml_test-args0file">args0file</a>, <a href="#ocaml_test-argsfile">argsfile</a>, <a href="#ocaml_test-cc_deps">cc_deps</a>, <a href="#ocaml_test-cc_linkall">cc_linkall</a>, <a href="#ocaml_test-cc_linkopts">cc_linkopts</a>, <a href="#ocaml_test-data">data</a>, <a href="#ocaml_test-deps">deps</a>, <a href="#ocaml_test-exe">exe</a>, <a href="#ocaml_test-main">main</a>, <a href="#ocaml_test-mode">mode</a>,
+           <a href="#ocaml_test-opts">opts</a>, <a href="#ocaml_test-strip_data_prefixes">strip_data_prefixes</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>OCaml test rule.</p>
+</div>
+<div class="paragraph">
+<p><strong>CONFIGURABLE DEFAULTS</strong> for rule <code>ocaml_test</code></p>
+</div>
+<div class="paragraph">
+<p>In addition to the [OCaml configurable defaults](#configdefs) that apply to all
+<code>ocaml_*</code> rules, the following apply to this rule:</p>
+</div>
+<div class="paragraph">
+<p>| Label | Default | <code>opts</code> attrib |
+| ----- | ------- | ------- |
+| @rules_ocaml//cfg/executable:linkall | True | <code>-linkall</code>, <code>-no-linkall</code>|
+| @rules_ocaml//cfg/executable:threads | False | true: <code>-I +thread</code>|
+| @rules_ocaml//cfg/executable:warnings | <code>@1..3@5..28@30..39@43@46..47@49..57@61..62-40</code>| <code>-w</code> plus option value |</p>
+</div>
+<div class="paragraph">
+<p><strong>NOTE</strong> These do not support <code>:enable</code>, <code>:disable</code> syntax.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>See [Configurable Defaults](../ug/configdefs_doc.md) for more information.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_test</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-args0file"></a>args0file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing null-terminated arg lines, to be passed with <code>-args0</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-argsfile"></a>argsfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file containing newline-terminated arg lines, to be passed with <code>-args</code>.
+            NOT YET SUPPORTED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-cc_deps"></a>cc_deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dictionary specifying C/C++ library dependencies. Key: a target label; value: a linkmode string, which determines which file to link. Valid linkmodes: 'default', 'static', 'dynamic', 'shared' (synonym for 'dynamic'). For more information see [CC Dependencies: Linkmode](../ug/cc_deps.md#linkmode).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-cc_linkall"></a>cc_linkall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True: use <code>-whole-archive</code> (GCC toolchain) or <code>-force_load</code> (Clang toolchain). Deps in this attribute must also be listed in cc_deps.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-cc_linkopts"></a>cc_linkopts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of C/C link options. E.g. `["-lstd"]`.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-data"></a>data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime dependencies: list of labels of data files needed by this executable at runtime.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-deps"></a>deps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of OCaml dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-exe"></a>exe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, executable name is derived from 'name' attribute; use this to override.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">""</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-main"></a>main</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label of module containing entry point of executable. This module will be placed last in the list of dependencies.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-mode"></a>mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@rules_ocaml//build/mode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of compile options; overrides configurable default options. Supports <code>-no-</code> prefix for each option; for example, <code>-no-linkall</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_test-strip_data_prefixes"></a>strip_data_prefixes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Symlink each data file to the basename part in the runfiles root directory. E.g. test/foo.data &#8594; foo.data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocaml_yacc">ocaml_yacc</h2>
+<div class="sectionbody">
+<div class="paragraph prototype">
+<p>
+ocaml_yacc(<a href="#ocaml_yacc-name">name</a>, <a href="#ocaml_yacc-opts">opts</a>, <a href="#ocaml_yacc-out">out</a>, <a href="#ocaml_yacc-src">src</a>)
+</p>
+</div>
+<div class="paragraph">
+<p>Generates an OCaml source file from an ocamlyacc source file.</p>
+</div>
+<div class="paragraph">
+<p><strong>ATTRIBUTES</strong> for rule <strong>ocaml_yacc</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch rule_attrs">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Mandatory</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_yacc-name"></a>name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique name for this target.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#name">Name</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_yacc-opts"></a>opts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Options</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_yacc-out"></a>out</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output filename.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">required</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a class="rule-attr" id="ocaml_yacc-src"></a>src</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A single .mly ocamlyacc source file label</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bazel.build/docs/build-ref.html#labels">Label</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

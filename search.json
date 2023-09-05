@@ -1,0 +1,1042 @@
+[
+
+
+
+
+{
+"title": "About",
+"tags": "",
+"keywords": "",
+"url": "about",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Aggregates: libraries and archives.",
+"tags": "aggregation",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideaggregates",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Aspects",
+"tags": "aspects",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideaspects",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Bootstrapping",
+"tags": "aggregation",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidebootstrapping",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OCaml: Build Discipline(s)",
+"tags": "ocamlbuild",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "ocamlbuild-discipline",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Build Rules",
+"tags": "rules",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidebuild-rules",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Bazel Modules",
+"tags": "bazelmodules",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "bazelbazel-modules",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Caching",
+"tags": "caching",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidecaching",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "cc deps",
+"tags": "formatting",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamldev-guidecc_deps",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Changelog: rules_ocaml",
+"tags": "changes",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "changelog",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Compilers",
+"tags": "compilers",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidecompilers",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Conditional Builds",
+"tags": "conditionalselection",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideconditional",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Configurable Defaults",
+"tags": "configationdefaults",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideconfigurable-defaults",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Configuration",
+"tags": "configuration",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideconfiguration",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Build Profiles and Contexts",
+"tags": "contexts",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidecontexts",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OBazl Conventions",
+"tags": "conventions",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideobazl-conventions",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Coswitches",
+"tags": "coswitch",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamuser-guidecoswitches",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Coswitches",
+"tags": "coswitch",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "coswitchuser-guidecoswitches",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Dependencies",
+"tags": "opamtoolsdependencies",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamdev-guidedependencies",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Dependencies",
+"tags": "dependencies",
+"keywords": "",
+"url": "rules-ocamluser-guidedependencies",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "CC dependencies",
+"tags": "dependenciescc",
+"keywords": "",
+"url": "rules-ocamluser-guidedependencies-cc",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OCaml Dependencies",
+"tags": "conventions",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidedependencies-ocaml",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Depencency Models",
+"tags": "ocamlbuild",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "ocamldependency-models",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Deployment",
+"tags": "deployment",
+"keywords": "",
+"url": "rules-ocamluser-guidedeployment",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Diagnostics: Inspecting Build Commands, Actions, etc.",
+"tags": "diagnostics",
+"keywords": "",
+"url": "rules-ocamluser-guidediagnostics",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Executables",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guideexecutables",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "File Generation",
+"tags": "filesgeneration",
+"keywords": "",
+"url": "rules-ocamluser-guidefile-generation",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here[:cmd]",
+"tags": "opamhere",
+"keywords": "",
+"url": "tools-opamreferencehere",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:clean",
+"tags": "opamhereclean",
+"keywords": "",
+"url": "tools-opamreferencehere-clean",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:clone",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-clone",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:create",
+"tags": "opamherecreate",
+"keywords": "",
+"url": "tools-opamreferencehere-create",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:export",
+"tags": "opamhereexport",
+"keywords": "",
+"url": "tools-opamreferencehere-export",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:expunge",
+"tags": "opamexpunge",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamreferencehere-expunge",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:import",
+"tags": "opamhereimport",
+"keywords": "",
+"url": "tools-opamreferencehere-import",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:list",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-list",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here/opam[:cmd]",
+"tags": "aggregation",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamreferencehere-opam",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here/opam:expunge",
+"tags": "opamexpunge",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamreferencehere-opam-expunge",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here/opam:init",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-opam-init",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here/opam:install",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-opam-install",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here/opam:remove",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-opam-remove",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:refresh",
+"tags": "opamhereclone",
+"keywords": "",
+"url": "tools-opamreferencehere-refresh",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:reinit",
+"tags": "opamherereinit",
+"keywords": "",
+"url": "tools-opamreferencehere-reinit",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "@opam//here:set",
+"tags": "opamhereset",
+"keywords": "",
+"url": "tools-opamreferencehere-set",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Reference Manual: tools_opam",
+"tags": "opam",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamreferenceindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "User Guide: tools_opam",
+"tags": "",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamuser-guideindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Developer Guide: tools_opam",
+"tags": "",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamdev-guideindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Reference Manual: rules_ocaml",
+"tags": "refman",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamlreferenceindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "User Guide: rules_ocaml",
+"tags": "formatting",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Developer Guide: rules_ocaml",
+"tags": "formatting",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamldev-guideindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Bazel: Overview for OCaml Developers",
+"tags": "ocamltoolchain",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "bazelindex",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "tools_obazl rules",
+"tags": "toolsobazl",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-obazlreferenceindex",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "User Guide: @coswitch",
+"tags": "",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "coswitchuser-guideindex.html",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "The OBazl Book",
+"tags": "bazel",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Interop",
+"tags": "dependencies",
+"keywords": "",
+"url": "rules-ocamluser-guideinterop",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OCaml: Language",
+"tags": "ocamltoolchain",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "ocamllanguage",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Linking",
+"tags": "linking",
+"keywords": "",
+"url": "rules-ocamluser-guidelinking",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Local Switches &amp;amp; Coswitches",
+"tags": "opamconfiguration",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamuser-guidelocal-switches",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Local Switches &amp;amp; Coswitches",
+"tags": "opamconfiguration",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "coswitchuser-guidelocal-switches",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "macos",
+"tags": "bazelmodules",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "bazelmacos",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Maintenance",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidemaintenance",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Modules",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidemodules",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Namespacing",
+"tags": "namespacing",
+"keywords": "",
+"url": "rules-ocamluser-guidenamespacing",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OCaml Rules",
+"tags": "configationdefaults",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamlreferenceocaml-rules",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "offline development",
+"tags": "offline",
+"keywords": "",
+"url": "rules-ocamluser-guideoffline",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OPAM",
+"tags": "opam",
+"keywords": "",
+"url": "rules-ocamluser-guideopam",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OPAM Configuration",
+"tags": "opamconfiguration",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "tools-opamuser-guideopam-configuration",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OPAM Configuration",
+"tags": "opamconfiguration",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "coswitchuser-guideopam-configuration",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Optimization",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guideoptimization",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "PPX Support",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guideppx",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "ppx",
+"tags": "formatting",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamldev-guideppx",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Preprocessing",
+"tags": "deployment",
+"keywords": "",
+"url": "rules-ocamluser-guidepreprocessing",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Configuration Profiles",
+"tags": "profiles",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guideprofiles",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Providers",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guideproviders",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Providers",
+"tags": "providers",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamlproviders",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Querying",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidequerying",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Refactoring",
+"tags": "refactoring",
+"keywords": "",
+"url": "rules-ocamluser-guiderefactoring",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Bazel Repositories",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guiderepositories",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Separate Compilation",
+"tags": "compilation",
+"keywords": "",
+"url": "rules-ocamluser-guideseparate-compilation",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Signatures",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidesignatures",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Split Dependencies",
+"tags": "split dependencies",
+"keywords": "",
+"url": "rules-ocamluser-guidesplit-dependencies",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Stamping",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidestamping",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Structures",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidestructures",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Testing",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidetesting",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Threading",
+"tags": "threadsconcurrency",
+"keywords": "",
+"url": "rules-ocamluser-guidethreading",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "OCaml: Toolchains &amp;amp; Ecosystem",
+"tags": "ocamltoolchain",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "ocamltoolchains",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Toolchains",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidetoolchains",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "toolchains",
+"tags": "formatting",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamldev-guidetoolchains",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Tools",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidetools",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Troubleshooting",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guidetroubleshooting",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "user.bazelrc",
+"tags": "maintenance",
+"keywords": "",
+"url": "rules-ocamluser-guideuser-bazelrc",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Visibility",
+"tags": "aggregation",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "rules-ocamluser-guidevisibility",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Working with Bazel",
+"tags": "aggregation",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "bazelworking-with-bazel",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Workspaces and Repositories",
+"tags": "repositoriesworkspaces",
+"keywords": "",
+"url": "rules-ocamluser-guideworkspaces",
+"summary": ""
+}
+,
+
+
+
+{
+"title": "Repositories &amp;amp; Workspaces",
+"tags": "ocamltoolchain",
+"keywords": "notes, tips, cautions, warnings, admonitions",
+"url": "bazelrepositories",
+"summary": ""
+}
+
+
+
+
+
+
+]

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="ocamltoolchain,  notes, tips, cautions, warnings, admonitions">
+<title>OCaml: Toolchains &amp; Ecosystem | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="OCaml: Toolchains &amp;amp; Ecosystem">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/ocaml">
+      OCaml
+      
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Language" href="language">Language</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependency Models" href="dependency-models">Dependency Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Build Discipline" href="build-discipline">Build Discipline</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>OCaml: Toolchains &amp; Ecosystem
+          <span id="timestamp">Last updated May 16, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_compilers">Compilers</a></li>
+<li><a href="#_linkage">Linkage</a></li>
+<li><a href="#_other-tools-in-the-distribution">Other tools in the distribution</a></li>
+<li><a href="#_opam">OPAM</a></li>
+<li><a href="#_third-party-tools">Third-party Tools</a>
+<ul class="sectlevel2">
+<li><a href="#_ocamlfind-and-the-findlib-library">ocamlfind and the findlib library</a></li>
+<li><a href="#_opam-2">OPAM</a></li>
+<li><a href="#_dune">Dune</a></li>
+<li><a href="#_other">Other</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Status: very rough as of 5/25/22.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Standard OCaml distributions contain no fewer than four toolchains.  &#8230;&#8203;</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The current OBazl toolsuite uses one OPAM-based Bazel
+toolchain that contains all the tools in the selected OPAM switch
+(i.e. OCaml distribution). Build mode (bytecode or native) is
+controlled by a configurable default rule passed on the command line;
+see X for details. The profiling compilers are not supported. The next
+version will contain one Bazel toolchain for each OCaml toolchain.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compilers">Compilers</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">bytecode binaries</th>
+<th class="tableblock halign-left valign-top">native binaries</th>
+<th class="tableblock halign-left valign-top">remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle" rowspan="2"><p class="tableblock">emit bytecode:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlc.byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlc.opt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">std compilers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlcp.byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlcp.opt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">profiling compilers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle" rowspan="2"><p class="tableblock">emit native code:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlopt.byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamlopt.opt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">std compilers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamloptp.byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ocamloptp.opt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">profiling compilers</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These are all utility commands. The actually compilers are
+implemented as libraries; these commands are actually drivers, like
+the <code>gcc</code> command of the GNU toolchain. They run the compilers but may
+also run other tools.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>*.opt</code> versions are native code binaries; the <code>*.byte</code> versions
+are bytecode binaries, which must be executed with
+<a href="https://v2.ocaml.org/manual/runtime.html" target="_blank" rel="noopener">ocamlrun</a>.</p>
+</div>
+<div class="paragraph">
+<p>The profiling complers instrument the source code, adding code to
+record how many times functions are called, branches of conditionals
+are taken, etc.  See also <a href="https://v2.ocaml.org/manual/instrumented-runtime.html" target="_blank" rel="noopener">Runtime tracing with the instrumented runtime</a>.</p>
+</div>
+<div class="paragraph">
+<p>By default, names without an extension are symlinked to the optimized (native) binaries:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ocamlc &#8594; ocamlc.opt</p>
+</li>
+<li>
+<p>ocamlcp &#8594; ocamlcp.opt</p>
+</li>
+<li>
+<p>ocamlopt &#8594; ocamlopt.opt</p>
+</li>
+<li>
+<p>ocamloptp &#8594; ocamloptp.opt</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default, the OBazl rules use <code>ocamlopt.opt</code>: the native-code compiler binary that emits native code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_linkage">Linkage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Native-mode compilers depend on a C toolchain; they may emit and
+compile assembly code, and use the linker.</p>
+</div>
+<div class="paragraph">
+<p>Bytecode-mode compilers handle everything by themselves; they do not
+need a linker or other C tools (unless the source code uses interop to
+use libraries produced by another language system (C, Rust, etc.) ?)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other-tools-in-the-distribution">Other tools in the distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OCaml toolchain includes a variety of tools, most of which come in
+<code>*.byte</code> and <code>*.opt</code> variants. Some but not all come with a <code>man</code> page.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://v2.ocaml.org/manual/toplevel.html" target="_blank" rel="noopener">ocaml</a> - a toplevel system (i.e. REPL) for OCaml</p>
+</li>
+<li>
+<p><code>ocamlcmt</code> - reads a <code>.cmt</code> file and prints related information</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/debugger.html" target="_blank" rel="noopener">ocamldebug</a> - the OCaml source-level replay debugger</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/depend.html" target="_blank" rel="noopener">ocamldep</a> - dependency generator: scans source files and emits dependency information</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/ocamldoc.html" target="_blank" rel="noopener">ocamldoc</a> -  documentation generator</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/lexyacc.html#s%3Aocamllex-overview" target="_blank" rel="noopener">ocamllex</a> - lexer generator</p>
+</li>
+<li>
+<p><code>ocamlmklib</code> - generate libraries with mixed C / Caml code</p>
+</li>
+<li>
+<p><code>ocamlmktop</code> - builds OCaml toplevels that contain user code preloaded at start-up</p>
+</li>
+<li>
+<p><code>ocamlobjinfo</code> - prints information from <code>.cmo/.cmx/.cmi</code> files</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/profil.html" target="_blank" rel="noopener">ocamlprof</a> - OCaml profiler</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/runtime.html" target="_blank" rel="noopener">ocamlrun</a> - executes bytecode files produced by the linking phase of the ocamlc command.</p>
+</li>
+<li>
+<p><code>ocamlrund</code> - debug version of <code>ocamlrun</code></p>
+</li>
+<li>
+<p><code>ocamlruni</code> - instrumented variant of <code>ocamlrun</code> (see <a href="https://v2.ocaml.org/manual/instrumented-runtime.html" target="_blank" rel="noopener">Runtime tracing with the instrumented runtime</a>)</p>
+</li>
+<li>
+<p><a href="https://v2.ocaml.org/manual/lexyacc.html#s%3Aocamlyacc-overview" target="_blank" rel="noopener">ocamlyacc</a> - parser generator</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_opam">OPAM</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_third-party-tools">Third-party Tools</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ocamlfind-and-the-findlib-library">ocamlfind and the findlib library</h3>
+<div class="paragraph">
+<p><a href="http://projects.camlcity.org/projects/findlib.html" target="_blank" rel="noopener">findlib</a>
+is an OCaml package manager library. It has largely been supplanted by OPAM,
+but the metadata language it defines is used by OPAM.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/ocaml/ocamlfind" target="_blank" rel="noopener">ocamlfind</a> is a commonly used command-line interface to the <code>findlib</code> library.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_opam-2">OPAM</h3>
+<div class="paragraph">
+<p><a href="https://opam.ocaml.org/">OPAM</a> is the standard OCaml package manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dune">Dune</h3>
+<div class="paragraph">
+<p><a href="https://github.com/ocaml/dune">Dune</a> is the most commonly used
+build system for OCaml. Many if not most OPAM packages use Dune.</p>
+</div>
+<div class="paragraph">
+<p>OBazl is an alternative to Dune.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other">Other</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/Octachron/codept" target="_blank" rel="noopener">codept</a> - alternative dependency solver</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-community/cppo" target="_blank" rel="noopener">cppo</a> - preprocessor, modeled on the C preprocessor</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+

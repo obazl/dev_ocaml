@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="maintenance,  ">
+<title>Querying | The OBazl Book B</title>
+<!-- <link rel="stylesheet" href="/css/syntax.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/docs_obazl/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/docs_obazl/css/customstyles.css">
+<link rel="stylesheet" href="/docs_obazl/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/docs_obazl/css/theme-blue.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc.css">
+<link rel="stylesheet" href="/docs_obazl/css/asciidoc-pygments.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs_obazl/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- <script src="/docs_obazl/js/toc.js"></script> -->
+<script src="/docs_obazl/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/docs_obazlimages/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="The OBazl Book" href="/feed.xml">
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/docs_obazl">&nbsp;<span class="projectTitle"> The OBazl Book</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <!-- <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li> -->
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="https://github.com/tomjoht/documentation-theme-jekyll" target="_blank" rel="noopener">GitHub</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- <li><a href="news">News</a></li> -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                <!--  -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jekyll Help<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="https://talk.jekyllrb.com" target="_blank" rel="noopener">Jekyll Talk</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://jekyllrb.com/docs/home/" target="_blank" rel="noopener">Jekyll documentation</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://stackoverflow.com/questions/tagged/jekyll" target="_blank" rel="noopener">Jekyll on Stack Overflow</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="http://idratherbewriting.com/category-jekyll/" target="_blank" rel="noopener">Jekyll on my blog</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!-- <li class="dropdown"> -->
+                <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a> -->
+                <!--     <ul class="dropdown-menu"> -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="mydoc_introduction.html">Jekyll Documentation Theme</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p1_landing_page.html">Product 1</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--          -->
+                <!--         <li><a href="p2_landing_page.html">Product 2</a></li> -->
+                <!--          -->
+                <!--          -->
+                <!--     </ul> -->
+                <!-- </li> -->
+                <!--  -->
+                <!--  -->
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/docs_obazl/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/docs_obazl/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Querying">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">
+    <a href="/docs_obazl/rules-ocaml/user-guide">
+      Guide:
+      
+      rules_ocaml
+    </a>
+  </li>
+  
+  
+  
+  <li class="active">
+    <a class="folder"
+       title="Topics" href="#">Topics</a>
+      <ul class="navlist">
+          
+          
+          
+          <li class="sb-navitem"><a title="Accessibility" href="visibility">Accessibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aggregates" href="aggregates">Aggregates</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Aspects" href="aspects">Aspects</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Bootstrapping" href="bootstrapping">Bootstrapping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Caching" href="caching">Caching</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Compilers" href="compilers">Compilers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conditional Builds" href="conditional">Conditional Builds</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration" href="configuration">Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configurable Defaults" href="configurable-defaults">Configurable Defaults</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Configuration Profiles" href="profiles">Configuration Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Conventions" href="obazl-conventions">Conventions</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Dependencies" href="dependencies">Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Deployment" href="deployment">Deployment</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Diagnostics" href="diagnostics">Diagnostics</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Executables" href="executables">Executables</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="File Generation" href="file-generation">File Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Interop" href="interop">Interop</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Labels" href="https://bazel.build/concepts/labels" target="_blank" rel="noopener">Labels</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Maintenance" href="maintenance">Maintenance</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Modules" href="modules">Modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Namespacing" href="namespacing">Namespacing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Offline development" href="offline">Offline development</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="OPAM" href="opam">OPAM</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Optimization" href="optimization">Optimization</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Packages" href="https://bazel.build/concepts/build-ref#packages" target="_blank" rel="noopener">Packages</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Preprocessing" href="preprocessing">Preprocessing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Profiles" href="profiles">Profiles</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Providers" href="providers">Providers</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="PPX Support" href="ppx">PPX Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Querying" href="querying">Querying</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Repositories" href="repositories">Repositories</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Refactoring" href="refactoring">Refactoring</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Separate Compilation" href="separate-compilation">Separate Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Split Dependencies" href="split-dependencies">Split Dependencies</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Signatures" href="signatures">Signatures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Stamping" href="stamping">Stamping</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Structures" href="structures">Structures</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="x"><a title="Targets" href="https://bazel.build/concepts/build-ref#targets" target="_blank" rel="noopener">Targets</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Testing" href="testing">Testing</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Threading" href="threading">Threading</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Toolchains" href="toolchains">Toolchains</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Tools" href="tools">Tools</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Troubleshooting" href="troubleshooting">Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="user.bazelrc" href="user-bazelrc">user.bazelrc</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Visibility" href="visibility">Visibility</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="sb-navitem"><a title="Workspaces" href="workspaces">Workspaces</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <!-- <p class="external"> -->
+         <!--     <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a> -->
+         <!-- </p> -->
+         <!-- -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+          <h1>Querying
+          <span id="timestamp">Last updated July 6, 2022</span>
+          </h1>
+    <!-- { % unless page.toc == false %} -->
+    <!-- { % include toc.html %} -->
+    <!-- { % endunless %} -->
+
+            <div class="sect1">
+<h2 id="_target-graph-queries">Target Graph Queries</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://bazel.build/docs/query-how-to" target="_blank" rel="noopener">Bazel Query How-To</a></p>
+</li>
+<li>
+<p><a href="https://bazel.build/reference/query" target="_blank" rel="noopener">The Bazel Query Reference</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configured-graph-queries">Configured Graph Queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://bazel.build/docs/cquery" target="_blank" rel="noopener">cquery</a> "cquery
+is a variant of query that correctly handles select() and build
+options' effects on the build graph."</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_action-graph-queries">Action Graph Queries</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://blog.bazel.build/2019/02/15/introducing-aquery.html" target="_blank" rel="noopener">Introducing Bazel Aquery</a></p>
+</li>
+<li>
+<p><a href="https://bazel.build/docs/aquery" target="_blank" rel="noopener">Aquery (Action Graph Query)</a> Reference doc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>PPX processing involves "hidden" actions that run a PPX to transform
+source files. These actions are a side-effect of building targets
+(<code>ocaml_module</code> or <code>ocaml_signature</code>) that undergo PPX transformation,
+but <code>aquery</code> will show them:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.../demos_obazl/rules_ocaml]$ bazel aquery ns/topdown/ppx:Blue
+INFO: Analyzed target //ns/topdown/ppx:Blue (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+action 'Writing script ns/topdown/ppx/Blue_ppx.sh'
+  Mnemonic: FileWrite                                                                  <i class="conum" data-value="1"></i><b>(1)</b>
+  Target: //ns/topdown/ppx:Blue
+  Configuration: darwin-fastbuild
+  Execution platform: @local_config_platform//:host
+  ActionKey: e97323d347578da30c04c0bbaf0ee6df47984ca53994ed684df3be9ea426a0f9
+  Inputs: []
+  Outputs: [bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/Blue_ppx.sh]
+
+action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Blue'
+  Mnemonic: OCamlPpxTransform                                                         <i class="conum" data-value="1"></i><b>(1)</b>
+  Target: //ns/topdown/ppx:Blue
+  Configuration: darwin-fastbuild
+  Execution platform: @local_config_platform//:host
+  ActionKey: bee23a7eacaf95dbdfd5590474d6feab927496e1e934fa40e1a8d754ed20015c
+  Inputs: [bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/Blue_ppx.sh, bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/ppx.exe, bazel-out/darwin-fastbuild/internal/_middlemen/ns_Stopdown_Sppx_Sppx.exe-runfiles, ns/topdown/ppx/blue.ml]
+  Outputs: [bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.ml]
+  Command Line: (exec bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/Blue_ppx.sh \
+    -o \
+    ../bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.ml \
+    -impl \
+    ns/topdown/ppx/blue.ml)
+# Configuration: f980a41ed8e8fc07b34c21c148caeaaeea788b6ece312887882afc3763631455
+# Execution platform: @local_config_platform//:host
+
+action 'sys&gt;sys compiling ocaml_module: demos//ns/topdown/ppx:Blue'
+  Mnemonic: CompileOCamlModule                                                        <i class="conum" data-value="1"></i><b>(1)</b>
+  Target: //ns/topdown/ppx:Blue
+  Configuration: darwin-fastbuild
+  Execution platform: @local_config_platform//:host
+  ActionKey: cb0b4b940adbaa21e77b289d2b57d8b34d7513de905936a8670c616041f98dfa
+  Inputs: [bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.ml, external/ocaml/bin/ocamlopt.opt]
+  Outputs: [bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.cmi, bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.cmx, bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.o]
+  Command Line: (exec external/ocaml/bin/ocamlopt.opt \
+    -keep-locs \
+    -noassert \
+    -short-paths \
+    -strict-formats \
+    -strict-sequence \
+    -w \
+    @1..3@5..28@30..39@43@46..47@49..57@61..62-40 \
+    -I \
+    bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl \
+    -c \
+    -impl \
+    bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.ml \
+    -o \
+    bazel-out/darwin-fastbuild/bin/ns/topdown/ppx/__obazl/Blue.cmx)
+# Configuration: f980a41ed8e8fc07b34c21c148caeaaeea788b6ece312887882afc3763631455
+# Execution platform: @local_config_platform//:host</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Each action has a <code>Mnemonic</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can filter <code>aquery</code> by mnemonics. In this demo
+(<a href="https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/ns/topdown/ppx">ns/topdown/ppx</a>),
+an <code>ocaml_ns_library</code> target named <code>color</code> lists three submodules,
+each of which is PPX-transformed. That means the example above is a
+little misleading, since it builds <code>ns/topdown/ppx:Blue</code> independent
+of the namespace. When you build <code>ns/topdown/ppx:color</code>, each
+submodule will not only be preprocessed by a PPX, but also renamed.
+The following <code>aquery</code> will show this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>...azl/demos_obazl/rules_ocaml]$ bazel aquery 'mnemonic("OCamlPpxTransform", deps(ns/topdown/ppx:color))'
+INFO: Analyzed target //ns/topdown/ppx:color (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+WARNING: Targets were missing from graph: [ConfiguredTargetKey{label=@ocaml//toolchain/adapters/local:ncnc, config=BuildConfigurationValue.Key[31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f]}]
+WARNING: Targets were missing from graph: [ConfiguredTargetKey{label=@ocaml//toolchain/adapters/local:ncnc, config=BuildConfigurationValue.Key[33036bf992ae1cd9400769abcf7b91b3cfa72b954d6c3660ef1958c812d92cf2]}]
+action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Red'
+  Mnemonic: OCamlPpxTransform
+  Target: //ns/topdown/ppx:Red
+  Configuration: darwin-fastbuild-ST-2386c8310427
+  Execution platform: @local_config_platform//:host
+  ActionKey: 0198e3f7633f19b056cb5a8fecd8886a8bc7f3911d670626a35e288bfa051a98
+  Inputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Red_ppx.sh, bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/ppx.exe, bazel-out/darwin-fastbuild-ST-2386c8310427/internal/_middlemen/ns_Stopdown_Sppx_Sppx.exe-runfiles, ns/topdown/ppx/red.ml]
+  Outputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Red.ml]
+  Command Line: (exec bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Red_ppx.sh \ <i class="conum" data-value="1"></i><b>(1)</b>
+    -o \
+    ../bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Red.ml \  <i class="conum" data-value="3"></i><b>(3)</b>
+    -impl \
+    ns/topdown/ppx/red.ml)             <i class="conum" data-value="2"></i><b>(2)</b>
+# Configuration: 31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f
+# Execution platform: @local_config_platform//:host
+
+action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Green'
+  Mnemonic: OCamlPpxTransform
+  Target: //ns/topdown/ppx:Green
+  Configuration: darwin-fastbuild-ST-2386c8310427
+  Execution platform: @local_config_platform//:host
+  ActionKey: 6c45a135981e2753eb67ddf97a63d7e13caea275e386d1e8e051a64598adc246
+  Inputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Green_ppx.sh, bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/ppx.exe, bazel-out/darwin-fastbuild-ST-2386c8310427/internal/_middlemen/ns_Stopdown_Sppx_Sppx.exe-runfiles, ns/topdown/ppx/green.ml]
+  Outputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Green.ml]
+  Command Line: (exec bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Green_ppx.sh \
+    -o \
+    ../bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Green.ml \
+    -impl \
+    ns/topdown/ppx/green.ml)
+# Configuration: 31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f
+# Execution platform: @local_config_platform//:host
+
+action 'ppx_transform ocaml_module: demos//ns/topdown/ppx:Blue'
+  Mnemonic: OCamlPpxTransform
+  Target: //ns/topdown/ppx:Blue
+  Configuration: darwin-fastbuild-ST-2386c8310427
+  Execution platform: @local_config_platform//:host
+  ActionKey: 44fd9066b7d6c9e0b74de9eb13f0e0d7a440825bf104662d368f5da7af3ac1b5
+  Inputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Blue_ppx.sh, bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/ppx.exe, bazel-out/darwin-fastbuild-ST-2386c8310427/internal/_middlemen/ns_Stopdown_Sppx_Sppx.exe-runfiles, ns/topdown/ppx/blue.ml]
+  Outputs: [bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Blue.ml]
+  Command Line: (exec bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/Blue_ppx.sh \
+    -o \
+    ../bazel-out/darwin-fastbuild-ST-2386c8310427/bin/ns/topdown/ppx/__obazl/Color__Blue.ml \
+    -impl \
+    ns/topdown/ppx/blue.ml)
+# Configuration: 31e6065273d39a7233241ad2738425079768663b03b77650e19688c9f47e747f
+# Execution platform: @local_config_platform//:host</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The shell script (written by a previous <code>FileWrite</code> action)  runs the ppx executable.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Input is the original file.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Output is transformed and renamed.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This shows that PPX processing and renaming are accomplished by the same <code>OCamlPpxTransform</code> action.</p>
+</div>
+<div class="paragraph">
+<p>The <code>mnemonic</code> argument supports regexes; the following <code>aquery</code> would show all of the actions whose mnemonic includes <code>OCaml</code>:</p>
+</div>
+<div class="paragraph">
+<p><code>bazel aquery 'mnemonic(".<strong>OCaml.</strong>", deps(ns/topdown/ppx:ppx.exe))'</code></p>
+</div>
+<div class="paragraph">
+<p>The (rather lengthy) output shows the following actions:
+<code>CompileOCamlPpxModule</code>, <code>CompileOCamlNsResolver</code>,
+<code>LinkOCamlPpxExecutable</code>, <code>CompileOCamlModule</code>, and
+<code>OCamlPpxTransform</code>.</p>
+</div>
+<div class="paragraph">
+<p>Without filtering the action for all dependencies would be shown:</p>
+</div>
+<div class="paragraph">
+<p><code>bazel aquery 'deps(ns/topdown/ppx:color)'</code></p>
+</div>
+<div class="paragraph">
+<p>This would include actions with mnemonic <code>ocaml_import</code> (since the PPX
+executable depends on <code>@ppxlib//:ppxlib</code> and all of its dependencies,
+imported from OPAM), a <code>Genrule</code> action (since the PPX executable
+depends on a file created by a <code>genrule</code> target), some <code>FileWrite</code>
+actions (to generate the source file compiled by the
+<code>CompileOCamlNsResolver</code> action, and write the shell scripts used by
+the <code>OCamlPpxTransform</code> action to run the PPX executable), and a large
+number of actions generated by Bazel itself, to generate
+toolchains, configure runfiles, etc.</p>
+</div>
+</div>
+</div>
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
+
+
