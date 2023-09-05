@@ -86,3 +86,10 @@ version, the registry record for yojson package would be at
 
     <root>/.config/obazl/registry/modules/yojson
 
+=== The `--registry` directive
+
+Once the registry has been generated, you must direct Bazel to use it for module lookups.  The OBazl convention is to write the registry directive to `<root>/.config/coswitch_registry.bazelrc`, and to add `try-import .config/coswitch_registry.bazelrc` to the root `.bazelrc` file.  The `@coswitch//new` command will overwrite `.config/coswitch_registry.bazelrc` with the path to the generated registry.  An example is:
+
+    common --registry=file:///<home>/<uid>/.local/share/obazl/registry/5.0.0
+
+
