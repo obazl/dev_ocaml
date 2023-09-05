@@ -7,7 +7,7 @@
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 20, 2022
 // :toc-title:
-// :toc: true
+:toc: true
 
 
 Official docs:
@@ -218,7 +218,7 @@ The 'bind' repo rule, although "not recommended", can also define aliases.
 Q: can aliasing affect module naming? The repository associated with a
 module could have local repos, no? But aliasing is scoped.
 
-================================================================
+'''
 
 "Repository Rules" https://bazel.build/rules/repository_rules
 

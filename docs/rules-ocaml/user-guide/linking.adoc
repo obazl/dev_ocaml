@@ -12,14 +12,16 @@
 * [Generating static and portable executables with OCaml](https://www.ocamlpro.com/2021/09/02/generating-static-and-portable-executables-with-ocaml/)
 
 
-## link optimization
+== link optimization
 
 -no-alias-deps:  cut elim, eliminates dep on resolver module needed for compiltion
 
 Example: using metaquot (demos_obazl/rules_ocaml/ppx/metaquot)
 
-# Error: No implementations provided for the following modules:
-#          Ppxlib_ast__Ast_helper_lite referenced from bazel-out/darwin-fastbuild/bin/ppx/metaquot/__obazl/Simple.cmx
+====
+\# Error: No implementations provided for the following modules:
+\#          Ppxlib_ast__Ast_helper_lite referenced from bazel-out/darwin-fastbuild/bin/ppx/metaquot/__obazl/Simple.cmx
+====
 
 This is a mysterious error message, because the text
 `Ppxlib_ast__Ast_helper_lite` does *not* appear from Simple.ml (after
