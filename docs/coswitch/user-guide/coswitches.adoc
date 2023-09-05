@@ -4,7 +4,7 @@ pkg: tools_opam
 doc: ug
 // sidebar: sidebar_tools_opam
 title: Coswitches
-permalink: tools-opam/user-guide/coswitches
+permalink: coswitch/user-guide/coswitches
 tags: [coswitch]
 keywords: notes, tips, cautions, warnings, admonitions
 last_updated: April 21, 2022
