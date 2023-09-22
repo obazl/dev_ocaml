@@ -18,7 +18,7 @@
 // * [Overview](#overview)
 // * [Building PPX resources](#building)
 // * [Preprocessing v. build dependencies](#ppx_deps)
-// * [Adjunct dependencies](#adjunct_deps)
+// * [Codependencies](#ppx_codeps)
 // * [Runtime dependencies](#runtime_deps)
 // * [Ppx executables](#executables)
 //   * [Main module](#main_module)
@@ -150,41 +150,42 @@ dependencies are usually expressed using a `deps` attribute, and
 preprocessing dependencies are expressed using the `ppx` attribute and
 a few additional `ppx_*` attributes to parameterize the PPX executable.
 
-== Adjunct (a/k/a "runtime") dependencies
+== Codependencies
 
 Sometimes PPX processing injects code that induces compile-time
 dependencies; such dependencies must be listed as `deps` in the
 `ocaml_module` or `ppx_module` rule that compiles the transformed
 source file. These are often erroneously called "runtime"
-dependencies, but [runtime dependency](#runtime-deps) is a different
+dependencies, but <<Runtime dependencies>> is a different
 concept. Runtime dependencies of a module or executable are needed
-when that module or executable is executed. These dependencies do not
-fit that description, so OBazl calls them _adjunct dependencies_.
+when that module or executable is _executed_, not when it is _built_.
+These dependencies do not fit that description, so OBazl calls them
+_ppx_codeps_.
 
-In other words, adjunct dependencies are build dependencies that are
+In other words, codependencies are build dependencies that are
 attached to a preprocessing dependency graph and passed on to
 preprocessing outputs.
 
-One way to support adjunct dependencies is to list them in the `deps`
+One way to support such codependencies is to list them in the `deps`
 attribute of the `ocaml_module` or `ppx_module` rule instances that
-use the PPX executable, as noted above. However this requires
-maintenance of the `deps` attribute for each rule instance using the
-PPX executable in question. Since PPX executables may be shared by
-many targets, this is cumbersome and error-prone.
+use the PPX executable and compile its output, as noted above. However
+this requires maintenance of the `deps` attribute for each rule
+instance using the PPX executable in question. Since PPX executables
+may be shared by many targets, this is cumbersome and error-prone.
 
-attribute: **`adjunct_deps`**
+attribute: **`ppx_codeps`**
 
-As a convenience, OBazl supports an attribute, `adjunct_deps`, on
+As a convenience, OBazl supports an attribute, `ppx_codeps`, on
 `ppx_module` and `ppx_executable` rules. Dependencies listed in this
 attribute will be automatically propagated through the preprocessing
 dependency graph to the build rule of the transformed source. For
-example, if an `ocaml_module` rule instance lists a `ppx` dependency,
-then any adjunct dependencies listed in the dependency graph of that
-ppx will be added as build dependencies of the module being compiled
-by the rule.
+example, if an `ocaml_module` rule instance lists a `ppx` dependency
+(referring to a _ppx_executable_, then any codependencies listed in
+the dependency graph of that ppx will be added as build dependencies
+of the module being compiled by the rule.
 
 See
-[demos/ppx/adjunct_deps](https://github.com/obazl/dev_obazl/tree/main/demos/ppx/adjunct_deps)
+link:https://github.com/obazl/demos_obazl/tree/main/rules_ocaml/ppxlib/ppx_codeps[demos/ppxlib/ppx_codeps]
 for an example.
 
 == Runtime dependencies
@@ -192,7 +193,9 @@ for an example.
 Runtime dependencies are files that are required by modules and/or
 executables at runtime. For example, a common pattern is to have a
 module read a file of configuration data at runtime; such a data file
-constitutes a runtime dependency of the module.
+constitutes a runtime dependency of the module. Another common case is
+dynamic loading and linking using `dlopen`; the library to be loaded
+is a runtime dependency.
 
 For non-PPX modules and executables, such
 files must be passed using the `data` attribute; for PPX modules and
@@ -310,13 +313,111 @@ The default print output format is determined by the
 global default to print by passing `--@ppx//print:text` on the command
 line. Use the `ppx_print` attribute to override this global default.
 
-== PPX Testing
+== PPX Testing & Troubleshooting
+
+Ppx libraries are notoriously under-documented. It is often the case
+that their authors use Dune and dispense with documentation.
+
+This means that to use a Ppx library you may need to do some
+deciphering. The Dune build files that may accompany any test cases in
+a library distrib may not contain sufficient information.
+
+=== case study: ppx_assert
+
+link:https://github.com/janestreet/ppx_assert[ppx_assert]
+contains no build documentation at all. The only thing to go on is one test case, whose Dune file looks like this:
+
+[source, sexp]
+----
+(library
+ (name ppx_assert_test_lib)
+ (libraries sexplib str)
+ (preprocess
+  (pps ppx_compare ppx_sexp_conv ppx_here ppx_assert ppx_inline_test)))
+----
+
+There are two major problems here, both involving "hidden" build configurations.
+
+One is that using `ppx_inline_test` requires that the ppx executable
+be run with arguments `-inline-test-lib` and an "tag" to identify the test.
+
+The other problem is that the list of dependencies is incomplete. The
+source file uses a `[%here]` extension from `ppx_here`; this has the
+effect of injecting a dependency on `Ppx_here_lib` into the
+transformed source file. This means that `ppx_here` is both a direct
+dependency and a codependency of the ppx executable, but you would not
+know that from the Dune file, and of course it is not documented. Dune
+discovers this dynamically at build time, but since dynamically added
+dependencies compromise replicability, Bazel disallows them.
+
+So if we write a Bazel target using only the information in this Dune
+stanza, we'll get something that won't build due to missing
+dependencies. The following shows what we need to add:
+
+[source, starlark]
+----
+ocaml_module(
+    name          = "Ppx_assert_test",
+    struct        = "ppx_assert_test.ml",
+    deps          = [
+        "@sexplib//lib/sexplib",
+        "@ocaml//lib/str",
+    ],
+    ppx           = ":ppx.exe",
+    ppx_args      = [                 <1>
+        "-inline-test-lib",
+        "ppx_assert_test_lib"
+    ],
+    # ppx_print = "@rules_ocaml//ppx/print:text!",  <2>
+)
+
+ppx_executable(
+    name    = "ppx.exe",
+    main    = "@ppxlib//lib/runner",
+    prologue = [
+        "@ppx_compare//lib/ppx_compare",
+        "@ppx_sexp_conv//lib/ppx_sexp_conv",
+        "@ppx_here//lib/ppx_here",
+        "//src:ppx_assert",
+        "@ppx_inline_test//lib/ppx_inline_test"
+    ],
+    ppx_codeps = ["@ppx_here//lib/ppx_here"]   <3>
+)
+----
+<1> Args to `ppx.exe` required by `ppx_inline_test`.
+<2> Optional - see comments below.
+<3> This codependency will be passed to the `ocaml_module` rule for use as a build dependency.
+
+If we omit the `ppx_args`, we get this error:
+
+----
+$ bazel build test:Ppx_assert_test
+Error: ppx_inline_test: extension is disabled because the tests would be ignored (the build system didn't pass -inline-test-lib...
+----
+
+If we omit `ppx_codeps`:
+
+    Error: Unbound module Ppx_here_lib
+
+Now the problem is that the original source file makes no mention of
+`Ppx_here_lib`; rather it contains `[%here]` in several places, and
+the ppx executable replaces this with code that does reference
+`Ppx_here_lib`. To inspect the result we can add the following to the `ocaml_module` target:
+
+    ppx_print = "@rules_ocaml//ppx/print:text!",
+
+This will direct the ppx executable to emit text rather than binary
+data. Then we can open the output file and inspect the generated code.
 
 Rules
 
 * [ocaml_test](../refman/rules_ocaml.md#ocaml_test)
 * [ppx_test](../refman/rules_ppx.md#ppx_test)
 
+
+=== Troubleshooting
+
+Case: ppx_assert.
 
 == resources
 
