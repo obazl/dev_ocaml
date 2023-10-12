@@ -5,38 +5,147 @@
 :page-doc: ug
 :page-tags: [linking]
 :page-last_updated: June 2, 2022
-:page-toc: false
+:page-toc: true
+:toc:
 
 
+== Linking OCaml executables
 
-* [Generating static and portable executables with OCaml](https://www.ocamlpro.com/2021/09/02/generating-static-and-portable-executables-with-ocaml/)
+
+* link:https://www.ocamlpro.com/2021/09/02/generating-static-and-portable-executables-with-ocaml/[Generating static and portable executables with OCaml,window=_blank]
 
 
-== link optimization
+== OCaml cross-module optimization (xmo)
 
--no-alias-deps:  cut elim, eliminates dep on resolver module needed for compiltion
+`+-no-alias-deps+`:  cut elim, eliminates dep on resolver module needed for compiltion
 
 Example: using metaquot (demos_obazl/rules_ocaml/ppx/metaquot)
 
-====
-\# Error: No implementations provided for the following modules:
-\#          Ppxlib_ast__Ast_helper_lite referenced from bazel-out/darwin-fastbuild/bin/ppx/metaquot/__obazl/Simple.cmx
-====
+----
+# Error: No implementations provided for the following modules:
+#          Ppxlib_ast__Ast_helper_lite referenced from bazel-out/darwin-fastbuild/bin/ppx/metaquot/__obazl/Simple.cmx
+----
 
 This is a mysterious error message, because the text
-`Ppxlib_ast__Ast_helper_lite` does *not* appear from Simple.ml (after
-ppx processing). Nor does `Ast_helper_lite`.
+`+Ppxlib_ast__Ast_helper_lite+` does *not* appear in Simple.ml (after
+ppx processing). Nor does `+Ast_helper_lite+`.
 
-What has happened is that the text does refer to `Ppxlib.Ast_helper`, and
+What has happened is that the text does refer to `+Ppxlib.Ast_helper+`, and
 that gets resolved at compile time through a series of module aliases.
 In the end, `Ppxlib.Ast_helper` resolves to
-`Ppxlib_ast__Ast_helper_lite`, which is found at
-`ppxlib/ast/ppxlib_ast__Ast_helper_lite.cmx` etc. So that's what gets
+`+Ppxlib_ast__Ast_helper_lite+`, which is found at
+`+ppxlib/ast/ppxlib_ast__Ast_helper_lite.cmx+` etc. So that's what gets
 recorded in the compiled module, so that linking can skip the
 intermediating resolver files and go directly to the dependency.
 
 So this is a case where link optimization inevitably results in a
 puzzling error message.
+
+== Linking C code with OCaml code
+
+The manual:
+
+link:https://v2.ocaml.org/manual/intfc.html#ss:staticlink-c-code[22.1.3 Statically linking C code with OCaml code]
+
+link:https://v2.ocaml.org/manual/intfc.html#ss:dynlink-c-code[22.1.4 Dynamically linking C code with OCaml code]
+
+link:https://v2.ocaml.org/manual/runtime.html#s:ocamlrun-dllpath[15.3 Dynamic loading of shared libraries]
+
+
+=== OCaml linking protocols
+==== Native code (`ocamlopt` compilers)
+
+===== static linking
+
+* Do _not_ use the `-custom` flag
+* Pass the C files (.o, .a, .so, .dylib, .dll) directly as cmd line
+  args to the `ocamlopt.x` command.
+
+===== dynamic linking
+
+
+==== VM code (`ocamlc` compilers)
+
+===== static linking
+
+"In the “custom runtime” mode, the OCaml linker ... builds a runtime system with the required [user-defined] primitives [plus bytecode interpreter, memory mgr, and standard primitives]. The OCaml linker generates bytecode for this custom runtime system. The bytecode is appended to the end of the custom runtime system, so that it will be automatically executed when the output file (custom runtime + bytecode) is launched."
+-- link:https://v2.ocaml.org/manual/intfc.html#ss:staticlink-c-code[22.1.3 Statically linking C code with OCaml code]
+
+
+* Pass `-custom` in the `ocamlc` link cmd
+* Pass .o, .a files directly on cmd line, OR
+** Name the static library `lib<name>.a`
+** Install it in "one of the standard library directories"
+** Pass `-cclib -l<name>` on the `ocamlc` cmd line
+
+===== dynamic linking
+
+"In this mode, the OCaml linker generates a pure bytecode executable (no embedded custom runtime system) that simply records the names of dynamically-loaded libraries containing the C code. The standard OCaml runtime system ocamlrun then loads dynamically these libraries, and resolves references to the required primitives, before executing the bytecode."
+-- link:https://v2.ocaml.org/manual/intfc.html#ss:dynlink-c-code[22.1.4 Dynamically linking C code with OCaml code,window=_blank]
+
+* Compile PIC code
+* Build a dso
+* Do not pass `-custom`
+* Pass dso filenames on cmd line OR
+** Name the dso `dll<name>.<ext>`,
+** Install it in one of the "standard" library directories,
+** Pass `-dllib -l<name>` on cmd line
+
+==== Archiving
+
+C libraries can be "linked" into archive (cma/cmxa) files. The archive
+records the library names (and possibly paths), and the linker can
+then extract those names at linktime, saving the user the trouble of
+doing so.
+
+This is useful for distributions since the linking of C libraries
+happens automatically; the user need not even know it is happening.
+
+But during development it means unecessary build actions. A build
+optimized for developers would build only one C library, and would not
+need to construct archives.
+
+=== OBazl linking protocols
+
+The linking rules in `rules_ocaml` (i.e. `ocaml_binary`, `ocaml_test`,
+`ppx_executable`, ...) handle the OCaml linking protocols
+automatically and transparently.
+
+We only have one target for producing an executable; target platform
+(native or vm) is set by toolchain (e.g. `--config=ocamlc.opt` on
+the command line).  So one build always produces one output.
+
+It follows that for each build we can have only one link strategy.
+There are several ways to express this:
+
+* A global flag (e.g. `@rules_ocaml//cfg/linkmode`)
+* User-defined custom flags
+* Hard-coded attribute on target code
+* other?
+
+Method:
+
+* Use the `cc_library` rule to compile static libraries
+* Use the `cc_binary` rule with `linkshared=True` to compile DSOs
+* Attach CC libraries
+** at their point of use. For example, if target
+  `//src:Zlib` is the OCaml code for zlib bindings, then list the C
+  stubs targets as its direct dependencies. The rules will pass the
+  information on to the linker automatically.
+** or, attach them to the binary targets
+* Choose a link strategy for each executable. FIXME: expand details
+
+CAUTION: Todo: explain how to provide both or either
+
+IMPORTANT: Here's the tricky bit. We only need one C library,
+depending on our ultimate link stragegy, but if we attach our C libs
+to ocaml modules (rather than executable targets) we don't know which
+will be needed when we compile the stubs and bindings. The usual
+strategy is to compile both, and add both to a `cma/cmxa` file, so
+that the linker can select whichever it needs. If we attach our C libs
+to executables then this problem is resolved, but at cost of more
+complexity overall, since the executable must then "know" all of the c
+libs needed for what could be a large dependency graph.
 
 == MacOS
 

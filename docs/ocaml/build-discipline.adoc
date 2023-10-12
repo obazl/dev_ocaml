@@ -122,6 +122,43 @@ Q: a.cmi input to archive action? iow can an archive contain a standalone sig?
 Q: what about dynamic linking, e.g. a.cmxs?
 
 
+== Runtimes
+
+When linking an executable, the compilers search for a target runtime to link.
+
+Sys target: liibasmrun, libasmrunc, libasmruni - see asmcomp/asmlink.ml
+
+VM target: custom runtime looks for -lcamlrun, -lcamlrund, etc. (bytecomp/bytelink.ml)
+
+VM target w/o custom runtime: the emitted executable does not need a runtime, since it will run on the vm, which contains the runtime already.
+
+VM interpreter (ocamlrun) is statically linked with libcamlrun.a (or libcamlrund.a etc.)
+
+That makes those runtime files inputs to the build, which means they
+must be explicitly listed as dependencies for rules that run the ocaml linkers.
+
+So our toolchains have a `target_runtime` attribute. To use e.g. a
+debug runtime, we use a config_setting, e.g.
+`--@ocaml//toolchain/debug`. That puts a debug runtime in the
+toolchain, but the problem is that `--@ocaml//toolchain/debug` is
+global, and we may want a debug runtime for only one target, e.g a
+test executable.
+
+So we include all runtimes in the tc. The debug flag selects the
+default runtime for the tc, but a rule may use some other flag to
+select a different runtime, overriding the default.
+
+That's for ocaml code. If you are using the C SDK, you may also need to
+link a runtime to your c libs. E.g. if you want to embed ocaml in c:
+
+link:https://v2.ocaml.org/manual/intfc.html#ss:c-embedded-code[Embedding the OCaml code in the C code]
+
+similar if you use -output-obj etc.
+
+NB: when you link with -custom the runtime is automatically added
+
+So the challenge for the obazl code is to determine which runtime to add as a runtime dep, and when to explicitly list it on the cmd line.
+
 
 == Modules and the File System
 

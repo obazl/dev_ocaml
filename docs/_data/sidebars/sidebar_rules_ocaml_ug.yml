@@ -90,6 +90,10 @@ entries:
       external_url: https://bazel.build/concepts/labels
       output: web
 
+    - title: Linking
+      url: linking
+      output: web
+
     - title: Maintenance
       url: maintenance
       output: web

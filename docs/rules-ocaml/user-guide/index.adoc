@@ -178,6 +178,7 @@ It adds support for:
 * link:file-generation[File Generation]
 * link:interop[Interop]
 * link:https://bazel.build/concepts/labels[Labels,window="_blank"]
+* link:linking[Linking]
 * link:maintenance[Maintenance Tasks]
 * Modules
 ** link:module-binding[Module Binding]

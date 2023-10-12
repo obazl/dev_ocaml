@@ -10,7 +10,9 @@
 // :toc: true
 
 
-== xcode versions
+== versions- os, sdk, xcode
+
+IMPORTANT: Because the OCaml compilers may call a compiler (linker/assember), setting these Bazel switches may not be enough to eliminate those pesky "object was built for newer version.." (see below).  You may also need to pass some options to the linker using `-ccopt` (TODO: details)
 
 link:https://www.smileykeith.com/2021/03/08/locking-xcode-in-bazel/[Locking Xcode versions in Bazel,window="_blank"] blog post, March 2021
 
