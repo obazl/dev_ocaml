@@ -22,7 +22,7 @@ This site documents the OBazl toolsuite, version 2.
 link:changelog[Changes] from version 1.
 
 WARNING: This documentation is currently undergoing major revisions,
-which should be completed by mid-June 2022. Until then things will be
+which should be completed by mid-November 2023. Until then things will be
 a little messy and incomplete.
 
 == OCaml
