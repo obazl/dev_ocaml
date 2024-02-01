@@ -1,0 +1,24 @@
+= CC Link options
+:page-permalink: /:path/link_options
+:page-layout: page_rules
+:page-pkg: rules_cc
+:page-doc: ug
+:page-tags: [linkage,linking]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: false
+
+link:https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html[GCC Options for linkage]
+
+link:https://clang.llvm.org/docs/ClangCommandLineReference.html#linker-options[Linker options (llvm clang)]
+
+linux:
+
+    ld --verbose
+    ldconfig -v
+
+MacOS:
+
+    man ld
+    ld -v
+    clang -Xlinker -v

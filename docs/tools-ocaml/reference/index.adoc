@@ -1,0 +1,32 @@
+=  Reference Manual: tools_ocaml
+:page-permalink: /:path/index.html
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-sidebar: true
+:page-toc: false
+:page-tags: [refman]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+
+The link:https://github.com/obazl/tools_ocaml[tools_ocaml] repository contains rules for third-party tools.
+
+To use add the following to your `MODULE.bazel` file:
+
+    bazel_dep(name = "tools_ocaml",     version = "2.0.0")
+
+Then load and use the desired rule in your `BUILD.bazel` files; for example:
+
+    load("@tools_ocaml//rules:menhir.bzl", "menhir")
+    menhir(
+        name     = "menhir_Parser",
+        tool     = "@ocaml//bin:menhir",
+        grammars = ["parser.mly"],
+        deps     = [":Ast"],
+        outs     = ["parser.ml", "parser.mli"]
+    )
+
+
+== Rules
+* link:cppo[cppo]
+* link:menhir[menhir]

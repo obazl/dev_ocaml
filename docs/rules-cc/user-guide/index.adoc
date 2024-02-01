@@ -1,0 +1,117 @@
+= User Guide: rules_cc
+:page-permalink: /:path/index.html
+:page-layout: page_rules
+:page-pkg: rules_cc
+:page-doc: ug
+:page-sidebar: false
+:page-tags: [formatting]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 1, 2022
+:toc: true
+
+WARNING: This documentation only applies to Bazel's cc_toolchain,
+which is designed for gcc/clang. Custom toolchains for other compilers
+may do things differently.
+
+Native: link:https://bazel.build/reference/be/c-cpp[C/C++ rules=]
+
+Starlark: https://github.com/bazelbuild/rules_cc[rules_cc]
+
+
+== dependencies
+
+Attributes:
+
+* deps
+* implementation_deps
+
+In what follows we use `@xdgc` as an example. It depends on
+`@uthash//lib:uthash`. The latter contains public headers in `lib`.
+
+The rules are designed to make dependencies automatically accessible,
+so that users need not explicitly add directories to the include
+search paths list. In the simplest case, having [nowrap]`+deps =
+["@uthash//lib:uthash"]+` has the following effect:
+
+* adding the file system path of the dependency's root directory to
+  the include search path using `+iquote+`. E.g.
+
+----
+     -iquote external/uthash~2.0.0 \
+     -iquote bazel-out/darwin_arm64-fastbuild/bin/external/uthash~2.0.0
+----
+
+This is sufficient to resolve client include directives _provided_ that client:
+
+* uses quotes rather than angle brackets for `+#include+` directives,
+* uses full (relative) paths, e.g `+#include "lib/uthash.h"+` rather than `+#include "uthash.h"+`
+
+To support client code that uses only files rather than full paths ([nowrap]`+#include "uthash.h"+`) there are two options:
+
+* the dependency must use the `includes` attribute: [nowrap]`+includes = ["."]+`; this will cause Bazel to add [nowrap]`+isystem path/to/include/dir+` to the command line:
+
+----
+    -isystem external/uthash~2.0.0/lib
+    -isystem bazel-out/darwin_arm64-fastbuild/bin/external/uthash~2.0.0/lib
+----
+
+
+* or, the client can add `+-Ipath/to/include/dir+` to the `copts` attribute.
+
+With either of these strategies the requirement to use quoted includes is relaxed; both `+isystem+` and `+-I+` will search for both kinds of include.
+
+WARNING: Using the `+includes+` attribute carries some risk. First,
+all headers in the directory will be accessible, even private
+internal-use headers. Second, the `+isystem+` arguments it generates
+will percolate upward in the dependency graph.
+
+
+Minimal configuration: headers are listed in `srcs`; clients must use
+full path in `+#include+` directives, e.g. `+#include
+"lib/uthash.h"+`.
+
+The implicit assumptions are:
+
+* Clients should use `+#include "path/to/file.h"+` rather than `+#include
+  <path/to/file.h>+`. In other words, the latter form is for standard system
+  headers (like `<stdio.h>`) and quoted forms are for third-party
+  system headers.
+
+If you use `+#include <lib/utstring.h>+`:
+
+----
+lib/libxdgc.c:4:10: fatal error: 'lib/utstring.h' file not found with <angled> include; use "quotes" instead
+#include <lib/utstring.h>
+         ^~~~~~~~~~~~~~~~
+         "lib/utstring.h"
+----
+
+* The dependency must list public headers in the `hdrs` attribute
+* If headers are in a subdirectory, e.g. `+lib/include/file.h+`, then
+  client code that uses the full path (`+#include
+  "lib/include/file.h"+`) will automatically work
+
+
+For example, placing a build target (e.g. `+@uthash//lib:uthash+`) in the `deps`
+attribute has the following effects on the generated compile command line:
+
+==== configure module root directory as `+iquote+` path
+
+Use of `+iquote+` means these paths will be used to search for
+`+#include "file.h"+` but not `+#include <file.h>+`.
+
+     -iquote external/uthash~2.0.0 \
+     -iquote bazel-out/darwin_arm64-fastbuild/bin/external/uthash~2.0.0
+
+If you have an override on the module you will see `+uthash~override+`
+instead of `+uthash~2.0.0+`.
+
+
+
+
+== link:include_search_paths[Include search paths]
+
+== link:link_options[Linkage]
+
+* linkopts
+* additional_linker_inputs

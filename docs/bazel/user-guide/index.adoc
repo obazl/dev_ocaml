@@ -1,9 +1,9 @@
-= Bazel: Overview for OCaml Developers
+= Bazel Guide
 :page-permalink: /:path/index
-:page-layout: page_rules_ocaml
-:page-pkg: ocaml
+:page-layout: page_bazel
+:page-pkg: bazel
 :page-doc: ug
-:page-tags: [ocaml,toolchain]
+:page-tags: [bazel]
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 16, 2022
 :toc-title:
@@ -17,6 +17,8 @@
 
 
 == link:repositories[Repositories & Workspaces]
+
+== link:macos[MacOS]
 
 == link:queries[Queries]
 

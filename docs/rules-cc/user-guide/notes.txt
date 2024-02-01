@@ -1,0 +1,29 @@
+feature test macros and c lang dialect
+
+with gcc lang dialect and glibc interact
+with -std=c11 we need feature test macros for some apis
+e.g. for getopt, strdup, some header macros, etc. we need
+to define _POSIX_C_SOURCE, or _GNU_SOURCE, etc.
+(with -std=gnu11 they seem to be automatically added)
+
+For such cases if we use -std=c11 we need something like:
+
+    local_defines = define_module_version()
+    + select({ # getopt
+        "@platforms//os:linux": ["_POSIX_C_SOURCE=200809L"],
+        "//conditions:default": []
+    }),
+
+
+
+dependency mgmt:
+
+implementation_deps - enabled by default in 6.4.0?
+https://github.com/bazelbuild/bazel/pull/19751
+
+
+
+
+name mangling of dsos:
+
+https://groups.google.com/g/bazel-discuss/c/1ZXB9jz-arc/m/ozLHBG_IEQAJ

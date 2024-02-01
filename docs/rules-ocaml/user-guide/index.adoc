@@ -73,39 +73,40 @@ NB: compositionality:  rules v. build actions
 
 OBazl includes two rulesets:
 
-* a `bootstrap` ruleset (rule names prefixed by `bootstrap_`)
+// * a `bootstrap` ruleset (rule names prefixed by `bootstrap_`)
 * the standard ruleset (rule names prefixed by `ocaml_` or `ppx_`)
+* `tools_ocaml` - rules for third-party tools like `cppo`, `menhir`, etc.
 
-=== rules_bootstrap
+// === rules_bootstrap
 
-The `bootstrap` ruleset is a special case. It is designed expressly
-and solely to support building the OCaml compiler. Building the
-compiler requires bootstrapping: the build rules cannot rely on an
-OCaml compiler to build the OCaml compiler. Instead they must first
-compile the bootstrapping compiler, which is written in C, and then
-use it to compile the OCaml sources and produce an OCaml compiler
-proper. The standard OBazl ruleset cannot be used to build the
-compiler, since it depends on an already-built compiler.
+// The `bootstrap` ruleset is a special case. It is designed expressly
+// and solely to support building the OCaml compiler. Building the
+// compiler requires bootstrapping: the build rules cannot rely on an
+// OCaml compiler to build the OCaml compiler. Instead they must first
+// compile the bootstrapping compiler, which is written in C, and then
+// use it to compile the OCaml sources and produce an OCaml compiler
+// proper. The standard OBazl ruleset cannot be used to build the
+// compiler, since it depends on an already-built compiler.
 
-The `bootstrap` ruleset uses a stripped-down version of the standard
-ruleset, and replaces the standard toolchain with a toolchain that
-uses the bootstrapping tools. The compiler code does not use PPX
-preprocessing, and uses only a single hand-coded namespace (the
-Stdlib), so it does not need support for general namespacing. So the
-bootstrap rules use the same code as the standard ruleset, except that
-everything not necessary to build the compiler is stripped out.
-Consequently the bootstrap rules are much simpler than the standard
-rules, and users interested in knowing how OBazl works should start by
-studying the bootstrap rules.
+// The `bootstrap` ruleset uses a stripped-down version of the standard
+// ruleset, and replaces the standard toolchain with a toolchain that
+// uses the bootstrapping tools. The compiler code does not use PPX
+// preprocessing, and uses only a single hand-coded namespace (the
+// Stdlib), so it does not need support for general namespacing. So the
+// bootstrap rules use the same code as the standard ruleset, except that
+// everything not necessary to build the compiler is stripped out.
+// Consequently the bootstrap rules are much simpler than the standard
+// rules, and users interested in knowing how OBazl works should start by
+// studying the bootstrap rules.
 
-Because the `bootstrap` ruleset is designed only to be used in
-building the compiler, it is not distributed with the OBazl package,
-nor is it independently downloadable. Instead it is included directly
-in the link:https://github.com/obazl-repository/ocaml[OBazl fork of the compiler].
+// Because the `bootstrap` ruleset is designed only to be used in
+// building the compiler, it is not distributed with the OBazl package,
+// nor is it independently downloadable. Instead it is included directly
+// in the link:https://github.com/obazl-repository/ocaml[OBazl fork of the compiler].
 
 === rules_ocaml
 
-The standard `obazl_rules_ocaml` ruleset can be thought of as a layer
+The standard `rules_ocaml` ruleset can be thought of as a layer
 that sits on top of and extends the bootstrap ruleset. All the added
 functionality could be implemented using generic Bazel facilities
 (genrules, macros, custom rules), but OBazl provides built-in support
@@ -144,82 +145,83 @@ It adds support for:
      link-time.
 
 
-== Topics
+// == Topics
 
-* link:accessibility[Accessibility]
-* link:aggregates[Aggregates]
-** link:aggregators#_archives[Archives]
-** link:aggregators#_libraries[Libraries]
-** link:aggregators#_namespace-libraries[Namespace Libraries]
-* link:aspects[Aspects]
-* link:bootstrapping[Bootstrapping]
-* link:profiles[Build Profiles and Contexts]
-* link:caching[Caching]
-* Compilation Mode - bytecode v. native
-* link:compilers[Compilers]
-* link:conditional[Conditional Builds]
-* link:configuration[Configuration]
-** link:configuration#bazel[Bazel Configurations]
-** link:configuration#opamconfig[OPAM Rules Configuration]
-** link:configuration#ocamlconfig[OCaml Rules Configuration]
-** link:configrules[Configuration Rules]
-** link:configprofiles[Config Profiles]
-* link:obazl-conventions[Conventions]
-* link:dependencies[Dependencies]
-** link:dependencies-ocaml[OCaml Dependencies]
-** [Runtime Dependencies]()
-** link:opam#dependencies[OPAM Dependencies]
-** [PPX Adjunct Dependencies]()
-** link:dependencies-cc[CC Dependencies]
-* link:deployment[Deployment]
-** link:stamping[Stamping binaries]
-* link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.
-* link:executables[Executables]
-* link:file-generation[File Generation]
-* link:interop[Interop]
-* link:https://bazel.build/concepts/labels[Labels,window="_blank"]
-* link:linking[Linking]
-* link:maintenance[Maintenance Tasks]
-* Modules
-** link:module-binding[Module Binding]
-** link:signatures[Signatures]
-** link:structures[Structures]
-* link:namespacing[Namespacing]
-* link:offline[Offline development]
-* link:preprocessing[Preprocessing]
-* link:profiles[Profiles]
-* link:/tools_opam/ug[OPAM]
-* link:optimization[Optimization]
-* link:providers[Providers]
-* link:ppx[PPX Support]
-* link:querying[Querying Dependency Graphs]
-* link:workspaces[Repositories]
-* link:refactoring[Refactoring]
-* Rules
-** link:bootstrap#rules[Bootstrapping]
-** link:build_rules[Build Rules]
-** link:configrules[Configuration Rules]
-* link:separate-compilation[Separate Compilation]
-* link:split-dependencies[Split Dependencies]
-* link:stamping[Stamping]
-* link:https://bazel.build/concepts/build-ref#targets[Targets,window="_label"]
-** `$ bazel help target-syntax`
-* link:testing[Testing]
-* link:thread-lib[Thread Library]
-* link:toolchains[Toolchains]
-** link:toolchains#ocamlfind[ocamlfind]
-** link:toolchains#ocamlc[ocamlc/ocamlopt]
-* link:tools[Tools]
-* link:troubleshooting[Troubleshooting]
-* link:user-bazelrc[user.bazelrc]
-* link:visibility[Visibility]
-* link:workspaces[Workspaces]
+// * link:accessibility[Accessibility]
+// * link:aggregates[Aggregates]
+// ** link:aggregators#_archives[Archives]
+// ** link:aggregators#_libraries[Libraries]
+// ** link:aggregators#_namespace-libraries[Namespace Libraries]
+// * link:aspects[Aspects]
+// * link:bootstrapping[Bootstrapping]
+// * link:profiles[Build Profiles and Contexts]
+// * link:caching[Caching]
+// * Compilation Mode - bytecode v. native
+// * link:compilers[Compilers]
+// * link:conditional[Conditional Builds]
+// * link:configuration[Configuration]
+// ** link:configuration#bazel[Bazel Configurations]
+// ** link:configuration#opamconfig[OPAM Rules Configuration]
+// ** link:configuration#ocamlconfig[OCaml Rules Configuration]
+// ** link:configrules[Configuration Rules]
+// ** link:configprofiles[Config Profiles]
+// * link:obazl-conventions[Conventions]
+// * link:dependencies[Dependencies]
+// ** link:dependencies-ocaml[OCaml Dependencies]
+// ** [Runtime Dependencies]()
+// ** link:opam#dependencies[OPAM Dependencies]
+// ** [PPX Adjunct Dependencies]()
+// ** link:dependencies-cc[CC Dependencies]
+// * link:deployment[Deployment]
+// ** link:stamping[Stamping binaries]
+// * link:diagnostics[Diagnostics]: Inspecting Build Commands, Actions, etc.
+// * link:executables[Executables]
+// * link:file-generation[File Generation]
+// * link:interop[Interop]
+// * link:https://bazel.build/concepts/labels[Labels,window="_blank"]
+// * link:linking[Linking]
+// * link:maintenance[Maintenance Tasks]
+// * Modules
+// ** link:module-binding[Module Binding]
+// ** link:signatures[Signatures]
+// ** link:structures[Structures]
+// * link:namespacing[Namespacing]
+// * link:offline[Offline development]
+// * link:preprocessing[Preprocessing]
+// * link:profiles[Profiles]
+// * link:/tools_opam/ug[OPAM]
+// * link:optimization[Optimization]
+// * link:providers[Providers]
+// * link:ppx[PPX Support]
+// * link:querying[Querying Dependency Graphs]
+// * link:workspaces[Repositories]
+// * link:refactoring[Refactoring]
+// * Rules
+// ** link:bootstrap#rules[Bootstrapping]
+// ** link:build_rules[Build Rules]
+// ** link:configrules[Configuration Rules]
+// * link:separate-compilation[Separate Compilation]
+// * link:split-dependencies[Split Dependencies]
+// * link:stamping[Stamping]
+// * link:https://bazel.build/concepts/build-ref#targets[Targets,window="_label"]
+// ** `$ bazel help target-syntax`
+// * link:testing[Testing]
+// * link:thread-lib[Thread Library]
+// * link:toolchains[Toolchains]
+// ** link:toolchains#ocamlfind[ocamlfind]
+// ** link:toolchains#ocamlc[ocamlc/ocamlopt]
+// * link:tools[Tools]
+// * link:troubleshooting[Troubleshooting]
+// * link:user-bazelrc[user.bazelrc]
+// * link:visibility[Visibility]
+// * link:workspaces[Workspaces]
 
 == Additional Topics
 
-* link:https://docs.bazel.build/versions/master/guide.html#phases-of-a-build[Phases of a build], link:https://docs.bazel.build/versions/master/skylark/concepts.html#evaluation-model[Evaluation Model]
-* link:https://docs.bazel.build/versions/master/external.html#offline-builds[Offline builds]
-* link:https://github.com/bazelbuild/rules_docker[Containerization]
+* link:https://bazel.build/run/build#build-phases[Bazel build phases,window=_blank]
+* link:https://docs.bazel.build/versions/master/skylark/concepts.html#evaluation-model[Bazel evaluation model,window=_blank]
+* link:https://bazel.build/external/advanced#offline_builds[Offline builds,window=_blank]
+* link:https://github.com/bazel-contrib/rules_oci[Containerization,window=_blank] (Docker, OCI, etc.)
 * Continuous Integration
 ** link:https://blog.bazel.build/2016/01/27/continuous-integration.html[Using Bazel in a continuous integration system] - Bazel blog article (2016)
 ** link:https://www.wix.engineering/post/continuous-integration-on-a-mammoth-scale-using-bazel[Continuous Integration on a Huge Scale Using Bazel] - WiX Engineering

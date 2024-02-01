@@ -1,14 +1,169 @@
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
-load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//lib:new_sets.bzl", "sets")
+load("@pandoc//rules:pandoc.bzl", "pandoc")
+load("@dita//rules:dita.bzl", "dita")
+
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_java//java:defs.bzl",
+     "java_library", "java_proto_library")
+
+RULE_SYMS = [
+    # "ocaml_archive",
+    "ocaml_binary",
+    "ocaml_exec_module",
+    "ocaml_import",
+    "ocamllex",
+    "ocaml_library",
+    "ocaml_module",
+    "ocaml_ns_archive",
+    "ocaml_ns_library",
+    # "ocaml_ns_module",
+    "ocaml_ns_resolver",
+    # "ocaml_parsing", => ocamllex, ocamlyacc
+    "ocaml_signature",
+    "ocaml_test",
+    "ocaml_vm_runtime",
+    "ocamlyacc",
+
+    #"ppx_archive",
+    "ppx_executable",
+    "ppx_module",
+    "ppx_transform",
+
+        # "ocaml_genrule",
+    # # "ocaml_ns_env",
+]
 
 RULES_PPX_DEPS = [
     "@bazel_skylib//lib:collections",
     "@bazel_skylib//lib:new_sets",
     "@bazel_skylib//lib:types",
-    "@rules_ocaml//doc:stardoc",
-    # "@rules_ocaml//opam:stardoc",
+    # "@rules_ocaml//",
 ]
+
+bzl_library(
+    name = "misc",
+    srcs = [
+        "@bazel_tools//tools/cpp:toolchain_utils.bzl",
+        "@@rules_cc~0.0.9//cc:action_names.bzl",
+        "@@rules_cc~0.0.9//cc:find_cc_toolchain.bzl"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+stardoc(
+    name = "ocaml_binary",
+    input = "@rules_ocaml//ocaml/_rules:ocaml_binary.bzl",
+    out = "ocaml_binary.adoc",
+    header_template = "//stardoc/templates/asciidoc:header_rules_ocaml.vm",
+    rule_template = "//stardoc/templates/asciidoc:rule.vm",
+    deps  = [ # bzl_library deps
+        ":misc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@bazel_skylib//lib:dicts",
+    ],
+    # symbol_names = [
+    #     "ocaml_library",
+    # ]
+)
+
+stardoc(
+    name = "ocaml_library",
+    input = "@rules_ocaml//ocaml/_rules:ocaml_library.bzl",
+    out = "ocaml_library.adoc",
+    header_template = "//stardoc/templates/asciidoc:header_rules_ocaml.vm",
+    rule_template = "//stardoc/templates/asciidoc:rule.vm",
+    deps  = [ # bzl_library deps
+        ":misc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@bazel_skylib//lib:dicts",
+    ],
+    # symbol_names = [
+    #     "ocaml_library",
+    # ]
+)
+
+genrule(
+    name = "dita",
+    tools = ["@dita__//bin:dita"],
+    srcs = [":rules_ocaml.dita"],
+    outs = ["rules_ocaml.xml"],
+    cmd  = "$(location :list_rules_java) $(SRCS) > $@"
+)
+
+genrule(
+    name = "rules.xml",
+    tools = [":list_rules_java"],
+    # srcs = [":providers.raw"],
+    srcs = [":rules_ocaml.raw"],
+    outs = ["rules_ocaml.dita"],
+    cmd  = "$(location :list_rules_java) $(SRCS) > $@"
+)
+
+java_binary(
+    name = "list_rules_java",
+    srcs = ["ListRules.java"],
+    main_class = "ListRules",
+    deps = [":_java_proto"],
+)
+
+# java_library(
+#     name = "_java",
+#     runtime_deps = [":_java_proto"],
+# )
+
+java_proto_library(
+    name = "_java_proto",
+    deps = [":_output_proto"],
+)
+
+proto_library(
+    name = "_output_proto",
+    ## https://github.com/bazelbuild//blob/master//proto/_output.proto
+    srcs = ["_output.proto"],
+    # srcs = ["@///proto:_output.proto"],
+    # strip_import_prefix = "/proto"
+)
+
+stardoc(
+    # name = "providers_proto",
+    # out = "providers.raw",
+    # input = "@rules_ocaml//ocaml:providers.bzl",
+
+    name = "rules_ocaml_proto",
+    out = "rules_ocaml.raw",
+    input = "@rules_ocaml//build:rules.bzl",
+
+    format = "proto",
+    deps  = [
+        ":misc",
+        "@bazel_skylib//lib:dicts",
+        "@bazel_skylib//lib:new_sets",
+        "@rules_ocaml//ocaml:stardoc",
+    ],
+    # symbol_names = [
+    #     "ocaml_archive",
+    #     "ocaml_binary",
+    #     "ocaml_exec_module",
+    #     "ocaml_import",
+    #     # "ocaml_lex",
+    #     "ocaml_library",
+    #     "ocaml_module",
+    #     "ocaml_ns_archive",
+    #     "ocaml_ns_library",
+    #     # "ocaml_ns_module",
+    #     "ocaml_ns_resolver",
+    #     "ocaml_parsing",
+    #     "ocaml_signature",
+    #     "ocaml_test",
+    #     "ocaml_vm_runtime",
+    #     # "ocaml_yacc",
+
+    #     # "ocaml_genrule",
+    #     # # "ocaml_ns_env",
+    # ]
+)
 
 stardoc(
     name = "rules_ocaml",
@@ -18,29 +173,18 @@ stardoc(
     rule_template = "//stardoc/templates/asciidoc:rule.vm",
     # deps must contain bzl_library targets containing files loaded by input
     deps  = [
+        ":misc",
         "@bazel_skylib//lib:dicts",
         "@bazel_skylib//lib:new_sets",
-        "@rules_ocaml//stardoc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@rules_ocaml//ocaml/_rules:stardoc",
+        "@rules_ocaml//ocaml/_debug:stardoc",
+        "@rules_ocaml//providers:stardoc",
+        "@rules_ocaml//ocaml/_transitions:stardoc",
+        "@rules_ocaml//ocaml/_rules/utils:stardoc",
         "@rules_ocaml//ppx:stardoc",
     ],
-    symbol_names = [
-        "ocaml_archive",
-        "ocaml_executable",
-        "ocaml_import",
-        "ocaml_lex",
-        "ocaml_library",
-        "ocaml_module",
-        "ocaml_ns_archive",
-        "ocaml_ns_library",
-        "ocaml_ns_module",
-        "ocaml_ns_resolver",
-        "ocaml_signature",
-        "ocaml_test",
-        "ocaml_yacc",
-
-        # "ocaml_genrule",
-        # # "ocaml_ns_env",
-    ]
+    symbol_names = RULE_SYMS,
 )
 
 stardoc(
@@ -51,67 +195,85 @@ stardoc(
     rule_template = "//stardoc/templates/asciidoc:sidebar_rules_ocaml_item.vm",
     # deps must contain bzl_library targets containing files loaded by input
     deps  = [
+        ":misc",
         "@bazel_skylib//lib:dicts",
         "@bazel_skylib//lib:new_sets",
-        "@rules_ocaml//stardoc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@rules_ocaml//ocaml/_rules:stardoc",
+        "@rules_ocaml//ocaml/_debug:stardoc",
+        "@rules_ocaml//providers:stardoc",
+        "@rules_ocaml//ocaml/_transitions:stardoc",
+        "@rules_ocaml//ocaml/_rules/utils:stardoc",
         "@rules_ocaml//ppx:stardoc",
     ],
-    symbol_names = [
-        "ocaml_archive",
-        "ocaml_executable",
-        "ocaml_import",
-        "ocaml_lex",
-        "ocaml_library",
-        "ocaml_module",
-        "ocaml_ns_archive",
-        "ocaml_ns_library",
-        "ocaml_ns_module",
-        "ocaml_ns_resolver",
-        "ocaml_signature",
-        "ocaml_test",
-        "ocaml_yacc",
-
-        # "ocaml_genrule",
-        # # "ocaml_ns_env",
-    ]
+    symbol_names = RULE_SYMS
 )
 
 ################################################################
+TOOLS_OCAML_DEPS  = [
+    "@bazel_skylib//lib:paths",
+    "@bazel_skylib//lib:shell",
+    "@bazel_skylib//rules:common_settings",
+    "@rules_ocaml//ocaml:stardoc",
+    "@rules_ocaml//ppx:stardoc",
+    "@rules_ocaml//ocaml/_providers:stardoc",
+]
+TOOLS_OCAML_HDR_TPL = "//stardoc/templates/asciidoc:header_tools_ocaml.vm"
+RULE_FREESTANDING_TPL = "//stardoc/templates/asciidoc:rule_tools_ocaml.vm"
+
+EMPTY_HDR_TPL = "//stardoc/templates/asciidoc:header_empty.vm"
+FUNCTION_TPL = "//stardoc/templates/asciidoc:functions.vm"
+
 stardoc(
-    name = "tools_obazl",
-    input = "@tools_obazl//stardoc:rules.bzl",
-    out = "tools_obazl.adoc",
-    header_template = "//stardoc/templates/asciidoc:header_tools_obazl.vm",
-    rule_template = "//stardoc/templates/asciidoc:rule.vm",
-    # deps must contain bzl_library targets containing files loaded by input
-    deps  = [
-        "@bazel_skylib//lib:dicts",
-        "@bazel_skylib//lib:new_sets",
-        "@tools_obazl//stardoc",
-        "@rules_ocaml//ppx:stardoc",
-    ],
-    symbol_names = [
-        "extract",
-        "inspect"
-    ]
+    name = "cppo",
+    input = "@tools_ocaml//rules:cppo.bzl",
+    out = "cppo.adoc",
+    header_template = EMPTY_HDR_TPL,
+    rule_template   = RULE_FREESTANDING_TPL,
+    deps = TOOLS_OCAML_DEPS
+)
+
+stardoc(
+    name = "menhir",
+    input = "@tools_ocaml//rules:menhir.bzl",
+    out = "menhir.adoc",
+    header_template = TOOLS_OCAML_HDR_TPL,
+    rule_template   = RULE_FREESTANDING_TPL,
+    deps = TOOLS_OCAML_DEPS
+)
+
+stardoc(
+    name = "bindiff",
+    input = "@tools_ocaml//rules:bindiff_test.bzl",
+    out = "bindiff_test.adoc",
+    header_template = EMPTY_HDR_TPL,
+    func_template   = FUNCTION_TPL,
+    deps = TOOLS_OCAML_DEPS
 )
 
 ################################################################
 stardoc(
     name = "functions",
-    input = ":functions_refman.bzl",
-    out = "functions.md",
-    func_template = "//stardoc/templates/markdown:functions.vm",
-    header_template = "//stardoc/templates/markdown:header_functions.vm",
-    deps  = RULES_PPX_DEPS,
-    symbol_names = [
-        "ocaml_configure",
-        # "opam_configure"
-    ]
+    input = "@rules_ocaml//ocaml/_functions:deps.bzl",
+    # input = "//docs/rules-ocaml/reference:functions_refman.bzl",
+    out = "functions.adoc",
+    func_template = "//stardoc/templates/asciidoc:functions.vm",
+    header_template = "//stardoc/templates/asciidoc:header_functions.vm",
+    # deps  = RULES_PPX_DEPS,
+    deps = [
+        ":misc",
+        "@bazel_skylib//lib:dicts",
+        "@rules_ocaml//ocaml/_debug:stardoc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@rules_ocaml//ppx:stardoc",
+        "@rules_ocaml//ocaml/_rules:stardoc"
+    ],
+    # symbol_names = [
+    # ]
 )
 
 ################################################################
-# stardoc(
+# (
 #     name = "macros",
 #     input = ":macros_refman.bzl",
 #     out = "macros.md",
@@ -139,18 +301,15 @@ stardoc(
 stardoc(
     name = "providers_ocaml",
     input = "@rules_ocaml//ocaml:providers.bzl",
-    out = "providers_ocaml.adoc",
+    out = "ocaml-providers.adoc",
     header_template   = "//stardoc/templates/asciidoc:header_providers_ocaml.vm",
     provider_template = "//stardoc/templates/asciidoc:provider.vm",
     deps  = [
-        "@rules_ocaml//stardoc",
+        "@rules_ocaml//ocaml:stardoc",
+        "@rules_ocaml//ppx:stardoc",
+        "@rules_ocaml//ocaml/_providers:stardoc",
+        "@rules_ocaml//providers:stardoc",
     ],
-    # deps  = [
-    #     "@bazel_skylib//lib:dicts",
-    #     "@bazel_skylib//lib:new_sets",
-    #     "@rules_ocaml//stardoc",
-    #     "@rules_ocaml//ppx:stardoc",
-    # ],
     symbol_names = [
         # "CcDepsProvider",
         "OcamlProvider",
@@ -194,13 +353,13 @@ stardoc(
     ]
 )
 
-# stardoc(
+# (
 #     name = "providers_opam",
 #     input = ":providers_opam.bzl",
 #     out = "providers_opam.md",
 #     header_template   = "//stardoc/templates/markdown:header_providers_opam.vm",
 #     provider_template = "//stardoc/templates/markdown:provider.vm",
-#     # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+#     # provider_template = "@io_bazel_//:templates/html_tables/provider.vm",
 #     deps  = [
 #         "@bazel_skylib//lib:collections",
 #         "@bazel_skylib//lib:new_sets",
@@ -225,7 +384,7 @@ stardoc(
     out = "providers_ppx.md",
     header_template   = "//stardoc/templates/markdown:header_providers_ppx.vm",
     provider_template = "//stardoc/templates/markdown:provider.vm",
-    # provider_template = "@io_bazel_stardoc//stardoc:templates/html_tables/provider.vm",
+    # provider_template = "@io_bazel_//:templates/html_tables/provider.vm",
     deps  = [
         "@rules_ocaml//doc:stardoc",
     ],
@@ -238,24 +397,27 @@ stardoc(
 )
 
 ################################################################
-pandoc(
-    name = "index",
-    src = "index_refman.md",
-    output = "index.md",
-    visibility = ["//visibility:public"],
-)
+# pandoc(
+#     name = "index",
+#     src = "index_refman.md",
+#     output = "index.md",
+#     visibility = ["//visibility:public"],
+#     tool = "@pandoc__//bin:pandoc"
+# )
 
-pandoc(
-    name = "linkmode",
-    src = "linkmode.md",
-    output = "linkmode_doc.md",
-    visibility = ["//visibility:public"],
-)
+# pandoc(
+#     name = "linkmode",
+#     src = "linkmode.md",
+#     output = "linkmode_doc.md",
+#     visibility = ["//visibility:public"],
+#     tool = "@pandoc__//bin:pandoc"
+# )
 
-pandoc(
-    name = "interop",
-    src = "interop.md",
-    output = "interop_doc.md",
-    visibility = ["//visibility:public"],
-)
+# pandoc(
+#     name = "interop",
+#     src = "interop.md",
+#     output = "interop_doc.md",
+#     visibility = ["//visibility:public"],
+#     tool = "@pandoc__//bin:pandoc"
+# )
 

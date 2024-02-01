@@ -1,7 +1,7 @@
 = Bazel Modules
 :page-permalink: /:path/bazel-modules
-:page-layout: page_rules_ocaml
-:page-pkg: ocaml
+:page-layout: page_bazel
+:page-pkg: bazel
 :page-doc: ug
 :page-tags: [bazel,modules]
 :page-keywords: notes, tips, cautions, warnings, admonitions

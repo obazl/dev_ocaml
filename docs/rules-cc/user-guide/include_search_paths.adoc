@@ -1,0 +1,52 @@
+= Include search paths
+:page-permalink: /:path/include_search_paths
+:page-layout: page_rules
+:page-pkg: rules_cc
+:page-doc: ug
+:page-tags: [includes]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 2, 2022
+:page-toc: true
+:toc:
+
+== compilers
+
+link:https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html[GCC Options for directory search,window=_blank]
+
+link:https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html[Options controlling the preprocessor]
+
+The most relevant options for `rules_cc` are:
+
+* `+-I dir+` - prepend `dir` to search path; searched for both `+#include "file"+` and `+#include <file>+` directives
+* `+-iquote dir+` - searched only for `+#include "<file>"+` directives
+* `+-isystem dir+` - searched for both `+#include "file"+` and `+#include <file>+` directives
+* `+-idirafter dir+` - same as `+-isystem+` but places `dir` at end of search path list
+
+=== system directories
+
+"The -isystem and -idirafter options also mark the directory as a system directory, so that it gets the same special treatment that is applied to the standard system directories."
+
+"If a standard system include directory, or a directory specified with -isystem, is also specified with -I, the -I option is ignored."
+
+==== standard system directories
+
+The "standard" system directories are those that are configured for
+the compiler at build time.
+
+    gcc -print-search-dirs
+
+    gcc -x c -v -E /dev/null
+
+On MacOS, `gcc` and `clang` are synonymous.
+
+
+== rules_cc
+
+=== cc_library
+
+Attributes:
+
+* copts
+* hdrs
+* includes
+* srcs

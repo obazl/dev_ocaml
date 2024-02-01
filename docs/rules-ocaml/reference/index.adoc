@@ -13,10 +13,10 @@
 * link:rules-ocaml/reference/ppx[ppx rules]
 
 == Providers
-* link:providers_ocaml[ocaml providers]
+* link:ocaml-providers[ocaml providers]
 * link:providers_ppx.md[ppx providers]
 * link:providers_opam.md[opam providers]
 
-// == Functions
-// * ocaml link:functions.md#ocaml_configure[configure]
+== Functions
+* ocaml link:functions[Functions]
 

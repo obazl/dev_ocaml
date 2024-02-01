@@ -1,0 +1,34 @@
+= bazel queries
+:page-permalink: /:path/queries
+:page-layout: page_bazel
+:page-pkg: bazel
+:page-doc: ug
+:page-tags: [bazel,query]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: Sept 21, 2023
+:toc-title:
+:toc: false
+
+Bazel includes a powerful query engine.
+
+
+== examples
+
+=== external repos
+
+* `+$ bazel query 'kind(local_repository, //external:*)'+`
+
+* `+$ bazel query 'kind(http_archive, //external:*)'+`
+
+* `+$ bazel query 'kind(.*, //external:*)'+`
+
+* `+$ ls $(bazel info output_base)/external/+`
+
+=== providers
+
+
+    bazel cquery //path/to:tgt --output=starlark --starlark:expr="[p for p in providers(target)]"
+
+
+    bazel run @obazl//inspect:providers --@obazl//tgt=//interop/ffi/case110:Main
+

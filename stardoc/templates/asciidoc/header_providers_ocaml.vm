@@ -1,19 +1,16 @@
-[Reference Manual](index.md)
+// GENERATED FILE - do not edit
+= OCaml Providers
+:page-permalink: /:path/ocaml-providers
+:page-layout: page_rules_ocaml
+:page-pkg: providers_ocaml
+:page-doc: refman
+:page-tags: [configation,defaults]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 2, 2022
+:page-toc: false
 
-= ocaml providers
 **WARNING** Beta version - subject to change
 
-* [CcDepsProvider](#ccdepsprovider)
-* [OcamlArchiveProvider](#ocamlarchiveprovider)
-* [OcamlImportMarker](#ocamlimportprovider)
-* [OcamlLibraryMarker](#ocamllibraryprovider)
-* [OcamlModuleMarker](#ocamlmoduleprovider)
-* [OcamlNsMarker](#ocamlnsarchiveprovider)
-* [OcamlNsEnvProvider](#ocamlnsenvprovider)
-* [OcamlNsLibraryProvider](#ocamlnslibraryprovider)
-* [OcamlProvider](#ocamlprovider)
-* [OcamlSignatureProvider](#ocamlsignatureprovider)
-* [OpamDepsProvider](#opamdepsprovider)
-* [PpxCodepsProvider](#adjunctdepsprovider)
+
 
 ----

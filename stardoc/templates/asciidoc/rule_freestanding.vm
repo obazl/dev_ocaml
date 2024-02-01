@@ -1,5 +1,11 @@
-
-== ${ruleName}
+= ${ruleName}
+:page-permalink: /:path/${ruleName}
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-tags: [tools,ocaml]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 25, 2022
 
 [.prototype]
 pass:[

@@ -1,6 +1,13 @@
+= ${ruleName}
+:page-permalink: /:path/${ruleName}
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-tags: [tools,ocaml]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 25, 2022
 
-== ${ruleName}
-
+    load("@tools_ocaml//rules:${ruleName}.bzl", "$ruleName")
 [.prototype]
 pass:[
 ${util.ruleSummary($ruleName, $ruleInfo)}

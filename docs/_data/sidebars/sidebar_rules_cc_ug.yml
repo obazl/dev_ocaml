@@ -1,0 +1,25 @@
+entries:
+- title: rules_cc
+  part: User Guide
+  product: rules_cc
+  url:  /docs_obazl/rules-cc/user-guide
+  version: 2.0
+  levels: two
+  folders:
+
+  - title: Topics
+    open: true
+    output: web
+    folderitems:
+
+    - title: Include search paths
+      url: include_search_paths
+      output: web
+
+    - title: Link options
+      url: link_options
+      output: web
+
+    - title: Packages
+      external_url: https://bazel.build/concepts/build-ref#packages
+      output: web

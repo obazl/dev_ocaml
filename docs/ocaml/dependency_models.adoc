@@ -43,6 +43,23 @@ corresponding to "SP provider".
 
 == Build Action Dependencies
 
+Bazel makes a clear distinction between built _targets_ and build
+_actions_. A build target is expressed as a rule instantiation, which
+lists all direct target dependencies. Each Bazel rule may have one or
+more build _actions_, each of which has a list of inputs and outputs.
+A rule implementation may select a subset of target dependencies to
+use as action inputs.
+
+For example, a module build target (expressed by
+rule `ocaml_module`) will list direct module dependencies, but it will
+not include dependent modules as inputs to the compile action if
+cross-module optimization is disabled (by passing the `-opaque`
+compile flag).
+
+On the other hand, dependent modules will always be passed on as
+outputs of such a build target; this makes them available as inputs to
+any _link_ actions (which are the build actions of rule `ocaml_binary`).
+
 === Compilation
 
 === Signatures
@@ -64,11 +81,26 @@ two dependency graphs.
 
 The meaning of "module A depends on module B" is surprisingly complicated.
 
-Compiler perspective:: The structure component of
-module A directly depends on the signature of module B.
+Compiler perspective:: The structure component of module A directly
+depends on the signature of module B, but _not_ on the structural
+component of module B. The compilation model is similar to that of C,
+where compilation of a file that depends on a library requires the
+header file(s) of the library, but not its implementation. (An
+exception to this protocol involves cross-module optimization,
+explained below.)
 
 Linker perspective:: The compiled _structure_ component of module A
-depends on the compiled _structure_ component of module B.
+depends on the compiled _structure_ component of module B, but not its
+signature. Again this is analogous to the model of C linkage, which
+requires dependent libraries but not their headers.
+
+IMPORTANT: It follows that a dependency of (Bazel) target A on (Bazel)
+target B does _not_ imply dependency of the build actions for A on the
+build actions of B! For example, the _compile_ action for A need not
+depend on the _compile_ action for B; that is, the result of compiling
+B may not be an input to the compile action of A, although it may be
+an input to any _link_ action for which A is an imput. The OBazl
+ruleset handles these dependencies automatically.
 
 Build system perspective:: Different build systems may handle module
  dependencies in different ways. The OCaml compiler requires that
@@ -82,11 +114,12 @@ Build system perspective:: Different build systems may handle module
  compile-dependency of struct A on sig B and a separate
  link-dependency of struct A on struct B, for example.
 
-This is where another distinction between dependency graph types is in
-order. Build languages allow the expression of dependencies; in OBazl
-we call those "target dependencies". But the build program must
-distinguish between such target dependencies and the dependencies of
-build actions, which are not necessarily the same thing.
+Ordering:: This is where another distinction between dependency graph
+types is in order. Build languages allow the expression of
+dependencies; in OBazl we call those "target dependencies". But the
+build program must distinguish between such target dependencies and
+the dependencies of build actions, which are not necessarily the same
+thing.
 
 For example, given "A depends on B", the target depgraph (for A) will
 contain both struct B and sig B (with the former dependent on the
@@ -94,13 +127,9 @@ latter). But the depgraph of the _compile action_ for A will include
 sig B but not struct B, and the depgraph of any _link action_ that
 includes A will include struct B but not sig B.
 
-NOTE: "Module A depends on module B" does _not_ mean that the
+NOTE: "Module A depends on module B" does not _necessarily_ mean that the
 signature of module A depends on the signature of module B. That may
 be the case, but it is not entailed by the module dependency.
-
-IMPORTANT: Dependency of target A on target B does _not_ imply dependency
-of A actions on B actions!
-
 
 === Principal API
 
@@ -119,10 +148,17 @@ code using the `-i` switch of the compiler.  [TODO: cross-ref]
 
 Every structure (implementation component of a module) has a _Service
 Programming Interface (SPI)_. The SPI is composed of all the modules
-directly referenced by the code of the structure. It represents the
-collection of services that must be provided (by the environment, in
-practice the build system) in order for the structure (module) to
-compile and function.
+_directly_ referenced by the code of the structure.
+
+Since each module has an SPI, we can form the transitiive closure of
+all SPIs, which gives us the (ordered) list of all module dependencies
+needed to compile.  But each SPI contains only direct dependencies.
+
+If we think of a module as a service provider, then the transitive
+closure of a module's SPI represents the collection of services that
+must be provided to the compiler (by the environment, in practice the
+build system) in order for the structure (module) to compile and
+function.
 
 SPIs are conceptual; unlike APIs, which are encoded as `.mli/.cmi`
 files, SPIs have no formal representation in either the language or

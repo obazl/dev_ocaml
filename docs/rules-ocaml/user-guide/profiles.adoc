@@ -8,7 +8,7 @@
 :page-last_updated: May 2, 2022
 :page-toc: false
 
-A Configuration Profile is a collection of build options and
+A Configuration Profile (or "group") is a collection of build options and
 configuration rules. You can define such profiles by tagging
 command-line options in your `.bazelrc` or `user.bazelrc` file and
 activate them using the `--config` option.
@@ -22,15 +22,16 @@ For example:
 [.bazelrc]
 ```
 ## build options
-build:dbg --subcommands=pretty_print
-build:dbg --verbose_failures
-build:dbg --sandbox_debug
-## user-defined configuration rule
-build:dbg --//foo/bar
+build:show --subcommands
+build:show --verbose_failures
+build:showpp --subcommands=pretty_print
+build:showpp --verbose_failures
 ```
 
-This defines a `dbg` configuration profile that can be activated by passing
-`--config=dbg`.
+This defines configuration profiles that can be activated by passing
+`--config=show` or `--config=showpp`.
+
+You can make these available to all Bazel projects by putting the directives in `$HOME/.bazelrc`.
 
 
 Documentation on build options and `--config` are buried at the bottom

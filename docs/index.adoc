@@ -4,7 +4,8 @@
 :page-keywords: notes, tips, cautions, warnings, admonitions
 :page-last_updated: May 2, 2022
 :page-sidebar: false
-:page-toc: false
+:page-toc: true
+:toc: true
 
 This site documents the OBazl toolsuite, version 2.
 
@@ -21,25 +22,28 @@ This site documents the OBazl toolsuite, version 2.
 
 link:changelog[Changes] from version 1.
 
-WARNING: This documentation is currently undergoing major revisions,
-which should be completed by mid-November 2023. Until then things will be
+WARNING: This documentation is a Work-In-Progress.  Things will be
 a little messy and incomplete.
 
-== OCaml
+== link:ocaml[OCaml: The Standard Distribution]
 
-* link:ocaml/language[Language]
-* link:ocaml/toolchains[Toolchains]
-* link:ocaml/dependency-models[Dependency Models]
-* link:ocaml/build-discipline[Build Discipline]
+== link:bazel/user-guide[Bazel Guide]
 
-== link:bazel/index[Bazel: Overview for OCaml Developers]
-
-== https://github.com/obazl/rules_ocaml[@rules_ocaml]
+== https://github.com/obazl/rules_ocaml[@rules_ocaml,window=_blank]
 
 * link:rules-ocaml/user-guide[User Guide]
 * link:rules-ocaml/reference[Reference Manual]
 * link:rules-ocaml/dev-guide[Developer Guide]
 
+== https://github.com/obazl/tools-ocaml[@tools_ocaml,window=_blank]
+
+// * link:tools-ocaml/user-guide[User Guide]
+* link:tools-ocaml/reference[Reference Manual]
+
+
+== https://github.com/bazelbuild/rules_cc[@rules_cc,window=_blank]
+
+* link:rules-cc/user-guide[User Guide]
 
 == link:https://github.com/obazl/coswitch[@coswitch]:  opam integration
 

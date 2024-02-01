@@ -1,0 +1,84 @@
+
+= cppo
+:page-permalink: /:path/cppo
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-tags: [tools,ocaml]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 25, 2022
+
+    load("@tools_ocaml//rules:cppo.bzl", "cppo")
+[.prototype]
+pass:[
+cppo(<a href="#cppo-name">name</a>, <a href="#cppo-srcs">srcs</a>, <a href="#cppo-outs">outs</a>, <a href="#cppo-defines">defines</a>, <a href="#cppo-exts">exts</a>, <a href="#cppo-msg">msg</a>, <a href="#cppo-opts">opts</a>, <a href="#cppo-undefines">undefines</a>, <a href="#cppo-vars">vars</a>)
+]
+
+Process file with cppo.
+
+Example:
+
+    cppo(
+        name = "ExtArray.cppo_mli",
+        srcs = ["extArray.mli"],
+        opts = ["-I", "foo"],
+        defines = [
+            "OCAML 407"
+        ] + WORD_SIZE + HAS_BYTES_FLAG,
+        undefines = ["FOO"],
+        exts = {
+            "lowercase": 'tr "[A-Z]" "[a-z]"'
+        }
+    )
+
+Output has same name as input, but is output to a Bazel-controlled
+dir (e.g. bazel-bin/src)
+
+**ATTRIBUTES** for rule **cppo**:
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="cppo-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/concepts/labels#target-names">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="cppo-srcs"></a>+++srcs
+|  - | +++<a href="https://bazel.build/concepts/labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="cppo-outs"></a>+++outs
+|  - | +++<a href="https://bazel.build/concepts/labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="cppo-defines"></a>+++defines
+|  CPPO -D (define) declarations. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="cppo-exts"></a>+++exts
+|  Defines custom preprocessor target section (-x parameter) | +++<a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a>+++
+| optional
+| {}
+| +++<a class="rule-attr" id="cppo-msg"></a>+++msg
+|  - | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="cppo-opts"></a>+++opts
+|  - | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="cppo-undefines"></a>+++undefines
+|  CPPO -U (undefine) declarations. | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="cppo-vars"></a>+++vars
+|  Dictionary of cppo VAR (-V) options. Keys: label. Values: string VAR name. | +++<a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a>+++
+| optional
+| {}
+
+|===
+
+
+

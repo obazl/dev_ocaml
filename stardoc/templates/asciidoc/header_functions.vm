@@ -1,7 +1,14 @@
-[Reference Manual](index.md)
+// GENERATED FILE - do not edit
+= Functions
+:page-permalink: /:path/functions
+:page-layout: page_rules_ocaml
+:page-pkg: providers_ocaml
+:page-doc: refman
+:page-tags: [configation,defaults]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 2, 2022
+:page-toc: false
 
-# functions
-
-**WARNING**  beta version - subject to change
+**WARNING** Beta version - subject to change
 
 ----

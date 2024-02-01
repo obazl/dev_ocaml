@@ -1,22 +1,20 @@
-[Reference Manual](index.md)
-
+// GENERATED FILE - do not edit
 = OCaml Providers
+:page-permalink: /:path/ocaml-providers
+:page-layout: page_rules_ocaml
+:page-pkg: providers_ocaml
+:page-doc: refman
+:page-tags: [configation,defaults]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 2, 2022
+:page-toc: false
+
 **WARNING** Beta version - subject to change
 
-* [CcDepsProvider](#ccdepsprovider)
-* [OcamlArchiveProvider](#ocamlarchiveprovider)
-* [OcamlImportMarker](#ocamlimportprovider)
-* [OcamlLibraryMarker](#ocamllibraryprovider)
-* [OcamlModuleMarker](#ocamlmoduleprovider)
-* [OcamlNsMarker](#ocamlnsarchiveprovider)
-* [OcamlNsEnvProvider](#ocamlnsenvprovider)
-* [OcamlNsLibraryProvider](#ocamlnslibraryprovider)
-* [OcamlProvider](#ocamlprovider)
-* [OcamlSignatureProvider](#ocamlsignatureprovider)
-* [OpamDepsProvider](#opamdepsprovider)
-* [PpxCodepsProvider](#adjunctdepsprovider)
+
 
 ----
+
 
 == OcamlArchiveMarker
 
@@ -32,6 +30,7 @@ td {vertical-align: top;}
 OCaml Archive Marker provider.
 
 **FIELDS**
+
 
 
 
@@ -52,6 +51,7 @@ OCaml Executable Marker provider.
 
 
 
+
 == OcamlImportMarker
 
 ## OcamlImportMarker
@@ -66,6 +66,7 @@ td {vertical-align: top;}
 OCaml Import Marker provider.
 
 **FIELDS**
+
 
 
 
@@ -86,6 +87,7 @@ OCaml Library Marker provider.
 
 
 
+
 == OcamlModuleMarker
 
 ## OcamlModuleMarker
@@ -103,6 +105,7 @@ OCaml Module Marker provider.
 
 
 
+
 == OcamlNsMarker
 
 ## OcamlNsMarker
@@ -117,6 +120,7 @@ td {vertical-align: top;}
 OCaml Namespace Marker provider.
 
 **FIELDS**
+
 
 
 
@@ -161,6 +165,7 @@ OCaml build provider; content depends on target rule type.
 | <a id="OcamlProvider-paths"></a>paths |  string depset    |
 | <a id="OcamlProvider-ppx_codeps"></a>ppx_codeps |  file depset    |
 | <a id="OcamlProvider-ppx_codep_paths"></a>ppx_codep_paths |  string depset    |
+
 
 
 == OcamlSignatureProvider

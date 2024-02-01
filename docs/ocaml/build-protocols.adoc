@@ -1,5 +1,5 @@
-= OCaml: Build Discipline(s)
-:page-permalink: /:path/build-discipline
+= OCaml: Build Protocols
+:page-permalink: /:path/build-protocols
 :page-layout: page_ocaml
 :page-pkg: ocaml
 :page-doc: ocaml

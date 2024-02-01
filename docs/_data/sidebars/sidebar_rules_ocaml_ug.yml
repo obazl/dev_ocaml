@@ -98,7 +98,11 @@ entries:
       url: maintenance
       output: web
 
-    - title: Modules
+    - title: Modules (Bazel)
+      url: \/docs_obazl\/bazel\/bazel-modules
+      output: web
+
+    - title: Modules (OCaml)
       url: modules
       output: web
 

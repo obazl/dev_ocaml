@@ -1,0 +1,51 @@
+
+= bindiff_test
+:page-permalink: /:path/bindiff_test
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-tags: [tools,ocaml]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 25, 2022
+
+    load("@tools_ocaml//rules:bindiff_test.bzl", "bindiff_test")
+[.prototype]
+pass:[
+bindiff_test(<a href="#bindiff_test-name">name</a>, <a href="#bindiff_test-file1">file1</a>, <a href="#bindiff_test-file2">file2</a>, <a href="#bindiff_test-failure_message">failure_message</a>, <a href="#bindiff_test-kwargs">kwargs</a>)
+]
+
+A macro that generates a rule that compares two binary files.
+
+The rule uses shell command `cmp` on Linux/macOS/non-Windows, and a cmd.exe
+command (fc.exe) on Windows (no Bash is required).
+
+Derived from link:https://github.com/bazelbuild/bazel-skylib/blob/main/rules/diff_test.bzl[skylib diff_test,window=_blank].
+
+The test succeeds if the files' contents match.
+
+
+**PARAMETERS**
+
+[.rule_attrs]
+[cols="1,1,1,1"]
+|===
+| Name  | Description | Mandatory | Default Value
+
+| name
+| The name of the test rule.
+|  Yes | 
+| file1
+| Label of the file to compare to `file2`.
+|  Yes | 
+| file2
+| Label of the file to compare to `file1`.
+|  Yes | 
+| failure_message
+| Additional message to log if the files' contents do not match.
+|  No | None
+| kwargs
+| The link:https://bazel.build/reference/be/common-definitions#common-attributes-tests[common attributes for tests].
+|  No | 
+|===
+
+

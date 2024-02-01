@@ -1,7 +1,7 @@
 = macos
 :page-permalink: /:path/macos
-:page-layout: page_rules_ocaml
-:page-pkg: ocaml
+:page-layout: page_bazel
+:page-pkg: bazel
 :page-doc: ug
 :page-tags: [bazel,modules]
 :page-keywords: notes, tips, cautions, warnings, admonitions
@@ -32,7 +32,6 @@ To retrieve the build number from your current Xcode version:
 
 NOTE: better to use `--macos_sdk_version`? see below
 
-
 * `--xcode_version=<a string>`
 ** If specified, uses Xcode of the given version for relevant build actions. If unspecified, uses the executor default version of Xcode.
 
@@ -40,10 +39,25 @@ NOTE: better to use `--macos_sdk_version`? see below
 ** default: "@bazel_tools//tools/cpp:host_xcodes"
 ** The label of the xcode_config rule to be used for selecting the Xcode version in the build configuration.
 
+
+* `xcrun --sdk macosx --show-sdk-version`
+* `xcrun --sdk macosx --show-sdk-path`
+
 == sdk versions
 
 * `--macos_sdk_version=<version>`
 ** Specifies the version of the macOS SDK to use to build macOS applications. If unspecified, uses default macOS SDK version from 'xcode_version'.
+
+== env vars
+
+When using the cc_toolchain (e.g. to build C, C++, objc, ...):
+
+* `SDKROOT`
+* `DEVELOPER_DIR`
+* `XCODE_VERSION_OVERRIDE`
+* `APPLE_SDK_PLATFORM`
+* `APPLE_SDK_VERSION_OVERRIDE`
+
 == macos versions
 
 <version> == a dotted version (for example '2.3' or '3.3alpha2.4')> default: see description
@@ -67,3 +81,6 @@ warning. Setting the version to 12.3 does not. So evidently there is
 some binary involved that was built with 12.0, but I have no idea
 what.
 
+== todo
+
+clang wrapper etc

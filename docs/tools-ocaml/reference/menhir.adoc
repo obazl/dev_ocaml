@@ -1,0 +1,87 @@
+
+= menhir
+:page-permalink: /:path/menhir
+:page-layout: page_tools_ocaml
+:page-pkg: tools_ocaml
+:page-doc: refman
+:page-tags: [tools,ocaml]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: May 25, 2022
+
+    load("@tools_ocaml//rules:menhir.bzl", "menhir")
+[.prototype]
+pass:[
+menhir(<a href="#menhir-name">name</a>, <a href="#menhir-deps">deps</a>, <a href="#menhir-outs">outs</a>, <a href="#menhir-base">base</a>, <a href="#menhir-cmly">cmly</a>, <a href="#menhir-compile_errors">compile_errors</a>, <a href="#menhir-explain">explain</a>, <a href="#menhir-flags">flags</a>, <a href="#menhir-grammars">grammars</a>, <a href="#menhir-ns">ns</a>, <a href="#menhir-opts">opts</a>, <a href="#menhir-token">token</a>,
+       <a href="#menhir-tokens_unused">tokens_unused</a>, <a href="#menhir-tool">tool</a>)
+]
+
+Runs menhir.
+
+**ATTRIBUTES** for rule **menhir**:
+
+[.rule_attrs]
+[cols="1,1,1,1,1"]
+|===
+| Name  | Description | Type | Mandatory | Default
+
+| +++<a class="rule-attr" id="menhir-name"></a>+++name
+|  A unique name for this target. | +++<a href="https://bazel.build/concepts/labels#target-names">Name</a>+++
+| required
+| 
+| +++<a class="rule-attr" id="menhir-deps"></a>+++deps
+|  List of OCaml dependencies. | +++<a href="https://bazel.build/concepts/labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="menhir-outs"></a>+++outs
+|  Output filenames, .ml and .mli. | +++List of labels+++
+| required
+| 
+| +++<a class="rule-attr" id="menhir-base"></a>+++base
+|  Equivalent to --base arg | +++String+++
+| optional
+| ""
+| +++<a class="rule-attr" id="menhir-cmly"></a>+++cmly
+|  Produce .cmly file | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="menhir-compile_errors"></a>+++compile_errors
+|  --compile-errors switch | +++<a href="https://bazel.build/concepts/labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="menhir-explain"></a>+++explain
+|  Produce basename.conflicts file | +++Boolean+++
+| optional
+| False
+| +++<a class="rule-attr" id="menhir-flags"></a>+++flags
+|  Boolean flag options | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="menhir-grammars"></a>+++grammars
+|  Menhir source files. | +++<a href="https://bazel.build/concepts/labels">List of labels</a>+++
+| optional
+| []
+| +++<a class="rule-attr" id="menhir-ns"></a>+++ns
+|  - | +++<a href="https://bazel.build/concepts/labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="menhir-opts"></a>+++opts
+|  Options of form --option val | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="menhir-token"></a>+++token
+|  --external-token value. | +++<a href="https://bazel.build/concepts/labels">Label</a>+++
+| optional
+| None
+| +++<a class="rule-attr" id="menhir-tokens_unused"></a>+++tokens_unused
+|  --unused-tokens list | +++List of strings+++
+| optional
+| []
+| +++<a class="rule-attr" id="menhir-tool"></a>+++tool
+|  Bazel label of a menhir executable. | +++<a href="https://bazel.build/concepts/labels">Label</a>+++
+| required
+| 
+
+|===
+
+
+

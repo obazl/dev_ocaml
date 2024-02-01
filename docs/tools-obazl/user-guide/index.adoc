@@ -1,0 +1,23 @@
+= User Guide: tools_obazl
+:page-permalink: /:path/index.html
+:page-layout: page_rules_ocaml
+:page-pkg: tools_obazl
+:page-doc: ug
+:page-sidebar: false
+:page-tags: [formatting]
+:page-keywords: notes, tips, cautions, warnings, admonitions
+:page-last_updated: June 24, 2022
+:toc: true
+
+== inspection
+
+Examples:
+
+* `bazel run @obazl//inspect:sig --@obazl//tgt=ns/bottomup/exogenous/rgb:rgb_ns`
+
+* `bazel run @obazl//inspect:struct --@obazl//tgt=ns/bottomup/exogenous/rgb:rgb_ns`
+
+This `:rgb_ns` target is an `ocaml_ns_resolver`, which generates a
+source file that we can inspect:
+
+* `bazel run @obazl//inspect:src --@obazl//tgt=ns/bottomup/exogenous/rgb:rgb_ns`
